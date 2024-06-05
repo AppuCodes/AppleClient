@@ -1,0 +1,7 @@
+package gnu.trove.map.hash;
+
+import java.util.HashMap;
+
+public class TIntObjectHashMap extends TIntObjectMap
+{
+}

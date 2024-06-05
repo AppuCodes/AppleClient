@@ -1,0 +1,8 @@
+package tv.twitch.chat;
+
+import java.util.HashSet;
+
+public class ChatMessage {
+    boolean action;
+    HashSet<String> emoticonSet;
+}

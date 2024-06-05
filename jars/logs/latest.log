@@ -1,0 +1,11 @@
+[10:44:37] [main/ERROR]: Can't find the resource index file: assets\indexes\1.7.10.json
+[10:44:37] [main/INFO]: Setting user: Player265
+[10:44:37] [main/INFO]: (Session ID is token:0:Player265)
+[10:44:38] [Client thread/INFO]: LWJGL Version: 2.9.4
+[10:44:38] [Client thread/INFO]: Reloading ResourceManager: Default
+[10:44:39] [Sound Library Loader/INFO]: Sound engine started
+[10:44:44] [Client thread/INFO]: Created: 1024x512 textures/blocks-atlas
+[10:44:45] [Client thread/INFO]: Created: 256x256 textures/items-atlas
+[10:44:46] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:gui.button.press
+[10:44:46] [Client thread/WARN]: Unable to start LAN server detection: Network interface not configured for IPv4
+[10:44:49] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:gui.button.press
