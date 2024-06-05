@@ -1,6 +1,6 @@
 package optifine;
 
-import org.lwjgl.opengl.GL11;
+import net.minecraft.client.renderer.GlStateManager;
 
 public class Blender
 {
@@ -15,134 +15,134 @@ public class Blender
     public static final int BLEND_REPLACE = 8;
     public static final int BLEND_DEFAULT = 1;
 
-    public static int parseBlend(String str)
+    public static int parseBlend(String p_parseBlend_0_)
     {
-        if (str == null)
+        if (p_parseBlend_0_ == null)
         {
             return 1;
         }
         else
         {
-            str = str.toLowerCase().trim();
+            p_parseBlend_0_ = p_parseBlend_0_.toLowerCase().trim();
 
-            if (str.equals("alpha"))
+            if (p_parseBlend_0_.equals("alpha"))
             {
                 return 0;
             }
-            else if (str.equals("add"))
+            else if (p_parseBlend_0_.equals("add"))
             {
                 return 1;
             }
-            else if (str.equals("subtract"))
+            else if (p_parseBlend_0_.equals("subtract"))
             {
                 return 2;
             }
-            else if (str.equals("multiply"))
+            else if (p_parseBlend_0_.equals("multiply"))
             {
                 return 3;
             }
-            else if (str.equals("dodge"))
+            else if (p_parseBlend_0_.equals("dodge"))
             {
                 return 4;
             }
-            else if (str.equals("burn"))
+            else if (p_parseBlend_0_.equals("burn"))
             {
                 return 5;
             }
-            else if (str.equals("screen"))
+            else if (p_parseBlend_0_.equals("screen"))
             {
                 return 6;
             }
-            else if (str.equals("overlay"))
+            else if (p_parseBlend_0_.equals("overlay"))
             {
                 return 7;
             }
-            else if (str.equals("replace"))
+            else if (p_parseBlend_0_.equals("replace"))
             {
                 return 8;
             }
             else
             {
-                Config.warn("Unknown blend: " + str);
+                Config.warn("Unknown blend: " + p_parseBlend_0_);
                 return 1;
             }
         }
     }
 
-    public static void setupBlend(int blend, float brightness)
+    public static void setupBlend(int p_setupBlend_0_, float p_setupBlend_1_)
     {
-        switch (blend)
+        switch (p_setupBlend_0_)
         {
             case 0:
-                GL11.glDisable(GL11.GL_ALPHA_TEST);
-                GL11.glEnable(GL11.GL_BLEND);
-                GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-                GL11.glColor4f(1.0F, 1.0F, 1.0F, brightness);
+                GlStateManager.disableAlpha();
+                GlStateManager.enableBlend();
+                GlStateManager.blendFunc(770, 771);
+                GlStateManager.color(1.0F, 1.0F, 1.0F, p_setupBlend_1_);
                 break;
 
             case 1:
-                GL11.glDisable(GL11.GL_ALPHA_TEST);
-                GL11.glEnable(GL11.GL_BLEND);
-                GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE);
-                GL11.glColor4f(1.0F, 1.0F, 1.0F, brightness);
+                GlStateManager.disableAlpha();
+                GlStateManager.enableBlend();
+                GlStateManager.blendFunc(770, 1);
+                GlStateManager.color(1.0F, 1.0F, 1.0F, p_setupBlend_1_);
                 break;
 
             case 2:
-                GL11.glDisable(GL11.GL_ALPHA_TEST);
-                GL11.glEnable(GL11.GL_BLEND);
-                GL11.glBlendFunc(GL11.GL_ONE_MINUS_DST_COLOR, GL11.GL_ZERO);
-                GL11.glColor4f(brightness, brightness, brightness, 1.0F);
+                GlStateManager.disableAlpha();
+                GlStateManager.enableBlend();
+                GlStateManager.blendFunc(775, 0);
+                GlStateManager.color(p_setupBlend_1_, p_setupBlend_1_, p_setupBlend_1_, 1.0F);
                 break;
 
             case 3:
-                GL11.glDisable(GL11.GL_ALPHA_TEST);
-                GL11.glEnable(GL11.GL_BLEND);
-                GL11.glBlendFunc(GL11.GL_DST_COLOR, GL11.GL_ONE_MINUS_SRC_ALPHA);
-                GL11.glColor4f(brightness, brightness, brightness, brightness);
+                GlStateManager.disableAlpha();
+                GlStateManager.enableBlend();
+                GlStateManager.blendFunc(774, 771);
+                GlStateManager.color(p_setupBlend_1_, p_setupBlend_1_, p_setupBlend_1_, p_setupBlend_1_);
                 break;
 
             case 4:
-                GL11.glDisable(GL11.GL_ALPHA_TEST);
-                GL11.glEnable(GL11.GL_BLEND);
-                GL11.glBlendFunc(GL11.GL_ONE, GL11.GL_ONE);
-                GL11.glColor4f(brightness, brightness, brightness, 1.0F);
+                GlStateManager.disableAlpha();
+                GlStateManager.enableBlend();
+                GlStateManager.blendFunc(1, 1);
+                GlStateManager.color(p_setupBlend_1_, p_setupBlend_1_, p_setupBlend_1_, 1.0F);
                 break;
 
             case 5:
-                GL11.glDisable(GL11.GL_ALPHA_TEST);
-                GL11.glEnable(GL11.GL_BLEND);
-                GL11.glBlendFunc(GL11.GL_ZERO, GL11.GL_ONE_MINUS_SRC_COLOR);
-                GL11.glColor4f(brightness, brightness, brightness, 1.0F);
+                GlStateManager.disableAlpha();
+                GlStateManager.enableBlend();
+                GlStateManager.blendFunc(0, 769);
+                GlStateManager.color(p_setupBlend_1_, p_setupBlend_1_, p_setupBlend_1_, 1.0F);
                 break;
 
             case 6:
-                GL11.glDisable(GL11.GL_ALPHA_TEST);
-                GL11.glEnable(GL11.GL_BLEND);
-                GL11.glBlendFunc(GL11.GL_ONE, GL11.GL_ONE_MINUS_SRC_COLOR);
-                GL11.glColor4f(brightness, brightness, brightness, 1.0F);
+                GlStateManager.disableAlpha();
+                GlStateManager.enableBlend();
+                GlStateManager.blendFunc(1, 769);
+                GlStateManager.color(p_setupBlend_1_, p_setupBlend_1_, p_setupBlend_1_, 1.0F);
                 break;
 
             case 7:
-                GL11.glDisable(GL11.GL_ALPHA_TEST);
-                GL11.glEnable(GL11.GL_BLEND);
-                GL11.glBlendFunc(GL11.GL_DST_COLOR, GL11.GL_SRC_COLOR);
-                GL11.glColor4f(brightness, brightness, brightness, 1.0F);
+                GlStateManager.disableAlpha();
+                GlStateManager.enableBlend();
+                GlStateManager.blendFunc(774, 768);
+                GlStateManager.color(p_setupBlend_1_, p_setupBlend_1_, p_setupBlend_1_, 1.0F);
                 break;
 
             case 8:
-                GL11.glEnable(GL11.GL_ALPHA_TEST);
-                GL11.glDisable(GL11.GL_BLEND);
-                GL11.glColor4f(1.0F, 1.0F, 1.0F, brightness);
+                GlStateManager.enableAlpha();
+                GlStateManager.disableBlend();
+                GlStateManager.color(1.0F, 1.0F, 1.0F, p_setupBlend_1_);
         }
 
-        GL11.glEnable(GL11.GL_TEXTURE_2D);
+        GlStateManager.enableTexture2D();
     }
 
-    public static void clearBlend(float rainBrightness)
+    public static void clearBlend(float p_clearBlend_0_)
     {
-        GL11.glDisable(GL11.GL_ALPHA_TEST);
-        GL11.glEnable(GL11.GL_BLEND);
-        GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE);
-        GL11.glColor4f(1.0F, 1.0F, 1.0F, rainBrightness);
+        GlStateManager.disableAlpha();
+        GlStateManager.enableBlend();
+        GlStateManager.blendFunc(770, 1);
+        GlStateManager.color(1.0F, 1.0F, 1.0F, p_clearBlend_0_);
     }
 }

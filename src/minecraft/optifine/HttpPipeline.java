@@ -4,9 +4,7 @@ import java.io.IOException;
 import java.io.InterruptedIOException;
 import java.net.Proxy;
 import java.net.URL;
-import java.util.Collection;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -23,21 +21,21 @@ public class HttpPipeline
     public static final String HEADER_TRANSFER_ENCODING = "Transfer-Encoding";
     public static final String HEADER_VALUE_CHUNKED = "chunked";
 
-    public static void addRequest(String urlStr, HttpListener listener) throws IOException
+    public static void addRequest(String p_addRequest_0_, HttpListener p_addRequest_1_) throws IOException
     {
-        addRequest(urlStr, listener, Proxy.NO_PROXY);
+        addRequest(p_addRequest_0_, p_addRequest_1_, Proxy.NO_PROXY);
     }
 
-    public static void addRequest(String urlStr, HttpListener listener, Proxy proxy) throws IOException
+    public static void addRequest(String p_addRequest_0_, HttpListener p_addRequest_1_, Proxy p_addRequest_2_) throws IOException
     {
-        HttpRequest hr = makeRequest(urlStr, proxy);
-        HttpPipelineRequest hpr = new HttpPipelineRequest(hr, listener);
-        addRequest(hpr);
+        HttpRequest httprequest = makeRequest(p_addRequest_0_, p_addRequest_2_);
+        HttpPipelineRequest httppipelinerequest = new HttpPipelineRequest(httprequest, p_addRequest_1_);
+        addRequest(httppipelinerequest);
     }
 
-    public static HttpRequest makeRequest(String urlStr, Proxy proxy) throws IOException
+    public static HttpRequest makeRequest(String p_makeRequest_0_, Proxy p_makeRequest_1_) throws IOException
     {
-        URL url = new URL(urlStr);
+        URL url = new URL(p_makeRequest_0_);
 
         if (!url.getProtocol().equals("http"))
         {
@@ -45,113 +43,109 @@ public class HttpPipeline
         }
         else
         {
-            String file = url.getFile();
-            String host = url.getHost();
-            int port = url.getPort();
+            String s = url.getFile();
+            String s1 = url.getHost();
+            int i = url.getPort();
 
-            if (port <= 0)
+            if (i <= 0)
             {
-                port = 80;
+                i = 80;
             }
 
-            String method = "GET";
-            String http = "HTTP/1.1";
-            LinkedHashMap headers = new LinkedHashMap();
-            headers.put("User-Agent", "Java/" + System.getProperty("java.version"));
-            headers.put("Host", host);
-            headers.put("Accept", "text/html, image/gif, image/png");
-            headers.put("Connection", "keep-alive");
-            byte[] body = new byte[0];
-            HttpRequest req = new HttpRequest(host, port, proxy, method, file, http, headers, body);
-            return req;
+            String s2 = "GET";
+            String s3 = "HTTP/1.1";
+            Map<String, String> map = new LinkedHashMap();
+            map.put("User-Agent", "Java/" + System.getProperty("java.version"));
+            map.put("Host", s1);
+            map.put("Accept", "text/html, image/gif, image/png");
+            map.put("Connection", "keep-alive");
+            byte[] abyte = new byte[0];
+            HttpRequest httprequest = new HttpRequest(s1, i, p_makeRequest_1_, s2, s, s3, map, abyte);
+            return httprequest;
         }
     }
 
-    public static void addRequest(HttpPipelineRequest pr)
+    public static void addRequest(HttpPipelineRequest p_addRequest_0_)
     {
-        HttpRequest hr = pr.getHttpRequest();
+        HttpRequest httprequest = p_addRequest_0_.getHttpRequest();
 
-        for (HttpPipelineConnection conn = getConnection(hr.getHost(), hr.getPort(), hr.getProxy()); !conn.addRequest(pr); conn = getConnection(hr.getHost(), hr.getPort(), hr.getProxy()))
+        for (HttpPipelineConnection httppipelineconnection = getConnection(httprequest.getHost(), httprequest.getPort(), httprequest.getProxy()); !httppipelineconnection.addRequest(p_addRequest_0_); httppipelineconnection = getConnection(httprequest.getHost(), httprequest.getPort(), httprequest.getProxy()))
         {
-            removeConnection(hr.getHost(), hr.getPort(), hr.getProxy(), conn);
+            removeConnection(httprequest.getHost(), httprequest.getPort(), httprequest.getProxy(), httppipelineconnection);
         }
     }
 
-    private static synchronized HttpPipelineConnection getConnection(String host, int port, Proxy proxy)
+    private static synchronized HttpPipelineConnection getConnection(String p_getConnection_0_, int p_getConnection_1_, Proxy p_getConnection_2_)
     {
-        String key = makeConnectionKey(host, port, proxy);
-        HttpPipelineConnection conn = (HttpPipelineConnection)mapConnections.get(key);
+        String s = makeConnectionKey(p_getConnection_0_, p_getConnection_1_, p_getConnection_2_);
+        HttpPipelineConnection httppipelineconnection = (HttpPipelineConnection)mapConnections.get(s);
 
-        if (conn == null)
+        if (httppipelineconnection == null)
         {
-            conn = new HttpPipelineConnection(host, port, proxy);
-            mapConnections.put(key, conn);
+            httppipelineconnection = new HttpPipelineConnection(p_getConnection_0_, p_getConnection_1_, p_getConnection_2_);
+            mapConnections.put(s, httppipelineconnection);
         }
 
-        return conn;
+        return httppipelineconnection;
     }
 
-    private static synchronized void removeConnection(String host, int port, Proxy proxy, HttpPipelineConnection hpc)
+    private static synchronized void removeConnection(String p_removeConnection_0_, int p_removeConnection_1_, Proxy p_removeConnection_2_, HttpPipelineConnection p_removeConnection_3_)
     {
-        String key = makeConnectionKey(host, port, proxy);
-        HttpPipelineConnection conn = (HttpPipelineConnection)mapConnections.get(key);
+        String s = makeConnectionKey(p_removeConnection_0_, p_removeConnection_1_, p_removeConnection_2_);
+        HttpPipelineConnection httppipelineconnection = (HttpPipelineConnection)mapConnections.get(s);
 
-        if (conn == hpc)
+        if (httppipelineconnection == p_removeConnection_3_)
         {
-            mapConnections.remove(key);
+            mapConnections.remove(s);
         }
     }
 
-    private static String makeConnectionKey(String host, int port, Proxy proxy)
+    private static String makeConnectionKey(String p_makeConnectionKey_0_, int p_makeConnectionKey_1_, Proxy p_makeConnectionKey_2_)
     {
-        String hostPort = host + ":" + port + "-" + proxy;
-        return hostPort;
+        String s = p_makeConnectionKey_0_ + ":" + p_makeConnectionKey_1_ + "-" + p_makeConnectionKey_2_;
+        return s;
     }
 
-    public static byte[] get(String urlStr) throws IOException
+    public static byte[] get(String p_get_0_) throws IOException
     {
-        return get(urlStr, Proxy.NO_PROXY);
+        return get(p_get_0_, Proxy.NO_PROXY);
     }
 
-    public static byte[] get(String urlStr, Proxy proxy) throws IOException
+    public static byte[] get(String p_get_0_, Proxy p_get_1_) throws IOException
     {
-        HttpRequest req = makeRequest(urlStr, proxy);
-        HttpResponse resp = executeRequest(req);
+        HttpRequest httprequest = makeRequest(p_get_0_, p_get_1_);
+        HttpResponse httpresponse = executeRequest(httprequest);
 
-        if (resp.getStatus() / 100 != 2)
+        if (httpresponse.getStatus() / 100 != 2)
         {
-            throw new IOException("HTTP response: " + resp.getStatus());
+            throw new IOException("HTTP response: " + httpresponse.getStatus());
         }
         else
         {
-            return resp.getBody();
+            return httpresponse.getBody();
         }
     }
 
-    public static HttpResponse executeRequest(HttpRequest req) throws IOException
+    public static HttpResponse executeRequest(HttpRequest p_executeRequest_0_) throws IOException
     {
-        final HashMap map = new HashMap();
-        String KEY_RESPONSE = "Response";
-        String KEY_EXCEPTION = "Exception";
-        HttpListener l = new HttpListener()
+        final Map<String, Object> map = new HashMap();
+        String s = "Response";
+        String s1 = "Exception";
+        HttpListener httplistener = new HttpListener()
         {
-            public void finished(HttpRequest req, HttpResponse resp)
+            public void finished(HttpRequest p_finished_1_, HttpResponse p_finished_2_)
             {
-                Map var3 = map;
-
                 synchronized (map)
                 {
-                    map.put("Response", resp);
+                    map.put("Response", p_finished_2_);
                     map.notifyAll();
                 }
             }
-            public void failed(HttpRequest req, Exception e)
+            public void failed(HttpRequest p_failed_1_, Exception p_failed_2_)
             {
-                Map var3 = map;
-
                 synchronized (map)
                 {
-                    map.put("Exception", e);
+                    map.put("Exception", p_failed_2_);
                     map.notifyAll();
                 }
             }
@@ -159,8 +153,8 @@ public class HttpPipeline
 
         synchronized (map)
         {
-            HttpPipelineRequest hpr = new HttpPipelineRequest(req, l);
-            addRequest(hpr);
+            HttpPipelineRequest httppipelinerequest = new HttpPipelineRequest(p_executeRequest_0_, httplistener);
+            addRequest(httppipelinerequest);
 
             try
             {
@@ -171,34 +165,34 @@ public class HttpPipeline
                 throw new InterruptedIOException("Interrupted");
             }
 
-            Exception e = (Exception)map.get("Exception");
+            Exception exception = (Exception)map.get("Exception");
 
-            if (e != null)
+            if (exception != null)
             {
-                if (e instanceof IOException)
+                if (exception instanceof IOException)
                 {
-                    throw(IOException)e;
+                    throw(IOException)exception;
                 }
-                else if (e instanceof RuntimeException)
+                else if (exception instanceof RuntimeException)
                 {
-                    throw(RuntimeException)e;
+                    throw(RuntimeException)exception;
                 }
                 else
                 {
-                    throw new RuntimeException(e.getMessage(), e);
+                    throw new RuntimeException(exception.getMessage(), exception);
                 }
             }
             else
             {
-                HttpResponse resp = (HttpResponse)map.get("Response");
+                HttpResponse httpresponse = (HttpResponse)map.get("Response");
 
-                if (resp == null)
+                if (httpresponse == null)
                 {
                     throw new IOException("Response is null");
                 }
                 else
                 {
-                    return resp;
+                    return httpresponse;
                 }
             }
         }
@@ -206,21 +200,14 @@ public class HttpPipeline
 
     public static boolean hasActiveRequests()
     {
-        Collection conns = mapConnections.values();
-        Iterator it = conns.iterator();
-        HttpPipelineConnection conn;
-
-        do
+        for (Object httppipelineconnection : mapConnections.values())
         {
-            if (!it.hasNext())
+            if (((HttpPipelineConnection) httppipelineconnection).hasActiveRequests())
             {
-                return false;
+                return true;
             }
-
-            conn = (HttpPipelineConnection)it.next();
         }
-        while (!conn.hasActiveRequests());
 
-        return true;
+        return false;
     }
 }

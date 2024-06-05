@@ -4,6 +4,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 import net.minecraft.client.renderer.texture.ITextureObject;
 import net.minecraft.client.renderer.texture.TextureManager;
@@ -31,138 +32,124 @@ public class CustomSky
 
     private static CustomSkyLayer[][] readCustomSkies()
     {
-        CustomSkyLayer[][] wsls = new CustomSkyLayer[10][0];
-        String prefix = "mcpatcher/sky/world";
-        int lastWorldId = -1;
-        int worldCount = 0;
+        CustomSkyLayer[][] acustomskylayer = new CustomSkyLayer[10][0];
+        String s = "mcpatcher/sky/world";
+        int i = -1;
 
-        while (worldCount < wsls.length)
+        for (int j = 0; j < acustomskylayer.length; ++j)
         {
-            String wslsTrim = prefix + worldCount + "/sky";
-            ArrayList i = new ArrayList();
-            int sls = 1;
+            String s1 = s + j + "/sky";
+            List list = new ArrayList();
 
-            while (true)
+            for (int k = 1; k < 1000; ++k)
             {
-                if (sls < 1000)
+                String s2 = s1 + k + ".properties";
+
+                try
                 {
-                    label69:
+                    ResourceLocation resourcelocation = new ResourceLocation(s2);
+                    InputStream inputstream = Config.getResourceStream(resourcelocation);
+
+                    if (inputstream == null)
                     {
-                        String path = wslsTrim + sls + ".properties";
+                        break;
+                    }
 
-                        try
+                    Properties properties = new Properties();
+                    properties.load(inputstream);
+                    inputstream.close();
+                    Config.dbg("CustomSky properties: " + s2);
+                    String s3 = s1 + k + ".png";
+                    CustomSkyLayer customskylayer = new CustomSkyLayer(properties, s3);
+
+                    if (customskylayer.isValid(s2))
+                    {
+                        ResourceLocation resourcelocation1 = new ResourceLocation(customskylayer.source);
+                        ITextureObject itextureobject = TextureUtils.getTexture(resourcelocation1);
+
+                        if (itextureobject == null)
                         {
-                            ResourceLocation e = new ResourceLocation(path);
-                            InputStream in = Config.getResourceStream(e);
-
-                            if (in == null)
-                            {
-                                break label69;
-                            }
-
-                            Properties props = new Properties();
-                            props.load(in);
-                            in.close();
-                            Config.dbg("CustomSky properties: " + path);
-                            String defSource = wslsTrim + sls + ".png";
-                            CustomSkyLayer sl = new CustomSkyLayer(props, defSource);
-
-                            if (sl.isValid(path))
-                            {
-                                ResourceLocation locSource = new ResourceLocation(sl.source);
-                                ITextureObject tex = TextureUtils.getTexture(locSource);
-
-                                if (tex == null)
-                                {
-                                    Config.log("CustomSky: Texture not found: " + locSource);
-                                }
-                                else
-                                {
-                                    sl.textureId = tex.getGlTextureId();
-                                    i.add(sl);
-                                    in.close();
-                                }
-                            }
+                            Config.log("CustomSky: Texture not found: " + resourcelocation1);
                         }
-                        catch (FileNotFoundException var15)
+                        else
                         {
-                            break label69;
+                            customskylayer.textureId = itextureobject.getGlTextureId();
+                            list.add(customskylayer);
+                            inputstream.close();
                         }
-                        catch (IOException var16)
-                        {
-                            var16.printStackTrace();
-                        }
-
-                        ++sls;
-                        continue;
                     }
                 }
-
-                if (i.size() > 0)
+                catch (FileNotFoundException var15)
                 {
-                    CustomSkyLayer[] var19 = (CustomSkyLayer[])((CustomSkyLayer[])i.toArray(new CustomSkyLayer[i.size()]));
-                    wsls[worldCount] = var19;
-                    lastWorldId = worldCount;
+                    break;
                 }
+                catch (IOException ioexception)
+                {
+                    ioexception.printStackTrace();
+                }
+            }
 
-                ++worldCount;
-                break;
+            if (list.size() > 0)
+            {
+                CustomSkyLayer[] acustomskylayer2 = (CustomSkyLayer[])((CustomSkyLayer[])list.toArray(new CustomSkyLayer[list.size()]));
+                acustomskylayer[j] = acustomskylayer2;
+                i = j;
             }
         }
 
-        if (lastWorldId < 0)
+        if (i < 0)
         {
             return (CustomSkyLayer[][])null;
         }
         else
         {
-            worldCount = lastWorldId + 1;
-            CustomSkyLayer[][] var17 = new CustomSkyLayer[worldCount][0];
+            int l = i + 1;
+            CustomSkyLayer[][] acustomskylayer1 = new CustomSkyLayer[l][0];
 
-            for (int var18 = 0; var18 < var17.length; ++var18)
+            for (int i1 = 0; i1 < acustomskylayer1.length; ++i1)
             {
-                var17[var18] = wsls[var18];
+                acustomskylayer1[i1] = acustomskylayer[i1];
             }
 
-            return var17;
+            return acustomskylayer1;
         }
     }
 
-    public static void renderSky(World world, TextureManager re, float celestialAngle, float rainBrightness)
+    public static void renderSky(World p_renderSky_0_, TextureManager p_renderSky_1_, float p_renderSky_2_, float p_renderSky_3_)
     {
         if (worldSkyLayers != null)
         {
             if (Config.getGameSettings().renderDistanceChunks >= 8)
             {
-                int dimId = world.provider.dimensionId;
+                int i = p_renderSky_0_.provider.getDimensionId();
 
-                if (dimId >= 0 && dimId < worldSkyLayers.length)
+                if (i >= 0 && i < worldSkyLayers.length)
                 {
-                    CustomSkyLayer[] sls = worldSkyLayers[dimId];
+                    CustomSkyLayer[] acustomskylayer = worldSkyLayers[i];
 
-                    if (sls != null)
+                    if (acustomskylayer != null)
                     {
-                        long time = world.getWorldTime();
-                        int timeOfDay = (int)(time % 24000L);
+                        long j = p_renderSky_0_.getWorldTime();
+                        int k = (int)(j % 24000L);
 
-                        for (int i = 0; i < sls.length; ++i)
+                        for (int l = 0; l < acustomskylayer.length; ++l)
                         {
-                            CustomSkyLayer sl = sls[i];
+                            CustomSkyLayer customskylayer = acustomskylayer[l];
 
-                            if (sl.isActive(timeOfDay))
+                            if (customskylayer.isActive(p_renderSky_0_, k))
                             {
-                                sl.render(timeOfDay, celestialAngle, rainBrightness);
+                                customskylayer.render(k, p_renderSky_2_, p_renderSky_3_);
                             }
                         }
 
-                        Blender.clearBlend(rainBrightness);
+                        Blender.clearBlend(p_renderSky_3_);
                     }
                 }
             }
         }
     }
 
-    public static boolean hasSkyLayers(World world)
+    public static boolean hasSkyLayers(World p_hasSkyLayers_0_)
     {
         if (worldSkyLayers == null)
         {
@@ -174,12 +161,12 @@ public class CustomSky
         }
         else
         {
-            int dimId = world.provider.dimensionId;
+            int i = p_hasSkyLayers_0_.provider.getDimensionId();
 
-            if (dimId >= 0 && dimId < worldSkyLayers.length)
+            if (i >= 0 && i < worldSkyLayers.length)
             {
-                CustomSkyLayer[] sls = worldSkyLayers[dimId];
-                return sls == null ? false : sls.length > 0;
+                CustomSkyLayer[] acustomskylayer = worldSkyLayers[i];
+                return acustomskylayer == null ? false : acustomskylayer.length > 0;
             }
             else
             {

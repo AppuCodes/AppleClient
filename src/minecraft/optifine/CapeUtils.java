@@ -16,66 +16,66 @@ import org.apache.commons.io.FilenameUtils;
 
 public class CapeUtils
 {
-    public static void downloadCape(final AbstractClientPlayer player)
+    public static void downloadCape(final AbstractClientPlayer p_downloadCape_0_)
     {
-        String username = player.getNameClear();
+        String s = p_downloadCape_0_.getNameClear();
 
-        if (username != null && !username.isEmpty())
+        if (s != null && !s.isEmpty())
         {
-            String ofCapeUrl = "http://s.optifine.net/capes/" + username + ".png";
-            String mptHash = FilenameUtils.getBaseName(ofCapeUrl);
-            final ResourceLocation rl = new ResourceLocation("capeof/" + mptHash);
-            TextureManager textureManager = Minecraft.getMinecraft().getTextureManager();
-            ITextureObject tex = textureManager.getTexture(rl);
+            String s1 = "http://s.optifine.net/capes/" + s + ".png";
+            String s2 = FilenameUtils.getBaseName(s1);
+            final ResourceLocation resourcelocation = new ResourceLocation("capeof/" + s2);
+            TextureManager texturemanager = Minecraft.getMinecraft().getTextureManager();
+            ITextureObject itextureobject = texturemanager.getTexture(resourcelocation);
 
-            if (tex != null && tex instanceof ThreadDownloadImageData)
+            if (itextureobject != null && itextureobject instanceof ThreadDownloadImageData)
             {
-                ThreadDownloadImageData thePlayer = (ThreadDownloadImageData)tex;
+                ThreadDownloadImageData threaddownloadimagedata = (ThreadDownloadImageData)itextureobject;
 
-                if (thePlayer.imageFound != null)
+                if (threaddownloadimagedata.imageFound != null)
                 {
-                    if (thePlayer.imageFound.booleanValue())
+                    if (threaddownloadimagedata.imageFound.booleanValue())
                     {
-                        player.setLocationOfCape(rl);
+                        p_downloadCape_0_.setLocationOfCape(resourcelocation);
                     }
 
                     return;
                 }
             }
 
-            IImageBuffer iib = new IImageBuffer()
+            IImageBuffer iimagebuffer = new IImageBuffer()
             {
                 ImageBufferDownload ibd = new ImageBufferDownload();
-                public BufferedImage parseUserSkin(BufferedImage var1)
+                public BufferedImage parseUserSkin(BufferedImage image)
                 {
-                    return CapeUtils.parseCape(var1);
+                    return CapeUtils.parseCape(image);
                 }
-                public void func_152634_a()
+                public void skinAvailable()
                 {
-                    player.setLocationOfCape(rl);
+                    p_downloadCape_0_.setLocationOfCape(resourcelocation);
                 }
             };
-            ThreadDownloadImageData textureCape = new ThreadDownloadImageData((File)null, ofCapeUrl, (ResourceLocation)null, iib);
-            textureCape.pipeline = true;
-            textureManager.loadTexture(rl, textureCape);
+            ThreadDownloadImageData threaddownloadimagedata1 = new ThreadDownloadImageData((File)null, s1, (ResourceLocation)null, iimagebuffer);
+            threaddownloadimagedata1.pipeline = true;
+            texturemanager.loadTexture(resourcelocation, threaddownloadimagedata1);
         }
     }
 
-    public static BufferedImage parseCape(BufferedImage img)
+    public static BufferedImage parseCape(BufferedImage p_parseCape_0_)
     {
-        int imageWidth = 64;
-        int imageHeight = 32;
-        int srcWidth = img.getWidth();
+        int i = 64;
+        int j = 32;
+        int k = p_parseCape_0_.getWidth();
 
-        for (int srcHeight = img.getHeight(); imageWidth < srcWidth || imageHeight < srcHeight; imageHeight *= 2)
+        for (int l = p_parseCape_0_.getHeight(); i < k || j < l; j *= 2)
         {
-            imageWidth *= 2;
+            i *= 2;
         }
 
-        BufferedImage imgNew = new BufferedImage(imageWidth, imageHeight, 2);
-        Graphics g = imgNew.getGraphics();
-        g.drawImage(img, 0, 0, (ImageObserver)null);
-        g.dispose();
-        return imgNew;
+        BufferedImage bufferedimage = new BufferedImage(i, j, 2);
+        Graphics graphics = bufferedimage.getGraphics();
+        graphics.drawImage(p_parseCape_0_, 0, 0, (ImageObserver)null);
+        graphics.dispose();
+        return bufferedimage;
     }
 }

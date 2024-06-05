@@ -6,21 +6,24 @@ import net.minecraft.util.IProgressUpdate;
 
 public interface ISaveFormat
 {
-    String func_154333_a();
+    /**
+     * Returns the name of the save format.
+     */
+    String getName();
 
     /**
      * Returns back a loader for the specified save directory
      */
-    ISaveHandler getSaveLoader(String p_75804_1_, boolean p_75804_2_);
+    ISaveHandler getSaveLoader(String saveName, boolean storePlayerdata);
 
-    List getSaveList() throws AnvilConverterException;
+    List<SaveFormatComparator> getSaveList() throws AnvilConverterException;
 
     void flushCache();
 
     /**
-     * gets the world info
+     * Returns the world's WorldInfo object
      */
-    WorldInfo getWorldInfo(String p_75803_1_);
+    WorldInfo getWorldInfo(String saveName);
 
     boolean func_154335_d(String p_154335_1_);
 
@@ -31,23 +34,22 @@ public interface ISaveFormat
     boolean deleteWorldDirectory(String p_75802_1_);
 
     /**
-     * @args: Takes two arguments - first the name of the directory containing the world and second the new name for
-     * that world. @desc: Renames the world by storing the new name in level.dat. It does *not* rename the directory
-     * containing the world data.
+     * Renames the world by storing the new name in level.dat. It does *not* rename the directory containing the world
+     * data.
      */
-    void renameWorld(String p_75806_1_, String p_75806_2_);
+    void renameWorld(String dirName, String newName);
 
-    boolean func_154334_a(String p_154334_1_);
-
-    /**
-     * Checks if the save directory uses the old map format
-     */
-    boolean isOldMapFormat(String p_75801_1_);
+    boolean func_154334_a(String saveName);
 
     /**
-     * Converts the specified map to the new map format. Args: worldName, loadingScreen
+     * gets if the map is old chunk saving (true) or McRegion (false)
      */
-    boolean convertMapFormat(String p_75805_1_, IProgressUpdate p_75805_2_);
+    boolean isOldMapFormat(String saveName);
+
+    /**
+     * converts the map to mcRegion
+     */
+    boolean convertMapFormat(String filename, IProgressUpdate progressCallback);
 
     /**
      * Return whether the given world can be loaded.

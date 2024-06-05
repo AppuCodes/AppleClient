@@ -9,11 +9,11 @@ public class PlayerItemRenderer
     private float scaleFactor = 0.0F;
     private ModelRenderer modelRenderer = null;
 
-    public PlayerItemRenderer(int attachTo, float scaleFactor, ModelRenderer modelRenderer)
+    public PlayerItemRenderer(int p_i75_1_, float p_i75_2_, ModelRenderer p_i75_3_)
     {
-        this.attachTo = attachTo;
-        this.scaleFactor = scaleFactor;
-        this.modelRenderer = modelRenderer;
+        this.attachTo = p_i75_1_;
+        this.scaleFactor = p_i75_2_;
+        this.modelRenderer = p_i75_3_;
     }
 
     public ModelRenderer getModelRenderer()
@@ -21,15 +21,15 @@ public class PlayerItemRenderer
         return this.modelRenderer;
     }
 
-    public void render(ModelBiped modelBiped, float scale)
+    public void render(ModelBiped p_render_1_, float p_render_2_)
     {
-        ModelRenderer attachModel = PlayerItemModel.getAttachModel(modelBiped, this.attachTo);
+        ModelRenderer modelrenderer = PlayerItemModel.getAttachModel(p_render_1_, this.attachTo);
 
-        if (attachModel != null)
+        if (modelrenderer != null)
         {
-            attachModel.postRender(scale);
+            modelrenderer.postRender(p_render_2_);
         }
 
-        this.modelRenderer.render(scale * this.scaleFactor);
+        this.modelRenderer.render(p_render_2_ * this.scaleFactor);
     }
 }

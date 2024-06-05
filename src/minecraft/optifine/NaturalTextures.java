@@ -3,10 +3,10 @@ package optifine;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.List;
+import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.texture.TextureMap;
-import net.minecraft.util.IIcon;
+import net.minecraft.util.BlockPos;
 import net.minecraft.util.ResourceLocation;
 
 public class NaturalTextures
@@ -19,69 +19,85 @@ public class NaturalTextures
 
         if (Config.isNaturalTextures())
         {
-            String fileName = "optifine/natural.properties";
+            String s = "optifine/natural.properties";
 
             try
             {
-                ResourceLocation e = new ResourceLocation(fileName);
+                ResourceLocation resourcelocation = new ResourceLocation(s);
 
-                if (!Config.hasResource(e))
+                if (!Config.hasResource(resourcelocation))
                 {
-                    Config.dbg("NaturalTextures: configuration \"" + fileName + "\" not found");
-                    propertiesByIndex = makeDefaultProperties();
+                    Config.dbg("NaturalTextures: configuration \"" + s + "\" not found");
                     return;
                 }
 
-                InputStream in = Config.getResourceStream(e);
-                ArrayList list = new ArrayList(256);
-                String configStr = Config.readInputStream(in);
-                in.close();
-                String[] configLines = Config.tokenize(configStr, "\n\r");
-                Config.dbg("Natural Textures: Parsing configuration \"" + fileName + "\"");
+                boolean flag = Config.isFromDefaultResourcePack(resourcelocation);
+                InputStream inputstream = Config.getResourceStream(resourcelocation);
+                ArrayList arraylist = new ArrayList(256);
+                String s1 = Config.readInputStream(inputstream);
+                inputstream.close();
+                String[] astring = Config.tokenize(s1, "\n\r");
 
-                for (int i = 0; i < configLines.length; ++i)
+                if (flag)
                 {
-                    String line = configLines[i].trim();
+                    Config.dbg("Natural Textures: Parsing default configuration \"" + s + "\"");
+                    Config.dbg("Natural Textures: Valid only for textures from default resource pack");
+                }
+                else
+                {
+                    Config.dbg("Natural Textures: Parsing configuration \"" + s + "\"");
+                }
 
-                    if (!line.startsWith("#"))
+                TextureMap texturemap = TextureUtils.getTextureMapBlocks();
+
+                for (int i = 0; i < astring.length; ++i)
+                {
+                    String s2 = astring[i].trim();
+
+                    if (!s2.startsWith("#"))
                     {
-                        String[] strs = Config.tokenize(line, "=");
+                        String[] astring1 = Config.tokenize(s2, "=");
 
-                        if (strs.length != 2)
+                        if (astring1.length != 2)
                         {
-                            Config.warn("Natural Textures: Invalid \"" + fileName + "\" line: " + line);
+                            Config.warn("Natural Textures: Invalid \"" + s + "\" line: " + s2);
                         }
                         else
                         {
-                            String key = strs[0].trim();
-                            String type = strs[1].trim();
-                            TextureAtlasSprite ts = TextureMap.textureMapBlocks.getIconSafe(key);
+                            String s3 = astring1[0].trim();
+                            String s4 = astring1[1].trim();
+                            TextureAtlasSprite textureatlassprite = texturemap.getSpriteSafe("minecraft:blocks/" + s3);
 
-                            if (ts == null)
+                            if (textureatlassprite == null)
                             {
-                                Config.warn("Natural Textures: Texture not found: \"" + fileName + "\" line: " + line);
+                                Config.warn("Natural Textures: Texture not found: \"" + s + "\" line: " + s2);
                             }
                             else
                             {
-                                int tileNum = ts.getIndexInMap();
+                                int j = textureatlassprite.getIndexInMap();
 
-                                if (tileNum < 0)
+                                if (j < 0)
                                 {
-                                    Config.warn("Natural Textures: Invalid \"" + fileName + "\" line: " + line);
+                                    Config.warn("Natural Textures: Invalid \"" + s + "\" line: " + s2);
                                 }
                                 else
                                 {
-                                    NaturalProperties props = new NaturalProperties(type);
-
-                                    if (props.isValid())
+                                    if (flag && !Config.isFromDefaultResourcePack(new ResourceLocation("textures/blocks/" + s3 + ".png")))
                                     {
-                                        while (list.size() <= tileNum)
+                                        return;
+                                    }
+
+                                    NaturalProperties naturalproperties = new NaturalProperties(s4);
+
+                                    if (naturalproperties.isValid())
+                                    {
+                                        while (arraylist.size() <= j)
                                         {
-                                            list.add((Object)null);
+                                            arraylist.add(null);
                                         }
 
-                                        list.set(tileNum, props);
-                                        Config.dbg("NaturalTextures: " + key + " = " + type);
+                                        arraylist.set(j, naturalproperties);
+                                        Config.dbg("NaturalTextures: " + s3 + " = " + s4);
                                     }
                                 }
                             }
@@ -89,126 +105,81 @@ public class NaturalTextures
                     }
                 }
 
-                propertiesByIndex = (NaturalProperties[])((NaturalProperties[])list.toArray(new NaturalProperties[list.size()]));
+                propertiesByIndex = (NaturalProperties[])((NaturalProperties[])arraylist.toArray(new NaturalProperties[arraylist.size()]));
             }
-            catch (FileNotFoundException var15)
+            catch (FileNotFoundException var17)
             {
-                Config.warn("NaturalTextures: configuration \"" + fileName + "\" not found");
-                propertiesByIndex = makeDefaultProperties();
+                Config.warn("NaturalTextures: configuration \"" + s + "\" not found");
                 return;
             }
-            catch (Exception var16)
+            catch (Exception exception)
             {
-                var16.printStackTrace();
+                exception.printStackTrace();
             }
         }
     }
 
-    public static NaturalProperties getNaturalProperties(IIcon icon)
+    public static BakedQuad getNaturalTexture(BlockPos p_getNaturalTexture_0_, BakedQuad p_getNaturalTexture_1_)
     {
-        if (!(icon instanceof TextureAtlasSprite))
+        TextureAtlasSprite textureatlassprite = p_getNaturalTexture_1_.getSprite();
+
+        if (textureatlassprite == null)
+        {
+            return p_getNaturalTexture_1_;
+        }
+        else
+        {
+            NaturalProperties naturalproperties = getNaturalProperties(textureatlassprite);
+
+            if (naturalproperties == null)
+            {
+                return p_getNaturalTexture_1_;
+            }
+            else
+            {
+                int i = ConnectedTextures.getSide(p_getNaturalTexture_1_.getFace());
+                int j = Config.getRandom(p_getNaturalTexture_0_, i);
+                int k = 0;
+                boolean flag = false;
+
+                if (naturalproperties.rotation > 1)
+                {
+                    k = j & 3;
+                }
+
+                if (naturalproperties.rotation == 2)
+                {
+                    k = k / 2 * 2;
+                }
+
+                if (naturalproperties.flip)
+                {
+                    flag = (j & 4) != 0;
+                }
+
+                return naturalproperties.getQuad(p_getNaturalTexture_1_, k, flag);
+            }
+        }
+    }
+
+    public static NaturalProperties getNaturalProperties(TextureAtlasSprite p_getNaturalProperties_0_)
+    {
+        if (!(p_getNaturalProperties_0_ instanceof TextureAtlasSprite))
         {
             return null;
         }
         else
         {
-            TextureAtlasSprite ts = (TextureAtlasSprite)icon;
-            int tileNum = ts.getIndexInMap();
+            int i = p_getNaturalProperties_0_.getIndexInMap();
 
-            if (tileNum >= 0 && tileNum < propertiesByIndex.length)
+            if (i >= 0 && i < propertiesByIndex.length)
             {
-                NaturalProperties props = propertiesByIndex[tileNum];
-                return props;
+                NaturalProperties naturalproperties = propertiesByIndex[i];
+                return naturalproperties;
             }
             else
             {
                 return null;
-            }
-        }
-    }
-
-    private static NaturalProperties[] makeDefaultProperties()
-    {
-        Config.dbg("NaturalTextures: Checking default configuration.");
-        ArrayList propsList = new ArrayList();
-        setIconProperties(propsList, "grass_top", "4F");
-        setIconProperties(propsList, "stone", "2F");
-        setIconProperties(propsList, "dirt", "4F");
-        setIconProperties(propsList, "grass_side", "F");
-        setIconProperties(propsList, "grass_side_overlay", "F");
-        setIconProperties(propsList, "stone_slab_top", "F");
-        setIconProperties(propsList, "bedrock", "2F");
-        setIconProperties(propsList, "sand", "4F");
-        setIconProperties(propsList, "gravel", "2");
-        setIconProperties(propsList, "log_oak", "2F");
-        setIconProperties(propsList, "log_oak_top", "4F");
-        setIconProperties(propsList, "gold_ore", "2F");
-        setIconProperties(propsList, "iron_ore", "2F");
-        setIconProperties(propsList, "coal_ore", "2F");
-        setIconProperties(propsList, "diamond_ore", "2F");
-        setIconProperties(propsList, "redstone_ore", "2F");
-        setIconProperties(propsList, "lapis_ore", "2F");
-        setIconProperties(propsList, "obsidian", "4F");
-        setIconProperties(propsList, "leaves_oak", "2F");
-        setIconProperties(propsList, "leaves_oak_opaque", "2F");
-        setIconProperties(propsList, "leaves_jungle", "2");
-        setIconProperties(propsList, "leaves_jungle_opaque", "2");
-        setIconProperties(propsList, "snow", "4F");
-        setIconProperties(propsList, "grass_side_snowed", "F");
-        setIconProperties(propsList, "cactus_side", "2F");
-        setIconProperties(propsList, "clay", "4F");
-        setIconProperties(propsList, "mycelium_side", "F");
-        setIconProperties(propsList, "mycelium_top", "4F");
-        setIconProperties(propsList, "farmland_wet", "2F");
-        setIconProperties(propsList, "farmland_dry", "2F");
-        setIconProperties(propsList, "netherrack", "4F");
-        setIconProperties(propsList, "soul_sand", "4F");
-        setIconProperties(propsList, "glowstone", "4");
-        setIconProperties(propsList, "log_spruce", "2F");
-        setIconProperties(propsList, "log_birch", "F");
-        setIconProperties(propsList, "leaves_spruce", "2F");
-        setIconProperties(propsList, "leaves_spruce_opaque", "2F");
-        setIconProperties(propsList, "log_jungle", "2F");
-        setIconProperties(propsList, "end_stone", "4");
-        setIconProperties(propsList, "sandstone_top", "4");
-        setIconProperties(propsList, "sandstone_bottom", "4F");
-        setIconProperties(propsList, "redstone_lamp_on", "4F");
-        NaturalProperties[] terrainProps = (NaturalProperties[])((NaturalProperties[])propsList.toArray(new NaturalProperties[propsList.size()]));
-        return terrainProps;
-    }
-
-    private static void setIconProperties(List propsList, String iconName, String propStr)
-    {
-        TextureMap terrainMap = TextureMap.textureMapBlocks;
-        TextureAtlasSprite icon = terrainMap.getIconSafe(iconName);
-
-        if (icon == null)
-        {
-            Config.warn("*** NaturalProperties: Icon not found: " + iconName + " ***");
-        }
-        else if (!(icon instanceof TextureAtlasSprite))
-        {
-            Config.warn("*** NaturalProperties: Icon is not IconStitched: " + iconName + ": " + icon.getClass().getName() + " ***");
-        }
-        else
-        {
-            TextureAtlasSprite ts = (TextureAtlasSprite)icon;
-            int index = ts.getIndexInMap();
-
-            if (index < 0)
-            {
-                Config.warn("*** NaturalProperties: Invalid index for icon: " + iconName + ": " + index + " ***");
-            }
-            else if (Config.isFromDefaultResourcePack(new ResourceLocation("textures/blocks/" + iconName + ".png")))
-            {
-                while (index >= propsList.size())
-                {
-                    propsList.add((Object)null);
-                }
-
-                NaturalProperties props = new NaturalProperties(propStr);
-                propsList.set(index, props);
-                Config.dbg("NaturalTextures: " + iconName + " = " + propStr);
             }
         }
     }

@@ -8,6 +8,7 @@ import com.google.gson.JsonParser;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import javax.imageio.ImageIO;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.ResourceLocation;
@@ -19,117 +20,117 @@ public class PlayerConfigurationParser
     public static final String ITEM_TYPE = "type";
     public static final String ITEM_ACTIVE = "active";
 
-    public PlayerConfigurationParser(String player)
+    public PlayerConfigurationParser(String p_i71_1_)
     {
-        this.player = player;
+        this.player = p_i71_1_;
     }
 
-    public PlayerConfiguration parsePlayerConfiguration(JsonElement je)
+    public PlayerConfiguration parsePlayerConfiguration(JsonElement p_parsePlayerConfiguration_1_)
     {
-        if (je == null)
+        if (p_parsePlayerConfiguration_1_ == null)
         {
             throw new JsonParseException("JSON object is null, player: " + this.player);
         }
         else
         {
-            JsonObject jo = (JsonObject)je;
-            PlayerConfiguration pc = new PlayerConfiguration();
-            JsonArray items = (JsonArray)jo.get("items");
+            JsonObject jsonobject = (JsonObject)p_parsePlayerConfiguration_1_;
+            PlayerConfiguration playerconfiguration = new PlayerConfiguration();
+            JsonArray jsonarray = (JsonArray)jsonobject.get("items");
 
-            if (items != null)
+            if (jsonarray != null)
             {
-                for (int i = 0; i < items.size(); ++i)
+                for (int i = 0; i < jsonarray.size(); ++i)
                 {
-                    JsonObject item = (JsonObject)items.get(i);
-                    boolean active = Json.getBoolean(item, "active", true);
+                    JsonObject jsonobject1 = (JsonObject)jsonarray.get(i);
+                    boolean flag = Json.getBoolean(jsonobject1, "active", true);
 
-                    if (active)
+                    if (flag)
                     {
-                        String type = Json.getString(item, "type");
+                        String s = Json.getString(jsonobject1, "type");
 
-                        if (type == null)
+                        if (s == null)
                         {
                             Config.warn("Item type is null, player: " + this.player);
                         }
                         else
                         {
-                            String modelPath = Json.getString(item, "model");
+                            String s1 = Json.getString(jsonobject1, "model");
 
-                            if (modelPath == null)
+                            if (s1 == null)
                             {
-                                modelPath = "items/" + type + "/model.cfg";
+                                s1 = "items/" + s + "/model.cfg";
                             }
 
-                            PlayerItemModel model = this.downloadModel(modelPath);
+                            PlayerItemModel playeritemmodel = this.downloadModel(s1);
 
-                            if (model != null)
+                            if (playeritemmodel != null)
                             {
-                                if (!model.isUsePlayerTexture())
+                                if (!playeritemmodel.isUsePlayerTexture())
                                 {
-                                    String texturePath = Json.getString(item, "texture");
+                                    String s2 = Json.getString(jsonobject1, "texture");
 
-                                    if (texturePath == null)
+                                    if (s2 == null)
                                     {
-                                        texturePath = "items/" + type + "/users/" + this.player + ".png";
+                                        s2 = "items/" + s + "/users/" + this.player + ".png";
                                     }
 
-                                    BufferedImage image = this.downloadTextureImage(texturePath);
+                                    BufferedImage bufferedimage = this.downloadTextureImage(s2);
 
-                                    if (image == null)
+                                    if (bufferedimage == null)
                                     {
                                         continue;
                                     }
 
-                                    model.setTextureImage(image);
-                                    ResourceLocation loc = new ResourceLocation("optifine.net", texturePath);
-                                    model.setTextureLocation(loc);
+                                    playeritemmodel.setTextureImage(bufferedimage);
+                                    ResourceLocation resourcelocation = new ResourceLocation("optifine.net", s2);
+                                    playeritemmodel.setTextureLocation(resourcelocation);
                                 }
 
-                                pc.addPlayerItemModel(model);
+                                playerconfiguration.addPlayerItemModel(playeritemmodel);
                             }
                         }
                     }
                 }
             }
 
-            return pc;
+            return playerconfiguration;
         }
     }
 
-    private BufferedImage downloadTextureImage(String texturePath)
+    private BufferedImage downloadTextureImage(String p_downloadTextureImage_1_)
     {
-        String textureUrl = "http://s.optifine.net/" + texturePath;
+        String s = "http://s.optifine.net/" + p_downloadTextureImage_1_;
 
         try
         {
-            byte[] e = HttpPipeline.get(textureUrl, Minecraft.getMinecraft().getProxy());
-            BufferedImage image = ImageIO.read(new ByteArrayInputStream(e));
-            return image;
+            byte[] abyte = HttpPipeline.get(s, Minecraft.getMinecraft().getProxy());
+            BufferedImage bufferedimage = ImageIO.read((InputStream)(new ByteArrayInputStream(abyte)));
+            return bufferedimage;
         }
-        catch (IOException var5)
+        catch (IOException ioexception)
         {
-            Config.warn("Error loading item texture " + texturePath + ": " + var5.getClass().getName() + ": " + var5.getMessage());
+            Config.warn("Error loading item texture " + p_downloadTextureImage_1_ + ": " + ioexception.getClass().getName() + ": " + ioexception.getMessage());
             return null;
         }
     }
 
-    private PlayerItemModel downloadModel(String modelPath)
+    private PlayerItemModel downloadModel(String p_downloadModel_1_)
     {
-        String modelUrl = "http://s.optifine.net/" + modelPath;
+        String s = "http://s.optifine.net/" + p_downloadModel_1_;
 
         try
         {
-            byte[] e = HttpPipeline.get(modelUrl, Minecraft.getMinecraft().getProxy());
-            String jsonStr = new String(e, "ASCII");
-            JsonParser jp = new JsonParser();
-            JsonObject jo = (JsonObject)jp.parse(jsonStr);
-            PlayerItemParser pip = new PlayerItemParser();
-            PlayerItemModel pim = PlayerItemParser.parseItemModel(jo);
-            return pim;
+            byte[] abyte = HttpPipeline.get(s, Minecraft.getMinecraft().getProxy());
+            String s1 = new String(abyte, "ASCII");
+            JsonParser jsonparser = new JsonParser();
+            JsonObject jsonobject = (JsonObject)jsonparser.parse(s1);
+            PlayerItemParser playeritemparser = new PlayerItemParser();
+            PlayerItemModel playeritemmodel = PlayerItemParser.parseItemModel(jsonobject);
+            return playeritemmodel;
         }
-        catch (Exception var9)
+        catch (Exception exception)
         {
-            Config.warn("Error loading item model " + modelPath + ": " + var9.getClass().getName() + ": " + var9.getMessage());
+            Config.warn("Error loading item model " + p_downloadModel_1_ + ": " + exception.getClass().getName() + ": " + exception.getMessage());
             return null;
         }
     }

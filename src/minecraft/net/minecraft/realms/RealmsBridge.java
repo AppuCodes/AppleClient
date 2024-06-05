@@ -10,7 +10,6 @@ public class RealmsBridge extends RealmsScreen
 {
     private static final Logger LOGGER = LogManager.getLogger();
     private GuiScreen previousScreen;
-    private static final String __OBFID = "CL_00001869";
 
     public void switchToRealms(GuiScreen p_switchToRealms_1_)
     {
@@ -18,15 +17,15 @@ public class RealmsBridge extends RealmsScreen
 
         try
         {
-            Class var2 = Class.forName("com.mojang.realmsclient.RealmsMainScreen");
-            Constructor var3 = var2.getDeclaredConstructor(new Class[] {RealmsScreen.class});
-            var3.setAccessible(true);
-            Object var4 = var3.newInstance(new Object[] {this});
-            Minecraft.getMinecraft().displayGuiScreen(((RealmsScreen)var4).getProxy());
+            Class<?> oclass = Class.forName("com.mojang.realmsclient.RealmsMainScreen");
+            Constructor<?> constructor = oclass.getDeclaredConstructor(new Class[] {RealmsScreen.class});
+            constructor.setAccessible(true);
+            Object object = constructor.newInstance(new Object[] {this});
+            Minecraft.getMinecraft().displayGuiScreen(((RealmsScreen)object).getProxy());
         }
-        catch (Exception var5)
+        catch (Exception exception)
         {
-            LOGGER.error("Realms module missing", var5);
+            LOGGER.error((String)"Realms module missing", (Throwable)exception);
         }
     }
 

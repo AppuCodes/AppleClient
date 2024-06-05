@@ -7,91 +7,91 @@ import com.google.gson.JsonParseException;
 
 public class Json
 {
-    public static float getFloat(JsonObject obj, String field, float def)
+    public static float getFloat(JsonObject p_getFloat_0_, String p_getFloat_1_, float p_getFloat_2_)
     {
-        JsonElement elem = obj.get(field);
-        return elem == null ? def : elem.getAsFloat();
+        JsonElement jsonelement = p_getFloat_0_.get(p_getFloat_1_);
+        return jsonelement == null ? p_getFloat_2_ : jsonelement.getAsFloat();
     }
 
-    public static boolean getBoolean(JsonObject obj, String field, boolean def)
+    public static boolean getBoolean(JsonObject p_getBoolean_0_, String p_getBoolean_1_, boolean p_getBoolean_2_)
     {
-        JsonElement elem = obj.get(field);
-        return elem == null ? def : elem.getAsBoolean();
+        JsonElement jsonelement = p_getBoolean_0_.get(p_getBoolean_1_);
+        return jsonelement == null ? p_getBoolean_2_ : jsonelement.getAsBoolean();
     }
 
-    public static String getString(JsonObject jsonObj, String field)
+    public static String getString(JsonObject p_getString_0_, String p_getString_1_)
     {
-        return getString(jsonObj, field, (String)null);
+        return getString(p_getString_0_, p_getString_1_, (String)null);
     }
 
-    public static String getString(JsonObject jsonObj, String field, String def)
+    public static String getString(JsonObject p_getString_0_, String p_getString_1_, String p_getString_2_)
     {
-        JsonElement jsonElement = jsonObj.get(field);
-        return jsonElement == null ? def : jsonElement.getAsString();
+        JsonElement jsonelement = p_getString_0_.get(p_getString_1_);
+        return jsonelement == null ? p_getString_2_ : jsonelement.getAsString();
     }
 
-    public static float[] parseFloatArray(JsonElement jsonElement, int len)
+    public static float[] parseFloatArray(JsonElement p_parseFloatArray_0_, int p_parseFloatArray_1_)
     {
-        return parseFloatArray(jsonElement, len, (float[])null);
+        return parseFloatArray(p_parseFloatArray_0_, p_parseFloatArray_1_, (float[])null);
     }
 
-    public static float[] parseFloatArray(JsonElement jsonElement, int len, float[] def)
+    public static float[] parseFloatArray(JsonElement p_parseFloatArray_0_, int p_parseFloatArray_1_, float[] p_parseFloatArray_2_)
     {
-        if (jsonElement == null)
+        if (p_parseFloatArray_0_ == null)
         {
-            return def;
+            return p_parseFloatArray_2_;
         }
         else
         {
-            JsonArray arr = jsonElement.getAsJsonArray();
+            JsonArray jsonarray = p_parseFloatArray_0_.getAsJsonArray();
 
-            if (arr.size() != len)
+            if (jsonarray.size() != p_parseFloatArray_1_)
             {
-                throw new JsonParseException("Wrong array length: " + arr.size() + ", should be: " + len + ", array: " + arr);
+                throw new JsonParseException("Wrong array length: " + jsonarray.size() + ", should be: " + p_parseFloatArray_1_ + ", array: " + jsonarray);
             }
             else
             {
-                float[] floatArr = new float[arr.size()];
+                float[] afloat = new float[jsonarray.size()];
 
-                for (int i = 0; i < floatArr.length; ++i)
+                for (int i = 0; i < afloat.length; ++i)
                 {
-                    floatArr[i] = arr.get(i).getAsFloat();
+                    afloat[i] = jsonarray.get(i).getAsFloat();
                 }
 
-                return floatArr;
+                return afloat;
             }
         }
     }
 
-    public static int[] parseIntArray(JsonElement jsonElement, int len)
+    public static int[] parseIntArray(JsonElement p_parseIntArray_0_, int p_parseIntArray_1_)
     {
-        return parseIntArray(jsonElement, len, (int[])null);
+        return parseIntArray(p_parseIntArray_0_, p_parseIntArray_1_, (int[])null);
     }
 
-    public static int[] parseIntArray(JsonElement jsonElement, int len, int[] def)
+    public static int[] parseIntArray(JsonElement p_parseIntArray_0_, int p_parseIntArray_1_, int[] p_parseIntArray_2_)
     {
-        if (jsonElement == null)
+        if (p_parseIntArray_0_ == null)
         {
-            return def;
+            return p_parseIntArray_2_;
         }
         else
         {
-            JsonArray arr = jsonElement.getAsJsonArray();
+            JsonArray jsonarray = p_parseIntArray_0_.getAsJsonArray();
 
-            if (arr.size() != len)
+            if (jsonarray.size() != p_parseIntArray_1_)
             {
-                throw new JsonParseException("Wrong array length: " + arr.size() + ", should be: " + len + ", array: " + arr);
+                throw new JsonParseException("Wrong array length: " + jsonarray.size() + ", should be: " + p_parseIntArray_1_ + ", array: " + jsonarray);
             }
             else
             {
-                int[] intArr = new int[arr.size()];
+                int[] aint = new int[jsonarray.size()];
 
-                for (int i = 0; i < intArr.length; ++i)
+                for (int i = 0; i < aint.length; ++i)
                 {
-                    intArr[i] = arr.get(i).getAsInt();
+                    aint[i] = jsonarray.get(i).getAsInt();
                 }
 
-                return intArr;
+                return aint;
             }
         }
     }

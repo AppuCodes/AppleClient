@@ -1,47 +1,28 @@
 ***************
-*** 72,84 ****
-  
-     public boolean func_110579_a(ResourceLocation p_110579_1_, final ITextureObject p_110579_2_) {
-        boolean var3 = true;
-- 
-        try {
-           ((ITextureObject)p_110579_2_).func_110551_a(this.field_110582_d);
-        } catch (IOException var8) {
-           field_147646_a.warn("Failed to load texture: " + p_110579_1_, var8);
--          p_110579_2_ = TextureUtil.field_111001_a;
--          this.field_110585_a.put(p_110579_1_, p_110579_2_);
-           var3 = false;
-        } catch (Throwable var9) {
-           CrashReport var5 = CrashReport.func_85055_a(var9, "Registering texture");
---- 72,85 ----
-  
-     public boolean func_110579_a(ResourceLocation p_110579_1_, final ITextureObject p_110579_2_) {
-        boolean var3 = true;
-+       ITextureObject p_110579_2_2 = p_110579_2_;
-+       
-        try {
-           ((ITextureObject)p_110579_2_).func_110551_a(this.field_110582_d);
-        } catch (IOException var8) {
-           field_147646_a.warn("Failed to load texture: " + p_110579_1_, var8);
-+          p_110579_2_2 = TextureUtil.field_111001_a;
-+          this.field_110585_a.put(p_110579_1_, p_110579_2_2);
-           var3 = false;
-        } catch (Throwable var9) {
-           CrashReport var5 = CrashReport.func_85055_a(var9, "Registering texture");
-***************
-*** 95,101 ****
-           throw new ReportedException(var5);
-        }
-  
--       this.field_110585_a.put(p_110579_1_, p_110579_2_);
-        return var3;
-     }
-  
---- 96,102 ----
-           throw new ReportedException(var5);
-        }
-  
-+       this.field_110585_a.put(p_110579_1_, p_110579_2_2);
-        return var3;
-     }
-  
+*** 79,90 ****
+           this.field_110585_a.put(p_110579_1_, (ITextureObject)p_110579_2_);
+           flag = false;
+        } catch (Throwable throwable) {
+           CrashReport crashreport = CrashReport.func_85055_a(throwable, "Registering texture");
+           CrashReportCategory crashreportcategory = crashreport.func_85058_a("Resource location being registered");
+           crashreportcategory.func_71507_a("Resource location", p_110579_1_);
+           crashreportcategory.func_71500_a("Texture object class", new Callable<String>() {
+              public String call() throws Exception {
+-                return p_110579_2_.getClass().getName();
+              }
+           });
+           throw new ReportedException(crashreport);
+--- 79,91 ----
+           this.field_110585_a.put(p_110579_1_, (ITextureObject)p_110579_2_);
+           flag = false;
+        } catch (Throwable throwable) {
++          final ITextureObject p_110579_2_f = p_110579_2_;
+           CrashReport crashreport = CrashReport.func_85055_a(throwable, "Registering texture");
+           CrashReportCategory crashreportcategory = crashreport.func_85058_a("Resource location being registered");
+           crashreportcategory.func_71507_a("Resource location", p_110579_1_);
+           crashreportcategory.func_71500_a("Texture object class", new Callable<String>() {
+              public String call() throws Exception {
++                return p_110579_2_f.getClass().getName();
+              }
+           });
+           throw new ReportedException(crashreport);

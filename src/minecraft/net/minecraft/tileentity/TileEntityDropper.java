@@ -2,13 +2,16 @@ package net.minecraft.tileentity;
 
 public class TileEntityDropper extends TileEntityDispenser
 {
-    private static final String __OBFID = "CL_00000353";
-
     /**
-     * Returns the name of the inventory
+     * Gets the name of this command sender (usually username, but possibly "Rcon")
      */
-    public String getInventoryName()
+    public String getName()
     {
-        return this.isInventoryNameLocalized() ? this.field_146020_a : "container.dropper";
+        return this.hasCustomName() ? this.customName : "container.dropper";
+    }
+
+    public String getGuiID()
+    {
+        return "minecraft:dropper";
     }
 }

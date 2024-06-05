@@ -20,7 +20,6 @@ public class ModelVillager extends ModelBase
     /** The left leg of the VillagerModel */
     public ModelRenderer leftVillagerLeg;
     public ModelRenderer villagerNose;
-    private static final String __OBFID = "CL_00000864";
 
     public ModelVillager(float p_i1163_1_)
     {
@@ -57,14 +56,14 @@ public class ModelVillager extends ModelBase
     /**
      * Sets the models various rotation angles then renders the model.
      */
-    public void render(Entity p_78088_1_, float p_78088_2_, float p_78088_3_, float p_78088_4_, float p_78088_5_, float p_78088_6_, float p_78088_7_)
+    public void render(Entity entityIn, float p_78088_2_, float p_78088_3_, float p_78088_4_, float p_78088_5_, float p_78088_6_, float scale)
     {
-        this.setRotationAngles(p_78088_2_, p_78088_3_, p_78088_4_, p_78088_5_, p_78088_6_, p_78088_7_, p_78088_1_);
-        this.villagerHead.render(p_78088_7_);
-        this.villagerBody.render(p_78088_7_);
-        this.rightVillagerLeg.render(p_78088_7_);
-        this.leftVillagerLeg.render(p_78088_7_);
-        this.villagerArms.render(p_78088_7_);
+        this.setRotationAngles(p_78088_2_, p_78088_3_, p_78088_4_, p_78088_5_, p_78088_6_, scale, entityIn);
+        this.villagerHead.render(scale);
+        this.villagerBody.render(scale);
+        this.rightVillagerLeg.render(scale);
+        this.leftVillagerLeg.render(scale);
+        this.villagerArms.render(scale);
     }
 
     /**
@@ -72,7 +71,7 @@ public class ModelVillager extends ModelBase
      * and legs, where par1 represents the time(so that arms and legs swing back and forth) and par2 represents how
      * "far" arms and legs can swing at most.
      */
-    public void setRotationAngles(float p_78087_1_, float p_78087_2_, float p_78087_3_, float p_78087_4_, float p_78087_5_, float p_78087_6_, Entity p_78087_7_)
+    public void setRotationAngles(float p_78087_1_, float p_78087_2_, float p_78087_3_, float p_78087_4_, float p_78087_5_, float p_78087_6_, Entity entityIn)
     {
         this.villagerHead.rotateAngleY = p_78087_4_ / (180F / (float)Math.PI);
         this.villagerHead.rotateAngleX = p_78087_5_ / (180F / (float)Math.PI);

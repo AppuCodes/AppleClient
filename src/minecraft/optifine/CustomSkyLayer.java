@@ -1,8 +1,11 @@
 package optifine;
 
 import java.util.Properties;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
-import org.lwjgl.opengl.GL11;
+import net.minecraft.client.renderer.WorldRenderer;
+import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
+import net.minecraft.world.World;
 
 public class CustomSkyLayer
 {
@@ -15,182 +18,189 @@ public class CustomSkyLayer
     private boolean rotate = false;
     private float speed = 1.0F;
     private float[] axis;
+    private RangeListInt days;
+    private int daysLoop;
     public int textureId;
     public static final float[] DEFAULT_AXIS = new float[] {1.0F, 0.0F, 0.0F};
 
-    public CustomSkyLayer(Properties props, String defSource)
+    public CustomSkyLayer(Properties p_i35_1_, String p_i35_2_)
     {
         this.axis = DEFAULT_AXIS;
+        this.days = null;
+        this.daysLoop = 8;
         this.textureId = -1;
-        this.source = props.getProperty("source", defSource);
-        this.startFadeIn = this.parseTime(props.getProperty("startFadeIn"));
-        this.endFadeIn = this.parseTime(props.getProperty("endFadeIn"));
-        this.startFadeOut = this.parseTime(props.getProperty("startFadeOut"));
-        this.endFadeOut = this.parseTime(props.getProperty("endFadeOut"));
-        this.blend = Blender.parseBlend(props.getProperty("blend"));
-        this.rotate = this.parseBoolean(props.getProperty("rotate"), true);
-        this.speed = this.parseFloat(props.getProperty("speed"), 1.0F);
-        this.axis = this.parseAxis(props.getProperty("axis"), DEFAULT_AXIS);
+        ConnectedParser connectedparser = new ConnectedParser("CustomSky");
+        this.source = p_i35_1_.getProperty("source", p_i35_2_);
+        this.startFadeIn = this.parseTime(p_i35_1_.getProperty("startFadeIn"));
+        this.endFadeIn = this.parseTime(p_i35_1_.getProperty("endFadeIn"));
+        this.startFadeOut = this.parseTime(p_i35_1_.getProperty("startFadeOut"));
+        this.endFadeOut = this.parseTime(p_i35_1_.getProperty("endFadeOut"));
+        this.blend = Blender.parseBlend(p_i35_1_.getProperty("blend"));
+        this.rotate = this.parseBoolean(p_i35_1_.getProperty("rotate"), true);
+        this.speed = this.parseFloat(p_i35_1_.getProperty("speed"), 1.0F);
+        this.axis = this.parseAxis(p_i35_1_.getProperty("axis"), DEFAULT_AXIS);
+        this.days = connectedparser.parseRangeListInt(p_i35_1_.getProperty("days"));
+        this.daysLoop = connectedparser.parseInt(p_i35_1_.getProperty("daysLoop"), 8);
     }
 
-    private int parseTime(String str)
+    private int parseTime(String p_parseTime_1_)
     {
-        if (str == null)
+        if (p_parseTime_1_ == null)
         {
             return -1;
         }
         else
         {
-            String[] strs = Config.tokenize(str, ":");
+            String[] astring = Config.tokenize(p_parseTime_1_, ":");
 
-            if (strs.length != 2)
+            if (astring.length != 2)
             {
-                Config.warn("Invalid time: " + str);
+                Config.warn("Invalid time: " + p_parseTime_1_);
                 return -1;
             }
             else
             {
-                String hourStr = strs[0];
-                String minStr = strs[1];
-                int hour = Config.parseInt(hourStr, -1);
-                int min = Config.parseInt(minStr, -1);
+                String s = astring[0];
+                String s1 = astring[1];
+                int i = Config.parseInt(s, -1);
+                int j = Config.parseInt(s1, -1);
 
-                if (hour >= 0 && hour <= 23 && min >= 0 && min <= 59)
+                if (i >= 0 && i <= 23 && j >= 0 && j <= 59)
                 {
-                    hour -= 6;
+                    i = i - 6;
 
-                    if (hour < 0)
+                    if (i < 0)
                     {
-                        hour += 24;
+                        i += 24;
                     }
 
-                    int time = hour * 1000 + (int)((double)min / 60.0D * 1000.0D);
-                    return time;
+                    int k = i * 1000 + (int)((double)j / 60.0D * 1000.0D);
+                    return k;
                 }
                 else
                 {
-                    Config.warn("Invalid time: " + str);
+                    Config.warn("Invalid time: " + p_parseTime_1_);
                     return -1;
                 }
             }
         }
     }
 
-    private boolean parseBoolean(String str, boolean defVal)
+    private boolean parseBoolean(String p_parseBoolean_1_, boolean p_parseBoolean_2_)
     {
-        if (str == null)
+        if (p_parseBoolean_1_ == null)
         {
-            return defVal;
+            return p_parseBoolean_2_;
         }
-        else if (str.toLowerCase().equals("true"))
+        else if (p_parseBoolean_1_.toLowerCase().equals("true"))
         {
             return true;
         }
-        else if (str.toLowerCase().equals("false"))
+        else if (p_parseBoolean_1_.toLowerCase().equals("false"))
         {
             return false;
         }
         else
         {
-            Config.warn("Unknown boolean: " + str);
-            return defVal;
+            Config.warn("Unknown boolean: " + p_parseBoolean_1_);
+            return p_parseBoolean_2_;
         }
     }
 
-    private float parseFloat(String str, float defVal)
+    private float parseFloat(String p_parseFloat_1_, float p_parseFloat_2_)
     {
-        if (str == null)
+        if (p_parseFloat_1_ == null)
         {
-            return defVal;
+            return p_parseFloat_2_;
         }
         else
         {
-            float val = Config.parseFloat(str, Float.MIN_VALUE);
+            float f = Config.parseFloat(p_parseFloat_1_, Float.MIN_VALUE);
 
-            if (val == Float.MIN_VALUE)
+            if (f == Float.MIN_VALUE)
             {
-                Config.warn("Invalid value: " + str);
-                return defVal;
+                Config.warn("Invalid value: " + p_parseFloat_1_);
+                return p_parseFloat_2_;
             }
             else
             {
-                return val;
+                return f;
             }
         }
     }
 
-    private float[] parseAxis(String str, float[] defVal)
+    private float[] parseAxis(String p_parseAxis_1_, float[] p_parseAxis_2_)
     {
-        if (str == null)
+        if (p_parseAxis_1_ == null)
         {
-            return defVal;
+            return p_parseAxis_2_;
         }
         else
         {
-            String[] strs = Config.tokenize(str, " ");
+            String[] astring = Config.tokenize(p_parseAxis_1_, " ");
 
-            if (strs.length != 3)
+            if (astring.length != 3)
             {
-                Config.warn("Invalid axis: " + str);
-                return defVal;
+                Config.warn("Invalid axis: " + p_parseAxis_1_);
+                return p_parseAxis_2_;
             }
             else
             {
-                float[] fs = new float[3];
+                float[] afloat = new float[3];
 
-                for (int ax = 0; ax < strs.length; ++ax)
+                for (int i = 0; i < astring.length; ++i)
                 {
-                    fs[ax] = Config.parseFloat(strs[ax], Float.MIN_VALUE);
+                    afloat[i] = Config.parseFloat(astring[i], Float.MIN_VALUE);
 
-                    if (fs[ax] == Float.MIN_VALUE)
+                    if (afloat[i] == Float.MIN_VALUE)
                     {
-                        Config.warn("Invalid axis: " + str);
-                        return defVal;
+                        Config.warn("Invalid axis: " + p_parseAxis_1_);
+                        return p_parseAxis_2_;
                     }
 
-                    if (fs[ax] < -1.0F || fs[ax] > 1.0F)
+                    if (afloat[i] < -1.0F || afloat[i] > 1.0F)
                     {
-                        Config.warn("Invalid axis values: " + str);
-                        return defVal;
+                        Config.warn("Invalid axis values: " + p_parseAxis_1_);
+                        return p_parseAxis_2_;
                     }
                 }
 
-                float var9 = fs[0];
-                float ay = fs[1];
-                float az = fs[2];
+                float f2 = afloat[0];
+                float f = afloat[1];
+                float f1 = afloat[2];
 
-                if (var9 * var9 + ay * ay + az * az < 1.0E-5F)
+                if (f2 * f2 + f * f + f1 * f1 < 1.0E-5F)
                 {
-                    Config.warn("Invalid axis values: " + str);
-                    return defVal;
+                    Config.warn("Invalid axis values: " + p_parseAxis_1_);
+                    return p_parseAxis_2_;
                 }
                 else
                 {
-                    float[] as = new float[] {az, ay, -var9};
-                    return as;
+                    float[] afloat1 = new float[] {f1, f, -f2};
+                    return afloat1;
                 }
             }
         }
     }
 
-    public boolean isValid(String path)
+    public boolean isValid(String p_isValid_1_)
     {
         if (this.source == null)
         {
-            Config.warn("No source texture: " + path);
+            Config.warn("No source texture: " + p_isValid_1_);
             return false;
         }
         else
         {
-            this.source = TextureUtils.fixResourcePath(this.source, TextureUtils.getBasePath(path));
+            this.source = TextureUtils.fixResourcePath(this.source, TextureUtils.getBasePath(p_isValid_1_));
 
             if (this.startFadeIn >= 0 && this.endFadeIn >= 0 && this.endFadeOut >= 0)
             {
-                int timeFadeIn = this.normalizeTime(this.endFadeIn - this.startFadeIn);
+                int i = this.normalizeTime(this.endFadeIn - this.startFadeIn);
 
                 if (this.startFadeOut < 0)
                 {
-                    this.startFadeOut = this.normalizeTime(this.endFadeOut - timeFadeIn);
+                    this.startFadeOut = this.normalizeTime(this.endFadeOut - i);
 
                     if (this.timeBetween(this.startFadeOut, this.startFadeIn, this.endFadeIn))
                     {
@@ -198,19 +208,24 @@ public class CustomSkyLayer
                     }
                 }
 
-                int timeOn = this.normalizeTime(this.startFadeOut - this.endFadeIn);
-                int timeFadeOut = this.normalizeTime(this.endFadeOut - this.startFadeOut);
-                int timeOff = this.normalizeTime(this.startFadeIn - this.endFadeOut);
-                int timeSum = timeFadeIn + timeOn + timeFadeOut + timeOff;
+                int j = this.normalizeTime(this.startFadeOut - this.endFadeIn);
+                int k = this.normalizeTime(this.endFadeOut - this.startFadeOut);
+                int l = this.normalizeTime(this.startFadeIn - this.endFadeOut);
+                int i1 = i + j + k + l;
 
-                if (timeSum != 24000)
+                if (i1 != 24000)
                 {
-                    Config.warn("Invalid fadeIn/fadeOut times, sum is not 24h: " + timeSum);
+                    Config.warn("Invalid fadeIn/fadeOut times, sum is not 24h: " + i1);
                     return false;
                 }
                 else if (this.speed < 0.0F)
                 {
                     Config.warn("Invalid speed: " + this.speed);
+                    return false;
+                }
+                else if (this.daysLoop <= 0)
+                {
+                    Config.warn("Invalid daysLoop: " + this.daysLoop);
                     return false;
                 }
                 else
@@ -226,79 +241,76 @@ public class CustomSkyLayer
         }
     }
 
-    private int normalizeTime(int timeMc)
+    private int normalizeTime(int p_normalizeTime_1_)
     {
-        while (timeMc >= 24000)
+        while (p_normalizeTime_1_ >= 24000)
         {
-            timeMc -= 24000;
+            p_normalizeTime_1_ -= 24000;
         }
 
-        while (timeMc < 0)
+        while (p_normalizeTime_1_ < 0)
         {
-            timeMc += 24000;
+            p_normalizeTime_1_ += 24000;
         }
 
-        return timeMc;
+        return p_normalizeTime_1_;
     }
 
-    public void render(int timeOfDay, float celestialAngle, float rainBrightness)
+    public void render(int p_render_1_, float p_render_2_, float p_render_3_)
     {
-        float brightness = rainBrightness * this.getFadeBrightness(timeOfDay);
-        brightness = Config.limit(brightness, 0.0F, 1.0F);
+        float f = p_render_3_ * this.getFadeBrightness(p_render_1_);
+        f = Config.limit(f, 0.0F, 1.0F);
 
-        if (brightness >= 1.0E-4F)
+        if (f >= 1.0E-4F)
         {
-            GL11.glBindTexture(GL11.GL_TEXTURE_2D, this.textureId);
-            Blender.setupBlend(this.blend, brightness);
-            GL11.glPushMatrix();
+            GlStateManager.bindTexture(this.textureId);
+            Blender.setupBlend(this.blend, f);
+            GlStateManager.pushMatrix();
 
             if (this.rotate)
             {
-                GL11.glRotatef(celestialAngle * 360.0F * this.speed, this.axis[0], this.axis[1], this.axis[2]);
+                GlStateManager.rotate(p_render_2_ * 360.0F * this.speed, this.axis[0], this.axis[1], this.axis[2]);
             }
 
-            Tessellator tess = Tessellator.instance;
-            GL11.glRotatef(90.0F, 1.0F, 0.0F, 0.0F);
-            GL11.glRotatef(-90.0F, 0.0F, 0.0F, 1.0F);
-            this.renderSide(tess, 4);
-            GL11.glPushMatrix();
-            GL11.glRotatef(90.0F, 1.0F, 0.0F, 0.0F);
-            this.renderSide(tess, 1);
-            GL11.glPopMatrix();
-            GL11.glPushMatrix();
-            GL11.glRotatef(-90.0F, 1.0F, 0.0F, 0.0F);
-            this.renderSide(tess, 0);
-            GL11.glPopMatrix();
-            GL11.glRotatef(90.0F, 0.0F, 0.0F, 1.0F);
-            this.renderSide(tess, 5);
-            GL11.glRotatef(90.0F, 0.0F, 0.0F, 1.0F);
-            this.renderSide(tess, 2);
-            GL11.glRotatef(90.0F, 0.0F, 0.0F, 1.0F);
-            this.renderSide(tess, 3);
-            GL11.glPopMatrix();
+            Tessellator tessellator = Tessellator.getInstance();
+            GlStateManager.rotate(90.0F, 1.0F, 0.0F, 0.0F);
+            GlStateManager.rotate(-90.0F, 0.0F, 0.0F, 1.0F);
+            this.renderSide(tessellator, 4);
+            GlStateManager.pushMatrix();
+            GlStateManager.rotate(90.0F, 1.0F, 0.0F, 0.0F);
+            this.renderSide(tessellator, 1);
+            GlStateManager.popMatrix();
+            GlStateManager.pushMatrix();
+            GlStateManager.rotate(-90.0F, 1.0F, 0.0F, 0.0F);
+            this.renderSide(tessellator, 0);
+            GlStateManager.popMatrix();
+            GlStateManager.rotate(90.0F, 0.0F, 0.0F, 1.0F);
+            this.renderSide(tessellator, 5);
+            GlStateManager.rotate(90.0F, 0.0F, 0.0F, 1.0F);
+            this.renderSide(tessellator, 2);
+            GlStateManager.rotate(90.0F, 0.0F, 0.0F, 1.0F);
+            this.renderSide(tessellator, 3);
+            GlStateManager.popMatrix();
         }
     }
 
-    private float getFadeBrightness(int timeOfDay)
+    private float getFadeBrightness(int p_getFadeBrightness_1_)
     {
-        int timeFadeOut;
-        int timeDiff;
-
-        if (this.timeBetween(timeOfDay, this.startFadeIn, this.endFadeIn))
+        if (this.timeBetween(p_getFadeBrightness_1_, this.startFadeIn, this.endFadeIn))
         {
-            timeFadeOut = this.normalizeTime(this.endFadeIn - this.startFadeIn);
-            timeDiff = this.normalizeTime(timeOfDay - this.startFadeIn);
-            return (float)timeDiff / (float)timeFadeOut;
+            int k = this.normalizeTime(this.endFadeIn - this.startFadeIn);
+            int l = this.normalizeTime(p_getFadeBrightness_1_ - this.startFadeIn);
+            return (float)l / (float)k;
         }
-        else if (this.timeBetween(timeOfDay, this.endFadeIn, this.startFadeOut))
+        else if (this.timeBetween(p_getFadeBrightness_1_, this.endFadeIn, this.startFadeOut))
         {
             return 1.0F;
         }
-        else if (this.timeBetween(timeOfDay, this.startFadeOut, this.endFadeOut))
+        else if (this.timeBetween(p_getFadeBrightness_1_, this.startFadeOut, this.endFadeOut))
         {
-            timeFadeOut = this.normalizeTime(this.endFadeOut - this.startFadeOut);
-            timeDiff = this.normalizeTime(timeOfDay - this.startFadeOut);
-            return 1.0F - (float)timeDiff / (float)timeFadeOut;
+            int i = this.normalizeTime(this.endFadeOut - this.startFadeOut);
+            int j = this.normalizeTime(p_getFadeBrightness_1_ - this.startFadeOut);
+            return 1.0F - (float)j / (float)i;
         }
         else
         {
@@ -306,25 +318,52 @@ public class CustomSkyLayer
         }
     }
 
-    private void renderSide(Tessellator tess, int side)
+    private void renderSide(Tessellator p_renderSide_1_, int p_renderSide_2_)
     {
-        double tx = (double)(side % 3) / 3.0D;
-        double ty = (double)(side / 3) / 2.0D;
-        tess.startDrawingQuads();
-        tess.addVertexWithUV(-100.0D, -100.0D, -100.0D, tx, ty);
-        tess.addVertexWithUV(-100.0D, -100.0D, 100.0D, tx, ty + 0.5D);
-        tess.addVertexWithUV(100.0D, -100.0D, 100.0D, tx + 0.3333333333333333D, ty + 0.5D);
-        tess.addVertexWithUV(100.0D, -100.0D, -100.0D, tx + 0.3333333333333333D, ty);
-        tess.draw();
+        WorldRenderer worldrenderer = p_renderSide_1_.getWorldRenderer();
+        double d0 = (double)(p_renderSide_2_ % 3) / 3.0D;
+        double d1 = (double)(p_renderSide_2_ / 3) / 2.0D;
+        worldrenderer.begin(7, DefaultVertexFormats.POSITION_TEX);
+        worldrenderer.pos(-100.0D, -100.0D, -100.0D).tex(d0, d1).endVertex();
+        worldrenderer.pos(-100.0D, -100.0D, 100.0D).tex(d0, d1 + 0.5D).endVertex();
+        worldrenderer.pos(100.0D, -100.0D, 100.0D).tex(d0 + 0.3333333333333333D, d1 + 0.5D).endVertex();
+        worldrenderer.pos(100.0D, -100.0D, -100.0D).tex(d0 + 0.3333333333333333D, d1).endVertex();
+        p_renderSide_1_.draw();
     }
 
-    public boolean isActive(int timeOfDay)
+    public boolean isActive(World p_isActive_1_, int p_isActive_2_)
     {
-        return !this.timeBetween(timeOfDay, this.endFadeOut, this.startFadeIn);
+        if (this.timeBetween(p_isActive_2_, this.endFadeOut, this.startFadeIn))
+        {
+            return false;
+        }
+        else
+        {
+            if (this.days != null)
+            {
+                long i = p_isActive_1_.getWorldTime();
+                long j;
+
+                for (j = i - (long)this.startFadeIn; j < 0L; j += (long)(24000 * this.daysLoop))
+                {
+                    ;
+                }
+
+                int k = (int)(j / 24000L);
+                int l = k % this.daysLoop;
+
+                if (!this.days.isInRange(l))
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
     }
 
-    private boolean timeBetween(int timeOfDay, int timeStart, int timeEnd)
+    private boolean timeBetween(int p_timeBetween_1_, int p_timeBetween_2_, int p_timeBetween_3_)
     {
-        return timeStart <= timeEnd ? timeOfDay >= timeStart && timeOfDay <= timeEnd : timeOfDay >= timeStart || timeOfDay <= timeEnd;
+        return p_timeBetween_2_ <= p_timeBetween_3_ ? p_timeBetween_1_ >= p_timeBetween_2_ && p_timeBetween_1_ <= p_timeBetween_3_ : p_timeBetween_1_ >= p_timeBetween_2_ || p_timeBetween_1_ <= p_timeBetween_3_;
     }
 }

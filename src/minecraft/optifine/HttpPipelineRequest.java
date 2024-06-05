@@ -6,10 +6,10 @@ public class HttpPipelineRequest
     private HttpListener httpListener = null;
     private boolean closed = false;
 
-    public HttpPipelineRequest(HttpRequest httpRequest, HttpListener httpListener)
+    public HttpPipelineRequest(HttpRequest p_i58_1_, HttpListener p_i58_2_)
     {
-        this.httpRequest = httpRequest;
-        this.httpListener = httpListener;
+        this.httpRequest = p_i58_1_;
+        this.httpListener = p_i58_2_;
     }
 
     public HttpRequest getHttpRequest()
@@ -27,8 +27,8 @@ public class HttpPipelineRequest
         return this.closed;
     }
 
-    public void setClosed(boolean closed)
+    public void setClosed(boolean p_setClosed_1_)
     {
-        this.closed = closed;
+        this.closed = p_setClosed_1_;
     }
 }

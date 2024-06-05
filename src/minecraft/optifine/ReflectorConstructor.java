@@ -9,11 +9,11 @@ public class ReflectorConstructor
     private boolean checked = false;
     private Constructor targetConstructor = null;
 
-    public ReflectorConstructor(ReflectorClass reflectorClass, Class[] parameterTypes)
+    public ReflectorConstructor(ReflectorClass p_i84_1_, Class[] p_i84_2_)
     {
-        this.reflectorClass = reflectorClass;
-        this.parameterTypes = parameterTypes;
-        Constructor c = this.getTargetConstructor();
+        this.reflectorClass = p_i84_1_;
+        this.parameterTypes = p_i84_2_;
+        Constructor constructor = this.getTargetConstructor();
     }
 
     public Constructor getTargetConstructor()
@@ -25,9 +25,9 @@ public class ReflectorConstructor
         else
         {
             this.checked = true;
-            Class cls = this.reflectorClass.getTargetClass();
+            Class oclass = this.reflectorClass.getTargetClass();
 
-            if (cls == null)
+            if (oclass == null)
             {
                 return null;
             }
@@ -35,11 +35,11 @@ public class ReflectorConstructor
             {
                 try
                 {
-                    this.targetConstructor = findConstructor(cls, this.parameterTypes);
+                    this.targetConstructor = findConstructor(oclass, this.parameterTypes);
 
                     if (this.targetConstructor == null)
                     {
-                        Config.dbg("(Reflector) Constructor not present: " + cls.getName() + ", params: " + Config.arrayToString((Object[])this.parameterTypes));
+                        Config.dbg("(Reflector) Constructor not present: " + oclass.getName() + ", params: " + Config.arrayToString((Object[])this.parameterTypes));
                     }
 
                     if (this.targetConstructor != null)
@@ -47,9 +47,9 @@ public class ReflectorConstructor
                         this.targetConstructor.setAccessible(true);
                     }
                 }
-                catch (Throwable var3)
+                catch (Throwable throwable)
                 {
-                    var3.printStackTrace();
+                    throwable.printStackTrace();
                 }
 
                 return this.targetConstructor;
@@ -57,18 +57,18 @@ public class ReflectorConstructor
         }
     }
 
-    private static Constructor findConstructor(Class cls, Class[] paramTypes)
+    private static Constructor findConstructor(Class p_findConstructor_0_, Class[] p_findConstructor_1_)
     {
-        Constructor[] cs = cls.getDeclaredConstructors();
+        Constructor[] aconstructor = p_findConstructor_0_.getDeclaredConstructors();
 
-        for (int i = 0; i < cs.length; ++i)
+        for (int i = 0; i < aconstructor.length; ++i)
         {
-            Constructor c = cs[i];
-            Class[] types = c.getParameterTypes();
+            Constructor constructor = aconstructor[i];
+            Class[] aclass = constructor.getParameterTypes();
 
-            if (Reflector.matchesTypes(paramTypes, types))
+            if (Reflector.matchesTypes(p_findConstructor_1_, aclass))
             {
-                return c;
+                return constructor;
             }
         }
 

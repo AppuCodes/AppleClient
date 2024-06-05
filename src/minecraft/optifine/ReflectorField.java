@@ -4,16 +4,37 @@ import java.lang.reflect.Field;
 
 public class ReflectorField
 {
-    private ReflectorClass reflectorClass = null;
-    private String targetFieldName = null;
-    private boolean checked = false;
-    private Field targetField = null;
+    private IFieldLocator fieldLocator;
+    private boolean checked;
+    private Field targetField;
 
-    public ReflectorField(ReflectorClass reflectorClass, String targetFieldName)
+    public ReflectorField(ReflectorClass p_i85_1_, String p_i85_2_)
     {
-        this.reflectorClass = reflectorClass;
-        this.targetFieldName = targetFieldName;
-        Field f = this.getTargetField();
+        this((IFieldLocator)(new FieldLocatorName(p_i85_1_, p_i85_2_)));
+    }
+
+    public ReflectorField(ReflectorClass p_i86_1_, Class p_i86_2_)
+    {
+        this(p_i86_1_, p_i86_2_, 0);
+    }
+
+    public ReflectorField(ReflectorClass p_i87_1_, Class p_i87_2_, int p_i87_3_)
+    {
+        this((IFieldLocator)(new FieldLocatorType(p_i87_1_, p_i87_2_, p_i87_3_)));
+    }
+
+    public ReflectorField(Field p_i88_1_)
+    {
+        this((IFieldLocator)(new FieldLocatorFixed(p_i88_1_)));
+    }
+
+    public ReflectorField(IFieldLocator p_i89_1_)
+    {
+        this.fieldLocator = null;
+        this.checked = false;
+        this.targetField = null;
+        this.fieldLocator = p_i89_1_;
+        this.getTargetField();
     }
 
     public Field getTargetField()
@@ -25,34 +46,14 @@ public class ReflectorField
         else
         {
             this.checked = true;
-            Class cls = this.reflectorClass.getTargetClass();
+            this.targetField = this.fieldLocator.getField();
 
-            if (cls == null)
+            if (this.targetField != null)
             {
-                return null;
+                this.targetField.setAccessible(true);
             }
-            else
-            {
-                try
-                {
-                    this.targetField = cls.getDeclaredField(this.targetFieldName);
-                    this.targetField.setAccessible(true);
-                }
-                catch (NoSuchFieldException var3)
-                {
-                    Config.log("(Reflector) Field not present: " + cls.getName() + "." + this.targetFieldName);
-                }
-                catch (SecurityException var4)
-                {
-                    var4.printStackTrace();
-                }
-                catch (Throwable var5)
-                {
-                    var5.printStackTrace();
-                }
 
-                return this.targetField;
-            }
+            return this.targetField;
         }
     }
 
@@ -61,13 +62,18 @@ public class ReflectorField
         return Reflector.getFieldValue((Object)null, this);
     }
 
-    public void setValue(Object value)
+    public void setValue(Object p_setValue_1_)
     {
-        Reflector.setFieldValue((Object)null, this, value);
+        Reflector.setFieldValue((Object)null, this, p_setValue_1_);
+    }
+
+    public void setValue(Object p_setValue_1_, Object p_setValue_2_)
+    {
+        Reflector.setFieldValue(p_setValue_1_, this, p_setValue_2_);
     }
 
     public boolean exists()
     {
-        return this.checked ? this.targetField != null : this.getTargetField() != null;
+        return this.getTargetField() != null;
     }
 }

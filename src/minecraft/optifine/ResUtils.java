@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Enumeration;
 import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Set;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 import net.minecraft.client.resources.AbstractResourcePack;
@@ -15,163 +17,162 @@ import net.minecraft.util.ResourceLocation;
 
 public class ResUtils
 {
-    public static String[] collectFiles(String prefix, String suffix)
+    public static String[] collectFiles(String p_collectFiles_0_, String p_collectFiles_1_)
     {
-        return collectFiles(new String[] {prefix}, new String[] {suffix});
+        return collectFiles(new String[] {p_collectFiles_0_}, new String[] {p_collectFiles_1_});
     }
 
-    public static String[] collectFiles(String[] prefixes, String[] suffixes)
+    public static String[] collectFiles(String[] p_collectFiles_0_, String[] p_collectFiles_1_)
     {
-        LinkedHashSet setPaths = new LinkedHashSet();
-        IResourcePack[] rps = Config.getResourcePacks();
+        Set<String> set = new LinkedHashSet();
+        IResourcePack[] airesourcepack = Config.getResourcePacks();
 
-        for (int paths = 0; paths < rps.length; ++paths)
+        for (int i = 0; i < airesourcepack.length; ++i)
         {
-            IResourcePack rp = rps[paths];
-            String[] ps = collectFiles(rp, prefixes, suffixes, (String[])null);
-            setPaths.addAll(Arrays.asList(ps));
+            IResourcePack iresourcepack = airesourcepack[i];
+            String[] astring = collectFiles(iresourcepack, (String[])p_collectFiles_0_, (String[])p_collectFiles_1_, (String[])null);
+            set.addAll(Arrays.<String>asList(astring));
         }
 
-        String[] var7 = (String[])setPaths.toArray(new String[setPaths.size()]);
-        return var7;
+        String[] astring1 = (String[])set.toArray(new String[set.size()]);
+        return astring1;
     }
 
-    public static String[] collectFiles(IResourcePack rp, String prefix, String suffix, String[] defaultPaths)
+    public static String[] collectFiles(IResourcePack p_collectFiles_0_, String p_collectFiles_1_, String p_collectFiles_2_, String[] p_collectFiles_3_)
     {
-        return collectFiles(rp, new String[] {prefix}, new String[] {suffix}, defaultPaths);
+        return collectFiles(p_collectFiles_0_, new String[] {p_collectFiles_1_}, new String[] {p_collectFiles_2_}, p_collectFiles_3_);
     }
 
-    public static String[] collectFiles(IResourcePack rp, String[] prefixes, String[] suffixes)
+    public static String[] collectFiles(IResourcePack p_collectFiles_0_, String[] p_collectFiles_1_, String[] p_collectFiles_2_)
     {
-        return collectFiles(rp, prefixes, suffixes, (String[])null);
+        return collectFiles(p_collectFiles_0_, (String[])p_collectFiles_1_, (String[])p_collectFiles_2_, (String[])null);
     }
 
-    public static String[] collectFiles(IResourcePack rp, String[] prefixes, String[] suffixes, String[] defaultPaths)
+    public static String[] collectFiles(IResourcePack p_collectFiles_0_, String[] p_collectFiles_1_, String[] p_collectFiles_2_, String[] p_collectFiles_3_)
     {
-        if (rp instanceof DefaultResourcePack)
+        if (p_collectFiles_0_ instanceof DefaultResourcePack)
         {
-            return collectFilesFixed(rp, defaultPaths);
+            return collectFilesFixed(p_collectFiles_0_, p_collectFiles_3_);
         }
-        else if (!(rp instanceof AbstractResourcePack))
+        else if (!(p_collectFiles_0_ instanceof AbstractResourcePack))
         {
             return new String[0];
         }
         else
         {
-            AbstractResourcePack arp = (AbstractResourcePack)rp;
-            File tpFile = ResourceUtils.getResourcePackFile(arp);
-            return tpFile == null ? new String[0] : (tpFile.isDirectory() ? collectFilesFolder(tpFile, "", prefixes, suffixes) : (tpFile.isFile() ? collectFilesZIP(tpFile, prefixes, suffixes) : new String[0]));
+            AbstractResourcePack abstractresourcepack = (AbstractResourcePack)p_collectFiles_0_;
+            File file1 = abstractresourcepack.resourcePackFile;
+            return file1 == null ? new String[0] : (file1.isDirectory() ? collectFilesFolder(file1, "", p_collectFiles_1_, p_collectFiles_2_) : (file1.isFile() ? collectFilesZIP(file1, p_collectFiles_1_, p_collectFiles_2_) : new String[0]));
         }
     }
 
-    private static String[] collectFilesFixed(IResourcePack rp, String[] paths)
+    private static String[] collectFilesFixed(IResourcePack p_collectFilesFixed_0_, String[] p_collectFilesFixed_1_)
     {
-        if (paths == null)
+        if (p_collectFilesFixed_1_ == null)
         {
             return new String[0];
         }
         else
         {
-            ArrayList list = new ArrayList();
+            List list = new ArrayList();
 
-            for (int pathArr = 0; pathArr < paths.length; ++pathArr)
+            for (int i = 0; i < p_collectFilesFixed_1_.length; ++i)
             {
-                String path = paths[pathArr];
-                ResourceLocation loc = new ResourceLocation(path);
+                String s = p_collectFilesFixed_1_[i];
+                ResourceLocation resourcelocation = new ResourceLocation(s);
 
-                if (rp.resourceExists(loc))
+                if (p_collectFilesFixed_0_.resourceExists(resourcelocation))
                 {
-                    list.add(path);
+                    list.add(s);
                 }
             }
 
-            String[] var6 = (String[])((String[])list.toArray(new String[list.size()]));
-            return var6;
+            String[] astring = (String[])((String[])list.toArray(new String[list.size()]));
+            return astring;
         }
     }
 
-    private static String[] collectFilesFolder(File tpFile, String basePath, String[] prefixes, String[] suffixes)
+    private static String[] collectFilesFolder(File p_collectFilesFolder_0_, String p_collectFilesFolder_1_, String[] p_collectFilesFolder_2_, String[] p_collectFilesFolder_3_)
     {
-        ArrayList list = new ArrayList();
-        String prefixAssets = "assets/minecraft/";
-        File[] files = tpFile.listFiles();
+        List list = new ArrayList();
+        String s = "assets/minecraft/";
+        File[] afile = p_collectFilesFolder_0_.listFiles();
 
-        if (files == null)
+        if (afile == null)
         {
             return new String[0];
         }
         else
         {
-            for (int names = 0; names < files.length; ++names)
+            for (int i = 0; i < afile.length; ++i)
             {
-                File file = files[names];
-                String dirPath;
+                File file1 = afile[i];
 
-                if (file.isFile())
+                if (file1.isFile())
                 {
-                    dirPath = basePath + file.getName();
+                    String s3 = p_collectFilesFolder_1_ + file1.getName();
 
-                    if (dirPath.startsWith(prefixAssets))
+                    if (s3.startsWith(s))
                     {
-                        dirPath = dirPath.substring(prefixAssets.length());
+                        s3 = s3.substring(s.length());
 
-                        if (StrUtils.startsWith(dirPath, prefixes) && StrUtils.endsWith(dirPath, suffixes))
+                        if (StrUtils.startsWith(s3, p_collectFilesFolder_2_) && StrUtils.endsWith(s3, p_collectFilesFolder_3_))
                         {
-                            list.add(dirPath);
+                            list.add(s3);
                         }
                     }
                 }
-                else if (file.isDirectory())
+                else if (file1.isDirectory())
                 {
-                    dirPath = basePath + file.getName() + "/";
-                    String[] names1 = collectFilesFolder(file, dirPath, prefixes, suffixes);
+                    String s1 = p_collectFilesFolder_1_ + file1.getName() + "/";
+                    String[] astring = collectFilesFolder(file1, s1, p_collectFilesFolder_2_, p_collectFilesFolder_3_);
 
-                    for (int n = 0; n < names1.length; ++n)
+                    for (int j = 0; j < astring.length; ++j)
                     {
-                        String name = names1[n];
-                        list.add(name);
+                        String s2 = astring[j];
+                        list.add(s2);
                     }
                 }
             }
 
-            String[] var13 = (String[])((String[])list.toArray(new String[list.size()]));
-            return var13;
+            String[] astring1 = (String[])((String[])list.toArray(new String[list.size()]));
+            return astring1;
         }
     }
 
-    private static String[] collectFilesZIP(File tpFile, String[] prefixes, String[] suffixes)
+    private static String[] collectFilesZIP(File p_collectFilesZIP_0_, String[] p_collectFilesZIP_1_, String[] p_collectFilesZIP_2_)
     {
-        ArrayList list = new ArrayList();
-        String prefixAssets = "assets/minecraft/";
+        List list = new ArrayList();
+        String s = "assets/minecraft/";
 
         try
         {
-            ZipFile e = new ZipFile(tpFile);
-            Enumeration en = e.entries();
+            ZipFile zipfile = new ZipFile(p_collectFilesZIP_0_);
+            Enumeration enumeration = zipfile.entries();
 
-            while (en.hasMoreElements())
+            while (enumeration.hasMoreElements())
             {
-                ZipEntry names = (ZipEntry)en.nextElement();
-                String name = names.getName();
+                ZipEntry zipentry = (ZipEntry)enumeration.nextElement();
+                String s1 = zipentry.getName();
 
-                if (name.startsWith(prefixAssets))
+                if (s1.startsWith(s))
                 {
-                    name = name.substring(prefixAssets.length());
+                    s1 = s1.substring(s.length());
 
-                    if (StrUtils.startsWith(name, prefixes) && StrUtils.endsWith(name, suffixes))
+                    if (StrUtils.startsWith(s1, p_collectFilesZIP_1_) && StrUtils.endsWith(s1, p_collectFilesZIP_2_))
                     {
-                        list.add(name);
+                        list.add(s1);
                     }
                 }
             }
 
-            e.close();
-            String[] names1 = (String[])((String[])list.toArray(new String[list.size()]));
-            return names1;
+            zipfile.close();
+            String[] astring = (String[])((String[])list.toArray(new String[list.size()]));
+            return astring;
         }
-        catch (IOException var9)
+        catch (IOException ioexception)
         {
-            var9.printStackTrace();
+            ioexception.printStackTrace();
             return new String[0];
         }
     }

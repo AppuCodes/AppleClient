@@ -1,389 +1,425 @@
 package optifine;
 
-import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Enumeration;
 import java.util.HashSet;
+import java.util.IdentityHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipFile;
+import java.util.Set;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockPane;
 import net.minecraft.block.BlockQuartz;
 import net.minecraft.block.BlockRotatedPillar;
-import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.block.state.BlockStateBase;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.texture.TextureMap;
-import net.minecraft.client.resources.AbstractResourcePack;
-import net.minecraft.client.resources.DefaultResourcePack;
 import net.minecraft.client.resources.IResourcePack;
-import net.minecraft.util.IIcon;
+import net.minecraft.client.resources.model.IBakedModel;
+import net.minecraft.init.Blocks;
+import net.minecraft.util.BlockPos;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.biome.BiomeGenBase;
 
 public class ConnectedTextures
 {
+    private static Map[] spriteQuadMaps = null;
     private static ConnectedProperties[][] blockProperties = (ConnectedProperties[][])null;
     private static ConnectedProperties[][] tileProperties = (ConnectedProperties[][])null;
     private static boolean multipass = false;
-    private static final int BOTTOM = 0;
-    private static final int TOP = 1;
-    private static final int EAST = 2;
-    private static final int WEST = 3;
-    private static final int NORTH = 4;
-    private static final int SOUTH = 5;
-    private static final int Y_NEG = 0;
-    private static final int Y_POS = 1;
-    private static final int Z_NEG = 2;
-    private static final int Z_POS = 3;
-    private static final int X_NEG = 4;
-    private static final int X_POS = 5;
+    private static final int Y_NEG_DOWN = 0;
+    private static final int Y_POS_UP = 1;
+    private static final int Z_NEG_NORTH = 2;
+    private static final int Z_POS_SOUTH = 3;
+    private static final int X_NEG_WEST = 4;
+    private static final int X_POS_EAST = 5;
     private static final int Y_AXIS = 0;
     private static final int Z_AXIS = 1;
     private static final int X_AXIS = 2;
     private static final String[] propSuffixes = new String[] {"", "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"};
     private static final int[] ctmIndexes = new int[] {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 0, 0, 0, 0, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 0, 0, 0, 0, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 0, 0, 0, 0, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 0, 0, 0, 0, 0};
+    public static final IBlockState AIR_DEFAULT_STATE = Blocks.air.getDefaultState();
+    private static TextureAtlasSprite emptySprite = null;
 
-    public static IIcon getConnectedTexture(IBlockAccess blockAccess, Block block, int x, int y, int z, int side, IIcon icon)
+    public static synchronized BakedQuad getConnectedTexture(IBlockAccess p_getConnectedTexture_0_, IBlockState p_getConnectedTexture_1_, BlockPos p_getConnectedTexture_2_, BakedQuad p_getConnectedTexture_3_, RenderEnv p_getConnectedTexture_4_)
     {
-        if (blockAccess == null)
+        TextureAtlasSprite textureatlassprite = p_getConnectedTexture_3_.getSprite();
+
+        if (textureatlassprite == null)
         {
-            return icon;
+            return p_getConnectedTexture_3_;
         }
         else
         {
-            IIcon newIcon = getConnectedTextureSingle(blockAccess, block, x, y, z, side, icon, true);
+            Block block = p_getConnectedTexture_1_.getBlock();
+            EnumFacing enumfacing = p_getConnectedTexture_3_.getFace();
 
-            if (!multipass)
+            if (block instanceof BlockPane && textureatlassprite.getIconName().startsWith("minecraft:blocks/glass_pane_top"))
             {
-                return newIcon;
+                IBlockState iblockstate = p_getConnectedTexture_0_.getBlockState(p_getConnectedTexture_2_.offset(p_getConnectedTexture_3_.getFace()));
+
+                if (iblockstate == p_getConnectedTexture_1_)
+                {
+                    return getQuad(emptySprite, block, p_getConnectedTexture_1_, p_getConnectedTexture_3_);
+                }
             }
-            else if (newIcon == icon)
+
+            TextureAtlasSprite textureatlassprite1 = getConnectedTextureMultiPass(p_getConnectedTexture_0_, p_getConnectedTexture_1_, p_getConnectedTexture_2_, enumfacing, textureatlassprite, p_getConnectedTexture_4_);
+            return textureatlassprite1 == textureatlassprite ? p_getConnectedTexture_3_ : getQuad(textureatlassprite1, block, p_getConnectedTexture_1_, p_getConnectedTexture_3_);
+        }
+    }
+
+    private static BakedQuad getQuad(TextureAtlasSprite p_getQuad_0_, Block p_getQuad_1_, IBlockState p_getQuad_2_, BakedQuad p_getQuad_3_)
+    {
+        if (spriteQuadMaps == null)
+        {
+            return p_getQuad_3_;
+        }
+        else
+        {
+            int i = p_getQuad_0_.getIndexInMap();
+
+            if (i >= 0 && i < spriteQuadMaps.length)
             {
-                return newIcon;
+                Map map = spriteQuadMaps[i];
+
+                if (map == null)
+                {
+                    map = new IdentityHashMap(1);
+                    spriteQuadMaps[i] = map;
+                }
+
+                BakedQuad bakedquad = (BakedQuad)map.get(p_getQuad_3_);
+
+                if (bakedquad == null)
+                {
+                    bakedquad = makeSpriteQuad(p_getQuad_3_, p_getQuad_0_);
+                    map.put(p_getQuad_3_, bakedquad);
+                }
+
+                return bakedquad;
             }
             else
             {
-                IIcon mpIcon = newIcon;
-
-                for (int i = 0; i < 3; ++i)
-                {
-                    IIcon newMpIcon = getConnectedTextureSingle(blockAccess, block, x, y, z, side, mpIcon, false);
-
-                    if (newMpIcon == mpIcon)
-                    {
-                        break;
-                    }
-
-                    mpIcon = newMpIcon;
-                }
-
-                return mpIcon;
+                return p_getQuad_3_;
             }
         }
     }
 
-    public static IIcon getConnectedTextureSingle(IBlockAccess blockAccess, Block block, int x, int y, int z, int side, IIcon icon, boolean checkBlocks)
+    private static BakedQuad makeSpriteQuad(BakedQuad p_makeSpriteQuad_0_, TextureAtlasSprite p_makeSpriteQuad_1_)
     {
-        if (!(icon instanceof TextureAtlasSprite))
+        int[] aint = (int[])p_makeSpriteQuad_0_.getVertexData().clone();
+        TextureAtlasSprite textureatlassprite = p_makeSpriteQuad_0_.getSprite();
+
+        for (int i = 0; i < 4; ++i)
         {
-            return icon;
+            fixVertex(aint, i, textureatlassprite, p_makeSpriteQuad_1_);
+        }
+
+        BakedQuad bakedquad = new BakedQuad(aint, p_makeSpriteQuad_0_.getTintIndex(), p_makeSpriteQuad_0_.getFace(), p_makeSpriteQuad_1_);
+        return bakedquad;
+    }
+
+    private static void fixVertex(int[] p_fixVertex_0_, int p_fixVertex_1_, TextureAtlasSprite p_fixVertex_2_, TextureAtlasSprite p_fixVertex_3_)
+    {
+        int i = p_fixVertex_0_.length / 4;
+        int j = i * p_fixVertex_1_;
+        float f = Float.intBitsToFloat(p_fixVertex_0_[j + 4]);
+        float f1 = Float.intBitsToFloat(p_fixVertex_0_[j + 4 + 1]);
+        double d0 = p_fixVertex_2_.getSpriteU16(f);
+        double d1 = p_fixVertex_2_.getSpriteV16(f1);
+        p_fixVertex_0_[j + 4] = Float.floatToRawIntBits(p_fixVertex_3_.getInterpolatedU(d0));
+        p_fixVertex_0_[j + 4 + 1] = Float.floatToRawIntBits(p_fixVertex_3_.getInterpolatedV(d1));
+    }
+
+    private static TextureAtlasSprite getConnectedTextureMultiPass(IBlockAccess p_getConnectedTextureMultiPass_0_, IBlockState p_getConnectedTextureMultiPass_1_, BlockPos p_getConnectedTextureMultiPass_2_, EnumFacing p_getConnectedTextureMultiPass_3_, TextureAtlasSprite p_getConnectedTextureMultiPass_4_, RenderEnv p_getConnectedTextureMultiPass_5_)
+    {
+        TextureAtlasSprite textureatlassprite = getConnectedTextureSingle(p_getConnectedTextureMultiPass_0_, p_getConnectedTextureMultiPass_1_, p_getConnectedTextureMultiPass_2_, p_getConnectedTextureMultiPass_3_, p_getConnectedTextureMultiPass_4_, true, p_getConnectedTextureMultiPass_5_);
+
+        if (!multipass)
+        {
+            return textureatlassprite;
+        }
+        else if (textureatlassprite == p_getConnectedTextureMultiPass_4_)
+        {
+            return textureatlassprite;
         }
         else
         {
-            TextureAtlasSprite ts = (TextureAtlasSprite)icon;
-            int iconId = ts.getIndexInMap();
-            int metadata = -1;
+            TextureAtlasSprite textureatlassprite1 = textureatlassprite;
 
-            if (tileProperties != null && Tessellator.instance.defaultTexture && iconId >= 0 && iconId < tileProperties.length)
+            for (int i = 0; i < 3; ++i)
             {
-                ConnectedProperties[] blockId = tileProperties[iconId];
+                TextureAtlasSprite textureatlassprite2 = getConnectedTextureSingle(p_getConnectedTextureMultiPass_0_, p_getConnectedTextureMultiPass_1_, p_getConnectedTextureMultiPass_2_, p_getConnectedTextureMultiPass_3_, textureatlassprite1, false, p_getConnectedTextureMultiPass_5_);
 
-                if (blockId != null)
+                if (textureatlassprite2 == textureatlassprite1)
                 {
-                    if (metadata < 0)
-                    {
-                        metadata = blockAccess.getBlockMetadata(x, y, z);
-                    }
-
-                    IIcon cps = getConnectedTexture(blockId, blockAccess, block, x, y, z, side, ts, metadata);
-
-                    if (cps != null)
-                    {
-                        return cps;
-                    }
+                    break;
                 }
+
+                textureatlassprite1 = textureatlassprite2;
             }
 
-            if (blockProperties != null && checkBlocks)
-            {
-                int blockId1 = Block.getIdFromBlock(block);
-
-                if (blockId1 >= 0 && blockId1 < blockProperties.length)
-                {
-                    ConnectedProperties[] cps1 = blockProperties[blockId1];
-
-                    if (cps1 != null)
-                    {
-                        if (metadata < 0)
-                        {
-                            metadata = blockAccess.getBlockMetadata(x, y, z);
-                        }
-
-                        IIcon newIcon = getConnectedTexture(cps1, blockAccess, block, x, y, z, side, ts, metadata);
-
-                        if (newIcon != null)
-                        {
-                            return newIcon;
-                        }
-                    }
-                }
-            }
-
-            return icon;
+            return textureatlassprite1;
         }
     }
 
-    public static ConnectedProperties getConnectedProperties(IBlockAccess blockAccess, Block block, int x, int y, int z, int side, IIcon icon)
+    public static TextureAtlasSprite getConnectedTextureSingle(IBlockAccess p_getConnectedTextureSingle_0_, IBlockState p_getConnectedTextureSingle_1_, BlockPos p_getConnectedTextureSingle_2_, EnumFacing p_getConnectedTextureSingle_3_, TextureAtlasSprite p_getConnectedTextureSingle_4_, boolean p_getConnectedTextureSingle_5_, RenderEnv p_getConnectedTextureSingle_6_)
     {
-        if (blockAccess == null)
+        Block block = p_getConnectedTextureSingle_1_.getBlock();
+
+        if (!(p_getConnectedTextureSingle_1_ instanceof BlockStateBase))
         {
-            return null;
-        }
-        else if (!(icon instanceof TextureAtlasSprite))
-        {
-            return null;
+            return p_getConnectedTextureSingle_4_;
         }
         else
         {
-            TextureAtlasSprite ts = (TextureAtlasSprite)icon;
-            int iconId = ts.getIndexInMap();
-            int metadata = -1;
+            BlockStateBase blockstatebase = (BlockStateBase)p_getConnectedTextureSingle_1_;
 
-            if (tileProperties != null && Tessellator.instance.defaultTexture && iconId >= 0 && iconId < tileProperties.length)
+            if (tileProperties != null)
             {
-                ConnectedProperties[] blockId = tileProperties[iconId];
+                int i = p_getConnectedTextureSingle_4_.getIndexInMap();
 
-                if (blockId != null)
+                if (i >= 0 && i < tileProperties.length)
                 {
-                    if (metadata < 0)
+                    ConnectedProperties[] aconnectedproperties = tileProperties[i];
+
+                    if (aconnectedproperties != null)
                     {
-                        metadata = blockAccess.getBlockMetadata(x, y, z);
-                    }
+                        int j = getSide(p_getConnectedTextureSingle_3_);
 
-                    ConnectedProperties cps = getConnectedProperties(blockId, blockAccess, block, x, y, z, side, ts, metadata);
-
-                    if (cps != null)
-                    {
-                        return cps;
-                    }
-                }
-            }
-
-            if (blockProperties != null)
-            {
-                int blockId1 = Block.getIdFromBlock(block);
-
-                if (blockId1 >= 0 && blockId1 < blockProperties.length)
-                {
-                    ConnectedProperties[] cps1 = blockProperties[blockId1];
-
-                    if (cps1 != null)
-                    {
-                        if (metadata < 0)
+                        for (int k = 0; k < aconnectedproperties.length; ++k)
                         {
-                            metadata = blockAccess.getBlockMetadata(x, y, z);
-                        }
+                            ConnectedProperties connectedproperties = aconnectedproperties[k];
 
-                        ConnectedProperties cp = getConnectedProperties(cps1, blockAccess, block, x, y, z, side, ts, metadata);
+                            if (connectedproperties != null && connectedproperties.matchesBlockId(blockstatebase.getBlockId()))
+                            {
+                                TextureAtlasSprite textureatlassprite = getConnectedTexture(connectedproperties, p_getConnectedTextureSingle_0_, blockstatebase, p_getConnectedTextureSingle_2_, j, p_getConnectedTextureSingle_4_, p_getConnectedTextureSingle_6_);
 
-                        if (cp != null)
-                        {
-                            return cp;
+                                if (textureatlassprite != null)
+                                {
+                                    return textureatlassprite;
+                                }
+                            }
                         }
                     }
                 }
             }
 
-            return null;
-        }
-    }
-
-    private static IIcon getConnectedTexture(ConnectedProperties[] cps, IBlockAccess blockAccess, Block block, int x, int y, int z, int side, IIcon icon, int metadata)
-    {
-        for (int i = 0; i < cps.length; ++i)
-        {
-            ConnectedProperties cp = cps[i];
-
-            if (cp != null)
+            if (blockProperties != null && p_getConnectedTextureSingle_5_)
             {
-                IIcon newIcon = getConnectedTexture(cp, blockAccess, block, x, y, z, side, icon, metadata);
+                int l = p_getConnectedTextureSingle_6_.getBlockId();
 
-                if (newIcon != null)
+                if (l >= 0 && l < blockProperties.length)
                 {
-                    return newIcon;
-                }
-            }
-        }
+                    ConnectedProperties[] aconnectedproperties1 = blockProperties[l];
 
-        return null;
-    }
-
-    private static ConnectedProperties getConnectedProperties(ConnectedProperties[] cps, IBlockAccess blockAccess, Block block, int x, int y, int z, int side, IIcon icon, int metadata)
-    {
-        for (int i = 0; i < cps.length; ++i)
-        {
-            ConnectedProperties cp = cps[i];
-
-            if (cp != null)
-            {
-                IIcon newIcon = getConnectedTexture(cp, blockAccess, block, x, y, z, side, icon, metadata);
-
-                if (newIcon != null)
-                {
-                    return cp;
-                }
-            }
-        }
-
-        return null;
-    }
-
-    private static IIcon getConnectedTexture(ConnectedProperties cp, IBlockAccess blockAccess, Block block, int x, int y, int z, int side, IIcon icon, int metadata)
-    {
-        if (y >= cp.minHeight && y <= cp.maxHeight)
-        {
-            int mds;
-
-            if (cp.biomes != null)
-            {
-                BiomeGenBase vertAxis = blockAccess.getBiomeGenForCoords(x, z);
-                boolean metadataCheck = false;
-
-                for (mds = 0; mds < cp.biomes.length; ++mds)
-                {
-                    BiomeGenBase metadataFound = cp.biomes[mds];
-
-                    if (vertAxis == metadataFound)
+                    if (aconnectedproperties1 != null)
                     {
-                        metadataCheck = true;
-                        break;
+                        int i1 = getSide(p_getConnectedTextureSingle_3_);
+
+                        for (int j1 = 0; j1 < aconnectedproperties1.length; ++j1)
+                        {
+                            ConnectedProperties connectedproperties1 = aconnectedproperties1[j1];
+
+                            if (connectedproperties1 != null && connectedproperties1.matchesIcon(p_getConnectedTextureSingle_4_))
+                            {
+                                TextureAtlasSprite textureatlassprite1 = getConnectedTexture(connectedproperties1, p_getConnectedTextureSingle_0_, blockstatebase, p_getConnectedTextureSingle_2_, i1, p_getConnectedTextureSingle_4_, p_getConnectedTextureSingle_6_);
+
+                                if (textureatlassprite1 != null)
+                                {
+                                    return textureatlassprite1;
+                                }
+                            }
+                        }
                     }
                 }
-
-                if (!metadataCheck)
-                {
-                    return null;
-                }
             }
 
-            int var14 = 0;
-            int var15 = metadata;
+            return p_getConnectedTextureSingle_4_;
+        }
+    }
 
-            if (block instanceof BlockRotatedPillar)
+    public static int getSide(EnumFacing p_getSide_0_)
+    {
+        if (p_getSide_0_ == null)
+        {
+            return -1;
+        }
+        else
+        {
+            switch (p_getSide_0_)
             {
-                var14 = getWoodAxis(side, metadata);
-                var15 = metadata & 3;
-            }
+                case DOWN:
+                    return 0;
 
-            if (block instanceof BlockQuartz)
-            {
-                var14 = getQuartzAxis(side, metadata);
+                case UP:
+                    return 1;
 
-                if (var15 > 2)
-                {
-                    var15 = 2;
-                }
-            }
+                case EAST:
+                    return 5;
 
-            if (side >= 0 && cp.faces != 63)
-            {
-                mds = side;
+                case WEST:
+                    return 4;
 
-                if (var14 != 0)
-                {
-                    mds = fixSideByAxis(side, var14);
-                }
+                case NORTH:
+                    return 2;
 
-                if ((1 << mds & cp.faces) == 0)
-                {
-                    return null;
-                }
-            }
-
-            if (cp.metadatas != null)
-            {
-                int[] var16 = cp.metadatas;
-                boolean var17 = false;
-
-                for (int i = 0; i < var16.length; ++i)
-                {
-                    if (var16[i] == var15)
-                    {
-                        var17 = true;
-                        break;
-                    }
-                }
-
-                if (!var17)
-                {
-                    return null;
-                }
-            }
-
-            switch (cp.method)
-            {
-                case 1:
-                    return getConnectedTextureCtm(cp, blockAccess, block, x, y, z, side, icon, metadata);
-
-                case 2:
-                    return getConnectedTextureHorizontal(cp, blockAccess, block, x, y, z, var14, side, icon, metadata);
-
-                case 3:
-                    return getConnectedTextureTop(cp, blockAccess, block, x, y, z, var14, side, icon, metadata);
-
-                case 4:
-                    return getConnectedTextureRandom(cp, x, y, z, side);
-
-                case 5:
-                    return getConnectedTextureRepeat(cp, x, y, z, side);
-
-                case 6:
-                    return getConnectedTextureVertical(cp, blockAccess, block, x, y, z, var14, side, icon, metadata);
-
-                case 7:
-                    return getConnectedTextureFixed(cp);
-
-                case 8:
-                    return getConnectedTextureHorizontalVertical(cp, blockAccess, block, x, y, z, var14, side, icon, metadata);
-
-                case 9:
-                    return getConnectedTextureVerticalHorizontal(cp, blockAccess, block, x, y, z, var14, side, icon, metadata);
+                case SOUTH:
+                    return 3;
 
                 default:
-                    return null;
+                    return -1;
             }
-        }
-        else
-        {
-            return null;
         }
     }
 
-    private static int fixSideByAxis(int side, int vertAxis)
+    private static EnumFacing getFacing(int p_getFacing_0_)
     {
-        switch (vertAxis)
+        switch (p_getFacing_0_)
         {
             case 0:
-                return side;
+                return EnumFacing.DOWN;
 
             case 1:
-                switch (side)
+                return EnumFacing.UP;
+
+            case 2:
+                return EnumFacing.NORTH;
+
+            case 3:
+                return EnumFacing.SOUTH;
+
+            case 4:
+                return EnumFacing.WEST;
+
+            case 5:
+                return EnumFacing.EAST;
+
+            default:
+                return EnumFacing.UP;
+        }
+    }
+
+    private static TextureAtlasSprite getConnectedTexture(ConnectedProperties p_getConnectedTexture_0_, IBlockAccess p_getConnectedTexture_1_, BlockStateBase p_getConnectedTexture_2_, BlockPos p_getConnectedTexture_3_, int p_getConnectedTexture_4_, TextureAtlasSprite p_getConnectedTexture_5_, RenderEnv p_getConnectedTexture_6_)
+    {
+        int i = 0;
+        int j = p_getConnectedTexture_2_.getMetadata();
+        int k = j;
+        Block block = p_getConnectedTexture_2_.getBlock();
+
+        if (block instanceof BlockRotatedPillar)
+        {
+            i = getWoodAxis(p_getConnectedTexture_4_, j);
+
+            if (p_getConnectedTexture_0_.getMetadataMax() <= 3)
+            {
+                k = j & 3;
+            }
+        }
+
+        if (block instanceof BlockQuartz)
+        {
+            i = getQuartzAxis(p_getConnectedTexture_4_, j);
+
+            if (p_getConnectedTexture_0_.getMetadataMax() <= 2 && k > 2)
+            {
+                k = 2;
+            }
+        }
+
+        if (!p_getConnectedTexture_0_.matchesBlock(p_getConnectedTexture_2_.getBlockId(), k))
+        {
+            return null;
+        }
+        else
+        {
+            if (p_getConnectedTexture_4_ >= 0 && p_getConnectedTexture_0_.faces != 63)
+            {
+                int l = p_getConnectedTexture_4_;
+
+                if (i != 0)
+                {
+                    l = fixSideByAxis(p_getConnectedTexture_4_, i);
+                }
+
+                if ((1 << l & p_getConnectedTexture_0_.faces) == 0)
+                {
+                    return null;
+                }
+            }
+
+            int i1 = p_getConnectedTexture_3_.getY();
+
+            if (i1 >= p_getConnectedTexture_0_.minHeight && i1 <= p_getConnectedTexture_0_.maxHeight)
+            {
+                if (p_getConnectedTexture_0_.biomes != null)
+                {
+                    BiomeGenBase biomegenbase = p_getConnectedTexture_1_.getBiomeGenForCoords(p_getConnectedTexture_3_);
+
+                    if (!p_getConnectedTexture_0_.matchesBiome(biomegenbase))
+                    {
+                        return null;
+                    }
+                }
+
+                switch (p_getConnectedTexture_0_.method)
+                {
+                    case 1:
+                        return getConnectedTextureCtm(p_getConnectedTexture_0_, p_getConnectedTexture_1_, p_getConnectedTexture_2_, p_getConnectedTexture_3_, i, p_getConnectedTexture_4_, p_getConnectedTexture_5_, j, p_getConnectedTexture_6_);
+
+                    case 2:
+                        return getConnectedTextureHorizontal(p_getConnectedTexture_0_, p_getConnectedTexture_1_, p_getConnectedTexture_2_, p_getConnectedTexture_3_, i, p_getConnectedTexture_4_, p_getConnectedTexture_5_, j);
+
+                    case 3:
+                        return getConnectedTextureTop(p_getConnectedTexture_0_, p_getConnectedTexture_1_, p_getConnectedTexture_2_, p_getConnectedTexture_3_, i, p_getConnectedTexture_4_, p_getConnectedTexture_5_, j);
+
+                    case 4:
+                        return getConnectedTextureRandom(p_getConnectedTexture_0_, p_getConnectedTexture_3_, p_getConnectedTexture_4_);
+
+                    case 5:
+                        return getConnectedTextureRepeat(p_getConnectedTexture_0_, p_getConnectedTexture_3_, p_getConnectedTexture_4_);
+
+                    case 6:
+                        return getConnectedTextureVertical(p_getConnectedTexture_0_, p_getConnectedTexture_1_, p_getConnectedTexture_2_, p_getConnectedTexture_3_, i, p_getConnectedTexture_4_, p_getConnectedTexture_5_, j);
+
+                    case 7:
+                        return getConnectedTextureFixed(p_getConnectedTexture_0_);
+
+                    case 8:
+                        return getConnectedTextureHorizontalVertical(p_getConnectedTexture_0_, p_getConnectedTexture_1_, p_getConnectedTexture_2_, p_getConnectedTexture_3_, i, p_getConnectedTexture_4_, p_getConnectedTexture_5_, j);
+
+                    case 9:
+                        return getConnectedTextureVerticalHorizontal(p_getConnectedTexture_0_, p_getConnectedTexture_1_, p_getConnectedTexture_2_, p_getConnectedTexture_3_, i, p_getConnectedTexture_4_, p_getConnectedTexture_5_, j);
+
+                    default:
+                        return null;
+                }
+            }
+            else
+            {
+                return null;
+            }
+        }
+    }
+
+    private static int fixSideByAxis(int p_fixSideByAxis_0_, int p_fixSideByAxis_1_)
+    {
+        switch (p_fixSideByAxis_1_)
+        {
+            case 0:
+                return p_fixSideByAxis_0_;
+
+            case 1:
+                switch (p_fixSideByAxis_0_)
                 {
                     case 0:
                         return 2;
@@ -398,11 +434,11 @@ public class ConnectedTextures
                         return 0;
 
                     default:
-                        return side;
+                        return p_fixSideByAxis_0_;
                 }
 
             case 2:
-                switch (side)
+                switch (p_fixSideByAxis_0_)
                 {
                     case 0:
                         return 4;
@@ -413,7 +449,7 @@ public class ConnectedTextures
                     case 2:
                     case 3:
                     default:
-                        return side;
+                        return p_fixSideByAxis_0_;
 
                     case 4:
                         return 1;
@@ -423,15 +459,15 @@ public class ConnectedTextures
                 }
 
             default:
-                return side;
+                return p_fixSideByAxis_0_;
         }
     }
 
-    private static int getWoodAxis(int side, int metadata)
+    private static int getWoodAxis(int p_getWoodAxis_0_, int p_getWoodAxis_1_)
     {
-        int orient = (metadata & 12) >> 2;
+        int i = (p_getWoodAxis_1_ & 12) >> 2;
 
-        switch (orient)
+        switch (i)
         {
             case 1:
                 return 2;
@@ -444,9 +480,9 @@ public class ConnectedTextures
         }
     }
 
-    private static int getQuartzAxis(int side, int metadata)
+    private static int getQuartzAxis(int p_getQuartzAxis_0_, int p_getQuartzAxis_1_)
     {
-        switch (metadata)
+        switch (p_getQuartzAxis_1_)
         {
             case 3:
                 return 2;
@@ -459,763 +495,838 @@ public class ConnectedTextures
         }
     }
 
-    private static IIcon getConnectedTextureRandom(ConnectedProperties cp, int x, int y, int z, int side)
+    private static TextureAtlasSprite getConnectedTextureRandom(ConnectedProperties p_getConnectedTextureRandom_0_, BlockPos p_getConnectedTextureRandom_1_, int p_getConnectedTextureRandom_2_)
     {
-        if (cp.tileIcons.length == 1)
+        if (p_getConnectedTextureRandom_0_.tileIcons.length == 1)
         {
-            return cp.tileIcons[0];
+            return p_getConnectedTextureRandom_0_.tileIcons[0];
         }
         else
         {
-            int face = side / cp.symmetry * cp.symmetry;
-            int rand = Config.getRandom(x, y, z, face) & Integer.MAX_VALUE;
-            int index = 0;
+            int i = p_getConnectedTextureRandom_2_ / p_getConnectedTextureRandom_0_.symmetry * p_getConnectedTextureRandom_0_.symmetry;
+            int j = Config.getRandom(p_getConnectedTextureRandom_1_, i) & Integer.MAX_VALUE;
+            int k = 0;
 
-            if (cp.weights == null)
+            if (p_getConnectedTextureRandom_0_.weights == null)
             {
-                index = rand % cp.tileIcons.length;
+                k = j % p_getConnectedTextureRandom_0_.tileIcons.length;
             }
             else
             {
-                int randWeight = rand % cp.sumAllWeights;
-                int[] sumWeights = cp.sumWeights;
+                int l = j % p_getConnectedTextureRandom_0_.sumAllWeights;
+                int[] aint = p_getConnectedTextureRandom_0_.sumWeights;
 
-                for (int i = 0; i < sumWeights.length; ++i)
+                for (int i1 = 0; i1 < aint.length; ++i1)
                 {
-                    if (randWeight < sumWeights[i])
+                    if (l < aint[i1])
                     {
-                        index = i;
+                        k = i1;
                         break;
                     }
                 }
             }
 
-            return cp.tileIcons[index];
+            return p_getConnectedTextureRandom_0_.tileIcons[k];
         }
     }
 
-    private static IIcon getConnectedTextureFixed(ConnectedProperties cp)
+    private static TextureAtlasSprite getConnectedTextureFixed(ConnectedProperties p_getConnectedTextureFixed_0_)
     {
-        return cp.tileIcons[0];
+        return p_getConnectedTextureFixed_0_.tileIcons[0];
     }
 
-    private static IIcon getConnectedTextureRepeat(ConnectedProperties cp, int x, int y, int z, int side)
+    private static TextureAtlasSprite getConnectedTextureRepeat(ConnectedProperties p_getConnectedTextureRepeat_0_, BlockPos p_getConnectedTextureRepeat_1_, int p_getConnectedTextureRepeat_2_)
     {
-        if (cp.tileIcons.length == 1)
+        if (p_getConnectedTextureRepeat_0_.tileIcons.length == 1)
         {
-            return cp.tileIcons[0];
+            return p_getConnectedTextureRepeat_0_.tileIcons[0];
         }
         else
         {
-            int nx = 0;
-            int ny = 0;
+            int i = p_getConnectedTextureRepeat_1_.getX();
+            int j = p_getConnectedTextureRepeat_1_.getY();
+            int k = p_getConnectedTextureRepeat_1_.getZ();
+            int l = 0;
+            int i1 = 0;
 
-            switch (side)
+            switch (p_getConnectedTextureRepeat_2_)
             {
                 case 0:
-                    nx = x;
-                    ny = z;
+                    l = i;
+                    i1 = k;
                     break;
 
                 case 1:
-                    nx = x;
-                    ny = z;
+                    l = i;
+                    i1 = k;
                     break;
 
                 case 2:
-                    nx = -x - 1;
-                    ny = -y;
+                    l = -i - 1;
+                    i1 = -j;
                     break;
 
                 case 3:
-                    nx = x;
-                    ny = -y;
+                    l = i;
+                    i1 = -j;
                     break;
 
                 case 4:
-                    nx = z;
-                    ny = -y;
+                    l = k;
+                    i1 = -j;
                     break;
 
                 case 5:
-                    nx = -z - 1;
-                    ny = -y;
+                    l = -k - 1;
+                    i1 = -j;
             }
 
-            nx %= cp.width;
-            ny %= cp.height;
+            l = l % p_getConnectedTextureRepeat_0_.width;
+            i1 = i1 % p_getConnectedTextureRepeat_0_.height;
 
-            if (nx < 0)
+            if (l < 0)
             {
-                nx += cp.width;
+                l += p_getConnectedTextureRepeat_0_.width;
             }
 
-            if (ny < 0)
+            if (i1 < 0)
             {
-                ny += cp.height;
+                i1 += p_getConnectedTextureRepeat_0_.height;
             }
 
-            int index = ny * cp.width + nx;
-            return cp.tileIcons[index];
+            int j1 = i1 * p_getConnectedTextureRepeat_0_.width + l;
+            return p_getConnectedTextureRepeat_0_.tileIcons[j1];
         }
     }
 
-    private static IIcon getConnectedTextureCtm(ConnectedProperties cp, IBlockAccess blockAccess, Block block, int x, int y, int z, int side, IIcon icon, int metadata)
+    private static TextureAtlasSprite getConnectedTextureCtm(ConnectedProperties p_getConnectedTextureCtm_0_, IBlockAccess p_getConnectedTextureCtm_1_, IBlockState p_getConnectedTextureCtm_2_, BlockPos p_getConnectedTextureCtm_3_, int p_getConnectedTextureCtm_4_, int p_getConnectedTextureCtm_5_, TextureAtlasSprite p_getConnectedTextureCtm_6_, int p_getConnectedTextureCtm_7_, RenderEnv p_getConnectedTextureCtm_8_)
     {
-        boolean[] borders = new boolean[6];
+        boolean[] aboolean = p_getConnectedTextureCtm_8_.getBorderFlags();
 
-        switch (side)
+        switch (p_getConnectedTextureCtm_5_)
         {
             case 0:
+                aboolean[0] = isNeighbour(p_getConnectedTextureCtm_0_, p_getConnectedTextureCtm_1_, p_getConnectedTextureCtm_2_, p_getConnectedTextureCtm_3_.west(), p_getConnectedTextureCtm_5_, p_getConnectedTextureCtm_6_, p_getConnectedTextureCtm_7_);
+                aboolean[1] = isNeighbour(p_getConnectedTextureCtm_0_, p_getConnectedTextureCtm_1_, p_getConnectedTextureCtm_2_, p_getConnectedTextureCtm_3_.east(), p_getConnectedTextureCtm_5_, p_getConnectedTextureCtm_6_, p_getConnectedTextureCtm_7_);
+                aboolean[2] = isNeighbour(p_getConnectedTextureCtm_0_, p_getConnectedTextureCtm_1_, p_getConnectedTextureCtm_2_, p_getConnectedTextureCtm_3_.north(), p_getConnectedTextureCtm_5_, p_getConnectedTextureCtm_6_, p_getConnectedTextureCtm_7_);
+                aboolean[3] = isNeighbour(p_getConnectedTextureCtm_0_, p_getConnectedTextureCtm_1_, p_getConnectedTextureCtm_2_, p_getConnectedTextureCtm_3_.south(), p_getConnectedTextureCtm_5_, p_getConnectedTextureCtm_6_, p_getConnectedTextureCtm_7_);
+                break;
+
             case 1:
-                borders[0] = isNeighbour(cp, blockAccess, block, x - 1, y, z, side, icon, metadata);
-                borders[1] = isNeighbour(cp, blockAccess, block, x + 1, y, z, side, icon, metadata);
-                borders[2] = isNeighbour(cp, blockAccess, block, x, y, z + 1, side, icon, metadata);
-                borders[3] = isNeighbour(cp, blockAccess, block, x, y, z - 1, side, icon, metadata);
+                aboolean[0] = isNeighbour(p_getConnectedTextureCtm_0_, p_getConnectedTextureCtm_1_, p_getConnectedTextureCtm_2_, p_getConnectedTextureCtm_3_.west(), p_getConnectedTextureCtm_5_, p_getConnectedTextureCtm_6_, p_getConnectedTextureCtm_7_);
+                aboolean[1] = isNeighbour(p_getConnectedTextureCtm_0_, p_getConnectedTextureCtm_1_, p_getConnectedTextureCtm_2_, p_getConnectedTextureCtm_3_.east(), p_getConnectedTextureCtm_5_, p_getConnectedTextureCtm_6_, p_getConnectedTextureCtm_7_);
+                aboolean[2] = isNeighbour(p_getConnectedTextureCtm_0_, p_getConnectedTextureCtm_1_, p_getConnectedTextureCtm_2_, p_getConnectedTextureCtm_3_.south(), p_getConnectedTextureCtm_5_, p_getConnectedTextureCtm_6_, p_getConnectedTextureCtm_7_);
+                aboolean[3] = isNeighbour(p_getConnectedTextureCtm_0_, p_getConnectedTextureCtm_1_, p_getConnectedTextureCtm_2_, p_getConnectedTextureCtm_3_.north(), p_getConnectedTextureCtm_5_, p_getConnectedTextureCtm_6_, p_getConnectedTextureCtm_7_);
                 break;
 
             case 2:
-                borders[0] = isNeighbour(cp, blockAccess, block, x + 1, y, z, side, icon, metadata);
-                borders[1] = isNeighbour(cp, blockAccess, block, x - 1, y, z, side, icon, metadata);
-                borders[2] = isNeighbour(cp, blockAccess, block, x, y - 1, z, side, icon, metadata);
-                borders[3] = isNeighbour(cp, blockAccess, block, x, y + 1, z, side, icon, metadata);
+                aboolean[0] = isNeighbour(p_getConnectedTextureCtm_0_, p_getConnectedTextureCtm_1_, p_getConnectedTextureCtm_2_, p_getConnectedTextureCtm_3_.east(), p_getConnectedTextureCtm_5_, p_getConnectedTextureCtm_6_, p_getConnectedTextureCtm_7_);
+                aboolean[1] = isNeighbour(p_getConnectedTextureCtm_0_, p_getConnectedTextureCtm_1_, p_getConnectedTextureCtm_2_, p_getConnectedTextureCtm_3_.west(), p_getConnectedTextureCtm_5_, p_getConnectedTextureCtm_6_, p_getConnectedTextureCtm_7_);
+                aboolean[2] = isNeighbour(p_getConnectedTextureCtm_0_, p_getConnectedTextureCtm_1_, p_getConnectedTextureCtm_2_, p_getConnectedTextureCtm_3_.down(), p_getConnectedTextureCtm_5_, p_getConnectedTextureCtm_6_, p_getConnectedTextureCtm_7_);
+                aboolean[3] = isNeighbour(p_getConnectedTextureCtm_0_, p_getConnectedTextureCtm_1_, p_getConnectedTextureCtm_2_, p_getConnectedTextureCtm_3_.up(), p_getConnectedTextureCtm_5_, p_getConnectedTextureCtm_6_, p_getConnectedTextureCtm_7_);
                 break;
 
             case 3:
-                borders[0] = isNeighbour(cp, blockAccess, block, x - 1, y, z, side, icon, metadata);
-                borders[1] = isNeighbour(cp, blockAccess, block, x + 1, y, z, side, icon, metadata);
-                borders[2] = isNeighbour(cp, blockAccess, block, x, y - 1, z, side, icon, metadata);
-                borders[3] = isNeighbour(cp, blockAccess, block, x, y + 1, z, side, icon, metadata);
+                aboolean[0] = isNeighbour(p_getConnectedTextureCtm_0_, p_getConnectedTextureCtm_1_, p_getConnectedTextureCtm_2_, p_getConnectedTextureCtm_3_.west(), p_getConnectedTextureCtm_5_, p_getConnectedTextureCtm_6_, p_getConnectedTextureCtm_7_);
+                aboolean[1] = isNeighbour(p_getConnectedTextureCtm_0_, p_getConnectedTextureCtm_1_, p_getConnectedTextureCtm_2_, p_getConnectedTextureCtm_3_.east(), p_getConnectedTextureCtm_5_, p_getConnectedTextureCtm_6_, p_getConnectedTextureCtm_7_);
+                aboolean[2] = isNeighbour(p_getConnectedTextureCtm_0_, p_getConnectedTextureCtm_1_, p_getConnectedTextureCtm_2_, p_getConnectedTextureCtm_3_.down(), p_getConnectedTextureCtm_5_, p_getConnectedTextureCtm_6_, p_getConnectedTextureCtm_7_);
+                aboolean[3] = isNeighbour(p_getConnectedTextureCtm_0_, p_getConnectedTextureCtm_1_, p_getConnectedTextureCtm_2_, p_getConnectedTextureCtm_3_.up(), p_getConnectedTextureCtm_5_, p_getConnectedTextureCtm_6_, p_getConnectedTextureCtm_7_);
                 break;
 
             case 4:
-                borders[0] = isNeighbour(cp, blockAccess, block, x, y, z - 1, side, icon, metadata);
-                borders[1] = isNeighbour(cp, blockAccess, block, x, y, z + 1, side, icon, metadata);
-                borders[2] = isNeighbour(cp, blockAccess, block, x, y - 1, z, side, icon, metadata);
-                borders[3] = isNeighbour(cp, blockAccess, block, x, y + 1, z, side, icon, metadata);
+                aboolean[0] = isNeighbour(p_getConnectedTextureCtm_0_, p_getConnectedTextureCtm_1_, p_getConnectedTextureCtm_2_, p_getConnectedTextureCtm_3_.north(), p_getConnectedTextureCtm_5_, p_getConnectedTextureCtm_6_, p_getConnectedTextureCtm_7_);
+                aboolean[1] = isNeighbour(p_getConnectedTextureCtm_0_, p_getConnectedTextureCtm_1_, p_getConnectedTextureCtm_2_, p_getConnectedTextureCtm_3_.south(), p_getConnectedTextureCtm_5_, p_getConnectedTextureCtm_6_, p_getConnectedTextureCtm_7_);
+                aboolean[2] = isNeighbour(p_getConnectedTextureCtm_0_, p_getConnectedTextureCtm_1_, p_getConnectedTextureCtm_2_, p_getConnectedTextureCtm_3_.down(), p_getConnectedTextureCtm_5_, p_getConnectedTextureCtm_6_, p_getConnectedTextureCtm_7_);
+                aboolean[3] = isNeighbour(p_getConnectedTextureCtm_0_, p_getConnectedTextureCtm_1_, p_getConnectedTextureCtm_2_, p_getConnectedTextureCtm_3_.up(), p_getConnectedTextureCtm_5_, p_getConnectedTextureCtm_6_, p_getConnectedTextureCtm_7_);
                 break;
 
             case 5:
-                borders[0] = isNeighbour(cp, blockAccess, block, x, y, z + 1, side, icon, metadata);
-                borders[1] = isNeighbour(cp, blockAccess, block, x, y, z - 1, side, icon, metadata);
-                borders[2] = isNeighbour(cp, blockAccess, block, x, y - 1, z, side, icon, metadata);
-                borders[3] = isNeighbour(cp, blockAccess, block, x, y + 1, z, side, icon, metadata);
+                aboolean[0] = isNeighbour(p_getConnectedTextureCtm_0_, p_getConnectedTextureCtm_1_, p_getConnectedTextureCtm_2_, p_getConnectedTextureCtm_3_.south(), p_getConnectedTextureCtm_5_, p_getConnectedTextureCtm_6_, p_getConnectedTextureCtm_7_);
+                aboolean[1] = isNeighbour(p_getConnectedTextureCtm_0_, p_getConnectedTextureCtm_1_, p_getConnectedTextureCtm_2_, p_getConnectedTextureCtm_3_.north(), p_getConnectedTextureCtm_5_, p_getConnectedTextureCtm_6_, p_getConnectedTextureCtm_7_);
+                aboolean[2] = isNeighbour(p_getConnectedTextureCtm_0_, p_getConnectedTextureCtm_1_, p_getConnectedTextureCtm_2_, p_getConnectedTextureCtm_3_.down(), p_getConnectedTextureCtm_5_, p_getConnectedTextureCtm_6_, p_getConnectedTextureCtm_7_);
+                aboolean[3] = isNeighbour(p_getConnectedTextureCtm_0_, p_getConnectedTextureCtm_1_, p_getConnectedTextureCtm_2_, p_getConnectedTextureCtm_3_.up(), p_getConnectedTextureCtm_5_, p_getConnectedTextureCtm_6_, p_getConnectedTextureCtm_7_);
         }
 
-        byte index = 0;
+        int i = 0;
 
-        if (borders[0] & !borders[1] & !borders[2] & !borders[3])
+        if (aboolean[0] & !aboolean[1] & !aboolean[2] & !aboolean[3])
         {
-            index = 3;
+            i = 3;
         }
-        else if (!borders[0] & borders[1] & !borders[2] & !borders[3])
+        else if (!aboolean[0] & aboolean[1] & !aboolean[2] & !aboolean[3])
         {
-            index = 1;
+            i = 1;
         }
-        else if (!borders[0] & !borders[1] & borders[2] & !borders[3])
+        else if (!aboolean[0] & !aboolean[1] & aboolean[2] & !aboolean[3])
         {
-            index = 12;
+            i = 12;
         }
-        else if (!borders[0] & !borders[1] & !borders[2] & borders[3])
+        else if (!aboolean[0] & !aboolean[1] & !aboolean[2] & aboolean[3])
         {
-            index = 36;
+            i = 36;
         }
-        else if (borders[0] & borders[1] & !borders[2] & !borders[3])
+        else if (aboolean[0] & aboolean[1] & !aboolean[2] & !aboolean[3])
         {
-            index = 2;
+            i = 2;
         }
-        else if (!borders[0] & !borders[1] & borders[2] & borders[3])
+        else if (!aboolean[0] & !aboolean[1] & aboolean[2] & aboolean[3])
         {
-            index = 24;
+            i = 24;
         }
-        else if (borders[0] & !borders[1] & borders[2] & !borders[3])
+        else if (aboolean[0] & !aboolean[1] & aboolean[2] & !aboolean[3])
         {
-            index = 15;
+            i = 15;
         }
-        else if (borders[0] & !borders[1] & !borders[2] & borders[3])
+        else if (aboolean[0] & !aboolean[1] & !aboolean[2] & aboolean[3])
         {
-            index = 39;
+            i = 39;
         }
-        else if (!borders[0] & borders[1] & borders[2] & !borders[3])
+        else if (!aboolean[0] & aboolean[1] & aboolean[2] & !aboolean[3])
         {
-            index = 13;
+            i = 13;
         }
-        else if (!borders[0] & borders[1] & !borders[2] & borders[3])
+        else if (!aboolean[0] & aboolean[1] & !aboolean[2] & aboolean[3])
         {
-            index = 37;
+            i = 37;
         }
-        else if (!borders[0] & borders[1] & borders[2] & borders[3])
+        else if (!aboolean[0] & aboolean[1] & aboolean[2] & aboolean[3])
         {
-            index = 25;
+            i = 25;
         }
-        else if (borders[0] & !borders[1] & borders[2] & borders[3])
+        else if (aboolean[0] & !aboolean[1] & aboolean[2] & aboolean[3])
         {
-            index = 27;
+            i = 27;
         }
-        else if (borders[0] & borders[1] & !borders[2] & borders[3])
+        else if (aboolean[0] & aboolean[1] & !aboolean[2] & aboolean[3])
         {
-            index = 38;
+            i = 38;
         }
-        else if (borders[0] & borders[1] & borders[2] & !borders[3])
+        else if (aboolean[0] & aboolean[1] & aboolean[2] & !aboolean[3])
         {
-            index = 14;
+            i = 14;
         }
-        else if (borders[0] & borders[1] & borders[2] & borders[3])
+        else if (aboolean[0] & aboolean[1] & aboolean[2] & aboolean[3])
         {
-            index = 26;
+            i = 26;
         }
 
-        if (index == 0)
+        if (i == 0)
         {
-            return cp.tileIcons[index];
+            return p_getConnectedTextureCtm_0_.tileIcons[i];
         }
         else if (!Config.isConnectedTexturesFancy())
         {
-            return cp.tileIcons[index];
+            return p_getConnectedTextureCtm_0_.tileIcons[i];
         }
         else
         {
-            boolean[] edges = new boolean[6];
-
-            switch (side)
+            switch (p_getConnectedTextureCtm_5_)
             {
                 case 0:
+                    aboolean[0] = !isNeighbour(p_getConnectedTextureCtm_0_, p_getConnectedTextureCtm_1_, p_getConnectedTextureCtm_2_, p_getConnectedTextureCtm_3_.east().north(), p_getConnectedTextureCtm_5_, p_getConnectedTextureCtm_6_, p_getConnectedTextureCtm_7_);
+                    aboolean[1] = !isNeighbour(p_getConnectedTextureCtm_0_, p_getConnectedTextureCtm_1_, p_getConnectedTextureCtm_2_, p_getConnectedTextureCtm_3_.west().north(), p_getConnectedTextureCtm_5_, p_getConnectedTextureCtm_6_, p_getConnectedTextureCtm_7_);
+                    aboolean[2] = !isNeighbour(p_getConnectedTextureCtm_0_, p_getConnectedTextureCtm_1_, p_getConnectedTextureCtm_2_, p_getConnectedTextureCtm_3_.east().south(), p_getConnectedTextureCtm_5_, p_getConnectedTextureCtm_6_, p_getConnectedTextureCtm_7_);
+                    aboolean[3] = !isNeighbour(p_getConnectedTextureCtm_0_, p_getConnectedTextureCtm_1_, p_getConnectedTextureCtm_2_, p_getConnectedTextureCtm_3_.west().south(), p_getConnectedTextureCtm_5_, p_getConnectedTextureCtm_6_, p_getConnectedTextureCtm_7_);
+                    break;
+
                 case 1:
-                    edges[0] = !isNeighbour(cp, blockAccess, block, x + 1, y, z + 1, side, icon, metadata);
-                    edges[1] = !isNeighbour(cp, blockAccess, block, x - 1, y, z + 1, side, icon, metadata);
-                    edges[2] = !isNeighbour(cp, blockAccess, block, x + 1, y, z - 1, side, icon, metadata);
-                    edges[3] = !isNeighbour(cp, blockAccess, block, x - 1, y, z - 1, side, icon, metadata);
+                    aboolean[0] = !isNeighbour(p_getConnectedTextureCtm_0_, p_getConnectedTextureCtm_1_, p_getConnectedTextureCtm_2_, p_getConnectedTextureCtm_3_.east().south(), p_getConnectedTextureCtm_5_, p_getConnectedTextureCtm_6_, p_getConnectedTextureCtm_7_);
+                    aboolean[1] = !isNeighbour(p_getConnectedTextureCtm_0_, p_getConnectedTextureCtm_1_, p_getConnectedTextureCtm_2_, p_getConnectedTextureCtm_3_.west().south(), p_getConnectedTextureCtm_5_, p_getConnectedTextureCtm_6_, p_getConnectedTextureCtm_7_);
+                    aboolean[2] = !isNeighbour(p_getConnectedTextureCtm_0_, p_getConnectedTextureCtm_1_, p_getConnectedTextureCtm_2_, p_getConnectedTextureCtm_3_.east().north(), p_getConnectedTextureCtm_5_, p_getConnectedTextureCtm_6_, p_getConnectedTextureCtm_7_);
+                    aboolean[3] = !isNeighbour(p_getConnectedTextureCtm_0_, p_getConnectedTextureCtm_1_, p_getConnectedTextureCtm_2_, p_getConnectedTextureCtm_3_.west().north(), p_getConnectedTextureCtm_5_, p_getConnectedTextureCtm_6_, p_getConnectedTextureCtm_7_);
                     break;
 
                 case 2:
-                    edges[0] = !isNeighbour(cp, blockAccess, block, x - 1, y - 1, z, side, icon, metadata);
-                    edges[1] = !isNeighbour(cp, blockAccess, block, x + 1, y - 1, z, side, icon, metadata);
-                    edges[2] = !isNeighbour(cp, blockAccess, block, x - 1, y + 1, z, side, icon, metadata);
-                    edges[3] = !isNeighbour(cp, blockAccess, block, x + 1, y + 1, z, side, icon, metadata);
+                    aboolean[0] = !isNeighbour(p_getConnectedTextureCtm_0_, p_getConnectedTextureCtm_1_, p_getConnectedTextureCtm_2_, p_getConnectedTextureCtm_3_.west().down(), p_getConnectedTextureCtm_5_, p_getConnectedTextureCtm_6_, p_getConnectedTextureCtm_7_);
+                    aboolean[1] = !isNeighbour(p_getConnectedTextureCtm_0_, p_getConnectedTextureCtm_1_, p_getConnectedTextureCtm_2_, p_getConnectedTextureCtm_3_.east().down(), p_getConnectedTextureCtm_5_, p_getConnectedTextureCtm_6_, p_getConnectedTextureCtm_7_);
+                    aboolean[2] = !isNeighbour(p_getConnectedTextureCtm_0_, p_getConnectedTextureCtm_1_, p_getConnectedTextureCtm_2_, p_getConnectedTextureCtm_3_.west().up(), p_getConnectedTextureCtm_5_, p_getConnectedTextureCtm_6_, p_getConnectedTextureCtm_7_);
+                    aboolean[3] = !isNeighbour(p_getConnectedTextureCtm_0_, p_getConnectedTextureCtm_1_, p_getConnectedTextureCtm_2_, p_getConnectedTextureCtm_3_.east().up(), p_getConnectedTextureCtm_5_, p_getConnectedTextureCtm_6_, p_getConnectedTextureCtm_7_);
                     break;
 
                 case 3:
-                    edges[0] = !isNeighbour(cp, blockAccess, block, x + 1, y - 1, z, side, icon, metadata);
-                    edges[1] = !isNeighbour(cp, blockAccess, block, x - 1, y - 1, z, side, icon, metadata);
-                    edges[2] = !isNeighbour(cp, blockAccess, block, x + 1, y + 1, z, side, icon, metadata);
-                    edges[3] = !isNeighbour(cp, blockAccess, block, x - 1, y + 1, z, side, icon, metadata);
+                    aboolean[0] = !isNeighbour(p_getConnectedTextureCtm_0_, p_getConnectedTextureCtm_1_, p_getConnectedTextureCtm_2_, p_getConnectedTextureCtm_3_.east().down(), p_getConnectedTextureCtm_5_, p_getConnectedTextureCtm_6_, p_getConnectedTextureCtm_7_);
+                    aboolean[1] = !isNeighbour(p_getConnectedTextureCtm_0_, p_getConnectedTextureCtm_1_, p_getConnectedTextureCtm_2_, p_getConnectedTextureCtm_3_.west().down(), p_getConnectedTextureCtm_5_, p_getConnectedTextureCtm_6_, p_getConnectedTextureCtm_7_);
+                    aboolean[2] = !isNeighbour(p_getConnectedTextureCtm_0_, p_getConnectedTextureCtm_1_, p_getConnectedTextureCtm_2_, p_getConnectedTextureCtm_3_.east().up(), p_getConnectedTextureCtm_5_, p_getConnectedTextureCtm_6_, p_getConnectedTextureCtm_7_);
+                    aboolean[3] = !isNeighbour(p_getConnectedTextureCtm_0_, p_getConnectedTextureCtm_1_, p_getConnectedTextureCtm_2_, p_getConnectedTextureCtm_3_.west().up(), p_getConnectedTextureCtm_5_, p_getConnectedTextureCtm_6_, p_getConnectedTextureCtm_7_);
                     break;
 
                 case 4:
-                    edges[0] = !isNeighbour(cp, blockAccess, block, x, y - 1, z + 1, side, icon, metadata);
-                    edges[1] = !isNeighbour(cp, blockAccess, block, x, y - 1, z - 1, side, icon, metadata);
-                    edges[2] = !isNeighbour(cp, blockAccess, block, x, y + 1, z + 1, side, icon, metadata);
-                    edges[3] = !isNeighbour(cp, blockAccess, block, x, y + 1, z - 1, side, icon, metadata);
+                    aboolean[0] = !isNeighbour(p_getConnectedTextureCtm_0_, p_getConnectedTextureCtm_1_, p_getConnectedTextureCtm_2_, p_getConnectedTextureCtm_3_.down().south(), p_getConnectedTextureCtm_5_, p_getConnectedTextureCtm_6_, p_getConnectedTextureCtm_7_);
+                    aboolean[1] = !isNeighbour(p_getConnectedTextureCtm_0_, p_getConnectedTextureCtm_1_, p_getConnectedTextureCtm_2_, p_getConnectedTextureCtm_3_.down().north(), p_getConnectedTextureCtm_5_, p_getConnectedTextureCtm_6_, p_getConnectedTextureCtm_7_);
+                    aboolean[2] = !isNeighbour(p_getConnectedTextureCtm_0_, p_getConnectedTextureCtm_1_, p_getConnectedTextureCtm_2_, p_getConnectedTextureCtm_3_.up().south(), p_getConnectedTextureCtm_5_, p_getConnectedTextureCtm_6_, p_getConnectedTextureCtm_7_);
+                    aboolean[3] = !isNeighbour(p_getConnectedTextureCtm_0_, p_getConnectedTextureCtm_1_, p_getConnectedTextureCtm_2_, p_getConnectedTextureCtm_3_.up().north(), p_getConnectedTextureCtm_5_, p_getConnectedTextureCtm_6_, p_getConnectedTextureCtm_7_);
                     break;
 
                 case 5:
-                    edges[0] = !isNeighbour(cp, blockAccess, block, x, y - 1, z - 1, side, icon, metadata);
-                    edges[1] = !isNeighbour(cp, blockAccess, block, x, y - 1, z + 1, side, icon, metadata);
-                    edges[2] = !isNeighbour(cp, blockAccess, block, x, y + 1, z - 1, side, icon, metadata);
-                    edges[3] = !isNeighbour(cp, blockAccess, block, x, y + 1, z + 1, side, icon, metadata);
+                    aboolean[0] = !isNeighbour(p_getConnectedTextureCtm_0_, p_getConnectedTextureCtm_1_, p_getConnectedTextureCtm_2_, p_getConnectedTextureCtm_3_.down().north(), p_getConnectedTextureCtm_5_, p_getConnectedTextureCtm_6_, p_getConnectedTextureCtm_7_);
+                    aboolean[1] = !isNeighbour(p_getConnectedTextureCtm_0_, p_getConnectedTextureCtm_1_, p_getConnectedTextureCtm_2_, p_getConnectedTextureCtm_3_.down().south(), p_getConnectedTextureCtm_5_, p_getConnectedTextureCtm_6_, p_getConnectedTextureCtm_7_);
+                    aboolean[2] = !isNeighbour(p_getConnectedTextureCtm_0_, p_getConnectedTextureCtm_1_, p_getConnectedTextureCtm_2_, p_getConnectedTextureCtm_3_.up().north(), p_getConnectedTextureCtm_5_, p_getConnectedTextureCtm_6_, p_getConnectedTextureCtm_7_);
+                    aboolean[3] = !isNeighbour(p_getConnectedTextureCtm_0_, p_getConnectedTextureCtm_1_, p_getConnectedTextureCtm_2_, p_getConnectedTextureCtm_3_.up().south(), p_getConnectedTextureCtm_5_, p_getConnectedTextureCtm_6_, p_getConnectedTextureCtm_7_);
             }
 
-            if (index == 13 && edges[0])
+            if (i == 13 && aboolean[0])
             {
-                index = 4;
+                i = 4;
             }
-            else if (index == 15 && edges[1])
+            else if (i == 15 && aboolean[1])
             {
-                index = 5;
+                i = 5;
             }
-            else if (index == 37 && edges[2])
+            else if (i == 37 && aboolean[2])
             {
-                index = 16;
+                i = 16;
             }
-            else if (index == 39 && edges[3])
+            else if (i == 39 && aboolean[3])
             {
-                index = 17;
+                i = 17;
             }
-            else if (index == 14 && edges[0] && edges[1])
+            else if (i == 14 && aboolean[0] && aboolean[1])
             {
-                index = 7;
+                i = 7;
             }
-            else if (index == 25 && edges[0] && edges[2])
+            else if (i == 25 && aboolean[0] && aboolean[2])
             {
-                index = 6;
+                i = 6;
             }
-            else if (index == 27 && edges[3] && edges[1])
+            else if (i == 27 && aboolean[3] && aboolean[1])
             {
-                index = 19;
+                i = 19;
             }
-            else if (index == 38 && edges[3] && edges[2])
+            else if (i == 38 && aboolean[3] && aboolean[2])
             {
-                index = 18;
+                i = 18;
             }
-            else if (index == 14 && !edges[0] && edges[1])
+            else if (i == 14 && !aboolean[0] && aboolean[1])
             {
-                index = 31;
+                i = 31;
             }
-            else if (index == 25 && edges[0] && !edges[2])
+            else if (i == 25 && aboolean[0] && !aboolean[2])
             {
-                index = 30;
+                i = 30;
             }
-            else if (index == 27 && !edges[3] && edges[1])
+            else if (i == 27 && !aboolean[3] && aboolean[1])
             {
-                index = 41;
+                i = 41;
             }
-            else if (index == 38 && edges[3] && !edges[2])
+            else if (i == 38 && aboolean[3] && !aboolean[2])
             {
-                index = 40;
+                i = 40;
             }
-            else if (index == 14 && edges[0] && !edges[1])
+            else if (i == 14 && aboolean[0] && !aboolean[1])
             {
-                index = 29;
+                i = 29;
             }
-            else if (index == 25 && !edges[0] && edges[2])
+            else if (i == 25 && !aboolean[0] && aboolean[2])
             {
-                index = 28;
+                i = 28;
             }
-            else if (index == 27 && edges[3] && !edges[1])
+            else if (i == 27 && aboolean[3] && !aboolean[1])
             {
-                index = 43;
+                i = 43;
             }
-            else if (index == 38 && !edges[3] && edges[2])
+            else if (i == 38 && !aboolean[3] && aboolean[2])
             {
-                index = 42;
+                i = 42;
             }
-            else if (index == 26 && edges[0] && edges[1] && edges[2] && edges[3])
+            else if (i == 26 && aboolean[0] && aboolean[1] && aboolean[2] && aboolean[3])
             {
-                index = 46;
+                i = 46;
             }
-            else if (index == 26 && !edges[0] && edges[1] && edges[2] && edges[3])
+            else if (i == 26 && !aboolean[0] && aboolean[1] && aboolean[2] && aboolean[3])
             {
-                index = 9;
+                i = 9;
             }
-            else if (index == 26 && edges[0] && !edges[1] && edges[2] && edges[3])
+            else if (i == 26 && aboolean[0] && !aboolean[1] && aboolean[2] && aboolean[3])
             {
-                index = 21;
+                i = 21;
             }
-            else if (index == 26 && edges[0] && edges[1] && !edges[2] && edges[3])
+            else if (i == 26 && aboolean[0] && aboolean[1] && !aboolean[2] && aboolean[3])
             {
-                index = 8;
+                i = 8;
             }
-            else if (index == 26 && edges[0] && edges[1] && edges[2] && !edges[3])
+            else if (i == 26 && aboolean[0] && aboolean[1] && aboolean[2] && !aboolean[3])
             {
-                index = 20;
+                i = 20;
             }
-            else if (index == 26 && edges[0] && edges[1] && !edges[2] && !edges[3])
+            else if (i == 26 && aboolean[0] && aboolean[1] && !aboolean[2] && !aboolean[3])
             {
-                index = 11;
+                i = 11;
             }
-            else if (index == 26 && !edges[0] && !edges[1] && edges[2] && edges[3])
+            else if (i == 26 && !aboolean[0] && !aboolean[1] && aboolean[2] && aboolean[3])
             {
-                index = 22;
+                i = 22;
             }
-            else if (index == 26 && !edges[0] && edges[1] && !edges[2] && edges[3])
+            else if (i == 26 && !aboolean[0] && aboolean[1] && !aboolean[2] && aboolean[3])
             {
-                index = 23;
+                i = 23;
             }
-            else if (index == 26 && edges[0] && !edges[1] && edges[2] && !edges[3])
+            else if (i == 26 && aboolean[0] && !aboolean[1] && aboolean[2] && !aboolean[3])
             {
-                index = 10;
+                i = 10;
             }
-            else if (index == 26 && edges[0] && !edges[1] && !edges[2] && edges[3])
+            else if (i == 26 && aboolean[0] && !aboolean[1] && !aboolean[2] && aboolean[3])
             {
-                index = 34;
+                i = 34;
             }
-            else if (index == 26 && !edges[0] && edges[1] && edges[2] && !edges[3])
+            else if (i == 26 && !aboolean[0] && aboolean[1] && aboolean[2] && !aboolean[3])
             {
-                index = 35;
+                i = 35;
             }
-            else if (index == 26 && edges[0] && !edges[1] && !edges[2] && !edges[3])
+            else if (i == 26 && aboolean[0] && !aboolean[1] && !aboolean[2] && !aboolean[3])
             {
-                index = 32;
+                i = 32;
             }
-            else if (index == 26 && !edges[0] && edges[1] && !edges[2] && !edges[3])
+            else if (i == 26 && !aboolean[0] && aboolean[1] && !aboolean[2] && !aboolean[3])
             {
-                index = 33;
+                i = 33;
             }
-            else if (index == 26 && !edges[0] && !edges[1] && edges[2] && !edges[3])
+            else if (i == 26 && !aboolean[0] && !aboolean[1] && aboolean[2] && !aboolean[3])
             {
-                index = 44;
+                i = 44;
             }
-            else if (index == 26 && !edges[0] && !edges[1] && !edges[2] && edges[3])
+            else if (i == 26 && !aboolean[0] && !aboolean[1] && !aboolean[2] && aboolean[3])
             {
-                index = 45;
+                i = 45;
             }
 
-            return cp.tileIcons[index];
+            return p_getConnectedTextureCtm_0_.tileIcons[i];
         }
     }
 
-    private static boolean isNeighbour(ConnectedProperties cp, IBlockAccess iblockaccess, Block block, int x, int y, int z, int side, IIcon icon, int metadata)
+    private static boolean isNeighbour(ConnectedProperties p_isNeighbour_0_, IBlockAccess p_isNeighbour_1_, IBlockState p_isNeighbour_2_, BlockPos p_isNeighbour_3_, int p_isNeighbour_4_, TextureAtlasSprite p_isNeighbour_5_, int p_isNeighbour_6_)
     {
-        Block neighbourBlock = iblockaccess.getBlock(x, y, z);
+        IBlockState iblockstate = p_isNeighbour_1_.getBlockState(p_isNeighbour_3_);
 
-        if (cp.connect == 2)
+        if (p_isNeighbour_2_ == iblockstate)
         {
-            if (neighbourBlock == null)
+            return true;
+        }
+        else if (p_isNeighbour_0_.connect == 2)
+        {
+            if (iblockstate == null)
+            {
+                return false;
+            }
+            else if (iblockstate == AIR_DEFAULT_STATE)
             {
                 return false;
             }
             else
             {
-                int neighbourMetadata = iblockaccess.getBlockMetadata(x, y, z);
-                IIcon neighbourIcon;
-
-                if (side >= 0)
-                {
-                    neighbourIcon = neighbourBlock.getIcon(side, neighbourMetadata);
-                }
-                else
-                {
-                    neighbourIcon = neighbourBlock.getIcon(1, neighbourMetadata);
-                }
-
-                return neighbourIcon == icon;
+                TextureAtlasSprite textureatlassprite = getNeighbourIcon(p_isNeighbour_1_, p_isNeighbour_3_, iblockstate, p_isNeighbour_4_);
+                return textureatlassprite == p_isNeighbour_5_;
             }
         }
         else
         {
-            return cp.connect == 3 ? (neighbourBlock == null ? false : neighbourBlock.getMaterial() == block.getMaterial()) : neighbourBlock == block && iblockaccess.getBlockMetadata(x, y, z) == metadata;
+            return p_isNeighbour_0_.connect == 3 ? (iblockstate == null ? false : (iblockstate == AIR_DEFAULT_STATE ? false : iblockstate.getBlock().getMaterial() == p_isNeighbour_2_.getBlock().getMaterial())) : false;
         }
     }
 
-    private static IIcon getConnectedTextureHorizontal(ConnectedProperties cp, IBlockAccess blockAccess, Block block, int x, int y, int z, int vertAxis, int side, IIcon icon, int metadata)
+    private static TextureAtlasSprite getNeighbourIcon(IBlockAccess p_getNeighbourIcon_0_, BlockPos p_getNeighbourIcon_1_, IBlockState p_getNeighbourIcon_2_, int p_getNeighbourIcon_3_)
     {
-        boolean left;
-        boolean right;
-        left = false;
-        right = false;
-        label46:
+        p_getNeighbourIcon_2_ = p_getNeighbourIcon_2_.getBlock().getActualState(p_getNeighbourIcon_2_, p_getNeighbourIcon_0_, p_getNeighbourIcon_1_);
+        IBakedModel ibakedmodel = Minecraft.getMinecraft().getBlockRendererDispatcher().getBlockModelShapes().getModelForState(p_getNeighbourIcon_2_);
 
-        switch (vertAxis)
+        if (ibakedmodel == null)
         {
-            case 0:
-                switch (side)
-                {
-                    case 0:
-                    case 1:
-                        return null;
-
-                    case 2:
-                        left = isNeighbour(cp, blockAccess, block, x + 1, y, z, side, icon, metadata);
-                        right = isNeighbour(cp, blockAccess, block, x - 1, y, z, side, icon, metadata);
-                        break label46;
-
-                    case 3:
-                        left = isNeighbour(cp, blockAccess, block, x - 1, y, z, side, icon, metadata);
-                        right = isNeighbour(cp, blockAccess, block, x + 1, y, z, side, icon, metadata);
-                        break label46;
-
-                    case 4:
-                        left = isNeighbour(cp, blockAccess, block, x, y, z - 1, side, icon, metadata);
-                        right = isNeighbour(cp, blockAccess, block, x, y, z + 1, side, icon, metadata);
-                        break label46;
-
-                    case 5:
-                        left = isNeighbour(cp, blockAccess, block, x, y, z + 1, side, icon, metadata);
-                        right = isNeighbour(cp, blockAccess, block, x, y, z - 1, side, icon, metadata);
-
-                    default:
-                        break label46;
-                }
-
-            case 1:
-                switch (side)
-                {
-                    case 0:
-                        left = isNeighbour(cp, blockAccess, block, x + 1, y, z, side, icon, metadata);
-                        right = isNeighbour(cp, blockAccess, block, x - 1, y, z, side, icon, metadata);
-                        break label46;
-
-                    case 1:
-                        left = isNeighbour(cp, blockAccess, block, x + 1, y, z, side, icon, metadata);
-                        right = isNeighbour(cp, blockAccess, block, x - 1, y, z, side, icon, metadata);
-                        break label46;
-
-                    case 2:
-                    case 3:
-                        return null;
-
-                    case 4:
-                        left = isNeighbour(cp, blockAccess, block, x, y + 1, z, side, icon, metadata);
-                        right = isNeighbour(cp, blockAccess, block, x, y - 1, z, side, icon, metadata);
-                        break label46;
-
-                    case 5:
-                        left = isNeighbour(cp, blockAccess, block, x, y + 1, z, side, icon, metadata);
-                        right = isNeighbour(cp, blockAccess, block, x, y - 1, z, side, icon, metadata);
-
-                    default:
-                        break label46;
-                }
-
-            case 2:
-                switch (side)
-                {
-                    case 0:
-                        left = isNeighbour(cp, blockAccess, block, x, y, z - 1, side, icon, metadata);
-                        right = isNeighbour(cp, blockAccess, block, x, y, z + 1, side, icon, metadata);
-                        break;
-
-                    case 1:
-                        left = isNeighbour(cp, blockAccess, block, x, y, z - 1, side, icon, metadata);
-                        right = isNeighbour(cp, blockAccess, block, x, y, z + 1, side, icon, metadata);
-                        break;
-
-                    case 2:
-                        left = isNeighbour(cp, blockAccess, block, x, y + 1, z, side, icon, metadata);
-                        right = isNeighbour(cp, blockAccess, block, x, y - 1, z, side, icon, metadata);
-                        break;
-
-                    case 3:
-                        left = isNeighbour(cp, blockAccess, block, x, y + 1, z, side, icon, metadata);
-                        right = isNeighbour(cp, blockAccess, block, x, y - 1, z, side, icon, metadata);
-                        break;
-
-                    case 4:
-                    case 5:
-                        return null;
-                }
+            return null;
         }
-
-        boolean index = true;
-        byte index1;
-
-        if (left)
+        else
         {
-            if (right)
+            EnumFacing enumfacing = getFacing(p_getNeighbourIcon_3_);
+            List list = ibakedmodel.getFaceQuads(enumfacing);
+
+            if (list.size() > 0)
             {
-                index1 = 1;
+                BakedQuad bakedquad1 = (BakedQuad)list.get(0);
+                return bakedquad1.getSprite();
             }
             else
             {
-                index1 = 2;
+                List list1 = ibakedmodel.getGeneralQuads();
+
+                for (int i = 0; i < list1.size(); ++i)
+                {
+                    BakedQuad bakedquad = (BakedQuad)list1.get(i);
+
+                    if (bakedquad.getFace() == enumfacing)
+                    {
+                        return bakedquad.getSprite();
+                    }
+                }
+
+                return null;
             }
         }
-        else if (right)
-        {
-            index1 = 0;
-        }
-        else
-        {
-            index1 = 3;
-        }
-
-        return cp.tileIcons[index1];
     }
 
-    private static IIcon getConnectedTextureVertical(ConnectedProperties cp, IBlockAccess blockAccess, Block block, int x, int y, int z, int vertAxis, int side, IIcon icon, int metadata)
+    private static TextureAtlasSprite getConnectedTextureHorizontal(ConnectedProperties p_getConnectedTextureHorizontal_0_, IBlockAccess p_getConnectedTextureHorizontal_1_, IBlockState p_getConnectedTextureHorizontal_2_, BlockPos p_getConnectedTextureHorizontal_3_, int p_getConnectedTextureHorizontal_4_, int p_getConnectedTextureHorizontal_5_, TextureAtlasSprite p_getConnectedTextureHorizontal_6_, int p_getConnectedTextureHorizontal_7_)
     {
-        boolean bottom = false;
-        boolean top = false;
+        boolean flag;
+        boolean flag1;
+        flag = false;
+        flag1 = false;
+        label0:
 
-        switch (vertAxis)
+        switch (p_getConnectedTextureHorizontal_4_)
         {
             case 0:
-                if (side == 1 || side == 0)
+                switch (p_getConnectedTextureHorizontal_5_)
                 {
-                    return null;
-                }
+                    case 0:
+                    case 1:
+                        return null;
 
-                bottom = isNeighbour(cp, blockAccess, block, x, y - 1, z, side, icon, metadata);
-                top = isNeighbour(cp, blockAccess, block, x, y + 1, z, side, icon, metadata);
-                break;
+                    case 2:
+                        flag = isNeighbour(p_getConnectedTextureHorizontal_0_, p_getConnectedTextureHorizontal_1_, p_getConnectedTextureHorizontal_2_, p_getConnectedTextureHorizontal_3_.east(), p_getConnectedTextureHorizontal_5_, p_getConnectedTextureHorizontal_6_, p_getConnectedTextureHorizontal_7_);
+                        flag1 = isNeighbour(p_getConnectedTextureHorizontal_0_, p_getConnectedTextureHorizontal_1_, p_getConnectedTextureHorizontal_2_, p_getConnectedTextureHorizontal_3_.west(), p_getConnectedTextureHorizontal_5_, p_getConnectedTextureHorizontal_6_, p_getConnectedTextureHorizontal_7_);
+                        break label0;
+
+                    case 3:
+                        flag = isNeighbour(p_getConnectedTextureHorizontal_0_, p_getConnectedTextureHorizontal_1_, p_getConnectedTextureHorizontal_2_, p_getConnectedTextureHorizontal_3_.west(), p_getConnectedTextureHorizontal_5_, p_getConnectedTextureHorizontal_6_, p_getConnectedTextureHorizontal_7_);
+                        flag1 = isNeighbour(p_getConnectedTextureHorizontal_0_, p_getConnectedTextureHorizontal_1_, p_getConnectedTextureHorizontal_2_, p_getConnectedTextureHorizontal_3_.east(), p_getConnectedTextureHorizontal_5_, p_getConnectedTextureHorizontal_6_, p_getConnectedTextureHorizontal_7_);
+                        break label0;
+
+                    case 4:
+                        flag = isNeighbour(p_getConnectedTextureHorizontal_0_, p_getConnectedTextureHorizontal_1_, p_getConnectedTextureHorizontal_2_, p_getConnectedTextureHorizontal_3_.north(), p_getConnectedTextureHorizontal_5_, p_getConnectedTextureHorizontal_6_, p_getConnectedTextureHorizontal_7_);
+                        flag1 = isNeighbour(p_getConnectedTextureHorizontal_0_, p_getConnectedTextureHorizontal_1_, p_getConnectedTextureHorizontal_2_, p_getConnectedTextureHorizontal_3_.south(), p_getConnectedTextureHorizontal_5_, p_getConnectedTextureHorizontal_6_, p_getConnectedTextureHorizontal_7_);
+                        break label0;
+
+                    case 5:
+                        flag = isNeighbour(p_getConnectedTextureHorizontal_0_, p_getConnectedTextureHorizontal_1_, p_getConnectedTextureHorizontal_2_, p_getConnectedTextureHorizontal_3_.south(), p_getConnectedTextureHorizontal_5_, p_getConnectedTextureHorizontal_6_, p_getConnectedTextureHorizontal_7_);
+                        flag1 = isNeighbour(p_getConnectedTextureHorizontal_0_, p_getConnectedTextureHorizontal_1_, p_getConnectedTextureHorizontal_2_, p_getConnectedTextureHorizontal_3_.north(), p_getConnectedTextureHorizontal_5_, p_getConnectedTextureHorizontal_6_, p_getConnectedTextureHorizontal_7_);
+
+                    default:
+                        break label0;
+                }
 
             case 1:
-                if (side == 3 || side == 2)
+                switch (p_getConnectedTextureHorizontal_5_)
                 {
-                    return null;
-                }
+                    case 0:
+                        flag = isNeighbour(p_getConnectedTextureHorizontal_0_, p_getConnectedTextureHorizontal_1_, p_getConnectedTextureHorizontal_2_, p_getConnectedTextureHorizontal_3_.west(), p_getConnectedTextureHorizontal_5_, p_getConnectedTextureHorizontal_6_, p_getConnectedTextureHorizontal_7_);
+                        flag1 = isNeighbour(p_getConnectedTextureHorizontal_0_, p_getConnectedTextureHorizontal_1_, p_getConnectedTextureHorizontal_2_, p_getConnectedTextureHorizontal_3_.east(), p_getConnectedTextureHorizontal_5_, p_getConnectedTextureHorizontal_6_, p_getConnectedTextureHorizontal_7_);
+                        break label0;
 
-                bottom = isNeighbour(cp, blockAccess, block, x, y, z - 1, side, icon, metadata);
-                top = isNeighbour(cp, blockAccess, block, x, y, z + 1, side, icon, metadata);
-                break;
+                    case 1:
+                        flag = isNeighbour(p_getConnectedTextureHorizontal_0_, p_getConnectedTextureHorizontal_1_, p_getConnectedTextureHorizontal_2_, p_getConnectedTextureHorizontal_3_.west(), p_getConnectedTextureHorizontal_5_, p_getConnectedTextureHorizontal_6_, p_getConnectedTextureHorizontal_7_);
+                        flag1 = isNeighbour(p_getConnectedTextureHorizontal_0_, p_getConnectedTextureHorizontal_1_, p_getConnectedTextureHorizontal_2_, p_getConnectedTextureHorizontal_3_.east(), p_getConnectedTextureHorizontal_5_, p_getConnectedTextureHorizontal_6_, p_getConnectedTextureHorizontal_7_);
+                        break label0;
+
+                    case 2:
+                    case 3:
+                        return null;
+
+                    case 4:
+                        flag = isNeighbour(p_getConnectedTextureHorizontal_0_, p_getConnectedTextureHorizontal_1_, p_getConnectedTextureHorizontal_2_, p_getConnectedTextureHorizontal_3_.down(), p_getConnectedTextureHorizontal_5_, p_getConnectedTextureHorizontal_6_, p_getConnectedTextureHorizontal_7_);
+                        flag1 = isNeighbour(p_getConnectedTextureHorizontal_0_, p_getConnectedTextureHorizontal_1_, p_getConnectedTextureHorizontal_2_, p_getConnectedTextureHorizontal_3_.up(), p_getConnectedTextureHorizontal_5_, p_getConnectedTextureHorizontal_6_, p_getConnectedTextureHorizontal_7_);
+                        break label0;
+
+                    case 5:
+                        flag = isNeighbour(p_getConnectedTextureHorizontal_0_, p_getConnectedTextureHorizontal_1_, p_getConnectedTextureHorizontal_2_, p_getConnectedTextureHorizontal_3_.up(), p_getConnectedTextureHorizontal_5_, p_getConnectedTextureHorizontal_6_, p_getConnectedTextureHorizontal_7_);
+                        flag1 = isNeighbour(p_getConnectedTextureHorizontal_0_, p_getConnectedTextureHorizontal_1_, p_getConnectedTextureHorizontal_2_, p_getConnectedTextureHorizontal_3_.down(), p_getConnectedTextureHorizontal_5_, p_getConnectedTextureHorizontal_6_, p_getConnectedTextureHorizontal_7_);
+
+                    default:
+                        break label0;
+                }
 
             case 2:
-                if (side == 5 || side == 4)
+                switch (p_getConnectedTextureHorizontal_5_)
                 {
-                    return null;
-                }
+                    case 0:
+                        flag = isNeighbour(p_getConnectedTextureHorizontal_0_, p_getConnectedTextureHorizontal_1_, p_getConnectedTextureHorizontal_2_, p_getConnectedTextureHorizontal_3_.north(), p_getConnectedTextureHorizontal_5_, p_getConnectedTextureHorizontal_6_, p_getConnectedTextureHorizontal_7_);
+                        flag1 = isNeighbour(p_getConnectedTextureHorizontal_0_, p_getConnectedTextureHorizontal_1_, p_getConnectedTextureHorizontal_2_, p_getConnectedTextureHorizontal_3_.south(), p_getConnectedTextureHorizontal_5_, p_getConnectedTextureHorizontal_6_, p_getConnectedTextureHorizontal_7_);
+                        break;
 
-                bottom = isNeighbour(cp, blockAccess, block, x - 1, y, z, side, icon, metadata);
-                top = isNeighbour(cp, blockAccess, block, x + 1, y, z, side, icon, metadata);
+                    case 1:
+                        flag = isNeighbour(p_getConnectedTextureHorizontal_0_, p_getConnectedTextureHorizontal_1_, p_getConnectedTextureHorizontal_2_, p_getConnectedTextureHorizontal_3_.north(), p_getConnectedTextureHorizontal_5_, p_getConnectedTextureHorizontal_6_, p_getConnectedTextureHorizontal_7_);
+                        flag1 = isNeighbour(p_getConnectedTextureHorizontal_0_, p_getConnectedTextureHorizontal_1_, p_getConnectedTextureHorizontal_2_, p_getConnectedTextureHorizontal_3_.south(), p_getConnectedTextureHorizontal_5_, p_getConnectedTextureHorizontal_6_, p_getConnectedTextureHorizontal_7_);
+                        break;
+
+                    case 2:
+                        flag = isNeighbour(p_getConnectedTextureHorizontal_0_, p_getConnectedTextureHorizontal_1_, p_getConnectedTextureHorizontal_2_, p_getConnectedTextureHorizontal_3_.down(), p_getConnectedTextureHorizontal_5_, p_getConnectedTextureHorizontal_6_, p_getConnectedTextureHorizontal_7_);
+                        flag1 = isNeighbour(p_getConnectedTextureHorizontal_0_, p_getConnectedTextureHorizontal_1_, p_getConnectedTextureHorizontal_2_, p_getConnectedTextureHorizontal_3_.up(), p_getConnectedTextureHorizontal_5_, p_getConnectedTextureHorizontal_6_, p_getConnectedTextureHorizontal_7_);
+                        break;
+
+                    case 3:
+                        flag = isNeighbour(p_getConnectedTextureHorizontal_0_, p_getConnectedTextureHorizontal_1_, p_getConnectedTextureHorizontal_2_, p_getConnectedTextureHorizontal_3_.up(), p_getConnectedTextureHorizontal_5_, p_getConnectedTextureHorizontal_6_, p_getConnectedTextureHorizontal_7_);
+                        flag1 = isNeighbour(p_getConnectedTextureHorizontal_0_, p_getConnectedTextureHorizontal_1_, p_getConnectedTextureHorizontal_2_, p_getConnectedTextureHorizontal_3_.down(), p_getConnectedTextureHorizontal_5_, p_getConnectedTextureHorizontal_6_, p_getConnectedTextureHorizontal_7_);
+                        break;
+
+                    case 4:
+                    case 5:
+                        return null;
+                }
         }
 
-        boolean index = true;
-        byte index1;
+        int i = 3;
 
-        if (bottom)
+        if (flag)
         {
-            if (top)
+            if (flag1)
             {
-                index1 = 1;
+                i = 1;
             }
             else
             {
-                index1 = 2;
+                i = 2;
             }
         }
-        else if (top)
+        else if (flag1)
         {
-            index1 = 0;
+            i = 0;
         }
         else
         {
-            index1 = 3;
+            i = 3;
         }
 
-        return cp.tileIcons[index1];
+        return p_getConnectedTextureHorizontal_0_.tileIcons[i];
     }
 
-    private static IIcon getConnectedTextureHorizontalVertical(ConnectedProperties cp, IBlockAccess blockAccess, Block block, int x, int y, int z, int vertAxis, int side, IIcon icon, int metadata)
+    private static TextureAtlasSprite getConnectedTextureVertical(ConnectedProperties p_getConnectedTextureVertical_0_, IBlockAccess p_getConnectedTextureVertical_1_, IBlockState p_getConnectedTextureVertical_2_, BlockPos p_getConnectedTextureVertical_3_, int p_getConnectedTextureVertical_4_, int p_getConnectedTextureVertical_5_, TextureAtlasSprite p_getConnectedTextureVertical_6_, int p_getConnectedTextureVertical_7_)
     {
-        IIcon[] tileIcons = cp.tileIcons;
-        IIcon iconH = getConnectedTextureHorizontal(cp, blockAccess, block, x, y, z, vertAxis, side, icon, metadata);
+        boolean flag = false;
+        boolean flag1 = false;
 
-        if (iconH != null && iconH != icon && iconH != tileIcons[3])
-        {
-            return iconH;
-        }
-        else
-        {
-            IIcon iconV = getConnectedTextureVertical(cp, blockAccess, block, x, y, z, vertAxis, side, icon, metadata);
-            return iconV == tileIcons[0] ? tileIcons[4] : (iconV == tileIcons[1] ? tileIcons[5] : (iconV == tileIcons[2] ? tileIcons[6] : iconV));
-        }
-    }
-
-    private static IIcon getConnectedTextureVerticalHorizontal(ConnectedProperties cp, IBlockAccess blockAccess, Block block, int x, int y, int z, int vertAxis, int side, IIcon icon, int metadata)
-    {
-        IIcon[] tileIcons = cp.tileIcons;
-        IIcon iconV = getConnectedTextureVertical(cp, blockAccess, block, x, y, z, vertAxis, side, icon, metadata);
-
-        if (iconV != null && iconV != icon && iconV != tileIcons[3])
-        {
-            return iconV;
-        }
-        else
-        {
-            IIcon iconH = getConnectedTextureHorizontal(cp, blockAccess, block, x, y, z, vertAxis, side, icon, metadata);
-            return iconH == tileIcons[0] ? tileIcons[4] : (iconH == tileIcons[1] ? tileIcons[5] : (iconH == tileIcons[2] ? tileIcons[6] : iconH));
-        }
-    }
-
-    private static IIcon getConnectedTextureTop(ConnectedProperties cp, IBlockAccess blockAccess, Block block, int x, int y, int z, int vertAxis, int side, IIcon icon, int metadata)
-    {
-        boolean top = false;
-
-        switch (vertAxis)
+        switch (p_getConnectedTextureVertical_4_)
         {
             case 0:
-                if (side == 1 || side == 0)
+                if (p_getConnectedTextureVertical_5_ == 1 || p_getConnectedTextureVertical_5_ == 0)
                 {
                     return null;
                 }
 
-                top = isNeighbour(cp, blockAccess, block, x, y + 1, z, side, icon, metadata);
+                flag = isNeighbour(p_getConnectedTextureVertical_0_, p_getConnectedTextureVertical_1_, p_getConnectedTextureVertical_2_, p_getConnectedTextureVertical_3_.down(), p_getConnectedTextureVertical_5_, p_getConnectedTextureVertical_6_, p_getConnectedTextureVertical_7_);
+                flag1 = isNeighbour(p_getConnectedTextureVertical_0_, p_getConnectedTextureVertical_1_, p_getConnectedTextureVertical_2_, p_getConnectedTextureVertical_3_.up(), p_getConnectedTextureVertical_5_, p_getConnectedTextureVertical_6_, p_getConnectedTextureVertical_7_);
                 break;
 
             case 1:
-                if (side == 3 || side == 2)
+                if (p_getConnectedTextureVertical_5_ == 3 || p_getConnectedTextureVertical_5_ == 2)
                 {
                     return null;
                 }
 
-                top = isNeighbour(cp, blockAccess, block, x, y, z + 1, side, icon, metadata);
+                flag = isNeighbour(p_getConnectedTextureVertical_0_, p_getConnectedTextureVertical_1_, p_getConnectedTextureVertical_2_, p_getConnectedTextureVertical_3_.south(), p_getConnectedTextureVertical_5_, p_getConnectedTextureVertical_6_, p_getConnectedTextureVertical_7_);
+                flag1 = isNeighbour(p_getConnectedTextureVertical_0_, p_getConnectedTextureVertical_1_, p_getConnectedTextureVertical_2_, p_getConnectedTextureVertical_3_.north(), p_getConnectedTextureVertical_5_, p_getConnectedTextureVertical_6_, p_getConnectedTextureVertical_7_);
                 break;
 
             case 2:
-                if (side == 5 || side == 4)
+                if (p_getConnectedTextureVertical_5_ == 5 || p_getConnectedTextureVertical_5_ == 4)
                 {
                     return null;
                 }
 
-                top = isNeighbour(cp, blockAccess, block, x + 1, y, z, side, icon, metadata);
+                flag = isNeighbour(p_getConnectedTextureVertical_0_, p_getConnectedTextureVertical_1_, p_getConnectedTextureVertical_2_, p_getConnectedTextureVertical_3_.west(), p_getConnectedTextureVertical_5_, p_getConnectedTextureVertical_6_, p_getConnectedTextureVertical_7_);
+                flag1 = isNeighbour(p_getConnectedTextureVertical_0_, p_getConnectedTextureVertical_1_, p_getConnectedTextureVertical_2_, p_getConnectedTextureVertical_3_.east(), p_getConnectedTextureVertical_5_, p_getConnectedTextureVertical_6_, p_getConnectedTextureVertical_7_);
         }
 
-        return top ? cp.tileIcons[0] : null;
+        int i = 3;
+
+        if (flag)
+        {
+            if (flag1)
+            {
+                i = 1;
+            }
+            else
+            {
+                i = 2;
+            }
+        }
+        else if (flag1)
+        {
+            i = 0;
+        }
+        else
+        {
+            i = 3;
+        }
+
+        return p_getConnectedTextureVertical_0_.tileIcons[i];
     }
 
-    public static void updateIcons(TextureMap textureMap)
+    private static TextureAtlasSprite getConnectedTextureHorizontalVertical(ConnectedProperties p_getConnectedTextureHorizontalVertical_0_, IBlockAccess p_getConnectedTextureHorizontalVertical_1_, IBlockState p_getConnectedTextureHorizontalVertical_2_, BlockPos p_getConnectedTextureHorizontalVertical_3_, int p_getConnectedTextureHorizontalVertical_4_, int p_getConnectedTextureHorizontalVertical_5_, TextureAtlasSprite p_getConnectedTextureHorizontalVertical_6_, int p_getConnectedTextureHorizontalVertical_7_)
+    {
+        TextureAtlasSprite[] atextureatlassprite = p_getConnectedTextureHorizontalVertical_0_.tileIcons;
+        TextureAtlasSprite textureatlassprite = getConnectedTextureHorizontal(p_getConnectedTextureHorizontalVertical_0_, p_getConnectedTextureHorizontalVertical_1_, p_getConnectedTextureHorizontalVertical_2_, p_getConnectedTextureHorizontalVertical_3_, p_getConnectedTextureHorizontalVertical_4_, p_getConnectedTextureHorizontalVertical_5_, p_getConnectedTextureHorizontalVertical_6_, p_getConnectedTextureHorizontalVertical_7_);
+
+        if (textureatlassprite != null && textureatlassprite != p_getConnectedTextureHorizontalVertical_6_ && textureatlassprite != atextureatlassprite[3])
+        {
+            return textureatlassprite;
+        }
+        else
+        {
+            TextureAtlasSprite textureatlassprite1 = getConnectedTextureVertical(p_getConnectedTextureHorizontalVertical_0_, p_getConnectedTextureHorizontalVertical_1_, p_getConnectedTextureHorizontalVertical_2_, p_getConnectedTextureHorizontalVertical_3_, p_getConnectedTextureHorizontalVertical_4_, p_getConnectedTextureHorizontalVertical_5_, p_getConnectedTextureHorizontalVertical_6_, p_getConnectedTextureHorizontalVertical_7_);
+            return textureatlassprite1 == atextureatlassprite[0] ? atextureatlassprite[4] : (textureatlassprite1 == atextureatlassprite[1] ? atextureatlassprite[5] : (textureatlassprite1 == atextureatlassprite[2] ? atextureatlassprite[6] : textureatlassprite1));
+        }
+    }
+
+    private static TextureAtlasSprite getConnectedTextureVerticalHorizontal(ConnectedProperties p_getConnectedTextureVerticalHorizontal_0_, IBlockAccess p_getConnectedTextureVerticalHorizontal_1_, IBlockState p_getConnectedTextureVerticalHorizontal_2_, BlockPos p_getConnectedTextureVerticalHorizontal_3_, int p_getConnectedTextureVerticalHorizontal_4_, int p_getConnectedTextureVerticalHorizontal_5_, TextureAtlasSprite p_getConnectedTextureVerticalHorizontal_6_, int p_getConnectedTextureVerticalHorizontal_7_)
+    {
+        TextureAtlasSprite[] atextureatlassprite = p_getConnectedTextureVerticalHorizontal_0_.tileIcons;
+        TextureAtlasSprite textureatlassprite = getConnectedTextureVertical(p_getConnectedTextureVerticalHorizontal_0_, p_getConnectedTextureVerticalHorizontal_1_, p_getConnectedTextureVerticalHorizontal_2_, p_getConnectedTextureVerticalHorizontal_3_, p_getConnectedTextureVerticalHorizontal_4_, p_getConnectedTextureVerticalHorizontal_5_, p_getConnectedTextureVerticalHorizontal_6_, p_getConnectedTextureVerticalHorizontal_7_);
+
+        if (textureatlassprite != null && textureatlassprite != p_getConnectedTextureVerticalHorizontal_6_ && textureatlassprite != atextureatlassprite[3])
+        {
+            return textureatlassprite;
+        }
+        else
+        {
+            TextureAtlasSprite textureatlassprite1 = getConnectedTextureHorizontal(p_getConnectedTextureVerticalHorizontal_0_, p_getConnectedTextureVerticalHorizontal_1_, p_getConnectedTextureVerticalHorizontal_2_, p_getConnectedTextureVerticalHorizontal_3_, p_getConnectedTextureVerticalHorizontal_4_, p_getConnectedTextureVerticalHorizontal_5_, p_getConnectedTextureVerticalHorizontal_6_, p_getConnectedTextureVerticalHorizontal_7_);
+            return textureatlassprite1 == atextureatlassprite[0] ? atextureatlassprite[4] : (textureatlassprite1 == atextureatlassprite[1] ? atextureatlassprite[5] : (textureatlassprite1 == atextureatlassprite[2] ? atextureatlassprite[6] : textureatlassprite1));
+        }
+    }
+
+    private static TextureAtlasSprite getConnectedTextureTop(ConnectedProperties p_getConnectedTextureTop_0_, IBlockAccess p_getConnectedTextureTop_1_, IBlockState p_getConnectedTextureTop_2_, BlockPos p_getConnectedTextureTop_3_, int p_getConnectedTextureTop_4_, int p_getConnectedTextureTop_5_, TextureAtlasSprite p_getConnectedTextureTop_6_, int p_getConnectedTextureTop_7_)
+    {
+        boolean flag = false;
+
+        switch (p_getConnectedTextureTop_4_)
+        {
+            case 0:
+                if (p_getConnectedTextureTop_5_ == 1 || p_getConnectedTextureTop_5_ == 0)
+                {
+                    return null;
+                }
+
+                flag = isNeighbour(p_getConnectedTextureTop_0_, p_getConnectedTextureTop_1_, p_getConnectedTextureTop_2_, p_getConnectedTextureTop_3_.up(), p_getConnectedTextureTop_5_, p_getConnectedTextureTop_6_, p_getConnectedTextureTop_7_);
+                break;
+
+            case 1:
+                if (p_getConnectedTextureTop_5_ == 3 || p_getConnectedTextureTop_5_ == 2)
+                {
+                    return null;
+                }
+
+                flag = isNeighbour(p_getConnectedTextureTop_0_, p_getConnectedTextureTop_1_, p_getConnectedTextureTop_2_, p_getConnectedTextureTop_3_.south(), p_getConnectedTextureTop_5_, p_getConnectedTextureTop_6_, p_getConnectedTextureTop_7_);
+                break;
+
+            case 2:
+                if (p_getConnectedTextureTop_5_ == 5 || p_getConnectedTextureTop_5_ == 4)
+                {
+                    return null;
+                }
+
+                flag = isNeighbour(p_getConnectedTextureTop_0_, p_getConnectedTextureTop_1_, p_getConnectedTextureTop_2_, p_getConnectedTextureTop_3_.east(), p_getConnectedTextureTop_5_, p_getConnectedTextureTop_6_, p_getConnectedTextureTop_7_);
+        }
+
+        if (flag)
+        {
+            return p_getConnectedTextureTop_0_.tileIcons[0];
+        }
+        else
+        {
+            return null;
+        }
+    }
+
+    public static void updateIcons(TextureMap p_updateIcons_0_)
     {
         blockProperties = (ConnectedProperties[][])null;
         tileProperties = (ConnectedProperties[][])null;
-        IResourcePack[] rps = Config.getResourcePacks();
+        spriteQuadMaps = null;
 
-        for (int i = rps.length - 1; i >= 0; --i)
+        if (Config.isConnectedTextures())
         {
-            IResourcePack rp = rps[i];
-            updateIcons(textureMap, rp);
-        }
+            IResourcePack[] airesourcepack = Config.getResourcePacks();
 
-        updateIcons(textureMap, Config.getDefaultResourcePack());
+            for (int i = airesourcepack.length - 1; i >= 0; --i)
+            {
+                IResourcePack iresourcepack = airesourcepack[i];
+                updateIcons(p_updateIcons_0_, iresourcepack);
+            }
+
+            updateIcons(p_updateIcons_0_, Config.getDefaultResourcePack());
+            ResourceLocation resourcelocation = new ResourceLocation("mcpatcher/ctm/default/empty");
+            emptySprite = p_updateIcons_0_.registerSprite(resourcelocation);
+            spriteQuadMaps = new Map[p_updateIcons_0_.getCountRegisteredSprites() + 1];
+
+            if (blockProperties.length <= 0)
+            {
+                blockProperties = (ConnectedProperties[][])null;
+            }
+
+            if (tileProperties.length <= 0)
+            {
+                tileProperties = (ConnectedProperties[][])null;
+            }
+        }
     }
 
-    public static void updateIcons(TextureMap textureMap, IResourcePack rp)
+    private static void updateIconEmpty(TextureMap p_updateIconEmpty_0_)
     {
-        String[] names = collectFiles(rp, "mcpatcher/ctm/", ".properties");
-        Arrays.sort(names);
-        List tileList = makePropertyList(tileProperties);
-        List blockList = makePropertyList(blockProperties);
+    }
 
-        for (int i = 0; i < names.length; ++i)
+    public static void updateIcons(TextureMap p_updateIcons_0_, IResourcePack p_updateIcons_1_)
+    {
+        String[] astring = ResUtils.collectFiles(p_updateIcons_1_, "mcpatcher/ctm/", ".properties", getDefaultCtmPaths());
+        Arrays.sort((Object[])astring);
+        List list = makePropertyList(tileProperties);
+        List list1 = makePropertyList(blockProperties);
+
+        for (int i = 0; i < astring.length; ++i)
         {
-            String name = names[i];
-            Config.dbg("ConnectedTextures: " + name);
+            String s = astring[i];
+            Config.dbg("ConnectedTextures: " + s);
 
             try
             {
-                ResourceLocation e = new ResourceLocation(name);
-                InputStream in = rp.getInputStream(e);
+                ResourceLocation resourcelocation = new ResourceLocation(s);
+                InputStream inputstream = p_updateIcons_1_.getInputStream(resourcelocation);
 
-                if (in == null)
+                if (inputstream == null)
                 {
-                    Config.warn("ConnectedTextures file not found: " + name);
+                    Config.warn("ConnectedTextures file not found: " + s);
                 }
                 else
                 {
-                    Properties props = new Properties();
-                    props.load(in);
-                    ConnectedProperties cp = new ConnectedProperties(props, name);
+                    Properties properties = new Properties();
+                    properties.load(inputstream);
+                    ConnectedProperties connectedproperties = new ConnectedProperties(properties, s);
 
-                    if (cp.isValid(name))
+                    if (connectedproperties.isValid(s))
                     {
-                        cp.updateIcons(textureMap);
-                        addToTileList(cp, tileList);
-                        addToBlockList(cp, blockList);
+                        connectedproperties.updateIcons(p_updateIcons_0_);
+                        addToTileList(connectedproperties, list);
+                        addToBlockList(connectedproperties, list1);
                     }
                 }
             }
             catch (FileNotFoundException var11)
             {
-                Config.warn("ConnectedTextures file not found: " + name);
+                Config.warn("ConnectedTextures file not found: " + s);
             }
-            catch (IOException var12)
+            catch (Exception exception)
             {
-                var12.printStackTrace();
+                exception.printStackTrace();
             }
         }
 
-        blockProperties = propertyListToArray(blockList);
-        tileProperties = propertyListToArray(tileList);
+        blockProperties = propertyListToArray(list1);
+        tileProperties = propertyListToArray(list);
         multipass = detectMultipass();
         Config.dbg("Multipass connected textures: " + multipass);
     }
 
-    private static List makePropertyList(ConnectedProperties[][] propsArr)
+    private static List makePropertyList(ConnectedProperties[][] p_makePropertyList_0_)
     {
-        ArrayList list = new ArrayList();
+        List list = new ArrayList();
 
-        if (propsArr != null)
+        if (p_makePropertyList_0_ != null)
         {
-            for (int i = 0; i < propsArr.length; ++i)
+            for (int i = 0; i < p_makePropertyList_0_.length; ++i)
             {
-                ConnectedProperties[] props = propsArr[i];
-                ArrayList propList = null;
+                ConnectedProperties[] aconnectedproperties = p_makePropertyList_0_[i];
+                List list1 = null;
 
-                if (props != null)
+                if (aconnectedproperties != null)
                 {
-                    propList = new ArrayList(Arrays.asList(props));
+                    list1 = new ArrayList(Arrays.asList(aconnectedproperties));
                 }
 
-                list.add(propList);
+                list.add(list1);
             }
         }
 
@@ -1224,327 +1335,200 @@ public class ConnectedTextures
 
     private static boolean detectMultipass()
     {
-        ArrayList propList = new ArrayList();
-        int props;
-        ConnectedProperties[] matchIconSet;
+        List list = new ArrayList();
 
-        for (props = 0; props < tileProperties.length; ++props)
+        for (int i = 0; i < tileProperties.length; ++i)
         {
-            matchIconSet = tileProperties[props];
+            ConnectedProperties[] aconnectedproperties = tileProperties[i];
 
-            if (matchIconSet != null)
+            if (aconnectedproperties != null)
             {
-                propList.addAll(Arrays.asList(matchIconSet));
+                list.addAll(Arrays.asList(aconnectedproperties));
             }
         }
 
-        for (props = 0; props < blockProperties.length; ++props)
+        for (int k = 0; k < blockProperties.length; ++k)
         {
-            matchIconSet = blockProperties[props];
+            ConnectedProperties[] aconnectedproperties2 = blockProperties[k];
 
-            if (matchIconSet != null)
+            if (aconnectedproperties2 != null)
             {
-                propList.addAll(Arrays.asList(matchIconSet));
+                list.addAll(Arrays.asList(aconnectedproperties2));
             }
         }
 
-        ConnectedProperties[] var6 = (ConnectedProperties[])((ConnectedProperties[])propList.toArray(new ConnectedProperties[propList.size()]));
-        HashSet var7 = new HashSet();
-        HashSet tileIconSet = new HashSet();
+        ConnectedProperties[] aconnectedproperties1 = (ConnectedProperties[])((ConnectedProperties[])list.toArray(new ConnectedProperties[list.size()]));
+        Set set1 = new HashSet();
+        Set set = new HashSet();
 
-        for (int i = 0; i < var6.length; ++i)
+        for (int j = 0; j < aconnectedproperties1.length; ++j)
         {
-            ConnectedProperties cp = var6[i];
+            ConnectedProperties connectedproperties = aconnectedproperties1[j];
 
-            if (cp.matchTileIcons != null)
+            if (connectedproperties.matchTileIcons != null)
             {
-                var7.addAll(Arrays.asList(cp.matchTileIcons));
+                set1.addAll(Arrays.asList(connectedproperties.matchTileIcons));
             }
 
-            if (cp.tileIcons != null)
+            if (connectedproperties.tileIcons != null)
             {
-                tileIconSet.addAll(Arrays.asList(cp.tileIcons));
+                set.addAll(Arrays.asList(connectedproperties.tileIcons));
             }
         }
 
-        var7.retainAll(tileIconSet);
-        return !var7.isEmpty();
+        set1.retainAll(set);
+        return !set1.isEmpty();
     }
 
-    private static ConnectedProperties[][] propertyListToArray(List list)
+    private static ConnectedProperties[][] propertyListToArray(List p_propertyListToArray_0_)
     {
-        ConnectedProperties[][] propArr = new ConnectedProperties[list.size()][];
+        ConnectedProperties[][] aconnectedproperties = new ConnectedProperties[p_propertyListToArray_0_.size()][];
 
-        for (int i = 0; i < list.size(); ++i)
+        for (int i = 0; i < p_propertyListToArray_0_.size(); ++i)
         {
-            List subList = (List)list.get(i);
+            List list = (List)p_propertyListToArray_0_.get(i);
 
-            if (subList != null)
+            if (list != null)
             {
-                ConnectedProperties[] subArr = (ConnectedProperties[])((ConnectedProperties[])subList.toArray(new ConnectedProperties[subList.size()]));
-                propArr[i] = subArr;
+                ConnectedProperties[] aconnectedproperties1 = (ConnectedProperties[])((ConnectedProperties[])list.toArray(new ConnectedProperties[list.size()]));
+                aconnectedproperties[i] = aconnectedproperties1;
             }
         }
 
-        return propArr;
+        return aconnectedproperties;
     }
 
-    private static void addToTileList(ConnectedProperties cp, List tileList)
+    private static void addToTileList(ConnectedProperties p_addToTileList_0_, List p_addToTileList_1_)
     {
-        if (cp.matchTileIcons != null)
+        if (p_addToTileList_0_.matchTileIcons != null)
         {
-            for (int i = 0; i < cp.matchTileIcons.length; ++i)
+            for (int i = 0; i < p_addToTileList_0_.matchTileIcons.length; ++i)
             {
-                IIcon icon = cp.matchTileIcons[i];
+                TextureAtlasSprite textureatlassprite = p_addToTileList_0_.matchTileIcons[i];
 
-                if (!(icon instanceof TextureAtlasSprite))
+                if (!(textureatlassprite instanceof TextureAtlasSprite))
                 {
-                    Config.warn("IIcon is not TextureAtlasSprite: " + icon + ", name: " + icon.getIconName());
+                    Config.warn("TextureAtlasSprite is not TextureAtlasSprite: " + textureatlassprite + ", name: " + textureatlassprite.getIconName());
                 }
                 else
                 {
-                    TextureAtlasSprite ts = (TextureAtlasSprite)icon;
-                    int tileId = ts.getIndexInMap();
+                    int j = textureatlassprite.getIndexInMap();
 
-                    if (tileId < 0)
+                    if (j < 0)
                     {
-                        Config.warn("Invalid tile ID: " + tileId + ", icon: " + ts.getIconName());
+                        Config.warn("Invalid tile ID: " + j + ", icon: " + textureatlassprite.getIconName());
                     }
                     else
                     {
-                        addToList(cp, tileList, tileId);
+                        addToList(p_addToTileList_0_, p_addToTileList_1_, j);
                     }
                 }
             }
         }
     }
 
-    private static void addToBlockList(ConnectedProperties cp, List blockList)
+    private static void addToBlockList(ConnectedProperties p_addToBlockList_0_, List p_addToBlockList_1_)
     {
-        if (cp.matchBlocks != null)
+        if (p_addToBlockList_0_.matchBlocks != null)
         {
-            for (int i = 0; i < cp.matchBlocks.length; ++i)
+            for (int i = 0; i < p_addToBlockList_0_.matchBlocks.length; ++i)
             {
-                int blockId = cp.matchBlocks[i];
+                int j = p_addToBlockList_0_.matchBlocks[i].getBlockId();
 
-                if (blockId < 0)
+                if (j < 0)
                 {
-                    Config.warn("Invalid block ID: " + blockId);
+                    Config.warn("Invalid block ID: " + j);
                 }
                 else
                 {
-                    addToList(cp, blockList, blockId);
+                    addToList(p_addToBlockList_0_, p_addToBlockList_1_, j);
                 }
             }
         }
     }
 
-    private static void addToList(ConnectedProperties cp, List list, int id)
+    private static void addToList(ConnectedProperties p_addToList_0_, List p_addToList_1_, int p_addToList_2_)
     {
-        while (id >= list.size())
+        while (p_addToList_2_ >= p_addToList_1_.size())
         {
-            list.add((Object)null);
+            p_addToList_1_.add(null);
         }
 
-        Object subList = (List)list.get(id);
+        List list = (List)p_addToList_1_.get(p_addToList_2_);
 
-        if (subList == null)
+        if (list == null)
         {
-            subList = new ArrayList();
-            list.set(id, subList);
+            list = new ArrayList();
+            p_addToList_1_.set(p_addToList_2_, list);
         }
 
-        ((List)subList).add(cp);
-    }
-
-    private static String[] collectFiles(IResourcePack rp, String prefix, String suffix)
-    {
-        if (rp instanceof DefaultResourcePack)
-        {
-            return collectFilesDefault(rp);
-        }
-        else if (!(rp instanceof AbstractResourcePack))
-        {
-            return new String[0];
-        }
-        else
-        {
-            AbstractResourcePack arp = (AbstractResourcePack)rp;
-            File tpFile = ResourceUtils.getResourcePackFile(arp);
-            return tpFile == null ? new String[0] : (tpFile.isDirectory() ? collectFilesFolder(tpFile, "", prefix, suffix) : (tpFile.isFile() ? collectFilesZIP(tpFile, prefix, suffix) : new String[0]));
-        }
-    }
-
-    private static String[] collectFilesDefault(IResourcePack rp)
-    {
-        ArrayList list = new ArrayList();
-        String[] names = getDefaultCtmPaths();
-
-        for (int nameArr = 0; nameArr < names.length; ++nameArr)
-        {
-            String name = names[nameArr];
-            ResourceLocation loc = new ResourceLocation(name);
-
-            if (rp.resourceExists(loc))
-            {
-                list.add(name);
-            }
-        }
-
-        String[] var6 = (String[])((String[])list.toArray(new String[list.size()]));
-        return var6;
+        list.add(p_addToList_0_);
     }
 
     private static String[] getDefaultCtmPaths()
     {
-        ArrayList list = new ArrayList();
-        String defPath = "mcpatcher/ctm/default/";
+        List list = new ArrayList();
+        String s = "mcpatcher/ctm/default/";
 
         if (Config.isFromDefaultResourcePack(new ResourceLocation("textures/blocks/glass.png")))
         {
-            list.add(defPath + "glass.properties");
-            list.add(defPath + "glasspane.properties");
+            list.add(s + "glass.properties");
+            list.add(s + "glasspane.properties");
         }
 
         if (Config.isFromDefaultResourcePack(new ResourceLocation("textures/blocks/bookshelf.png")))
         {
-            list.add(defPath + "bookshelf.properties");
+            list.add(s + "bookshelf.properties");
         }
 
         if (Config.isFromDefaultResourcePack(new ResourceLocation("textures/blocks/sandstone_normal.png")))
         {
-            list.add(defPath + "sandstone.properties");
+            list.add(s + "sandstone.properties");
         }
 
-        String[] colors = new String[] {"white", "orange", "magenta", "light_blue", "yellow", "lime", "pink", "gray", "silver", "cyan", "purple", "blue", "brown", "green", "red", "black"};
+        String[] astring = new String[] {"white", "orange", "magenta", "light_blue", "yellow", "lime", "pink", "gray", "silver", "cyan", "purple", "blue", "brown", "green", "red", "black"};
 
-        for (int paths = 0; paths < colors.length; ++paths)
+        for (int i = 0; i < astring.length; ++i)
         {
-            String color = colors[paths];
+            String s1 = astring[i];
 
-            if (Config.isFromDefaultResourcePack(new ResourceLocation("textures/blocks/glass_" + color + ".png")))
+            if (Config.isFromDefaultResourcePack(new ResourceLocation("textures/blocks/glass_" + s1 + ".png")))
             {
-                list.add(defPath + paths + "_glass_" + color + "/glass_" + color + ".properties");
-                list.add(defPath + paths + "_glass_" + color + "/glass_pane_" + color + ".properties");
+                list.add(s + i + "_glass_" + s1 + "/glass_" + s1 + ".properties");
+                list.add(s + i + "_glass_" + s1 + "/glass_pane_" + s1 + ".properties");
             }
         }
 
-        String[] var5 = (String[])((String[])list.toArray(new String[list.size()]));
-        return var5;
+        String[] astring1 = (String[])((String[])list.toArray(new String[list.size()]));
+        return astring1;
     }
 
-    private static String[] collectFilesFolder(File tpFile, String basePath, String prefix, String suffix)
+    public static int getPaneTextureIndex(boolean p_getPaneTextureIndex_0_, boolean p_getPaneTextureIndex_1_, boolean p_getPaneTextureIndex_2_, boolean p_getPaneTextureIndex_3_)
     {
-        ArrayList list = new ArrayList();
-        String prefixAssets = "assets/minecraft/";
-        File[] files = tpFile.listFiles();
+        return p_getPaneTextureIndex_1_ && p_getPaneTextureIndex_0_ ? (p_getPaneTextureIndex_2_ ? (p_getPaneTextureIndex_3_ ? 34 : 50) : (p_getPaneTextureIndex_3_ ? 18 : 2)) : (p_getPaneTextureIndex_1_ && !p_getPaneTextureIndex_0_ ? (p_getPaneTextureIndex_2_ ? (p_getPaneTextureIndex_3_ ? 35 : 51) : (p_getPaneTextureIndex_3_ ? 19 : 3)) : (!p_getPaneTextureIndex_1_ && p_getPaneTextureIndex_0_ ? (p_getPaneTextureIndex_2_ ? (p_getPaneTextureIndex_3_ ? 33 : 49) : (p_getPaneTextureIndex_3_ ? 17 : 1)) : (p_getPaneTextureIndex_2_ ? (p_getPaneTextureIndex_3_ ? 32 : 48) : (p_getPaneTextureIndex_3_ ? 16 : 0))));
+    }
 
-        if (files == null)
+    public static int getReversePaneTextureIndex(int p_getReversePaneTextureIndex_0_)
+    {
+        int i = p_getReversePaneTextureIndex_0_ % 16;
+        return i == 1 ? p_getReversePaneTextureIndex_0_ + 2 : (i == 3 ? p_getReversePaneTextureIndex_0_ - 2 : p_getReversePaneTextureIndex_0_);
+    }
+
+    public static TextureAtlasSprite getCtmTexture(ConnectedProperties p_getCtmTexture_0_, int p_getCtmTexture_1_, TextureAtlasSprite p_getCtmTexture_2_)
+    {
+        if (p_getCtmTexture_0_.method != 1)
         {
-            return new String[0];
+            return p_getCtmTexture_2_;
+        }
+        else if (p_getCtmTexture_1_ >= 0 && p_getCtmTexture_1_ < ctmIndexes.length)
+        {
+            int i = ctmIndexes[p_getCtmTexture_1_];
+            TextureAtlasSprite[] atextureatlassprite = p_getCtmTexture_0_.tileIcons;
+            return i >= 0 && i < atextureatlassprite.length ? atextureatlassprite[i] : p_getCtmTexture_2_;
         }
         else
         {
-            for (int names = 0; names < files.length; ++names)
-            {
-                File file = files[names];
-                String dirPath;
-
-                if (file.isFile())
-                {
-                    dirPath = basePath + file.getName();
-
-                    if (dirPath.startsWith(prefixAssets))
-                    {
-                        dirPath = dirPath.substring(prefixAssets.length());
-
-                        if (dirPath.startsWith(prefix) && dirPath.endsWith(suffix))
-                        {
-                            list.add(dirPath);
-                        }
-                    }
-                }
-                else if (file.isDirectory())
-                {
-                    dirPath = basePath + file.getName() + "/";
-                    String[] names1 = collectFilesFolder(file, dirPath, prefix, suffix);
-
-                    for (int n = 0; n < names1.length; ++n)
-                    {
-                        String name = names1[n];
-                        list.add(name);
-                    }
-                }
-            }
-
-            String[] var13 = (String[])((String[])list.toArray(new String[list.size()]));
-            return var13;
-        }
-    }
-
-    private static String[] collectFilesZIP(File tpFile, String prefix, String suffix)
-    {
-        ArrayList list = new ArrayList();
-        String prefixAssets = "assets/minecraft/";
-
-        try
-        {
-            ZipFile e = new ZipFile(tpFile);
-            Enumeration en = e.entries();
-
-            while (en.hasMoreElements())
-            {
-                ZipEntry names = (ZipEntry)en.nextElement();
-                String name = names.getName();
-
-                if (name.startsWith(prefixAssets))
-                {
-                    name = name.substring(prefixAssets.length());
-
-                    if (name.startsWith(prefix) && name.endsWith(suffix))
-                    {
-                        list.add(name);
-                    }
-                }
-            }
-
-            e.close();
-            String[] names1 = (String[])((String[])list.toArray(new String[list.size()]));
-            return names1;
-        }
-        catch (IOException var9)
-        {
-            var9.printStackTrace();
-            return new String[0];
-        }
-    }
-
-    public static int getPaneTextureIndex(boolean linkP, boolean linkN, boolean linkYp, boolean linkYn)
-    {
-        return linkN && linkP ? (linkYp ? (linkYn ? 34 : 50) : (linkYn ? 18 : 2)) : (linkN && !linkP ? (linkYp ? (linkYn ? 35 : 51) : (linkYn ? 19 : 3)) : (!linkN && linkP ? (linkYp ? (linkYn ? 33 : 49) : (linkYn ? 17 : 1)) : (linkYp ? (linkYn ? 32 : 48) : (linkYn ? 16 : 0))));
-    }
-
-    public static int getReversePaneTextureIndex(int texNum)
-    {
-        int col = texNum % 16;
-        return col == 1 ? texNum + 2 : (col == 3 ? texNum - 2 : texNum);
-    }
-
-    public static IIcon getCtmTexture(ConnectedProperties cp, int ctmIndex, IIcon icon)
-    {
-        if (cp.method != 1)
-        {
-            return icon;
-        }
-        else if (ctmIndex >= 0 && ctmIndex < ctmIndexes.length)
-        {
-            int index = ctmIndexes[ctmIndex];
-            IIcon[] ctmIcons = cp.tileIcons;
-            return index >= 0 && index < ctmIcons.length ? ctmIcons[index] : icon;
-        }
-        else
-        {
-            return icon;
+            return p_getCtmTexture_2_;
         }
     }
 }

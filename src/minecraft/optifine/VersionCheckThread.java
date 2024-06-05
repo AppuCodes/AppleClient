@@ -9,62 +9,62 @@ public class VersionCheckThread extends Thread
 {
     public void run()
     {
-        HttpURLConnection conn = null;
+        HttpURLConnection httpurlconnection = null;
 
         try
         {
             Config.dbg("Checking for new version");
-            URL e = new URL("http://optifine.net/version/1.7.10/HD_U.txt");
-            conn = (HttpURLConnection)e.openConnection();
+            URL url = new URL("http://optifine.net/version/1.8.8/HD_U.txt");
+            httpurlconnection = (HttpURLConnection)url.openConnection();
 
             if (Config.getGameSettings().snooperEnabled)
             {
-                conn.setRequestProperty("OF-MC-Version", "1.7.10");
-                conn.setRequestProperty("OF-MC-Brand", "" + ClientBrandRetriever.getClientModName());
-                conn.setRequestProperty("OF-Edition", "HD_U");
-                conn.setRequestProperty("OF-Release", "D4");
-                conn.setRequestProperty("OF-Java-Version", "" + System.getProperty("java.version"));
-                conn.setRequestProperty("OF-CpuCount", "" + Config.getAvailableProcessors());
-                conn.setRequestProperty("OF-OpenGL-Version", "" + Config.openGlVersion);
-                conn.setRequestProperty("OF-OpenGL-Vendor", "" + Config.openGlVendor);
+                httpurlconnection.setRequestProperty("OF-MC-Version", "1.8.8");
+                httpurlconnection.setRequestProperty("OF-MC-Brand", "" + ClientBrandRetriever.getClientModName());
+                httpurlconnection.setRequestProperty("OF-Edition", "HD_U");
+                httpurlconnection.setRequestProperty("OF-Release", "H8");
+                httpurlconnection.setRequestProperty("OF-Java-Version", "" + System.getProperty("java.version"));
+                httpurlconnection.setRequestProperty("OF-CpuCount", "" + Config.getAvailableProcessors());
+                httpurlconnection.setRequestProperty("OF-OpenGL-Version", "" + Config.openGlVersion);
+                httpurlconnection.setRequestProperty("OF-OpenGL-Vendor", "" + Config.openGlVendor);
             }
 
-            conn.setDoInput(true);
-            conn.setDoOutput(false);
-            conn.connect();
+            httpurlconnection.setDoInput(true);
+            httpurlconnection.setDoOutput(false);
+            httpurlconnection.connect();
 
             try
             {
-                InputStream in = conn.getInputStream();
-                String verStr = Config.readInputStream(in);
-                in.close();
-                String[] verLines = Config.tokenize(verStr, "\n\r");
+                InputStream inputstream = httpurlconnection.getInputStream();
+                String s = Config.readInputStream(inputstream);
+                inputstream.close();
+                String[] astring = Config.tokenize(s, "\n\r");
 
-                if (verLines.length < 1)
+                if (astring.length >= 1)
                 {
-                    return;
-                }
+                    String s1 = astring[0].trim();
+                    Config.dbg("Version found: " + s1);
 
-                String newVer = verLines[0].trim();
-                Config.dbg("Version found: " + newVer);
+                    if (Config.compareRelease(s1, "H8") <= 0)
+                    {
+                        return;
+                    }
 
-                if (Config.compareRelease(newVer, "D4") > 0)
-                {
-                    Config.setNewRelease(newVer);
+                    Config.setNewRelease(s1);
                     return;
                 }
             }
             finally
             {
-                if (conn != null)
+                if (httpurlconnection != null)
                 {
-                    conn.disconnect();
+                    httpurlconnection.disconnect();
                 }
             }
         }
-        catch (Exception var11)
+        catch (Exception exception)
         {
-            Config.dbg(var11.getClass().getName() + ": " + var11.getMessage());
+            Config.dbg(exception.getClass().getName() + ": " + exception.getMessage());
         }
     }
 }

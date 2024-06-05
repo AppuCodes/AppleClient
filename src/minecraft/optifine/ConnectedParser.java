@@ -2,7 +2,17 @@ package optifine;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
+import java.util.EnumSet;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockDoublePlant;
+import net.minecraft.block.properties.IProperty;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.init.Blocks;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.world.biome.BiomeGenBase;
 
 public class ConnectedParser
@@ -10,292 +20,460 @@ public class ConnectedParser
     private String context = null;
     private static final MatchBlock[] NO_MATCH_BLOCKS = new MatchBlock[0];
 
-    public ConnectedParser(String context)
+    public ConnectedParser(String p_i31_1_)
     {
-        this.context = context;
+        this.context = p_i31_1_;
     }
 
-    public String parseName(String path)
+    public String parseName(String p_parseName_1_)
     {
-        String str = path;
-        int pos = path.lastIndexOf(47);
+        String s = p_parseName_1_;
+        int i = p_parseName_1_.lastIndexOf(47);
 
-        if (pos >= 0)
+        if (i >= 0)
         {
-            str = path.substring(pos + 1);
+            s = p_parseName_1_.substring(i + 1);
         }
 
-        int pos2 = str.lastIndexOf(46);
+        int j = s.lastIndexOf(46);
 
-        if (pos2 >= 0)
+        if (j >= 0)
         {
-            str = str.substring(0, pos2);
+            s = s.substring(0, j);
         }
 
-        return str;
+        return s;
     }
 
-    public String parseBasePath(String path)
+    public String parseBasePath(String p_parseBasePath_1_)
     {
-        int pos = path.lastIndexOf(47);
-        return pos < 0 ? "" : path.substring(0, pos);
+        int i = p_parseBasePath_1_.lastIndexOf(47);
+        return i < 0 ? "" : p_parseBasePath_1_.substring(0, i);
     }
 
-    public MatchBlock[] parseMatchBlocks(String propMatchBlocks)
+    public MatchBlock[] parseMatchBlocks(String p_parseMatchBlocks_1_)
     {
-        if (propMatchBlocks == null)
+        if (p_parseMatchBlocks_1_ == null)
         {
             return null;
         }
         else
         {
-            ArrayList list = new ArrayList();
-            String[] blockStrs = Config.tokenize(propMatchBlocks, " ");
+            List list = new ArrayList();
+            String[] astring = Config.tokenize(p_parseMatchBlocks_1_, " ");
 
-            for (int mbs = 0; mbs < blockStrs.length; ++mbs)
+            for (int i = 0; i < astring.length; ++i)
             {
-                String blockStr = blockStrs[mbs];
-                MatchBlock[] mbs1 = this.parseMatchBlock(blockStr);
+                String s = astring[i];
+                MatchBlock[] amatchblock = this.parseMatchBlock(s);
 
-                if (mbs1 == null)
+                if (amatchblock == null)
                 {
                     return NO_MATCH_BLOCKS;
                 }
 
-                list.addAll(Arrays.asList(mbs1));
+                list.addAll(Arrays.asList(amatchblock));
             }
 
-            MatchBlock[] var7 = (MatchBlock[])((MatchBlock[])list.toArray(new MatchBlock[list.size()]));
-            return var7;
+            MatchBlock[] amatchblock1 = (MatchBlock[])((MatchBlock[])list.toArray(new MatchBlock[list.size()]));
+            return amatchblock1;
         }
     }
 
-    public MatchBlock[] parseMatchBlock(String blockStr)
+    public MatchBlock[] parseMatchBlock(String p_parseMatchBlock_1_)
     {
-        if (blockStr == null)
+        if (p_parseMatchBlock_1_ == null)
         {
             return null;
         }
         else
         {
-            blockStr = blockStr.trim();
+            p_parseMatchBlock_1_ = p_parseMatchBlock_1_.trim();
 
-            if (blockStr.length() <= 0)
+            if (p_parseMatchBlock_1_.length() <= 0)
             {
                 return null;
             }
             else
             {
-                String[] parts = Config.tokenize(blockStr, ":");
-                String domain = "minecraft";
-                boolean blockIndex = false;
-                byte var14;
+                String[] astring = Config.tokenize(p_parseMatchBlock_1_, ":");
+                String s = "minecraft";
+                int i = 0;
 
-                if (parts.length > 1 && this.isFullBlockName(parts))
+                if (astring.length > 1 && this.isFullBlockName(astring))
                 {
-                    domain = parts[0];
-                    var14 = 1;
+                    s = astring[0];
+                    i = 1;
                 }
                 else
                 {
-                    domain = "minecraft";
-                    var14 = 0;
+                    s = "minecraft";
+                    i = 0;
                 }
 
-                String blockPart = parts[var14];
-                String[] params = (String[])Arrays.copyOfRange(parts, var14 + 1, parts.length);
-                Block[] blocks = this.parseBlockPart(domain, blockPart);
+                String s1 = astring[i];
+                String[] astring1 = (String[])Arrays.copyOfRange(astring, i + 1, astring.length);
+                Block[] ablock = this.parseBlockPart(s, s1);
 
-                if (blocks == null)
+                if (ablock == null)
                 {
                     return null;
                 }
                 else
                 {
-                    MatchBlock[] datas = new MatchBlock[blocks.length];
+                    MatchBlock[] amatchblock = new MatchBlock[ablock.length];
 
-                    for (int i = 0; i < blocks.length; ++i)
+                    for (int j = 0; j < ablock.length; ++j)
                     {
-                        Block block = blocks[i];
-                        int blockId = Block.getIdFromBlock(block);
-                        int[] metadatas = null;
+                        Block block = ablock[j];
+                        int k = Block.getIdFromBlock(block);
+                        int[] aint = null;
 
-                        if (params.length > 0)
+                        if (astring1.length > 0)
                         {
-                            metadatas = this.parseBlockMetadatas(block, params);
+                            aint = this.parseBlockMetadatas(block, astring1);
 
-                            if (metadatas == null)
+                            if (aint == null)
                             {
                                 return null;
                             }
                         }
 
-                        MatchBlock bd = new MatchBlock(blockId, metadatas);
-                        datas[i] = bd;
+                        MatchBlock matchblock = new MatchBlock(k, aint);
+                        amatchblock[j] = matchblock;
                     }
 
-                    return datas;
+                    return amatchblock;
                 }
             }
         }
     }
 
-    public boolean isFullBlockName(String[] parts)
+    public boolean isFullBlockName(String[] p_isFullBlockName_1_)
     {
-        if (parts.length < 2)
+        if (p_isFullBlockName_1_.length < 2)
         {
             return false;
         }
         else
         {
-            String part1 = parts[1];
-            return part1.length() < 1 ? false : (this.startsWithDigit(part1) ? false : !part1.contains("="));
+            String s = p_isFullBlockName_1_[1];
+            return s.length() < 1 ? false : (this.startsWithDigit(s) ? false : !s.contains("="));
         }
     }
 
-    public boolean startsWithDigit(String str)
+    public boolean startsWithDigit(String p_startsWithDigit_1_)
     {
-        if (str == null)
+        if (p_startsWithDigit_1_ == null)
         {
             return false;
         }
-        else if (str.length() < 1)
+        else if (p_startsWithDigit_1_.length() < 1)
         {
             return false;
         }
         else
         {
-            char ch = str.charAt(0);
-            return Character.isDigit(ch);
+            char c0 = p_startsWithDigit_1_.charAt(0);
+            return Character.isDigit(c0);
         }
     }
 
-    public Block[] parseBlockPart(String domain, String blockPart)
+    public Block[] parseBlockPart(String p_parseBlockPart_1_, String p_parseBlockPart_2_)
     {
-        if (this.startsWithDigit(blockPart))
+        if (this.startsWithDigit(p_parseBlockPart_2_))
         {
-            int[] var8 = this.parseIntList(blockPart);
+            int[] aint = this.parseIntList(p_parseBlockPart_2_);
 
-            if (var8 == null)
+            if (aint == null)
             {
                 return null;
             }
             else
             {
-                Block[] var9 = new Block[var8.length];
+                Block[] ablock1 = new Block[aint.length];
 
-                for (int var10 = 0; var10 < var8.length; ++var10)
+                for (int j = 0; j < aint.length; ++j)
                 {
-                    int id = var8[var10];
-                    Block block1 = Block.getBlockById(id);
+                    int i = aint[j];
+                    Block block1 = Block.getBlockById(i);
 
                     if (block1 == null)
                     {
-                        this.warn("Block not found for id: " + id);
+                        this.warn("Block not found for id: " + i);
                         return null;
                     }
 
-                    var9[var10] = block1;
+                    ablock1[j] = block1;
                 }
 
-                return var9;
+                return ablock1;
             }
         }
         else
         {
-            String fullName = domain + ":" + blockPart;
-            Block block = Block.getBlockFromName(fullName);
+            String s = p_parseBlockPart_1_ + ":" + p_parseBlockPart_2_;
+            Block block = Block.getBlockFromName(s);
 
             if (block == null)
             {
-                this.warn("Block not found for name: " + fullName);
+                this.warn("Block not found for name: " + s);
                 return null;
             }
             else
             {
-                Block[] blocks = new Block[] {block};
-                return blocks;
+                Block[] ablock = new Block[] {block};
+                return ablock;
             }
         }
     }
 
-    public int[] parseBlockMetadatas(Block block, String[] params)
+    public int[] parseBlockMetadatas(Block p_parseBlockMetadatas_1_, String[] p_parseBlockMetadatas_2_)
     {
-        if (params.length <= 0)
+        if (p_parseBlockMetadatas_2_.length <= 0)
         {
             return null;
         }
         else
         {
-            String param0 = params[0];
+            String s = p_parseBlockMetadatas_2_[0];
 
-            if (this.startsWithDigit(param0))
+            if (this.startsWithDigit(s))
             {
-                int[] mds = this.parseIntList(param0);
-                return mds;
+                int[] aint = this.parseIntList(s);
+                return aint;
             }
             else
             {
-                this.warn("Invalid block metadata: " + param0);
-                return null;
-            }
-        }
-    }
+                IBlockState iblockstate = p_parseBlockMetadatas_1_.getDefaultState();
+                Collection collection = iblockstate.getPropertyNames();
+                Map<IProperty, List<Comparable>> map = new HashMap();
 
-    public BiomeGenBase[] parseBiomes(String str)
-    {
-        if (str == null)
-        {
-            return null;
-        }
-        else
-        {
-            String[] biomeNames = Config.tokenize(str, " ");
-            ArrayList list = new ArrayList();
-
-            for (int biomeArr = 0; biomeArr < biomeNames.length; ++biomeArr)
-            {
-                String biomeName = biomeNames[biomeArr];
-                BiomeGenBase biome = this.findBiome(biomeName);
-
-                if (biome == null)
+                for (int i = 0; i < p_parseBlockMetadatas_2_.length; ++i)
                 {
-                    this.warn("Biome not found: " + biomeName);
+                    String s1 = p_parseBlockMetadatas_2_[i];
+
+                    if (s1.length() > 0)
+                    {
+                        String[] astring = Config.tokenize(s1, "=");
+
+                        if (astring.length != 2)
+                        {
+                            this.warn("Invalid block property: " + s1);
+                            return null;
+                        }
+
+                        String s2 = astring[0];
+                        String s3 = astring[1];
+                        IProperty iproperty = ConnectedProperties.getProperty(s2, collection);
+
+                        if (iproperty == null)
+                        {
+                            this.warn("Property not found: " + s2 + ", block: " + p_parseBlockMetadatas_1_);
+                            return null;
+                        }
+
+                        @SuppressWarnings("unlikely-arg-type")
+                        List<Comparable> list = (List)map.get(s2);
+
+                        if (list == null)
+                        {
+                            list = new ArrayList();
+                            map.put(iproperty, list);
+                        }
+
+                        String[] astring1 = Config.tokenize(s3, ",");
+
+                        for (int j = 0; j < astring1.length; ++j)
+                        {
+                            String s4 = astring1[j];
+                            Comparable comparable = parsePropertyValue(iproperty, s4);
+
+                            if (comparable == null)
+                            {
+                                this.warn("Property value not found: " + s4 + ", property: " + s2 + ", block: " + p_parseBlockMetadatas_1_);
+                                return null;
+                            }
+
+                            list.add(comparable);
+                        }
+                    }
+                }
+
+                if (map.isEmpty())
+                {
+                    return null;
                 }
                 else
                 {
-                    list.add(biome);
+                    List list1 = new ArrayList();
+
+                    for (int k = 0; k < 16; ++k)
+                    {
+                        int l = k;
+
+                        try
+                        {
+                            IBlockState iblockstate1 = this.getStateFromMeta(p_parseBlockMetadatas_1_, l);
+
+                            if (this.matchState(iblockstate1, map))
+                            {
+                                list1.add(Integer.valueOf(l));
+                            }
+                        }
+                        catch (IllegalArgumentException var18)
+                        {
+                            ;
+                        }
+                    }
+
+                    if (list1.size() == 16)
+                    {
+                        return null;
+                    }
+                    else
+                    {
+                        int[] aint1 = new int[list1.size()];
+
+                        for (int i1 = 0; i1 < aint1.length; ++i1)
+                        {
+                            aint1[i1] = ((Integer)list1.get(i1)).intValue();
+                        }
+
+                        return aint1;
+                    }
                 }
             }
-
-            BiomeGenBase[] var7 = (BiomeGenBase[])((BiomeGenBase[])list.toArray(new BiomeGenBase[list.size()]));
-            return var7;
         }
     }
 
-    public BiomeGenBase findBiome(String biomeName)
+    private IBlockState getStateFromMeta(Block p_getStateFromMeta_1_, int p_getStateFromMeta_2_)
     {
-        biomeName = biomeName.toLowerCase();
+        try
+        {
+            IBlockState iblockstate = p_getStateFromMeta_1_.getStateFromMeta(p_getStateFromMeta_2_);
 
-        if (biomeName.equals("nether"))
+            if (p_getStateFromMeta_1_ == Blocks.double_plant && p_getStateFromMeta_2_ > 7)
+            {
+                IBlockState iblockstate1 = p_getStateFromMeta_1_.getStateFromMeta(p_getStateFromMeta_2_ & 7);
+                iblockstate = iblockstate.withProperty(BlockDoublePlant.VARIANT, iblockstate1.getValue(BlockDoublePlant.VARIANT));
+            }
+
+            return iblockstate;
+        }
+        catch (IllegalArgumentException var5)
+        {
+            return p_getStateFromMeta_1_.getDefaultState();
+        }
+    }
+
+    public static Comparable parsePropertyValue(IProperty p_parsePropertyValue_0_, String p_parsePropertyValue_1_)
+    {
+        Class oclass = p_parsePropertyValue_0_.getValueClass();
+        Comparable comparable = parseValue(p_parsePropertyValue_1_, oclass);
+
+        if (comparable == null)
+        {
+            Collection collection = p_parsePropertyValue_0_.getAllowedValues();
+            comparable = getPropertyValue(p_parsePropertyValue_1_, collection);
+        }
+
+        return comparable;
+    }
+
+    public static Comparable getPropertyValue(String p_getPropertyValue_0_, Collection p_getPropertyValue_1_)
+    {
+        for (Object comparable : p_getPropertyValue_1_)
+        {
+            if (String.valueOf((Object)comparable).equals(p_getPropertyValue_0_))
+            {
+                return (Comparable) comparable;
+            }
+        }
+
+        return null;
+    }
+
+    public static Comparable parseValue(String p_parseValue_0_, Class p_parseValue_1_)
+    {
+        return (Comparable)(p_parseValue_1_ == String.class ? p_parseValue_0_ : (p_parseValue_1_ == Boolean.class ? Boolean.valueOf(p_parseValue_0_) : (p_parseValue_1_ == Float.class ? Float.valueOf(p_parseValue_0_) : (p_parseValue_1_ == Double.class ? Double.valueOf(p_parseValue_0_) : (p_parseValue_1_ == Integer.class ? Integer.valueOf(p_parseValue_0_) : (p_parseValue_1_ == Long.class ? Long.valueOf(p_parseValue_0_) : null))))));
+    }
+
+    public boolean matchState(IBlockState p_matchState_1_, Map<IProperty, List<Comparable>> p_matchState_2_)
+    {
+        for (IProperty iproperty : p_matchState_2_.keySet())
+        {
+            List<Comparable> list = (List)p_matchState_2_.get(iproperty);
+            Comparable comparable = p_matchState_1_.getValue(iproperty);
+
+            if (comparable == null)
+            {
+                return false;
+            }
+
+            if (!list.contains(comparable))
+            {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    public BiomeGenBase[] parseBiomes(String p_parseBiomes_1_)
+    {
+        if (p_parseBiomes_1_ == null)
+        {
+            return null;
+        }
+        else
+        {
+            String[] astring = Config.tokenize(p_parseBiomes_1_, " ");
+            List list = new ArrayList();
+
+            for (int i = 0; i < astring.length; ++i)
+            {
+                String s = astring[i];
+                BiomeGenBase biomegenbase = this.findBiome(s);
+
+                if (biomegenbase == null)
+                {
+                    this.warn("Biome not found: " + s);
+                }
+                else
+                {
+                    list.add(biomegenbase);
+                }
+            }
+
+            BiomeGenBase[] abiomegenbase = (BiomeGenBase[])((BiomeGenBase[])list.toArray(new BiomeGenBase[list.size()]));
+            return abiomegenbase;
+        }
+    }
+
+    public BiomeGenBase findBiome(String p_findBiome_1_)
+    {
+        p_findBiome_1_ = p_findBiome_1_.toLowerCase();
+
+        if (p_findBiome_1_.equals("nether"))
         {
             return BiomeGenBase.hell;
         }
         else
         {
-            BiomeGenBase[] biomeList = BiomeGenBase.getBiomeGenArray();
+            BiomeGenBase[] abiomegenbase = BiomeGenBase.getBiomeGenArray();
 
-            for (int i = 0; i < biomeList.length; ++i)
+            for (int i = 0; i < abiomegenbase.length; ++i)
             {
-                BiomeGenBase biome = biomeList[i];
+                BiomeGenBase biomegenbase = abiomegenbase[i];
 
-                if (biome != null)
+                if (biomegenbase != null)
                 {
-                    String name = biome.biomeName.replace(" ", "").toLowerCase();
+                    String s = biomegenbase.biomeName.replace(" ", "").toLowerCase();
 
-                    if (name.equals(biomeName))
+                    if (s.equals(p_findBiome_1_))
                     {
-                        return biome;
+                        return biomegenbase;
                     }
                 }
             }
@@ -304,222 +482,311 @@ public class ConnectedParser
         }
     }
 
-    public int parseInt(String str)
+    public int parseInt(String p_parseInt_1_)
     {
-        if (str == null)
+        if (p_parseInt_1_ == null)
         {
             return -1;
         }
         else
         {
-            int num = Config.parseInt(str, -1);
+            int i = Config.parseInt(p_parseInt_1_, -1);
 
-            if (num < 0)
+            if (i < 0)
             {
-                this.warn("Invalid number: " + str);
+                this.warn("Invalid number: " + p_parseInt_1_);
             }
 
-            return num;
+            return i;
         }
     }
 
-    public int parseInt(String str, int defVal)
+    public int parseInt(String p_parseInt_1_, int p_parseInt_2_)
     {
-        if (str == null)
+        if (p_parseInt_1_ == null)
         {
-            return defVal;
+            return p_parseInt_2_;
         }
         else
         {
-            int num = Config.parseInt(str, -1);
+            int i = Config.parseInt(p_parseInt_1_, -1);
 
-            if (num < 0)
+            if (i < 0)
             {
-                this.warn("Invalid number: " + str);
-                return defVal;
+                this.warn("Invalid number: " + p_parseInt_1_);
+                return p_parseInt_2_;
             }
             else
             {
-                return num;
+                return i;
             }
         }
     }
 
-    public int[] parseIntList(String str)
+    public int[] parseIntList(String p_parseIntList_1_)
     {
-        if (str == null)
+        if (p_parseIntList_1_ == null)
         {
             return null;
         }
         else
         {
-            ArrayList list = new ArrayList();
-            String[] intStrs = Config.tokenize(str, " ,");
+            List list = new ArrayList();
+            String[] astring = Config.tokenize(p_parseIntList_1_, " ,");
 
-            for (int ints = 0; ints < intStrs.length; ++ints)
+            for (int i = 0; i < astring.length; ++i)
             {
-                String i = intStrs[ints];
+                String s = astring[i];
 
-                if (i.contains("-"))
+                if (s.contains("-"))
                 {
-                    String[] val = Config.tokenize(i, "-");
+                    String[] astring1 = Config.tokenize(s, "-");
 
-                    if (val.length != 2)
+                    if (astring1.length != 2)
                     {
-                        this.warn("Invalid interval: " + i + ", when parsing: " + str);
+                        this.warn("Invalid interval: " + s + ", when parsing: " + p_parseIntList_1_);
                     }
                     else
                     {
-                        int min = Config.parseInt(val[0], -1);
-                        int max = Config.parseInt(val[1], -1);
+                        int k = Config.parseInt(astring1[0], -1);
+                        int l = Config.parseInt(astring1[1], -1);
 
-                        if (min >= 0 && max >= 0 && min <= max)
+                        if (k >= 0 && l >= 0 && k <= l)
                         {
-                            for (int n = min; n <= max; ++n)
+                            for (int i1 = k; i1 <= l; ++i1)
                             {
-                                list.add(Integer.valueOf(n));
+                                list.add(Integer.valueOf(i1));
                             }
                         }
                         else
                         {
-                            this.warn("Invalid interval: " + i + ", when parsing: " + str);
+                            this.warn("Invalid interval: " + s + ", when parsing: " + p_parseIntList_1_);
                         }
                     }
                 }
                 else
                 {
-                    int var12 = Config.parseInt(i, -1);
+                    int j = Config.parseInt(s, -1);
 
-                    if (var12 < 0)
+                    if (j < 0)
                     {
-                        this.warn("Invalid number: " + i + ", when parsing: " + str);
+                        this.warn("Invalid number: " + s + ", when parsing: " + p_parseIntList_1_);
                     }
                     else
                     {
-                        list.add(Integer.valueOf(var12));
+                        list.add(Integer.valueOf(j));
                     }
                 }
             }
 
-            int[] var10 = new int[list.size()];
+            int[] aint = new int[list.size()];
 
-            for (int var11 = 0; var11 < var10.length; ++var11)
+            for (int j1 = 0; j1 < aint.length; ++j1)
             {
-                var10[var11] = ((Integer)list.get(var11)).intValue();
+                aint[j1] = ((Integer)list.get(j1)).intValue();
             }
 
-            return var10;
+            return aint;
         }
     }
 
-    public void dbg(String str)
+    public boolean[] parseFaces(String p_parseFaces_1_, boolean[] p_parseFaces_2_)
     {
-        Config.dbg("" + this.context + ": " + str);
-    }
-
-    public void warn(String str)
-    {
-        Config.warn("" + this.context + ": " + str);
-    }
-
-    public RangeListInt parseRangeListInt(String str)
-    {
-        if (str == null)
+        if (p_parseFaces_1_ == null)
         {
-            return null;
+            return p_parseFaces_2_;
         }
         else
         {
-            RangeListInt list = new RangeListInt();
-            String[] parts = Config.tokenize(str, " ,");
+            EnumSet enumset = EnumSet.allOf(EnumFacing.class);
+            String[] astring = Config.tokenize(p_parseFaces_1_, " ,");
 
-            for (int i = 0; i < parts.length; ++i)
+            for (int i = 0; i < astring.length; ++i)
             {
-                String part = parts[i];
-                RangeInt ri = this.parseRangeInt(part);
+                String s = astring[i];
 
-                if (ri == null)
+                if (s.equals("sides"))
                 {
-                    return null;
+                    enumset.add(EnumFacing.NORTH);
+                    enumset.add(EnumFacing.SOUTH);
+                    enumset.add(EnumFacing.WEST);
+                    enumset.add(EnumFacing.EAST);
                 }
-
-                list.addRange(ri);
-            }
-
-            return list;
-        }
-    }
-
-    private RangeInt parseRangeInt(String str)
-    {
-        if (str == null)
-        {
-            return null;
-        }
-        else if (str.indexOf(45) >= 0)
-        {
-            String[] val1 = Config.tokenize(str, "-");
-
-            if (val1.length != 2)
-            {
-                this.warn("Invalid range: " + str);
-                return null;
-            }
-            else
-            {
-                int min = Config.parseInt(val1[0], -1);
-                int max = Config.parseInt(val1[1], -1);
-
-                if (min >= 0 && max >= 0)
+                else if (s.equals("all"))
                 {
-                    return new RangeInt(min, max);
+                    enumset.addAll(Arrays.asList(EnumFacing.VALUES));
                 }
                 else
                 {
-                    this.warn("Invalid range: " + str);
+                    EnumFacing enumfacing = this.parseFace(s);
+
+                    if (enumfacing != null)
+                    {
+                        enumset.add(enumfacing);
+                    }
+                }
+            }
+
+            boolean[] aboolean = new boolean[EnumFacing.VALUES.length];
+
+            for (int j = 0; j < aboolean.length; ++j)
+            {
+                aboolean[j] = enumset.contains(EnumFacing.VALUES[j]);
+            }
+
+            return aboolean;
+        }
+    }
+
+    public EnumFacing parseFace(String p_parseFace_1_)
+    {
+        p_parseFace_1_ = p_parseFace_1_.toLowerCase();
+
+        if (!p_parseFace_1_.equals("bottom") && !p_parseFace_1_.equals("down"))
+        {
+            if (!p_parseFace_1_.equals("top") && !p_parseFace_1_.equals("up"))
+            {
+                if (p_parseFace_1_.equals("north"))
+                {
+                    return EnumFacing.NORTH;
+                }
+                else if (p_parseFace_1_.equals("south"))
+                {
+                    return EnumFacing.SOUTH;
+                }
+                else if (p_parseFace_1_.equals("east"))
+                {
+                    return EnumFacing.EAST;
+                }
+                else if (p_parseFace_1_.equals("west"))
+                {
+                    return EnumFacing.WEST;
+                }
+                else
+                {
+                    Config.warn("Unknown face: " + p_parseFace_1_);
+                    return null;
+                }
+            }
+            else
+            {
+                return EnumFacing.UP;
+            }
+        }
+        else
+        {
+            return EnumFacing.DOWN;
+        }
+    }
+
+    public void dbg(String p_dbg_1_)
+    {
+        Config.dbg("" + this.context + ": " + p_dbg_1_);
+    }
+
+    public void warn(String p_warn_1_)
+    {
+        Config.warn("" + this.context + ": " + p_warn_1_);
+    }
+
+    public RangeListInt parseRangeListInt(String p_parseRangeListInt_1_)
+    {
+        if (p_parseRangeListInt_1_ == null)
+        {
+            return null;
+        }
+        else
+        {
+            RangeListInt rangelistint = new RangeListInt();
+            String[] astring = Config.tokenize(p_parseRangeListInt_1_, " ,");
+
+            for (int i = 0; i < astring.length; ++i)
+            {
+                String s = astring[i];
+                RangeInt rangeint = this.parseRangeInt(s);
+
+                if (rangeint == null)
+                {
+                    return null;
+                }
+
+                rangelistint.addRange(rangeint);
+            }
+
+            return rangelistint;
+        }
+    }
+
+    private RangeInt parseRangeInt(String p_parseRangeInt_1_)
+    {
+        if (p_parseRangeInt_1_ == null)
+        {
+            return null;
+        }
+        else if (p_parseRangeInt_1_.indexOf(45) >= 0)
+        {
+            String[] astring = Config.tokenize(p_parseRangeInt_1_, "-");
+
+            if (astring.length != 2)
+            {
+                this.warn("Invalid range: " + p_parseRangeInt_1_);
+                return null;
+            }
+            else
+            {
+                int j = Config.parseInt(astring[0], -1);
+                int k = Config.parseInt(astring[1], -1);
+
+                if (j >= 0 && k >= 0)
+                {
+                    return new RangeInt(j, k);
+                }
+                else
+                {
+                    this.warn("Invalid range: " + p_parseRangeInt_1_);
                     return null;
                 }
             }
         }
         else
         {
-            int val = Config.parseInt(str, -1);
+            int i = Config.parseInt(p_parseRangeInt_1_, -1);
 
-            if (val < 0)
+            if (i < 0)
             {
-                this.warn("Invalid integer: " + str);
+                this.warn("Invalid integer: " + p_parseRangeInt_1_);
                 return null;
             }
             else
             {
-                return new RangeInt(val, val);
+                return new RangeInt(i, i);
             }
         }
     }
 
-    public static boolean parseBoolean(String str)
+    public static boolean parseBoolean(String p_parseBoolean_0_)
     {
-        return str == null ? false : str.toLowerCase().equals("true");
+        return p_parseBoolean_0_ == null ? false : p_parseBoolean_0_.toLowerCase().equals("true");
     }
 
-    public static int parseColor(String str, int defVal)
+    public static int parseColor(String p_parseColor_0_, int p_parseColor_1_)
     {
-        if (str == null)
+        if (p_parseColor_0_ == null)
         {
-            return defVal;
+            return p_parseColor_1_;
         }
         else
         {
-            str = str.trim();
+            p_parseColor_0_ = p_parseColor_0_.trim();
 
             try
             {
-                int e = Integer.parseInt(str, 16) & 16777215;
-                return e;
+                int i = Integer.parseInt(p_parseColor_0_, 16) & 16777215;
+                return i;
             }
             catch (NumberFormatException var3)
             {
-                return defVal;
+                return p_parseColor_1_;
             }
         }
     }

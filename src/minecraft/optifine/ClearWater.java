@@ -1,10 +1,12 @@
 package optifine;
 
-import net.minecraft.block.Block;
+import net.minecraft.block.BlockLeavesBase;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.settings.GameSettings;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.Entity;
 import net.minecraft.init.Blocks;
+import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.chunk.EmptyChunk;
@@ -12,81 +14,74 @@ import net.minecraft.world.chunk.IChunkProvider;
 
 public class ClearWater
 {
-    public static void updateWaterOpacity(GameSettings settings, World world)
+    public static void updateWaterOpacity(GameSettings p_updateWaterOpacity_0_, World p_updateWaterOpacity_1_)
     {
-        if (settings != null)
+        if (p_updateWaterOpacity_0_ != null)
         {
-            byte cp = 3;
+            int i = 3;
 
-            if (settings.ofClearWater)
+            if (p_updateWaterOpacity_0_.ofClearWater)
             {
-                cp = 1;
+                i = 1;
             }
 
-            BlockUtils.setLightOpacity(Blocks.water, cp);
-            BlockUtils.setLightOpacity(Blocks.flowing_water, cp);
+            BlockLeavesBase.setLightOpacity(Blocks.water, i);
+            BlockLeavesBase.setLightOpacity(Blocks.flowing_water, i);
         }
 
-        if (world != null)
+        if (p_updateWaterOpacity_1_ != null)
         {
-            IChunkProvider var23 = world.getChunkProvider();
+            IChunkProvider ichunkprovider = p_updateWaterOpacity_1_.getChunkProvider();
 
-            if (var23 != null)
+            if (ichunkprovider != null)
             {
-                EntityLivingBase rve = Config.getMinecraft().renderViewEntity;
+                Entity entity = Config.getMinecraft().getRenderViewEntity();
 
-                if (rve != null)
+                if (entity != null)
                 {
-                    int cViewX = (int)rve.posX / 16;
-                    int cViewZ = (int)rve.posZ / 16;
-                    int cXMin = cViewX - 512;
-                    int cXMax = cViewX + 512;
-                    int cZMin = cViewZ - 512;
-                    int cZMax = cViewZ + 512;
-                    int countUpdated = 0;
+                    int j = (int)entity.posX / 16;
+                    int k = (int)entity.posZ / 16;
+                    int l = j - 512;
+                    int i1 = j + 512;
+                    int j1 = k - 512;
+                    int k1 = k + 512;
+                    int l1 = 0;
 
-                    for (int threadName = cXMin; threadName < cXMax; ++threadName)
+                    for (int i2 = l; i2 < i1; ++i2)
                     {
-                        for (int cz = cZMin; cz < cZMax; ++cz)
+                        for (int j2 = j1; j2 < k1; ++j2)
                         {
-                            if (var23.chunkExists(threadName, cz))
+                            if (ichunkprovider.chunkExists(i2, j2))
                             {
-                                Chunk c = var23.provideChunk(threadName, cz);
+                                Chunk chunk = ichunkprovider.provideChunk(i2, j2);
 
-                                if (c != null && !(c instanceof EmptyChunk))
+                                if (chunk != null && !(chunk instanceof EmptyChunk))
                                 {
-                                    int x0 = threadName << 4;
-                                    int z0 = cz << 4;
-                                    int x1 = x0 + 16;
-                                    int z1 = z0 + 16;
+                                    int k2 = i2 << 4;
+                                    int l2 = j2 << 4;
+                                    int i3 = k2 + 16;
+                                    int j3 = l2 + 16;
+                                    BlockPosM blockposm = new BlockPosM(0, 0, 0);
+                                    BlockPosM blockposm1 = new BlockPosM(0, 0, 0);
 
-                                    for (int x = x0; x < x1; ++x)
+                                    for (int k3 = k2; k3 < i3; ++k3)
                                     {
-                                        int z = z0;
-
-                                        while (z < z1)
+                                        for (int l3 = l2; l3 < j3; ++l3)
                                         {
-                                            int posH = world.getPrecipitationHeight(x, z);
-                                            int y = 0;
+                                            blockposm.setXyz(k3, 0, l3);
+                                            BlockPos blockpos = p_updateWaterOpacity_1_.getPrecipitationHeight(blockposm);
 
-                                            while (true)
+                                            for (int i4 = 0; i4 < blockpos.getY(); ++i4)
                                             {
-                                                if (y < posH)
+                                                blockposm1.setXyz(k3, i4, l3);
+                                                IBlockState iblockstate = p_updateWaterOpacity_1_.getBlockState(blockposm1);
+
+                                                if (iblockstate.getBlock().getMaterial() == Material.water)
                                                 {
-                                                    Block block = world.getBlock(x, y, z);
-
-                                                    if (block.getMaterial() != Material.water)
-                                                    {
-                                                        ++y;
-                                                        continue;
-                                                    }
-
-                                                    world.markBlocksDirtyVertical(x, z, y, posH);
-                                                    ++countUpdated;
+                                                    p_updateWaterOpacity_1_.markBlocksDirtyVertical(k3, l3, blockposm1.getY(), blockpos.getY());
+                                                    ++l1;
+                                                    break;
                                                 }
-
-                                                ++z;
-                                                break;
                                             }
                                         }
                                     }
@@ -95,16 +90,16 @@ public class ClearWater
                         }
                     }
 
-                    if (countUpdated > 0)
+                    if (l1 > 0)
                     {
-                        String var24 = "server";
+                        String s = "server";
 
                         if (Config.isMinecraftThread())
                         {
-                            var24 = "client";
+                            s = "client";
                         }
 
-                        Config.dbg("ClearWater (" + var24 + ") relighted " + countUpdated + " chunks");
+                        Config.dbg("ClearWater (" + s + ") relighted " + l1 + " chunks");
                     }
                 }
             }

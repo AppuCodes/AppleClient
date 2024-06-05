@@ -5,8 +5,6 @@ import net.minecraft.init.Blocks;
 
 public class BiomeGenEnd extends BiomeGenBase
 {
-    private static final String __OBFID = "CL_00000187";
-
     public BiomeGenEnd(int p_i1990_1_)
     {
         super(p_i1990_1_);
@@ -15,8 +13,8 @@ public class BiomeGenEnd extends BiomeGenBase
         this.spawnableWaterCreatureList.clear();
         this.spawnableCaveCreatureList.clear();
         this.spawnableMonsterList.add(new BiomeGenBase.SpawnListEntry(EntityEnderman.class, 10, 4, 4));
-        this.topBlock = Blocks.dirt;
-        this.fillerBlock = Blocks.dirt;
+        this.topBlock = Blocks.dirt.getDefaultState();
+        this.fillerBlock = Blocks.dirt.getDefaultState();
         this.theBiomeDecorator = new BiomeEndDecorator();
     }
 

@@ -1,117 +1,122 @@
 package optifine;
 
 import java.util.HashMap;
+import java.util.Map;
 import net.minecraft.client.settings.GameSettings;
 import net.minecraft.crash.CrashReport;
 import net.minecraft.crash.CrashReportCategory;
+import shadersmod.client.Shaders;
 
 public class CrashReporter
 {
-    public static void onCrashReport(CrashReport crashReport, CrashReportCategory category)
+    public static void onCrashReport(CrashReport p_onCrashReport_0_, CrashReportCategory p_onCrashReport_1_)
     {
         try
         {
-            GameSettings e = Config.getGameSettings();
+            GameSettings gamesettings = Config.getGameSettings();
 
-            if (e == null)
+            if (gamesettings == null)
             {
                 return;
             }
 
-            if (!e.snooperEnabled)
+            if (!gamesettings.snooperEnabled)
             {
                 return;
             }
 
-            Throwable cause = crashReport.getCrashCause();
+            Throwable throwable = p_onCrashReport_0_.getCrashCause();
 
-            if (cause == null)
+            if (throwable == null)
             {
                 return;
             }
 
-            if (cause.getClass() == Throwable.class)
+            if (throwable.getClass() == Throwable.class)
             {
                 return;
             }
 
-            if (cause.getClass().getName().contains(".fml.client.SplashProgress"))
+            if (throwable.getClass().getName().contains(".fml.client.SplashProgress"))
             {
                 return;
             }
 
-            extendCrashReport(category);
-            String url = "http://optifine.net/crashReport";
-            String reportStr = makeReport(crashReport);
-            byte[] content = reportStr.getBytes("ASCII");
-            IFileUploadListener listener = new IFileUploadListener()
+            extendCrashReport(p_onCrashReport_1_);
+            String s = "http://optifine.net/crashReport";
+            String s1 = makeReport(p_onCrashReport_0_);
+            byte[] abyte = s1.getBytes("ASCII");
+            IFileUploadListener ifileuploadlistener = new IFileUploadListener()
             {
-                public void fileUploadFinished(String url, byte[] content, Throwable exception) {}
+                public void fileUploadFinished(String p_fileUploadFinished_1_, byte[] p_fileUploadFinished_2_, Throwable p_fileUploadFinished_3_)
+                {
+                }
             };
-            HashMap headers = new HashMap();
-            headers.put("OF-Version", Config.getVersion());
-            headers.put("OF-Summary", makeSummary(crashReport));
-            FileUploadThread fut = new FileUploadThread(url, headers, content, listener);
-            fut.setPriority(10);
-            fut.start();
+            Map map = new HashMap();
+            map.put("OF-Version", Config.getVersion());
+            map.put("OF-Summary", makeSummary(p_onCrashReport_0_));
+            FileUploadThread fileuploadthread = new FileUploadThread(s, map, abyte, ifileuploadlistener);
+            fileuploadthread.setPriority(10);
+            fileuploadthread.start();
             Thread.sleep(1000L);
         }
-        catch (Exception var10)
+        catch (Exception exception)
         {
-            Config.dbg(var10.getClass().getName() + ": " + var10.getMessage());
+            Config.dbg(exception.getClass().getName() + ": " + exception.getMessage());
         }
     }
 
-    private static String makeReport(CrashReport crashReport)
+    private static String makeReport(CrashReport p_makeReport_0_)
     {
-        StringBuffer sb = new StringBuffer();
-        sb.append("OptiFineVersion: " + Config.getVersion() + "\n");
-        sb.append("Summary: " + makeSummary(crashReport) + "\n");
-        sb.append("\n");
-        sb.append(crashReport.getCompleteReport());
-        sb.append("\n");
-        return sb.toString();
+        StringBuffer stringbuffer = new StringBuffer();
+        stringbuffer.append("OptiFineVersion: " + Config.getVersion() + "\n");
+        stringbuffer.append("Summary: " + makeSummary(p_makeReport_0_) + "\n");
+        stringbuffer.append("\n");
+        stringbuffer.append(p_makeReport_0_.getCompleteReport());
+        stringbuffer.append("\n");
+        return stringbuffer.toString();
     }
 
-    private static String makeSummary(CrashReport crashReport)
+    private static String makeSummary(CrashReport p_makeSummary_0_)
     {
-        Throwable t = crashReport.getCrashCause();
+        Throwable throwable = p_makeSummary_0_.getCrashCause();
 
-        if (t == null)
+        if (throwable == null)
         {
             return "Unknown";
         }
         else
         {
-            StackTraceElement[] traces = t.getStackTrace();
-            String firstTrace = "unknown";
+            StackTraceElement[] astacktraceelement = throwable.getStackTrace();
+            String s = "unknown";
 
-            if (traces.length > 0)
+            if (astacktraceelement.length > 0)
             {
-                firstTrace = traces[0].toString().trim();
+                s = astacktraceelement[0].toString().trim();
             }
 
-            String sum = t.getClass().getName() + ": " + t.getMessage() + " (" + crashReport.getDescription() + ")" + " [" + firstTrace + "]";
-            return sum;
+            String s1 = throwable.getClass().getName() + ": " + throwable.getMessage() + " (" + p_makeSummary_0_.getDescription() + ")" + " [" + s + "]";
+            return s1;
         }
     }
 
-    public static void extendCrashReport(CrashReportCategory cat)
+    public static void extendCrashReport(CrashReportCategory p_extendCrashReport_0_)
     {
-        cat.addCrashSection("OptiFine Version", Config.getVersion());
+        p_extendCrashReport_0_.addCrashSection("OptiFine Version", Config.getVersion());
 
         if (Config.getGameSettings() != null)
         {
-            cat.addCrashSection("Render Distance Chunks", "" + Config.getChunkViewDistance());
-            cat.addCrashSection("Mipmaps", "" + Config.getMipmapLevels());
-            cat.addCrashSection("Anisotropic Filtering", "" + Config.getAnisotropicFilterLevel());
-            cat.addCrashSection("Antialiasing", "" + Config.getAntialiasingLevel());
-            cat.addCrashSection("Multitexture", "" + Config.isMultiTexture());
+            p_extendCrashReport_0_.addCrashSection("Render Distance Chunks", "" + Config.getChunkViewDistance());
+            p_extendCrashReport_0_.addCrashSection("Mipmaps", "" + Config.getMipmapLevels());
+            p_extendCrashReport_0_.addCrashSection("Anisotropic Filtering", "" + Config.getAnisotropicFilterLevel());
+            p_extendCrashReport_0_.addCrashSection("Antialiasing", "" + Config.getAntialiasingLevel());
+            p_extendCrashReport_0_.addCrashSection("Multitexture", "" + Config.isMultiTexture());
         }
 
-        cat.addCrashSection("OpenGlVersion", "" + Config.openGlVersion);
-        cat.addCrashSection("OpenGlRenderer", "" + Config.openGlRenderer);
-        cat.addCrashSection("OpenGlVendor", "" + Config.openGlVendor);
-        cat.addCrashSection("CpuCount", "" + Config.getAvailableProcessors());
+        p_extendCrashReport_0_.addCrashSection("Shaders", "" + Shaders.getShaderPackName());
+        p_extendCrashReport_0_.addCrashSection("OpenGlVersion", "" + Config.openGlVersion);
+        p_extendCrashReport_0_.addCrashSection("OpenGlRenderer", "" + Config.openGlRenderer);
+        p_extendCrashReport_0_.addCrashSection("OpenGlVendor", "" + Config.openGlVendor);
+        p_extendCrashReport_0_.addCrashSection("CpuCount", "" + Config.getAvailableProcessors());
     }
 }

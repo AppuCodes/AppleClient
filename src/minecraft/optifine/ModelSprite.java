@@ -1,7 +1,10 @@
 package optifine;
 
 import net.minecraft.client.model.ModelRenderer;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.WorldRenderer;
+import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.util.MathHelper;
 import org.lwjgl.opengl.GL11;
 
@@ -22,136 +25,133 @@ public class ModelSprite
     private float maxU = 0.0F;
     private float maxV = 0.0F;
 
-    public ModelSprite(ModelRenderer modelRenderer, int textureOffsetX, int textureOffsetY, float posX, float posY, float posZ, int sizeX, int sizeY, int sizeZ, float sizeAdd)
+    public ModelSprite(ModelRenderer p_i67_1_, int p_i67_2_, int p_i67_3_, float p_i67_4_, float p_i67_5_, float p_i67_6_, int p_i67_7_, int p_i67_8_, int p_i67_9_, float p_i67_10_)
     {
-        this.modelRenderer = modelRenderer;
-        this.textureOffsetX = textureOffsetX;
-        this.textureOffsetY = textureOffsetY;
-        this.posX = posX;
-        this.posY = posY;
-        this.posZ = posZ;
-        this.sizeX = sizeX;
-        this.sizeY = sizeY;
-        this.sizeZ = sizeZ;
-        this.sizeAdd = sizeAdd;
-        this.minU = (float)textureOffsetX / modelRenderer.textureWidth;
-        this.minV = (float)textureOffsetY / modelRenderer.textureHeight;
-        this.maxU = (float)(textureOffsetX + sizeX) / modelRenderer.textureWidth;
-        this.maxV = (float)(textureOffsetY + sizeY) / modelRenderer.textureHeight;
+        this.modelRenderer = p_i67_1_;
+        this.textureOffsetX = p_i67_2_;
+        this.textureOffsetY = p_i67_3_;
+        this.posX = p_i67_4_;
+        this.posY = p_i67_5_;
+        this.posZ = p_i67_6_;
+        this.sizeX = p_i67_7_;
+        this.sizeY = p_i67_8_;
+        this.sizeZ = p_i67_9_;
+        this.sizeAdd = p_i67_10_;
+        this.minU = (float)p_i67_2_ / p_i67_1_.textureWidth;
+        this.minV = (float)p_i67_3_ / p_i67_1_.textureHeight;
+        this.maxU = (float)(p_i67_2_ + p_i67_7_) / p_i67_1_.textureWidth;
+        this.maxV = (float)(p_i67_3_ + p_i67_8_) / p_i67_1_.textureHeight;
     }
 
-    public void render(Tessellator tessellator, float scale)
+    public void render(Tessellator p_render_1_, float p_render_2_)
     {
-        GL11.glTranslatef(this.posX * scale, this.posY * scale, this.posZ * scale);
-        float rMinU = this.minU;
-        float rMaxU = this.maxU;
-        float rMinV = this.minV;
-        float rMaxV = this.maxV;
+        GlStateManager.translate(this.posX * p_render_2_, this.posY * p_render_2_, this.posZ * p_render_2_);
+        float f = this.minU;
+        float f1 = this.maxU;
+        float f2 = this.minV;
+        float f3 = this.maxV;
 
         if (this.modelRenderer.mirror)
         {
-            rMinU = this.maxU;
-            rMaxU = this.minU;
+            f = this.maxU;
+            f1 = this.minU;
         }
 
         if (this.modelRenderer.mirrorV)
         {
-            rMinV = this.maxV;
-            rMaxV = this.minV;
+            f2 = this.maxV;
+            f3 = this.minV;
         }
 
-        renderItemIn2D(tessellator, rMinU, rMinV, rMaxU, rMaxV, this.sizeX, this.sizeY, scale * (float)this.sizeZ, this.modelRenderer.textureWidth, this.modelRenderer.textureHeight);
-        GL11.glTranslatef(-this.posX * scale, -this.posY * scale, -this.posZ * scale);
+        renderItemIn2D(p_render_1_, f, f2, f1, f3, this.sizeX, this.sizeY, p_render_2_ * (float)this.sizeZ, this.modelRenderer.textureWidth, this.modelRenderer.textureHeight);
+        GlStateManager.translate(-this.posX * p_render_2_, -this.posY * p_render_2_, -this.posZ * p_render_2_);
     }
 
-    public static void renderItemIn2D(Tessellator tessellator, float minU, float minV, float maxU, float maxV, int sizeX, int sizeY, float width, float texWidth, float texHeight)
+    public static void renderItemIn2D(Tessellator p_renderItemIn2D_0_, float p_renderItemIn2D_1_, float p_renderItemIn2D_2_, float p_renderItemIn2D_3_, float p_renderItemIn2D_4_, int p_renderItemIn2D_5_, int p_renderItemIn2D_6_, float p_renderItemIn2D_7_, float p_renderItemIn2D_8_, float p_renderItemIn2D_9_)
     {
-        if (width < 6.25E-4F)
+        if (p_renderItemIn2D_7_ < 6.25E-4F)
         {
-            width = 6.25E-4F;
+            p_renderItemIn2D_7_ = 6.25E-4F;
         }
 
-        float dU = maxU - minU;
-        float dV = maxV - minV;
-        double dimX = (double)(MathHelper.abs(dU) * (texWidth / 16.0F));
-        double dimY = (double)(MathHelper.abs(dV) * (texHeight / 16.0F));
-        tessellator.startDrawingQuads();
-        tessellator.setNormal(0.0F, 0.0F, -1.0F);
-        tessellator.addVertexWithUV(0.0D, 0.0D, 0.0D, (double)minU, (double)minV);
-        tessellator.addVertexWithUV(dimX, 0.0D, 0.0D, (double)maxU, (double)minV);
-        tessellator.addVertexWithUV(dimX, dimY, 0.0D, (double)maxU, (double)maxV);
-        tessellator.addVertexWithUV(0.0D, dimY, 0.0D, (double)minU, (double)maxV);
-        tessellator.draw();
-        tessellator.startDrawingQuads();
-        tessellator.setNormal(0.0F, 0.0F, 1.0F);
-        tessellator.addVertexWithUV(0.0D, dimY, (double)width, (double)minU, (double)maxV);
-        tessellator.addVertexWithUV(dimX, dimY, (double)width, (double)maxU, (double)maxV);
-        tessellator.addVertexWithUV(dimX, 0.0D, (double)width, (double)maxU, (double)minV);
-        tessellator.addVertexWithUV(0.0D, 0.0D, (double)width, (double)minU, (double)minV);
-        tessellator.draw();
-        float var8 = 0.5F * dU / (float)sizeX;
-        float var9 = 0.5F * dV / (float)sizeY;
-        tessellator.startDrawingQuads();
-        tessellator.setNormal(-1.0F, 0.0F, 0.0F);
-        int var10;
-        float var11;
-        float var12;
+        float f = p_renderItemIn2D_3_ - p_renderItemIn2D_1_;
+        float f1 = p_renderItemIn2D_4_ - p_renderItemIn2D_2_;
+        double d0 = (double)(MathHelper.abs(f) * (p_renderItemIn2D_8_ / 16.0F));
+        double d1 = (double)(MathHelper.abs(f1) * (p_renderItemIn2D_9_ / 16.0F));
+        WorldRenderer worldrenderer = p_renderItemIn2D_0_.getWorldRenderer();
+        GL11.glNormal3f(0.0F, 0.0F, -1.0F);
+        worldrenderer.begin(7, DefaultVertexFormats.POSITION_TEX);
+        worldrenderer.pos(0.0D, d1, 0.0D).tex((double)p_renderItemIn2D_1_, (double)p_renderItemIn2D_4_).endVertex();
+        worldrenderer.pos(d0, d1, 0.0D).tex((double)p_renderItemIn2D_3_, (double)p_renderItemIn2D_4_).endVertex();
+        worldrenderer.pos(d0, 0.0D, 0.0D).tex((double)p_renderItemIn2D_3_, (double)p_renderItemIn2D_2_).endVertex();
+        worldrenderer.pos(0.0D, 0.0D, 0.0D).tex((double)p_renderItemIn2D_1_, (double)p_renderItemIn2D_2_).endVertex();
+        p_renderItemIn2D_0_.draw();
+        GL11.glNormal3f(0.0F, 0.0F, 1.0F);
+        worldrenderer.begin(7, DefaultVertexFormats.POSITION_TEX);
+        worldrenderer.pos(0.0D, 0.0D, (double)p_renderItemIn2D_7_).tex((double)p_renderItemIn2D_1_, (double)p_renderItemIn2D_2_).endVertex();
+        worldrenderer.pos(d0, 0.0D, (double)p_renderItemIn2D_7_).tex((double)p_renderItemIn2D_3_, (double)p_renderItemIn2D_2_).endVertex();
+        worldrenderer.pos(d0, d1, (double)p_renderItemIn2D_7_).tex((double)p_renderItemIn2D_3_, (double)p_renderItemIn2D_4_).endVertex();
+        worldrenderer.pos(0.0D, d1, (double)p_renderItemIn2D_7_).tex((double)p_renderItemIn2D_1_, (double)p_renderItemIn2D_4_).endVertex();
+        p_renderItemIn2D_0_.draw();
+        float f2 = 0.5F * f / (float)p_renderItemIn2D_5_;
+        float f3 = 0.5F * f1 / (float)p_renderItemIn2D_6_;
+        GL11.glNormal3f(-1.0F, 0.0F, 0.0F);
+        worldrenderer.begin(7, DefaultVertexFormats.POSITION_TEX);
 
-        for (var10 = 0; var10 < sizeX; ++var10)
+        for (int i = 0; i < p_renderItemIn2D_5_; ++i)
         {
-            var11 = (float)var10 / (float)sizeX;
-            var12 = minU + dU * var11 + var8;
-            tessellator.addVertexWithUV((double)var11 * dimX, 0.0D, (double)width, (double)var12, (double)minV);
-            tessellator.addVertexWithUV((double)var11 * dimX, 0.0D, 0.0D, (double)var12, (double)minV);
-            tessellator.addVertexWithUV((double)var11 * dimX, dimY, 0.0D, (double)var12, (double)maxV);
-            tessellator.addVertexWithUV((double)var11 * dimX, dimY, (double)width, (double)var12, (double)maxV);
+            float f4 = (float)i / (float)p_renderItemIn2D_5_;
+            float f5 = p_renderItemIn2D_1_ + f * f4 + f2;
+            worldrenderer.pos((double)f4 * d0, d1, (double)p_renderItemIn2D_7_).tex((double)f5, (double)p_renderItemIn2D_4_).endVertex();
+            worldrenderer.pos((double)f4 * d0, d1, 0.0D).tex((double)f5, (double)p_renderItemIn2D_4_).endVertex();
+            worldrenderer.pos((double)f4 * d0, 0.0D, 0.0D).tex((double)f5, (double)p_renderItemIn2D_2_).endVertex();
+            worldrenderer.pos((double)f4 * d0, 0.0D, (double)p_renderItemIn2D_7_).tex((double)f5, (double)p_renderItemIn2D_2_).endVertex();
         }
 
-        tessellator.draw();
-        tessellator.startDrawingQuads();
-        tessellator.setNormal(1.0F, 0.0F, 0.0F);
-        float var13;
+        p_renderItemIn2D_0_.draw();
+        GL11.glNormal3f(1.0F, 0.0F, 0.0F);
+        worldrenderer.begin(7, DefaultVertexFormats.POSITION_TEX);
 
-        for (var10 = 0; var10 < sizeX; ++var10)
+        for (int j = 0; j < p_renderItemIn2D_5_; ++j)
         {
-            var11 = (float)var10 / (float)sizeX;
-            var12 = minU + dU * var11 + var8;
-            var13 = var11 + 1.0F / (float)sizeX;
-            tessellator.addVertexWithUV((double)var13 * dimX, dimY, (double)width, (double)var12, (double)maxV);
-            tessellator.addVertexWithUV((double)var13 * dimX, dimY, 0.0D, (double)var12, (double)maxV);
-            tessellator.addVertexWithUV((double)var13 * dimX, 0.0D, 0.0D, (double)var12, (double)minV);
-            tessellator.addVertexWithUV((double)var13 * dimX, 0.0D, (double)width, (double)var12, (double)minV);
+            float f7 = (float)j / (float)p_renderItemIn2D_5_;
+            float f10 = p_renderItemIn2D_1_ + f * f7 + f2;
+            float f6 = f7 + 1.0F / (float)p_renderItemIn2D_5_;
+            worldrenderer.pos((double)f6 * d0, 0.0D, (double)p_renderItemIn2D_7_).tex((double)f10, (double)p_renderItemIn2D_2_).endVertex();
+            worldrenderer.pos((double)f6 * d0, 0.0D, 0.0D).tex((double)f10, (double)p_renderItemIn2D_2_).endVertex();
+            worldrenderer.pos((double)f6 * d0, d1, 0.0D).tex((double)f10, (double)p_renderItemIn2D_4_).endVertex();
+            worldrenderer.pos((double)f6 * d0, d1, (double)p_renderItemIn2D_7_).tex((double)f10, (double)p_renderItemIn2D_4_).endVertex();
         }
 
-        tessellator.draw();
-        tessellator.startDrawingQuads();
-        tessellator.setNormal(0.0F, 1.0F, 0.0F);
+        p_renderItemIn2D_0_.draw();
+        GL11.glNormal3f(0.0F, 1.0F, 0.0F);
+        worldrenderer.begin(7, DefaultVertexFormats.POSITION_TEX);
 
-        for (var10 = 0; var10 < sizeY; ++var10)
+        for (int k = 0; k < p_renderItemIn2D_6_; ++k)
         {
-            var11 = (float)var10 / (float)sizeY;
-            var12 = minV + dV * var11 + var9;
-            var13 = var11 + 1.0F / (float)sizeY;
-            tessellator.addVertexWithUV(0.0D, (double)var13 * dimY, 0.0D, (double)minU, (double)var12);
-            tessellator.addVertexWithUV(dimX, (double)var13 * dimY, 0.0D, (double)maxU, (double)var12);
-            tessellator.addVertexWithUV(dimX, (double)var13 * dimY, (double)width, (double)maxU, (double)var12);
-            tessellator.addVertexWithUV(0.0D, (double)var13 * dimY, (double)width, (double)minU, (double)var12);
+            float f8 = (float)k / (float)p_renderItemIn2D_6_;
+            float f11 = p_renderItemIn2D_2_ + f1 * f8 + f3;
+            float f13 = f8 + 1.0F / (float)p_renderItemIn2D_6_;
+            worldrenderer.pos(0.0D, (double)f13 * d1, (double)p_renderItemIn2D_7_).tex((double)p_renderItemIn2D_1_, (double)f11).endVertex();
+            worldrenderer.pos(d0, (double)f13 * d1, (double)p_renderItemIn2D_7_).tex((double)p_renderItemIn2D_3_, (double)f11).endVertex();
+            worldrenderer.pos(d0, (double)f13 * d1, 0.0D).tex((double)p_renderItemIn2D_3_, (double)f11).endVertex();
+            worldrenderer.pos(0.0D, (double)f13 * d1, 0.0D).tex((double)p_renderItemIn2D_1_, (double)f11).endVertex();
         }
 
-        tessellator.draw();
-        tessellator.startDrawingQuads();
-        tessellator.setNormal(0.0F, -1.0F, 0.0F);
+        p_renderItemIn2D_0_.draw();
+        GL11.glNormal3f(0.0F, -1.0F, 0.0F);
+        worldrenderer.begin(7, DefaultVertexFormats.POSITION_TEX);
 
-        for (var10 = 0; var10 < sizeY; ++var10)
+        for (int l = 0; l < p_renderItemIn2D_6_; ++l)
         {
-            var11 = (float)var10 / (float)sizeY;
-            var12 = minV + dV * var11 + var9;
-            tessellator.addVertexWithUV(dimX, (double)var11 * dimY, 0.0D, (double)maxU, (double)var12);
-            tessellator.addVertexWithUV(0.0D, (double)var11 * dimY, 0.0D, (double)minU, (double)var12);
-            tessellator.addVertexWithUV(0.0D, (double)var11 * dimY, (double)width, (double)minU, (double)var12);
-            tessellator.addVertexWithUV(dimX, (double)var11 * dimY, (double)width, (double)maxU, (double)var12);
+            float f9 = (float)l / (float)p_renderItemIn2D_6_;
+            float f12 = p_renderItemIn2D_2_ + f1 * f9 + f3;
+            worldrenderer.pos(d0, (double)f9 * d1, (double)p_renderItemIn2D_7_).tex((double)p_renderItemIn2D_3_, (double)f12).endVertex();
+            worldrenderer.pos(0.0D, (double)f9 * d1, (double)p_renderItemIn2D_7_).tex((double)p_renderItemIn2D_1_, (double)f12).endVertex();
+            worldrenderer.pos(0.0D, (double)f9 * d1, 0.0D).tex((double)p_renderItemIn2D_1_, (double)f12).endVertex();
+            worldrenderer.pos(d0, (double)f9 * d1, 0.0D).tex((double)p_renderItemIn2D_3_, (double)f12).endVertex();
         }
 
-        tessellator.draw();
+        p_renderItemIn2D_0_.draw();
     }
 }

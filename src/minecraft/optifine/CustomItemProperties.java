@@ -1,16 +1,34 @@
 package optifine;
 
 import java.util.ArrayList;
-import java.util.Iterator;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
 import java.util.TreeSet;
+import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.block.model.BakedQuad;
+import net.minecraft.client.renderer.block.model.BlockPart;
+import net.minecraft.client.renderer.block.model.BlockPartFace;
+import net.minecraft.client.renderer.block.model.FaceBakery;
+import net.minecraft.client.renderer.block.model.ItemModelGenerator;
+import net.minecraft.client.renderer.block.model.ModelBlock;
+import net.minecraft.client.renderer.texture.ITextureObject;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.client.renderer.texture.TextureMap;
+import net.minecraft.client.resources.model.IBakedModel;
+import net.minecraft.client.resources.model.ModelResourceLocation;
+import net.minecraft.client.resources.model.ModelRotation;
+import net.minecraft.client.resources.model.SimpleBakedModel;
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
-import net.minecraft.util.IIcon;
+import net.minecraft.item.ItemArmor;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
+import org.lwjgl.opengl.GL11;
 
 public class CustomItemProperties
 {
@@ -19,7 +37,7 @@ public class CustomItemProperties
     public int type = 1;
     public int[] items = null;
     public String texture = null;
-    public Map mapTextures = null;
+    public Map<String, String> mapTextures = null;
     public RangeListInt damage = null;
     public boolean damagePercent = false;
     public int damageMask = 0;
@@ -28,493 +46,523 @@ public class CustomItemProperties
     public RangeListInt enchantmentLevels = null;
     public NbtTagValue[] nbtTagValues = null;
     public int blend = 1;
-    public int speed = 0;
-    public int rotation = 0;
+    public float speed = 0.0F;
+    public float rotation = 0.0F;
     public int layer = 0;
-    public int duration = 1;
+    public float duration = 1.0F;
     public int weight = 0;
-    public IIcon textureIcon = null;
-    public Map mapTextureIcons = null;
+    public ResourceLocation textureLocation = null;
+    public Map mapTextureLocations = null;
+    public TextureAtlasSprite sprite = null;
+    public Map mapSprites = null;
+    public IBakedModel model = null;
+    public Map<String, IBakedModel> mapModels = null;
+    private int textureWidth = 0;
+    private int textureHeight = 0;
     public static final int TYPE_UNKNOWN = 0;
     public static final int TYPE_ITEM = 1;
     public static final int TYPE_ENCHANTMENT = 2;
     public static final int TYPE_ARMOR = 3;
 
-    public CustomItemProperties(Properties props, String path)
+    public CustomItemProperties(Properties p_i34_1_, String p_i34_2_)
     {
-        this.name = parseName(path);
-        this.basePath = parseBasePath(path);
-        this.type = this.parseType(props.getProperty("type"));
-        this.items = this.parseItems(props.getProperty("items"), props.getProperty("matchItems"));
-        this.texture = parseTexture(props.getProperty("texture"), props.getProperty("tile"), props.getProperty("source"), path, this.basePath);
-        this.mapTextures = parseTextures(props, this.basePath);
-        String damageStr = props.getProperty("damage");
+        this.name = parseName(p_i34_2_);
+        this.basePath = parseBasePath(p_i34_2_);
+        this.type = this.parseType(p_i34_1_.getProperty("type"));
+        this.items = this.parseItems(p_i34_1_.getProperty("items"), p_i34_1_.getProperty("matchItems"));
+        this.mapTextures = parseTextures(p_i34_1_, this.basePath);
+        this.texture = parseTexture(p_i34_1_.getProperty("texture"), p_i34_1_.getProperty("tile"), p_i34_1_.getProperty("source"), p_i34_2_, this.basePath, this.type, this.mapTextures);
+        String s = p_i34_1_.getProperty("damage");
 
-        if (damageStr != null)
+        if (s != null)
         {
-            this.damagePercent = damageStr.contains("%");
-            damageStr.replace("%", "");
-            this.damage = this.parseRangeListInt(damageStr);
-            this.damageMask = this.parseInt(props.getProperty("damageMask"), 0);
+            this.damagePercent = s.contains("%");
+            s.replace("%", "");
+            this.damage = this.parseRangeListInt(s);
+            this.damageMask = this.parseInt(p_i34_1_.getProperty("damageMask"), 0);
         }
 
-        this.stackSize = this.parseRangeListInt(props.getProperty("stackSize"));
-        this.enchantmentIds = this.parseRangeListInt(props.getProperty("enchantmentIDs"));
-        this.enchantmentLevels = this.parseRangeListInt(props.getProperty("enchantmentLevels"));
-        this.nbtTagValues = this.parseNbtTagValues(props);
-        this.blend = Blender.parseBlend(props.getProperty("blend"));
-        this.speed = this.parseInt(props.getProperty("speed"), 0);
-        this.rotation = this.parseInt(props.getProperty("rotation"), 0);
-        this.layer = this.parseInt(props.getProperty("layer"), 0);
-        this.weight = this.parseInt(props.getProperty("weight"), 0);
-        this.duration = this.parseInt(props.getProperty("duration"), 1);
+        this.stackSize = this.parseRangeListInt(p_i34_1_.getProperty("stackSize"));
+        this.enchantmentIds = this.parseRangeListInt(p_i34_1_.getProperty("enchantmentIDs"));
+        this.enchantmentLevels = this.parseRangeListInt(p_i34_1_.getProperty("enchantmentLevels"));
+        this.nbtTagValues = this.parseNbtTagValues(p_i34_1_);
+        this.blend = Blender.parseBlend(p_i34_1_.getProperty("blend"));
+        this.speed = this.parseFloat(p_i34_1_.getProperty("speed"), 0.0F);
+        this.rotation = this.parseFloat(p_i34_1_.getProperty("rotation"), 0.0F);
+        this.layer = this.parseInt(p_i34_1_.getProperty("layer"), 0);
+        this.weight = this.parseInt(p_i34_1_.getProperty("weight"), 0);
+        this.duration = this.parseFloat(p_i34_1_.getProperty("duration"), 1.0F);
     }
 
-    private static String parseName(String path)
+    private static String parseName(String p_parseName_0_)
     {
-        String str = path;
-        int pos = path.lastIndexOf(47);
+        String s = p_parseName_0_;
+        int i = p_parseName_0_.lastIndexOf(47);
 
-        if (pos >= 0)
+        if (i >= 0)
         {
-            str = path.substring(pos + 1);
+            s = p_parseName_0_.substring(i + 1);
         }
 
-        int pos2 = str.lastIndexOf(46);
+        int j = s.lastIndexOf(46);
 
-        if (pos2 >= 0)
+        if (j >= 0)
         {
-            str = str.substring(0, pos2);
+            s = s.substring(0, j);
         }
 
-        return str;
+        return s;
     }
 
-    private static String parseBasePath(String path)
+    private static String parseBasePath(String p_parseBasePath_0_)
     {
-        int pos = path.lastIndexOf(47);
-        return pos < 0 ? "" : path.substring(0, pos);
+        int i = p_parseBasePath_0_.lastIndexOf(47);
+        return i < 0 ? "" : p_parseBasePath_0_.substring(0, i);
     }
 
-    private int parseType(String str)
+    private int parseType(String p_parseType_1_)
     {
-        if (str == null)
+        if (p_parseType_1_ == null)
         {
             return 1;
         }
-        else if (str.equals("item"))
+        else if (p_parseType_1_.equals("item"))
         {
             return 1;
         }
-        else if (str.equals("enchantment"))
+        else if (p_parseType_1_.equals("enchantment"))
         {
             return 2;
         }
-        else if (str.equals("armor"))
+        else if (p_parseType_1_.equals("armor"))
         {
             return 3;
         }
         else
         {
-            Config.warn("Unknown method: " + str);
+            Config.warn("Unknown method: " + p_parseType_1_);
             return 0;
         }
     }
 
-    private int[] parseItems(String str, String str2)
+    private int[] parseItems(String p_parseItems_1_, String p_parseItems_2_)
     {
-        if (str == null)
+        if (p_parseItems_1_ == null)
         {
-            str = str2;
+            p_parseItems_1_ = p_parseItems_2_;
         }
 
-        if (str == null)
+        if (p_parseItems_1_ == null)
         {
             return null;
         }
         else
         {
-            str = str.trim();
-            TreeSet setItemIds = new TreeSet();
-            String[] tokens = Config.tokenize(str, " ");
-            int i;
-            label58:
+            p_parseItems_1_ = p_parseItems_1_.trim();
+            Set set = new TreeSet();
+            String[] astring = Config.tokenize(p_parseItems_1_, " ");
+            label45:
 
-            for (int integers = 0; integers < tokens.length; ++integers)
+            for (int i = 0; i < astring.length; ++i)
             {
-                String ints = tokens[integers];
-                i = Config.parseInt(ints, -1);
+                String s = astring[i];
+                int j = Config.parseInt(s, -1);
 
-                if (i >= 0)
+                if (j >= 0)
                 {
-                    setItemIds.add(new Integer(i));
+                    set.add(j);
                 }
                 else
                 {
-                    int id;
-
-                    if (ints.contains("-"))
+                    if (s.contains("-"))
                     {
-                        String[] itemObj = Config.tokenize(ints, "-");
+                        String[] astring1 = Config.tokenize(s, "-");
 
-                        if (itemObj.length == 2)
+                        if (astring1.length == 2)
                         {
-                            int item = Config.parseInt(itemObj[0], -1);
-                            id = Config.parseInt(itemObj[1], -1);
+                            int k = Config.parseInt(astring1[0], -1);
+                            int l = Config.parseInt(astring1[1], -1);
 
-                            if (item >= 0 && id >= 0)
+                            if (k >= 0 && l >= 0)
                             {
-                                int min = Math.min(item, id);
-                                int max = Math.max(item, id);
-                                int x = min;
+                                int i1 = Math.min(k, l);
+                                int j1 = Math.max(k, l);
+                                int k1 = i1;
 
                                 while (true)
                                 {
-                                    if (x > max)
+                                    if (k1 > j1)
                                     {
-                                        continue label58;
+                                        continue label45;
                                     }
 
-                                    setItemIds.add(new Integer(x));
-                                    ++x;
+                                    set.add(k1);
+                                    ++k1;
                                 }
                             }
                         }
                     }
 
-                    Object var16 = Item.itemRegistry.getObject(ints);
+                    Item item = Item.getByNameOrId(s);
 
-                    if (!(var16 instanceof Item))
+                    if (item == null)
                     {
-                        Config.dbg("Item not found: " + ints);
+                        Config.warn("Item not found: " + s);
                     }
                     else
                     {
-                        Item var17 = (Item)var16;
-                        id = Item.getIdFromItem(var17);
+                        int i2 = Item.getIdFromItem(item);
 
-                        if (id < 0)
+                        if (i2 < 0)
                         {
-                            Config.dbg("Item not found: " + ints);
+                            Config.warn("Item not found: " + s);
                         }
                         else
                         {
-                            setItemIds.add(new Integer(id));
+                            set.add(i2);
                         }
                     }
                 }
             }
 
-            Integer[] var14 = (Integer[])((Integer[])setItemIds.toArray(new Integer[setItemIds.size()]));
-            int[] var15 = new int[var14.length];
+            Integer[] ainteger = (Integer[])((Integer[])set.toArray(new Integer[set.size()]));
+            int[] aint = new int[ainteger.length];
 
-            for (i = 0; i < var15.length; ++i)
+            for (int l1 = 0; l1 < aint.length; ++l1)
             {
-                var15[i] = var14[i].intValue();
+                aint[l1] = ainteger[l1].intValue();
             }
 
-            return var15;
+            return aint;
         }
     }
 
-    private static String parseTexture(String texStr, String texStr2, String texStr3, String path, String basePath)
+    private static String parseTexture(String p_parseTexture_0_, String p_parseTexture_1_, String p_parseTexture_2_, String p_parseTexture_3_, String p_parseTexture_4_, int p_parseTexture_5_, Map<String, String> p_parseTexture_6_)
     {
-        if (texStr == null)
+        if (p_parseTexture_0_ == null)
         {
-            texStr = texStr2;
+            p_parseTexture_0_ = p_parseTexture_1_;
         }
 
-        if (texStr == null)
+        if (p_parseTexture_0_ == null)
         {
-            texStr = texStr3;
+            p_parseTexture_0_ = p_parseTexture_2_;
         }
 
-        String str;
-
-        if (texStr != null)
+        if (p_parseTexture_0_ != null)
         {
-            str = ".png";
+            String s2 = ".png";
 
-            if (texStr.endsWith(str))
+            if (p_parseTexture_0_.endsWith(s2))
             {
-                texStr = texStr.substring(0, texStr.length() - str.length());
+                p_parseTexture_0_ = p_parseTexture_0_.substring(0, p_parseTexture_0_.length() - s2.length());
             }
 
-            texStr = fixTextureName(texStr, basePath);
-            return texStr;
+            p_parseTexture_0_ = fixTextureName(p_parseTexture_0_, p_parseTexture_4_);
+            return p_parseTexture_0_;
         }
-        else
-        {
-            str = path;
-            int pos = path.lastIndexOf(47);
-
-            if (pos >= 0)
-            {
-                str = path.substring(pos + 1);
-            }
-
-            int pos2 = str.lastIndexOf(46);
-
-            if (pos2 >= 0)
-            {
-                str = str.substring(0, pos2);
-            }
-
-            str = fixTextureName(str, basePath);
-            return str;
-        }
-    }
-
-    private static Map parseTextures(Properties props, String basePath)
-    {
-        String prefix = "texture.";
-        Map mapProps = getMatchingProperties(props, prefix);
-
-        if (mapProps.size() <= 0)
+        else if (p_parseTexture_5_ == 3)
         {
             return null;
         }
         else
         {
-            Set keySet = mapProps.keySet();
-            LinkedHashMap mapTex = new LinkedHashMap();
-            String key;
-            String val;
-
-            for (Iterator it = keySet.iterator(); it.hasNext(); mapTex.put(key, val))
+            if (p_parseTexture_6_ != null)
             {
-                key = (String)it.next();
-                val = (String)mapProps.get(key);
-                val = fixTextureName(val, basePath);
+                String s = (String)p_parseTexture_6_.get("texture.bow_standby");
 
-                if (key.startsWith(prefix))
+                if (s != null)
                 {
-                    key = key.substring(prefix.length());
+                    return s;
                 }
             }
 
-            return mapTex;
+            String s1 = p_parseTexture_3_;
+            int i = p_parseTexture_3_.lastIndexOf(47);
+
+            if (i >= 0)
+            {
+                s1 = p_parseTexture_3_.substring(i + 1);
+            }
+
+            int j = s1.lastIndexOf(46);
+
+            if (j >= 0)
+            {
+                s1 = s1.substring(0, j);
+            }
+
+            s1 = fixTextureName(s1, p_parseTexture_4_);
+            return s1;
         }
     }
 
-    private static String fixTextureName(String iconName, String basePath)
+    private static Map parseTextures(Properties p_parseTextures_0_, String p_parseTextures_1_)
     {
-        iconName = TextureUtils.fixResourcePath(iconName, basePath);
+        String s = "texture.";
+        Map map = getMatchingProperties(p_parseTextures_0_, s);
 
-        if (!iconName.startsWith(basePath) && !iconName.startsWith("textures/") && !iconName.startsWith("mcpatcher/"))
+        if (map.size() <= 0)
         {
-            iconName = basePath + "/" + iconName;
-        }
-
-        if (iconName.endsWith(".png"))
-        {
-            iconName = iconName.substring(0, iconName.length() - 4);
-        }
-
-        String pathBlocks = "textures/blocks/";
-
-        if (iconName.startsWith(pathBlocks))
-        {
-            iconName = iconName.substring(pathBlocks.length());
-        }
-
-        if (iconName.startsWith("/"))
-        {
-            iconName = iconName.substring(1);
-        }
-
-        return iconName;
-    }
-
-    private int parseInt(String str, int defVal)
-    {
-        if (str == null)
-        {
-            return defVal;
+            return null;
         }
         else
         {
-            str = str.trim();
-            int val = Config.parseInt(str, Integer.MIN_VALUE);
+            Set set = map.keySet();
+            Map map1 = new LinkedHashMap();
 
-            if (val == Integer.MIN_VALUE)
+            for (Object s1 : set)
             {
-                Config.warn("Invalid integer: " + str);
-                return defVal;
+                String s2 = (String)map.get(s1);
+                s2 = fixTextureName(s2, p_parseTextures_1_);
+                map1.put(s1, s2);
+            }
+
+            return map1;
+        }
+    }
+
+    private static String fixTextureName(String p_fixTextureName_0_, String p_fixTextureName_1_)
+    {
+        p_fixTextureName_0_ = TextureUtils.fixResourcePath(p_fixTextureName_0_, p_fixTextureName_1_);
+
+        if (!p_fixTextureName_0_.startsWith(p_fixTextureName_1_) && !p_fixTextureName_0_.startsWith("textures/") && !p_fixTextureName_0_.startsWith("mcpatcher/"))
+        {
+            p_fixTextureName_0_ = p_fixTextureName_1_ + "/" + p_fixTextureName_0_;
+        }
+
+        if (p_fixTextureName_0_.endsWith(".png"))
+        {
+            p_fixTextureName_0_ = p_fixTextureName_0_.substring(0, p_fixTextureName_0_.length() - 4);
+        }
+
+        String s = "textures/blocks/";
+
+        if (p_fixTextureName_0_.startsWith(s))
+        {
+            p_fixTextureName_0_ = p_fixTextureName_0_.substring(s.length());
+        }
+
+        if (p_fixTextureName_0_.startsWith("/"))
+        {
+            p_fixTextureName_0_ = p_fixTextureName_0_.substring(1);
+        }
+
+        return p_fixTextureName_0_;
+    }
+
+    private int parseInt(String p_parseInt_1_, int p_parseInt_2_)
+    {
+        if (p_parseInt_1_ == null)
+        {
+            return p_parseInt_2_;
+        }
+        else
+        {
+            p_parseInt_1_ = p_parseInt_1_.trim();
+            int i = Config.parseInt(p_parseInt_1_, Integer.MIN_VALUE);
+
+            if (i == Integer.MIN_VALUE)
+            {
+                Config.warn("Invalid integer: " + p_parseInt_1_);
+                return p_parseInt_2_;
             }
             else
             {
-                return val;
+                return i;
             }
         }
     }
 
-    private RangeListInt parseRangeListInt(String str)
+    private float parseFloat(String p_parseFloat_1_, float p_parseFloat_2_)
     {
-        if (str == null)
+        if (p_parseFloat_1_ == null)
+        {
+            return p_parseFloat_2_;
+        }
+        else
+        {
+            p_parseFloat_1_ = p_parseFloat_1_.trim();
+            float f = Config.parseFloat(p_parseFloat_1_, Float.MIN_VALUE);
+
+            if (f == Float.MIN_VALUE)
+            {
+                Config.warn("Invalid float: " + p_parseFloat_1_);
+                return p_parseFloat_2_;
+            }
+            else
+            {
+                return f;
+            }
+        }
+    }
+
+    private RangeListInt parseRangeListInt(String p_parseRangeListInt_1_)
+    {
+        if (p_parseRangeListInt_1_ == null)
         {
             return null;
         }
         else
         {
-            String[] tokens = Config.tokenize(str, " ");
-            RangeListInt rangeList = new RangeListInt();
+            String[] astring = Config.tokenize(p_parseRangeListInt_1_, " ");
+            RangeListInt rangelistint = new RangeListInt();
 
-            for (int i = 0; i < tokens.length; ++i)
+            for (int i = 0; i < astring.length; ++i)
             {
-                String token = tokens[i];
-                RangeInt range = this.parseRangeInt(token);
+                String s = astring[i];
+                RangeInt rangeint = this.parseRangeInt(s);
 
-                if (range == null)
+                if (rangeint == null)
                 {
-                    Config.warn("Invalid range list: " + str);
+                    Config.warn("Invalid range list: " + p_parseRangeListInt_1_);
                     return null;
                 }
 
-                rangeList.addRange(range);
+                rangelistint.addRange(rangeint);
             }
 
-            return rangeList;
+            return rangelistint;
         }
     }
 
-    private RangeInt parseRangeInt(String str)
+    private RangeInt parseRangeInt(String p_parseRangeInt_1_)
     {
-        if (str == null)
+        if (p_parseRangeInt_1_ == null)
         {
             return null;
         }
         else
         {
-            str = str.trim();
-            int countMinus = str.length() - str.replace("-", "").length();
+            p_parseRangeInt_1_ = p_parseRangeInt_1_.trim();
+            int i = p_parseRangeInt_1_.length() - p_parseRangeInt_1_.replace("-", "").length();
 
-            if (countMinus > 1)
+            if (i > 1)
             {
-                Config.warn("Invalid range: " + str);
+                Config.warn("Invalid range: " + p_parseRangeInt_1_);
                 return null;
             }
             else
             {
-                String[] tokens = Config.tokenize(str, "- ");
-                int[] vals = new int[tokens.length];
-                int min;
+                String[] astring = Config.tokenize(p_parseRangeInt_1_, "- ");
+                int[] aint = new int[astring.length];
 
-                for (min = 0; min < tokens.length; ++min)
+                for (int j = 0; j < astring.length; ++j)
                 {
-                    String max = tokens[min];
-                    int val = Config.parseInt(max, -1);
+                    String s = astring[j];
+                    int k = Config.parseInt(s, -1);
 
-                    if (val < 0)
+                    if (k < 0)
                     {
-                        Config.warn("Invalid range: " + str);
+                        Config.warn("Invalid range: " + p_parseRangeInt_1_);
                         return null;
                     }
 
-                    vals[min] = val;
+                    aint[j] = k;
                 }
 
-                if (vals.length == 1)
+                if (aint.length == 1)
                 {
-                    min = vals[0];
+                    int i1 = aint[0];
 
-                    if (str.startsWith("-"))
+                    if (p_parseRangeInt_1_.startsWith("-"))
                     {
-                        return new RangeInt(-1, min);
+                        return new RangeInt(0, i1);
                     }
-                    else if (str.endsWith("-"))
+                    else if (p_parseRangeInt_1_.endsWith("-"))
                     {
-                        return new RangeInt(min, -1);
+                        return new RangeInt(i1, 255);
                     }
                     else
                     {
-                        return new RangeInt(min, min);
+                        return new RangeInt(i1, i1);
                     }
                 }
-                else if (vals.length == 2)
+                else if (aint.length == 2)
                 {
-                    min = Math.min(vals[0], vals[1]);
-                    int var8 = Math.max(vals[0], vals[1]);
-                    return new RangeInt(min, var8);
+                    int l = Math.min(aint[0], aint[1]);
+                    int j1 = Math.max(aint[0], aint[1]);
+                    return new RangeInt(l, j1);
                 }
                 else
                 {
-                    Config.warn("Invalid range: " + str);
+                    Config.warn("Invalid range: " + p_parseRangeInt_1_);
                     return null;
                 }
             }
         }
     }
 
-    private NbtTagValue[] parseNbtTagValues(Properties props)
+    private NbtTagValue[] parseNbtTagValues(Properties p_parseNbtTagValues_1_)
     {
-        Map mapNbt = getMatchingProperties(props, "nbt.");
+        String s = "nbt.";
+        Map map = getMatchingProperties(p_parseNbtTagValues_1_, s);
 
-        if (mapNbt.size() <= 0)
+        if (map.size() <= 0)
         {
             return null;
         }
         else
         {
-            ArrayList listNbts = new ArrayList();
-            Set keySet = mapNbt.keySet();
-            Iterator nbts = keySet.iterator();
+            List list = new ArrayList();
 
-            while (nbts.hasNext())
+            for (Object s1 : map.keySet())
             {
-                String key = (String)nbts.next();
-                String val = (String)mapNbt.get(key);
-                NbtTagValue nbt = new NbtTagValue(key, val);
-                listNbts.add(nbt);
+                String s2 = (String)map.get(s1);
+                String s3 = ((String) s1).substring(s.length());
+                NbtTagValue nbttagvalue = new NbtTagValue(s3, s2);
+                list.add(nbttagvalue);
             }
 
-            NbtTagValue[] nbts1 = (NbtTagValue[])((NbtTagValue[])listNbts.toArray(new NbtTagValue[listNbts.size()]));
-            return nbts1;
+            NbtTagValue[] anbttagvalue = (NbtTagValue[])((NbtTagValue[])list.toArray(new NbtTagValue[list.size()]));
+            return anbttagvalue;
         }
     }
 
-    private static Map getMatchingProperties(Properties props, String keyPrefix)
+    private static Map getMatchingProperties(Properties p_getMatchingProperties_0_, String p_getMatchingProperties_1_)
     {
-        LinkedHashMap map = new LinkedHashMap();
-        Set keySet = props.keySet();
-        Iterator it = keySet.iterator();
+        Map map = new LinkedHashMap();
 
-        while (it.hasNext())
+        for (Object s : p_getMatchingProperties_0_.keySet())
         {
-            String key = (String)it.next();
-            String val = props.getProperty(key);
+            String s1 = p_getMatchingProperties_0_.getProperty((String) s);
 
-            if (key.startsWith(keyPrefix))
+            if (((String) s).startsWith(p_getMatchingProperties_1_))
             {
-                map.put(key, val);
+                map.put(s, s1);
             }
         }
 
         return map;
     }
 
-    public boolean isValid(String path)
+    public boolean isValid(String p_isValid_1_)
     {
         if (this.name != null && this.name.length() > 0)
         {
             if (this.basePath == null)
             {
-                Config.warn("No base path found: " + path);
+                Config.warn("No base path found: " + p_isValid_1_);
                 return false;
             }
             else if (this.type == 0)
             {
-                Config.warn("No type defined: " + path);
+                Config.warn("No type defined: " + p_isValid_1_);
                 return false;
             }
             else if ((this.type == 1 || this.type == 3) && this.items == null)
             {
-                Config.warn("No items defined: " + path);
+                Config.warn("No items defined: " + p_isValid_1_);
                 return false;
             }
             else if (this.texture == null && this.mapTextures == null)
             {
-                Config.warn("No texture specified: " + path);
+                Config.warn("No texture specified: " + p_isValid_1_);
+                return false;
+            }
+            else if (this.type == 2 && this.enchantmentIds == null)
+            {
+                Config.warn("No enchantmentIDs specified: " + p_isValid_1_);
                 return false;
             }
             else
@@ -524,60 +572,337 @@ public class CustomItemProperties
         }
         else
         {
-            Config.warn("No name found: " + path);
+            Config.warn("No name found: " + p_isValid_1_);
             return false;
         }
     }
 
-    public void updateIcons(TextureMap textureMap)
+    public void updateIcons(TextureMap p_updateIcons_1_)
     {
         if (this.texture != null)
         {
-            this.textureIcon = registerIcon(this.texture, textureMap);
+            this.textureLocation = this.getTextureLocation(this.texture);
+
+            if (this.type == 1)
+            {
+                ResourceLocation resourcelocation = this.getSpriteLocation(this.textureLocation);
+                this.sprite = p_updateIcons_1_.registerSprite(resourcelocation);
+            }
         }
 
         if (this.mapTextures != null)
         {
-            this.mapTextureIcons = new LinkedHashMap();
-            Set keySet = this.mapTextures.keySet();
-            Iterator it = keySet.iterator();
+            this.mapTextureLocations = new HashMap();
+            this.mapSprites = new HashMap();
 
-            while (it.hasNext())
+            for (String s : this.mapTextures.keySet())
             {
-                String key = (String)it.next();
-                String val = (String)this.mapTextures.get(key);
-                IIcon icon = registerIcon(val, textureMap);
-                this.mapTextureIcons.put(key, icon);
+                String s1 = (String)this.mapTextures.get(s);
+                ResourceLocation resourcelocation1 = this.getTextureLocation(s1);
+                this.mapTextureLocations.put(s, resourcelocation1);
+
+                if (this.type == 1)
+                {
+                    ResourceLocation resourcelocation2 = this.getSpriteLocation(resourcelocation1);
+                    TextureAtlasSprite textureatlassprite = p_updateIcons_1_.registerSprite(resourcelocation2);
+                    this.mapSprites.put(s, textureatlassprite);
+                }
             }
         }
     }
 
-    private static IIcon registerIcon(String tileName, TextureMap textureMap)
+    private ResourceLocation getTextureLocation(String p_getTextureLocation_1_)
     {
-        if (tileName == null)
+        if (p_getTextureLocation_1_ == null)
         {
             return null;
         }
         else
         {
-            String fullName = tileName;
+            ResourceLocation resourcelocation = new ResourceLocation(p_getTextureLocation_1_);
+            String s = resourcelocation.getResourceDomain();
+            String s1 = resourcelocation.getResourcePath();
 
-            if (!tileName.contains("/"))
+            if (!s1.contains("/"))
             {
-                fullName = "textures/blocks/" + tileName;
+                s1 = "textures/blocks/" + s1;
             }
 
-            String fileName = fullName + ".png";
-            ResourceLocation loc = new ResourceLocation(fileName);
-            boolean exists = Config.hasResource(loc);
+            String s2 = s1 + ".png";
+            ResourceLocation resourcelocation1 = new ResourceLocation(s, s2);
+            boolean flag = Config.hasResource(resourcelocation1);
 
-            if (!exists)
+            if (!flag)
             {
-                Config.warn("File not found: " + fileName);
+                Config.warn("File not found: " + s2);
             }
 
-            IIcon icon = textureMap.registerIcon(tileName);
-            return icon;
+            return resourcelocation1;
         }
+    }
+
+    private ResourceLocation getSpriteLocation(ResourceLocation p_getSpriteLocation_1_)
+    {
+        String s = p_getSpriteLocation_1_.getResourcePath();
+        s = StrUtils.removePrefix(s, "textures/");
+        s = StrUtils.removeSuffix(s, ".png");
+        ResourceLocation resourcelocation = new ResourceLocation(p_getSpriteLocation_1_.getResourceDomain(), s);
+        return resourcelocation;
+    }
+
+    public void updateModel(TextureMap p_updateModel_1_, ItemModelGenerator p_updateModel_2_)
+    {
+        String[] astring = this.getModelTextures();
+        boolean flag = this.isUseTint();
+        this.model = makeBakedModel(p_updateModel_1_, p_updateModel_2_, astring, flag);
+
+        if (this.type == 1 && this.mapTextures != null)
+        {
+            for (String s : this.mapTextures.keySet())
+            {
+                String s1 = (String)this.mapTextures.get(s);
+                String s2 = StrUtils.removePrefix(s, "texture.");
+
+                if (s2.startsWith("bow") || s2.startsWith("fishing_rod"))
+                {
+                    String[] astring1 = new String[] {s1};
+                    IBakedModel ibakedmodel = makeBakedModel(p_updateModel_1_, p_updateModel_2_, astring1, flag);
+
+                    if (this.mapModels == null)
+                    {
+                        this.mapModels = new HashMap();
+                    }
+
+                    this.mapModels.put(s2, ibakedmodel);
+                }
+            }
+        }
+    }
+
+    private boolean isUseTint()
+    {
+        return true;
+    }
+
+    private static IBakedModel makeBakedModel(TextureMap p_makeBakedModel_0_, ItemModelGenerator p_makeBakedModel_1_, String[] p_makeBakedModel_2_, boolean p_makeBakedModel_3_)
+    {
+        ModelBlock modelblock = makeModelBlock(p_makeBakedModel_2_);
+        ModelBlock modelblock1 = p_makeBakedModel_1_.makeItemModel(p_makeBakedModel_0_, modelblock);
+        IBakedModel ibakedmodel = bakeModel(p_makeBakedModel_0_, modelblock1, p_makeBakedModel_3_);
+        return ibakedmodel;
+    }
+
+    private String[] getModelTextures()
+    {
+        if (this.type == 1 && this.items.length == 1)
+        {
+            Item item = Item.getItemById(this.items[0]);
+
+            if (item == Items.potionitem && this.damage != null && this.damage.getCountRanges() > 0)
+            {
+                RangeInt rangeint = this.damage.getRange(0);
+                int i = rangeint.getMin();
+                boolean flag = (i & 16384) != 0;
+                String s5 = this.getMapTexture(this.mapTextures, "texture.potion_overlay", "items/potion_overlay");
+                String s6 = null;
+
+                if (flag)
+                {
+                    s6 = this.getMapTexture(this.mapTextures, "texture.potion_bottle_splash", "items/potion_bottle_splash");
+                }
+                else
+                {
+                    s6 = this.getMapTexture(this.mapTextures, "texture.potion_bottle_drinkable", "items/potion_bottle_drinkable");
+                }
+
+                return new String[] {s5, s6};
+            }
+
+            if (item instanceof ItemArmor)
+            {
+                ItemArmor itemarmor = (ItemArmor)item;
+
+                if (itemarmor.getArmorMaterial() == ItemArmor.ArmorMaterial.LEATHER)
+                {
+                    String s = "leather";
+                    String s1 = "helmet";
+
+                    if (itemarmor.armorType == 0)
+                    {
+                        s1 = "helmet";
+                    }
+
+                    if (itemarmor.armorType == 1)
+                    {
+                        s1 = "chestplate";
+                    }
+
+                    if (itemarmor.armorType == 2)
+                    {
+                        s1 = "leggings";
+                    }
+
+                    if (itemarmor.armorType == 3)
+                    {
+                        s1 = "boots";
+                    }
+
+                    String s2 = s + "_" + s1;
+                    String s3 = this.getMapTexture(this.mapTextures, "texture." + s2, "items/" + s2);
+                    String s4 = this.getMapTexture(this.mapTextures, "texture." + s2 + "_overlay", "items/" + s2 + "_overlay");
+                    return new String[] {s3, s4};
+                }
+            }
+        }
+
+        return new String[] {this.texture};
+    }
+
+    private String getMapTexture(Map<String, String> p_getMapTexture_1_, String p_getMapTexture_2_, String p_getMapTexture_3_)
+    {
+        if (p_getMapTexture_1_ == null)
+        {
+            return p_getMapTexture_3_;
+        }
+        else
+        {
+            String s = (String)p_getMapTexture_1_.get(p_getMapTexture_2_);
+            return s == null ? p_getMapTexture_3_ : s;
+        }
+    }
+
+    private static ModelBlock makeModelBlock(String[] p_makeModelBlock_0_)
+    {
+        StringBuffer stringbuffer = new StringBuffer();
+        stringbuffer.append("{\"parent\": \"builtin/generated\",\"textures\": {");
+
+        for (int i = 0; i < p_makeModelBlock_0_.length; ++i)
+        {
+            String s = p_makeModelBlock_0_[i];
+
+            if (i > 0)
+            {
+                stringbuffer.append(", ");
+            }
+
+            stringbuffer.append("\"layer" + i + "\": \"" + s + "\"");
+        }
+
+        stringbuffer.append("}}");
+        String s1 = stringbuffer.toString();
+        ModelBlock modelblock = ModelBlock.deserialize(s1);
+        return modelblock;
+    }
+
+    private static IBakedModel bakeModel(TextureMap p_bakeModel_0_, ModelBlock p_bakeModel_1_, boolean p_bakeModel_2_)
+    {
+        ModelRotation modelrotation = ModelRotation.X0_Y0;
+        boolean flag = false;
+        TextureAtlasSprite textureatlassprite = p_bakeModel_0_.getSpriteSafe(p_bakeModel_1_.resolveTextureName("particle"));
+        SimpleBakedModel.Builder simplebakedmodel$builder = (new SimpleBakedModel.Builder(p_bakeModel_1_)).setTexture(textureatlassprite);
+
+        for (BlockPart blockpart : p_bakeModel_1_.getElements())
+        {
+            for (EnumFacing enumfacing : blockpart.mapFaces.keySet())
+            {
+                BlockPartFace blockpartface = (BlockPartFace)blockpart.mapFaces.get(enumfacing);
+
+                if (!p_bakeModel_2_)
+                {
+                    blockpartface = new BlockPartFace(blockpartface.cullFace, -1, blockpartface.texture, blockpartface.blockFaceUV);
+                }
+
+                TextureAtlasSprite textureatlassprite1 = p_bakeModel_0_.getSpriteSafe(p_bakeModel_1_.resolveTextureName(blockpartface.texture));
+                BakedQuad bakedquad = makeBakedQuad(blockpart, blockpartface, textureatlassprite1, enumfacing, modelrotation, flag);
+
+                if (blockpartface.cullFace == null)
+                {
+                    simplebakedmodel$builder.addGeneralQuad(bakedquad);
+                }
+                else
+                {
+                    simplebakedmodel$builder.addFaceQuad(modelrotation.rotateFace(blockpartface.cullFace), bakedquad);
+                }
+            }
+        }
+
+        return simplebakedmodel$builder.makeBakedModel();
+    }
+
+    private static BakedQuad makeBakedQuad(BlockPart p_makeBakedQuad_0_, BlockPartFace p_makeBakedQuad_1_, TextureAtlasSprite p_makeBakedQuad_2_, EnumFacing p_makeBakedQuad_3_, ModelRotation p_makeBakedQuad_4_, boolean p_makeBakedQuad_5_)
+    {
+        FaceBakery facebakery = new FaceBakery();
+        return facebakery.makeBakedQuad(p_makeBakedQuad_0_.positionFrom, p_makeBakedQuad_0_.positionTo, p_makeBakedQuad_1_, p_makeBakedQuad_2_, p_makeBakedQuad_3_, p_makeBakedQuad_4_, p_makeBakedQuad_0_.partRotation, p_makeBakedQuad_5_, p_makeBakedQuad_0_.shade);
+    }
+
+    public String toString()
+    {
+        return "" + this.basePath + "/" + this.name + ", type: " + this.type + ", items: [" + Config.arrayToString(this.items) + "], textture: " + this.texture;
+    }
+
+    public float getTextureWidth(TextureManager p_getTextureWidth_1_)
+    {
+        if (this.textureWidth <= 0)
+        {
+            if (this.textureLocation != null)
+            {
+                ITextureObject itextureobject = p_getTextureWidth_1_.getTexture(this.textureLocation);
+                int i = itextureobject.getGlTextureId();
+                int j = GlStateManager.getBoundTexture();
+                GlStateManager.bindTexture(i);
+                this.textureWidth = GL11.glGetTexLevelParameteri(GL11.GL_TEXTURE_2D, 0, GL11.GL_TEXTURE_WIDTH);
+                GlStateManager.bindTexture(j);
+            }
+
+            if (this.textureWidth <= 0)
+            {
+                this.textureWidth = 16;
+            }
+        }
+
+        return (float)this.textureWidth;
+    }
+
+    public float getTextureHeight(TextureManager p_getTextureHeight_1_)
+    {
+        if (this.textureHeight <= 0)
+        {
+            if (this.textureLocation != null)
+            {
+                ITextureObject itextureobject = p_getTextureHeight_1_.getTexture(this.textureLocation);
+                int i = itextureobject.getGlTextureId();
+                int j = GlStateManager.getBoundTexture();
+                GlStateManager.bindTexture(i);
+                this.textureHeight = GL11.glGetTexLevelParameteri(GL11.GL_TEXTURE_2D, 0, GL11.GL_TEXTURE_HEIGHT);
+                GlStateManager.bindTexture(j);
+            }
+
+            if (this.textureHeight <= 0)
+            {
+                this.textureHeight = 16;
+            }
+        }
+
+        return (float)this.textureHeight;
+    }
+
+    public IBakedModel getModel(ModelResourceLocation p_getModel_1_)
+    {
+        if (p_getModel_1_ != null && this.mapTextures != null)
+        {
+            String s = p_getModel_1_.getResourcePath();
+
+            if (this.mapModels != null)
+            {
+                IBakedModel ibakedmodel = (IBakedModel)this.mapModels.get(s);
+
+                if (ibakedmodel != null)
+                {
+                    return ibakedmodel;
+                }
+            }
+        }
+
+        return this.model;
     }
 }

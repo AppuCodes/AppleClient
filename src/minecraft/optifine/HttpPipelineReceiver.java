@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.Charset;
 import java.util.LinkedHashMap;
+import java.util.Map;
 
 public class HttpPipelineReceiver extends Thread
 {
@@ -15,166 +16,168 @@ public class HttpPipelineReceiver extends Thread
     private static final char CR = '\r';
     private static final char LF = '\n';
 
-    public HttpPipelineReceiver(HttpPipelineConnection httpPipelineConnection)
+    public HttpPipelineReceiver(HttpPipelineConnection p_i57_1_)
     {
         super("HttpPipelineReceiver");
-        this.httpPipelineConnection = httpPipelineConnection;
+        this.httpPipelineConnection = p_i57_1_;
     }
 
     public void run()
     {
         while (!Thread.interrupted())
         {
-            HttpPipelineRequest currentRequest = null;
+            HttpPipelineRequest httppipelinerequest = null;
 
             try
             {
-                currentRequest = this.httpPipelineConnection.getNextRequestReceive();
-                InputStream e = this.httpPipelineConnection.getInputStream();
-                HttpResponse resp = this.readResponse(e);
-                this.httpPipelineConnection.onResponseReceived(currentRequest, resp);
+                httppipelinerequest = this.httpPipelineConnection.getNextRequestReceive();
+                InputStream inputstream = this.httpPipelineConnection.getInputStream();
+                HttpResponse httpresponse = this.readResponse(inputstream);
+                this.httpPipelineConnection.onResponseReceived(httppipelinerequest, httpresponse);
             }
             catch (InterruptedException var4)
             {
                 return;
             }
-            catch (Exception var5)
+            catch (Exception exception)
             {
-                this.httpPipelineConnection.onExceptionReceive(currentRequest, var5);
+                this.httpPipelineConnection.onExceptionReceive(httppipelinerequest, exception);
             }
         }
     }
 
-    private HttpResponse readResponse(InputStream in) throws IOException
+    private HttpResponse readResponse(InputStream p_readResponse_1_) throws IOException
     {
-        String statusLine = this.readLine(in);
-        String[] parts = Config.tokenize(statusLine, " ");
+        String s = this.readLine(p_readResponse_1_);
+        String[] astring = Config.tokenize(s, " ");
 
-        if (parts.length < 3)
+        if (astring.length < 3)
         {
-            throw new IOException("Invalid status line: " + statusLine);
+            throw new IOException("Invalid status line: " + s);
         }
         else
         {
-            String http = parts[0];
-            int status = Config.parseInt(parts[1], 0);
-            String message = parts[2];
-            LinkedHashMap headers = new LinkedHashMap();
+            String s1 = astring[0];
+            int i = Config.parseInt(astring[1], 0);
+            String s2 = astring[2];
+            Map<String, String> map = new LinkedHashMap();
 
             while (true)
             {
-                String body = this.readLine(in);
-                String enc;
+                String s3 = this.readLine(p_readResponse_1_);
 
-                if (body.length() <= 0)
+                if (s3.length() <= 0)
                 {
-                    byte[] body1 = null;
-                    String lenStr1 = (String)headers.get("Content-Length");
+                    byte[] abyte = null;
+                    String s6 = (String)map.get("Content-Length");
 
-                    if (lenStr1 != null)
+                    if (s6 != null)
                     {
-                        int enc1 = Config.parseInt(lenStr1, -1);
+                        int k = Config.parseInt(s6, -1);
 
-                        if (enc1 > 0)
+                        if (k > 0)
                         {
-                            body1 = new byte[enc1];
-                            this.readFull(body1, in);
+                            abyte = new byte[k];
+                            this.readFull(abyte, p_readResponse_1_);
                         }
                     }
                     else
                     {
-                        enc = (String)headers.get("Transfer-Encoding");
+                        String s7 = (String)map.get("Transfer-Encoding");
 
-                        if (Config.equals(enc, "chunked"))
+                        if (Config.equals(s7, "chunked"))
                         {
-                            body1 = this.readContentChunked(in);
+                            abyte = this.readContentChunked(p_readResponse_1_);
                         }
                     }
 
-                    return new HttpResponse(status, statusLine, headers, body1);
+                    return new HttpResponse(i, s, map, abyte);
                 }
 
-                int lenStr = body.indexOf(":");
+                int j = s3.indexOf(":");
 
-                if (lenStr > 0)
+                if (j > 0)
                 {
-                    enc = body.substring(0, lenStr).trim();
-                    String val = body.substring(lenStr + 1).trim();
-                    headers.put(enc, val);
+                    String s4 = s3.substring(0, j).trim();
+                    String s5 = s3.substring(j + 1).trim();
+                    map.put(s4, s5);
                 }
             }
         }
     }
 
-    private byte[] readContentChunked(InputStream in) throws IOException
+    private byte[] readContentChunked(InputStream p_readContentChunked_1_) throws IOException
     {
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        int len;
+        ByteArrayOutputStream bytearrayoutputstream = new ByteArrayOutputStream();
 
-        do
+        while (true)
         {
-            String line = this.readLine(in);
-            String[] parts = Config.tokenize(line, "; ");
-            len = Integer.parseInt(parts[0], 16);
-            byte[] buf = new byte[len];
-            this.readFull(buf, in);
-            baos.write(buf);
-            this.readLine(in);
-        }
-        while (len != 0);
+            String s = this.readLine(p_readContentChunked_1_);
+            String[] astring = Config.tokenize(s, "; ");
+            int i = Integer.parseInt(astring[0], 16);
+            byte[] abyte = new byte[i];
+            this.readFull(abyte, p_readContentChunked_1_);
+            bytearrayoutputstream.write(abyte);
+            this.readLine(p_readContentChunked_1_);
 
-        return baos.toByteArray();
+            if (i == 0)
+            {
+                break;
+            }
+        }
+
+        return bytearrayoutputstream.toByteArray();
     }
 
-    private void readFull(byte[] buf, InputStream in) throws IOException
+    private void readFull(byte[] p_readFull_1_, InputStream p_readFull_2_) throws IOException
     {
-        int len;
+        int j;
 
-        for (int pos = 0; pos < buf.length; pos += len)
+        for (int i = 0; i < p_readFull_1_.length; i += j)
         {
-            len = in.read(buf, pos, buf.length - pos);
+            j = p_readFull_2_.read(p_readFull_1_, i, p_readFull_1_.length - i);
 
-            if (len < 0)
+            if (j < 0)
             {
                 throw new EOFException();
             }
         }
     }
 
-    private String readLine(InputStream in) throws IOException
+    private String readLine(InputStream p_readLine_1_) throws IOException
     {
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        int prev = -1;
-        boolean hasCRLF = false;
+        ByteArrayOutputStream bytearrayoutputstream = new ByteArrayOutputStream();
+        int i = -1;
+        boolean flag = false;
 
         while (true)
         {
-            int bytes = in.read();
+            int j = p_readLine_1_.read();
 
-            if (bytes < 0)
+            if (j < 0)
             {
                 break;
             }
 
-            baos.write(bytes);
+            bytearrayoutputstream.write(j);
 
-            if (prev == 13 && bytes == 10)
+            if (i == 13 && j == 10)
             {
-                hasCRLF = true;
+                flag = true;
                 break;
             }
 
-            prev = bytes;
+            i = j;
         }
 
-        byte[] bytes1 = baos.toByteArray();
-        String str = new String(bytes1, ASCII);
+        byte[] abyte = bytearrayoutputstream.toByteArray();
+        String s = new String(abyte, ASCII);
 
-        if (hasCRLF)
+        if (flag)
         {
-            str = str.substring(0, str.length() - 2);
+            s = s.substring(0, s.length() - 2);
         }
 
-        return str;
+        return s;
     }
 }

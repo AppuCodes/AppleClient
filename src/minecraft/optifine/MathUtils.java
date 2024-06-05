@@ -2,25 +2,24 @@ package optifine;
 
 public class MathUtils
 {
-    public static int getAverage(int[] vals)
+    public static int getAverage(int[] p_getAverage_0_)
     {
-        if (vals.length <= 0)
+        if (p_getAverage_0_.length <= 0)
         {
             return 0;
         }
         else
         {
-            int sum = 0;
-            int avg;
+            int i = 0;
 
-            for (avg = 0; avg < vals.length; ++avg)
+            for (int j = 0; j < p_getAverage_0_.length; ++j)
             {
-                int val = vals[avg];
-                sum += val;
+                int k = p_getAverage_0_[j];
+                i += k;
             }
 
-            avg = sum / vals.length;
-            return avg;
+            int l = i / p_getAverage_0_.length;
+            return l;
         }
     }
 }

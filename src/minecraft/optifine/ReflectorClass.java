@@ -2,26 +2,35 @@ package optifine;
 
 public class ReflectorClass
 {
-    private String[] targetClassNames = null;
-    private boolean checked = false;
-    private Class targetClass = null;
+    private String targetClassName;
+    private boolean checked;
+    private Class targetClass;
 
-    public ReflectorClass(String targetClassName)
+    public ReflectorClass(String p_i81_1_)
     {
-        this.targetClassNames = new String[] {targetClassName};
-        Class cls = this.getTargetClass();
+        this(p_i81_1_, false);
     }
 
-    public ReflectorClass(String[] targetClassNames)
+    public ReflectorClass(String p_i82_1_, boolean p_i82_2_)
     {
-        this.targetClassNames = targetClassNames;
-        Class cls = this.getTargetClass();
+        this.targetClassName = null;
+        this.checked = false;
+        this.targetClass = null;
+        this.targetClassName = p_i82_1_;
+
+        if (!p_i82_2_)
+        {
+            Class oclass = this.getTargetClass();
+        }
     }
 
-    public ReflectorClass(Class targetClass)
+    public ReflectorClass(Class p_i83_1_)
     {
-        this.targetClass = targetClass;
-        this.targetClassNames = new String[] {targetClass.getName()};
+        this.targetClassName = null;
+        this.checked = false;
+        this.targetClass = null;
+        this.targetClass = p_i83_1_;
+        this.targetClassName = p_i83_1_.getName();
         this.checked = true;
     }
 
@@ -35,23 +44,17 @@ public class ReflectorClass
         {
             this.checked = true;
 
-            for (int i = 0; i < this.targetClassNames.length; ++i)
+            try
             {
-                String targetClassName = this.targetClassNames[i];
-
-                try
-                {
-                    this.targetClass = Class.forName(targetClassName);
-                    break;
-                }
-                catch (ClassNotFoundException var4)
-                {
-                    Config.log("(Reflector) Class not present: " + targetClassName);
-                }
-                catch (Throwable var5)
-                {
-                    var5.printStackTrace();
-                }
+                this.targetClass = Class.forName(this.targetClassName);
+            }
+            catch (ClassNotFoundException var2)
+            {
+                Config.log("(Reflector) Class not present: " + this.targetClassName);
+            }
+            catch (Throwable throwable)
+            {
+                throwable.printStackTrace();
             }
 
             return this.targetClass;
@@ -61,5 +64,35 @@ public class ReflectorClass
     public boolean exists()
     {
         return this.getTargetClass() != null;
+    }
+
+    public String getTargetClassName()
+    {
+        return this.targetClassName;
+    }
+
+    public boolean isInstance(Object p_isInstance_1_)
+    {
+        return this.getTargetClass() == null ? false : this.getTargetClass().isInstance(p_isInstance_1_);
+    }
+
+    public ReflectorField makeField(String p_makeField_1_)
+    {
+        return new ReflectorField(this, p_makeField_1_);
+    }
+
+    public ReflectorMethod makeMethod(String p_makeMethod_1_)
+    {
+        return new ReflectorMethod(this, p_makeMethod_1_);
+    }
+
+    public ReflectorMethod makeMethod(String p_makeMethod_1_, Class[] p_makeMethod_2_)
+    {
+        return new ReflectorMethod(this, p_makeMethod_1_, p_makeMethod_2_);
+    }
+
+    public ReflectorMethod makeMethod(String p_makeMethod_1_, Class[] p_makeMethod_2_, boolean p_makeMethod_3_)
+    {
+        return new ReflectorMethod(this, p_makeMethod_1_, p_makeMethod_2_, p_makeMethod_3_);
     }
 }

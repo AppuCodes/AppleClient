@@ -4,18 +4,18 @@ public class RangeListInt
 {
     private RangeInt[] ranges = new RangeInt[0];
 
-    public void addRange(RangeInt ri)
+    public void addRange(RangeInt p_addRange_1_)
     {
-        this.ranges = (RangeInt[])((RangeInt[])Config.addObjectToArray(this.ranges, ri));
+        this.ranges = (RangeInt[])((RangeInt[])Config.addObjectToArray(this.ranges, p_addRange_1_));
     }
 
-    public boolean isInRange(int val)
+    public boolean isInRange(int p_isInRange_1_)
     {
         for (int i = 0; i < this.ranges.length; ++i)
         {
-            RangeInt ri = this.ranges[i];
+            RangeInt rangeint = this.ranges[i];
 
-            if (ri.isInRange(val))
+            if (rangeint.isInRange(p_isInRange_1_))
             {
                 return true;
             }
@@ -29,29 +29,29 @@ public class RangeListInt
         return this.ranges.length;
     }
 
-    public RangeInt getRange(int i)
+    public RangeInt getRange(int p_getRange_1_)
     {
-        return this.ranges[i];
+        return this.ranges[p_getRange_1_];
     }
 
     public String toString()
     {
-        StringBuffer sb = new StringBuffer();
-        sb.append("[");
+        StringBuffer stringbuffer = new StringBuffer();
+        stringbuffer.append("[");
 
         for (int i = 0; i < this.ranges.length; ++i)
         {
-            RangeInt ri = this.ranges[i];
+            RangeInt rangeint = this.ranges[i];
 
             if (i > 0)
             {
-                sb.append(", ");
+                stringbuffer.append(", ");
             }
 
-            sb.append(ri.toString());
+            stringbuffer.append(rangeint.toString());
         }
 
-        sb.append("]");
-        return sb.toString();
+        stringbuffer.append("]");
+        return stringbuffer.toString();
     }
 }

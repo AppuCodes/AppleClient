@@ -7,32 +7,32 @@ public class PlayerConfigurationReceiver implements IFileDownloadListener
 {
     private String player = null;
 
-    public PlayerConfigurationReceiver(String player)
+    public PlayerConfigurationReceiver(String p_i72_1_)
     {
-        this.player = player;
+        this.player = p_i72_1_;
     }
 
-    public void fileDownloadFinished(String url, byte[] bytes, Throwable exception)
+    public void fileDownloadFinished(String p_fileDownloadFinished_1_, byte[] p_fileDownloadFinished_2_, Throwable p_fileDownloadFinished_3_)
     {
-        if (bytes != null)
+        if (p_fileDownloadFinished_2_ != null)
         {
             try
             {
-                String e = new String(bytes, "ASCII");
-                JsonParser jp = new JsonParser();
-                JsonElement je = jp.parse(e);
-                PlayerConfigurationParser pcp = new PlayerConfigurationParser(this.player);
-                PlayerConfiguration pc = pcp.parsePlayerConfiguration(je);
+                String s = new String(p_fileDownloadFinished_2_, "ASCII");
+                JsonParser jsonparser = new JsonParser();
+                JsonElement jsonelement = jsonparser.parse(s);
+                PlayerConfigurationParser playerconfigurationparser = new PlayerConfigurationParser(this.player);
+                PlayerConfiguration playerconfiguration = playerconfigurationparser.parsePlayerConfiguration(jsonelement);
 
-                if (pc != null)
+                if (playerconfiguration != null)
                 {
-                    pc.setInitialized(true);
-                    PlayerConfigurations.setPlayerConfiguration(this.player, pc);
+                    playerconfiguration.setInitialized(true);
+                    PlayerConfigurations.setPlayerConfiguration(this.player, playerconfiguration);
                 }
             }
-            catch (Exception var9)
+            catch (Exception exception)
             {
-                Config.dbg("Error parsing configuration: " + url + ", " + var9.getClass().getName() + ": " + var9.getMessage());
+                Config.dbg("Error parsing configuration: " + p_fileDownloadFinished_1_ + ", " + exception.getClass().getName() + ": " + exception.getMessage());
             }
         }
     }

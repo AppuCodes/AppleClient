@@ -4,40 +4,48 @@ import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.util.Map;
 import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.renderer.RenderGlobal;
+import net.minecraft.item.ItemArmor;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.World;
 
 public class ReflectorForge
 {
-    public static void FMLClientHandler_trackBrokenTexture(ResourceLocation loc, String message)
+    public static void FMLClientHandler_trackBrokenTexture(ResourceLocation p_FMLClientHandler_trackBrokenTexture_0_, String p_FMLClientHandler_trackBrokenTexture_1_)
     {
         if (!Reflector.FMLClientHandler_trackBrokenTexture.exists())
         {
-            Object instance = Reflector.call(Reflector.FMLClientHandler_instance, new Object[0]);
-            Reflector.call(instance, Reflector.FMLClientHandler_trackBrokenTexture, new Object[] {loc, message});
+            Object object = Reflector.call(Reflector.FMLClientHandler_instance, new Object[0]);
+            Reflector.call(object, Reflector.FMLClientHandler_trackBrokenTexture, new Object[] {p_FMLClientHandler_trackBrokenTexture_0_, p_FMLClientHandler_trackBrokenTexture_1_});
         }
     }
 
-    public static void FMLClientHandler_trackMissingTexture(ResourceLocation loc)
+    public static void FMLClientHandler_trackMissingTexture(ResourceLocation p_FMLClientHandler_trackMissingTexture_0_)
     {
         if (!Reflector.FMLClientHandler_trackMissingTexture.exists())
         {
-            Object instance = Reflector.call(Reflector.FMLClientHandler_instance, new Object[0]);
-            Reflector.call(instance, Reflector.FMLClientHandler_trackMissingTexture, new Object[] {loc});
+            Object object = Reflector.call(Reflector.FMLClientHandler_instance, new Object[0]);
+            Reflector.call(object, Reflector.FMLClientHandler_trackMissingTexture, new Object[] {p_FMLClientHandler_trackMissingTexture_0_});
         }
     }
 
-    public static void putLaunchBlackboard(String key, Object value)
+    public static void putLaunchBlackboard(String p_putLaunchBlackboard_0_, Object p_putLaunchBlackboard_1_)
     {
-        Map blackboard = (Map)Reflector.getFieldValue(Reflector.Launch_blackboard);
+        Map map = (Map)Reflector.getFieldValue(Reflector.Launch_blackboard);
 
-        if (blackboard != null)
+        if (map != null)
         {
-            blackboard.put(key, value);
+            map.put(p_putLaunchBlackboard_0_, p_putLaunchBlackboard_1_);
         }
     }
 
-    public static InputStream getOptiFineResourceStream(String path)
+    public static boolean renderFirstPersonHand(RenderGlobal p_renderFirstPersonHand_0_, float p_renderFirstPersonHand_1_, int p_renderFirstPersonHand_2_)
+    {
+        return !Reflector.ForgeHooksClient_renderFirstPersonHand.exists() ? false : Reflector.callBoolean(Reflector.ForgeHooksClient_renderFirstPersonHand, new Object[] {p_renderFirstPersonHand_0_, Float.valueOf(p_renderFirstPersonHand_1_), Integer.valueOf(p_renderFirstPersonHand_2_)});
+    }
+
+    public static InputStream getOptiFineResourceStream(String p_getOptiFineResourceStream_0_)
     {
         if (!Reflector.OptiFineClassTransformer_instance.exists())
         {
@@ -45,46 +53,48 @@ public class ReflectorForge
         }
         else
         {
-            Object instance = Reflector.getFieldValue(Reflector.OptiFineClassTransformer_instance);
+            Object object = Reflector.getFieldValue(Reflector.OptiFineClassTransformer_instance);
 
-            if (instance == null)
+            if (object == null)
             {
                 return null;
             }
             else
             {
-                if (path.startsWith("/"))
+                if (p_getOptiFineResourceStream_0_.startsWith("/"))
                 {
-                    path = path.substring(1);
+                    p_getOptiFineResourceStream_0_ = p_getOptiFineResourceStream_0_.substring(1);
                 }
 
-                byte[] bytes = (byte[])((byte[])Reflector.call(instance, Reflector.OptiFineClassTransformer_getOptiFineResource, new Object[] {path}));
+                byte[] abyte = (byte[])((byte[])Reflector.call(object, Reflector.OptiFineClassTransformer_getOptiFineResource, new Object[] {p_getOptiFineResourceStream_0_}));
 
-                if (bytes == null)
+                if (abyte == null)
                 {
                     return null;
                 }
                 else
                 {
-                    ByteArrayInputStream in = new ByteArrayInputStream(bytes);
-                    return in;
+                    InputStream inputstream = new ByteArrayInputStream(abyte);
+                    return inputstream;
                 }
             }
         }
     }
 
-    public static boolean blockHasTileEntity(World world, int x, int y, int z)
+    public static boolean blockHasTileEntity(IBlockState p_blockHasTileEntity_0_)
     {
-        Block block = world.getBlock(x, y, z);
+        Block block = p_blockHasTileEntity_0_.getBlock();
+        return !Reflector.ForgeBlock_hasTileEntity.exists() ? block.hasTileEntity() : Reflector.callBoolean(block, Reflector.ForgeBlock_hasTileEntity, new Object[] {p_blockHasTileEntity_0_});
+    }
 
-        if (!Reflector.ForgeBlock_hasTileEntity.exists())
-        {
-            return block.hasTileEntity();
-        }
-        else
-        {
-            int metadata = world.getBlockMetadata(x, y, z);
-            return Reflector.callBoolean(block, Reflector.ForgeBlock_hasTileEntity, new Object[] {Integer.valueOf(metadata)});
-        }
+    public static boolean isItemDamaged(ItemStack p_isItemDamaged_0_)
+    {
+        return !Reflector.ForgeItem_showDurabilityBar.exists() ? p_isItemDamaged_0_.isItemDamaged() : Reflector.callBoolean(p_isItemDamaged_0_.getItem(), Reflector.ForgeItem_showDurabilityBar, new Object[] {p_isItemDamaged_0_});
+    }
+
+    public static boolean armorHasOverlay(ItemArmor p_armorHasOverlay_0_, ItemStack p_armorHasOverlay_1_)
+    {
+        int i = p_armorHasOverlay_0_.getColor(p_armorHasOverlay_1_);
+        return i != 16777215;
     }
 }

@@ -1,222 +1,339 @@
 package optifine;
 
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
-import java.util.Enumeration;
+import java.util.Comparator;
 import java.util.HashMap;
-import java.util.Iterator;
+import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipFile;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.model.ModelBase;
+import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.block.model.ItemModelGenerator;
+import net.minecraft.client.renderer.entity.RenderItem;
+import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.client.renderer.texture.TextureMap;
-import net.minecraft.client.resources.AbstractResourcePack;
-import net.minecraft.client.resources.DefaultResourcePack;
 import net.minecraft.client.resources.IResourcePack;
-import net.minecraft.enchantment.EnchantmentHelper;
+import net.minecraft.client.resources.model.IBakedModel;
+import net.minecraft.client.resources.model.ModelResourceLocation;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemPotion;
+import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
 import net.minecraft.potion.Potion;
-import net.minecraft.util.IIcon;
 import net.minecraft.util.ResourceLocation;
+import shadersmod.client.Shaders;
+import shadersmod.client.ShadersRender;
 
 public class CustomItems
 {
     private static CustomItemProperties[][] itemProperties = (CustomItemProperties[][])null;
+    private static CustomItemProperties[][] enchantmentProperties = (CustomItemProperties[][])null;
     private static Map mapPotionIds = null;
+    private static ItemModelGenerator itemModelGenerator = new ItemModelGenerator();
+    private static boolean useGlint = true;
+    public static final int MASK_POTION_SPLASH = 16384;
+    public static final int MASK_POTION_NAME = 63;
+    public static final String KEY_TEXTURE_OVERLAY = "texture.potion_overlay";
+    public static final String KEY_TEXTURE_SPLASH = "texture.potion_bottle_splash";
+    public static final String KEY_TEXTURE_DRINKABLE = "texture.potion_bottle_drinkable";
+    public static final String DEFAULT_TEXTURE_OVERLAY = "items/potion_overlay";
+    public static final String DEFAULT_TEXTURE_SPLASH = "items/potion_bottle_splash";
+    public static final String DEFAULT_TEXTURE_DRINKABLE = "items/potion_bottle_drinkable";
+    private static final int[] EMPTY_INT_ARRAY = new int[0];
+    private static final int[][] EMPTY_INT2_ARRAY = new int[0][];
 
-    public static void updateIcons(TextureMap textureMap)
+    public static void updateIcons(TextureMap p_updateIcons_0_)
     {
         itemProperties = (CustomItemProperties[][])null;
+        enchantmentProperties = (CustomItemProperties[][])null;
+        useGlint = true;
 
         if (Config.isCustomItems())
         {
-            IResourcePack[] rps = Config.getResourcePacks();
+            readCitProperties("mcpatcher/cit.properties");
+            IResourcePack[] airesourcepack = Config.getResourcePacks();
 
-            for (int i = rps.length - 1; i >= 0; --i)
+            for (int i = airesourcepack.length - 1; i >= 0; --i)
             {
-                IResourcePack rp = rps[i];
-                updateIcons(textureMap, rp);
+                IResourcePack iresourcepack = airesourcepack[i];
+                updateIcons(p_updateIcons_0_, iresourcepack);
             }
 
-            updateIcons(textureMap, Config.getDefaultResourcePack());
+            updateIcons(p_updateIcons_0_, Config.getDefaultResourcePack());
+
+            if (itemProperties.length <= 0)
+            {
+                itemProperties = (CustomItemProperties[][])null;
+            }
+
+            if (enchantmentProperties.length <= 0)
+            {
+                enchantmentProperties = (CustomItemProperties[][])null;
+            }
         }
     }
 
-    public static void updateIcons(TextureMap textureMap, IResourcePack rp)
+    private static void readCitProperties(String p_readCitProperties_0_)
     {
-        String[] names = collectFiles(rp, "mcpatcher/cit/", ".properties");
-        Map mapAutoProperties = makeAutoImageProperties(rp);
-
-        if (mapAutoProperties.size() > 0)
+        try
         {
-            Set itemList = mapAutoProperties.keySet();
-            String[] i = (String[])((String[])itemList.toArray(new String[itemList.size()]));
-            names = (String[])((String[])Config.addObjectsToArray(names, i));
+            ResourceLocation resourcelocation = new ResourceLocation(p_readCitProperties_0_);
+            InputStream inputstream = Config.getResourceStream(resourcelocation);
+
+            if (inputstream == null)
+            {
+                return;
+            }
+
+            Config.dbg("CustomItems: Loading " + p_readCitProperties_0_);
+            Properties properties = new Properties();
+            properties.load(inputstream);
+            inputstream.close();
+            useGlint = Config.parseBoolean(properties.getProperty("useGlint"), true);
+        }
+        catch (FileNotFoundException var4)
+        {
+            return;
+        }
+        catch (IOException ioexception)
+        {
+            ioexception.printStackTrace();
+        }
+    }
+
+    private static void updateIcons(TextureMap p_updateIcons_0_, IResourcePack p_updateIcons_1_)
+    {
+        String[] astring = ResUtils.collectFiles(p_updateIcons_1_, (String)"mcpatcher/cit/", (String)".properties", (String[])null);
+        Map map = makeAutoImageProperties(p_updateIcons_1_);
+
+        if (map.size() > 0)
+        {
+            Set set = map.keySet();
+            String[] astring1 = (String[])((String[])set.toArray(new String[set.size()]));
+            astring = (String[])((String[])Config.addObjectsToArray(astring, astring1));
         }
 
-        Arrays.sort(names);
-        List var13 = makePropertyList(itemProperties);
+        Arrays.sort((Object[])astring);
+        List list = makePropertyList(itemProperties);
+        List list1 = makePropertyList(enchantmentProperties);
 
-        for (int var14 = 0; var14 < names.length; ++var14)
+        for (int i = 0; i < astring.length; ++i)
         {
-            String name = names[var14];
-            Config.dbg("CustomItems: " + name);
+            String s = astring[i];
+            Config.dbg("CustomItems: " + s);
 
             try
             {
-                CustomItemProperties e = null;
+                CustomItemProperties customitemproperties = null;
 
-                if (mapAutoProperties.containsKey(name))
+                if (map.containsKey(s))
                 {
-                    e = (CustomItemProperties)mapAutoProperties.get(name);
+                    customitemproperties = (CustomItemProperties)map.get(s);
                 }
 
-                if (e == null)
+                if (customitemproperties == null)
                 {
-                    ResourceLocation locFile = new ResourceLocation(name);
-                    InputStream in = rp.getInputStream(locFile);
+                    ResourceLocation resourcelocation = new ResourceLocation(s);
+                    InputStream inputstream = p_updateIcons_1_.getInputStream(resourcelocation);
 
-                    if (in == null)
+                    if (inputstream == null)
                     {
-                        Config.warn("CustomItems file not found: " + name);
+                        Config.warn("CustomItems file not found: " + s);
                         continue;
                     }
 
-                    Properties props = new Properties();
-                    props.load(in);
-                    e = new CustomItemProperties(props, name);
+                    Properties properties = new Properties();
+                    properties.load(inputstream);
+                    customitemproperties = new CustomItemProperties(properties, s);
                 }
 
-                if (e.isValid(name))
+                if (customitemproperties.isValid(s))
                 {
-                    e.updateIcons(textureMap);
-                    addToItemList(e, var13);
+                    customitemproperties.updateIcons(p_updateIcons_0_);
+                    addToItemList(customitemproperties, list);
+                    addToEnchantmentList(customitemproperties, list1);
                 }
             }
-            catch (FileNotFoundException var11)
+            catch (FileNotFoundException var12)
             {
-                Config.warn("CustomItems file not found: " + name);
+                Config.warn("CustomItems file not found: " + s);
             }
-            catch (IOException var12)
+            catch (Exception exception)
             {
-                var12.printStackTrace();
+                exception.printStackTrace();
             }
         }
 
-        itemProperties = propertyListToArray(var13);
+        itemProperties = propertyListToArray(list);
+        enchantmentProperties = propertyListToArray(list1);
+        Comparator comparator = getPropertiesComparator();
+
+        for (int j = 0; j < itemProperties.length; ++j)
+        {
+            CustomItemProperties[] acustomitemproperties = itemProperties[j];
+
+            if (acustomitemproperties != null)
+            {
+                Arrays.sort(acustomitemproperties, comparator);
+            }
+        }
+
+        for (int k = 0; k < enchantmentProperties.length; ++k)
+        {
+            CustomItemProperties[] acustomitemproperties1 = enchantmentProperties[k];
+
+            if (acustomitemproperties1 != null)
+            {
+                Arrays.sort(acustomitemproperties1, comparator);
+            }
+        }
     }
 
-    private static Map makeAutoImageProperties(IResourcePack rp)
+    private static Comparator getPropertiesComparator()
     {
-        HashMap map = new HashMap();
-        map.putAll(makePotionImageProperties(rp, false));
-        map.putAll(makePotionImageProperties(rp, true));
+        Comparator comparator = new Comparator()
+        {
+            public int compare(Object p_compare_1_, Object p_compare_2_)
+            {
+                CustomItemProperties customitemproperties = (CustomItemProperties)p_compare_1_;
+                CustomItemProperties customitemproperties1 = (CustomItemProperties)p_compare_2_;
+                return customitemproperties.layer != customitemproperties1.layer ? customitemproperties.layer - customitemproperties1.layer : (customitemproperties.weight != customitemproperties1.weight ? customitemproperties1.weight - customitemproperties.weight : (!customitemproperties.basePath.equals(customitemproperties1.basePath) ? customitemproperties.basePath.compareTo(customitemproperties1.basePath) : customitemproperties.name.compareTo(customitemproperties1.name)));
+            }
+        };
+        return comparator;
+    }
+
+    public static void updateModels()
+    {
+        if (itemProperties != null)
+        {
+            for (int i = 0; i < itemProperties.length; ++i)
+            {
+                CustomItemProperties[] acustomitemproperties = itemProperties[i];
+
+                if (acustomitemproperties != null)
+                {
+                    for (int j = 0; j < acustomitemproperties.length; ++j)
+                    {
+                        CustomItemProperties customitemproperties = acustomitemproperties[j];
+
+                        if (customitemproperties != null && customitemproperties.type == 1)
+                        {
+                            TextureMap texturemap = Minecraft.getMinecraft().getTextureMapBlocks();
+                            customitemproperties.updateModel(texturemap, itemModelGenerator);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    private static Map makeAutoImageProperties(IResourcePack p_makeAutoImageProperties_0_)
+    {
+        Map map = new HashMap();
+        map.putAll(makePotionImageProperties(p_makeAutoImageProperties_0_, false));
+        map.putAll(makePotionImageProperties(p_makeAutoImageProperties_0_, true));
         return map;
     }
 
-    private static Map makePotionImageProperties(IResourcePack rp, boolean splash)
+    private static Map makePotionImageProperties(IResourcePack p_makePotionImageProperties_0_, boolean p_makePotionImageProperties_1_)
     {
-        HashMap map = new HashMap();
-        String prefix = "mcpatcher/cit/potion/";
+        Map map = new HashMap();
+        String s = p_makePotionImageProperties_1_ ? "splash/" : "normal/";
+        String[] astring = new String[] {"mcpatcher/cit/potion/" + s, "mcpatcher/cit/Potion/" + s};
+        String[] astring1 = new String[] {".png"};
+        String[] astring2 = ResUtils.collectFiles(p_makePotionImageProperties_0_, astring, astring1);
 
-        if (splash)
+        for (int i = 0; i < astring2.length; ++i)
         {
-            prefix = prefix + "splash/";
-        }
-        else
-        {
-            prefix = prefix + "normal/";
-        }
+            String s1 = astring2[i];
+            String name = StrUtils.removePrefixSuffix(s1, astring, astring1);
+            Properties properties = makePotionProperties(name, p_makePotionImageProperties_1_, s1);
 
-        String suffix = ".png";
-        String[] names = collectFiles(rp, prefix, suffix);
-
-        for (int i = 0; i < names.length; ++i)
-        {
-            String path = names[i];
-
-            if (path.startsWith(prefix) && path.endsWith(suffix))
+            if (properties != null)
             {
-                String name = path.substring(prefix.length(), path.length() - suffix.length());
-                Properties props = makePotionProperties(name, splash, path);
-
-                if (props != null)
-                {
-                    String pathProp = path.substring(0, path.length() - suffix.length()) + ".properties";
-                    CustomItemProperties cip = new CustomItemProperties(props, pathProp);
-                    map.put(pathProp, cip);
-                }
-            }
-            else
-            {
-                Config.warn("Invalid potion name: " + path);
+                String s3 = StrUtils.removeSuffix(s1, astring1) + ".properties";
+                CustomItemProperties customitemproperties = new CustomItemProperties(properties, s3);
+                map.put(s3, customitemproperties);
             }
         }
 
         return map;
     }
 
-    private static Properties makePotionProperties(String name, boolean splash, String path)
+    private static Properties makePotionProperties(String p_makePotionProperties_0_, boolean p_makePotionProperties_1_, String p_makePotionProperties_2_)
     {
-        int potionItemId;
-
-        if (name.equals("empty") && !splash)
+        if (StrUtils.endsWith(p_makePotionProperties_0_, new String[] {"_n", "_s"}))
         {
-            potionItemId = Item.getIdFromItem(Items.glass_bottle);
-            Properties var8 = new Properties();
-            var8.put("type", "item");
-            var8.put("items", "" + potionItemId);
-            return var8;
+            return null;
+        }
+        else if (p_makePotionProperties_0_.equals("empty") && !p_makePotionProperties_1_)
+        {
+            int l = Item.getIdFromItem(Items.glass_bottle);
+            Properties properties = new Properties();
+            properties.put("type", "item");
+            properties.put("items", "" + l);
+            return properties;
         }
         else
         {
-            potionItemId = Item.getIdFromItem(Items.potionitem);
-            int[] damages = (int[])((int[])getMapPotionIds().get(name));
+            int i = Item.getIdFromItem(Items.potionitem);
+            int[] aint = (int[])((int[])getMapPotionIds().get(p_makePotionProperties_0_));
 
-            if (damages == null)
+            if (aint == null)
             {
-                Config.warn("Potion not found for image: " + path);
+                Config.warn("Potion not found for image: " + p_makePotionProperties_2_);
                 return null;
             }
             else
             {
-                StringBuffer bufDamage = new StringBuffer();
+                StringBuffer stringbuffer = new StringBuffer();
 
-                for (int damageMask = 0; damageMask < damages.length; ++damageMask)
+                for (int j = 0; j < aint.length; ++j)
                 {
-                    int props = damages[damageMask];
+                    int k = aint[j];
 
-                    if (splash)
+                    if (p_makePotionProperties_1_)
                     {
-                        props |= 16384;
+                        k |= 16384;
                     }
 
-                    if (damageMask > 0)
+                    if (j > 0)
                     {
-                        bufDamage.append(" ");
+                        stringbuffer.append(" ");
                     }
 
-                    bufDamage.append(props);
+                    stringbuffer.append(k);
                 }
 
-                short var9 = 16447;
-                Properties var10 = new Properties();
-                var10.put("type", "item");
-                var10.put("items", "" + potionItemId);
-                var10.put("damage", "" + bufDamage.toString());
-                var10.put("damageMask", "" + var9);
-                return var10;
+                int i1 = 16447;
+                Properties properties1 = new Properties();
+                properties1.put("type", "item");
+                properties1.put("items", "" + i);
+                properties1.put("damage", "" + stringbuffer.toString());
+                properties1.put("damageMask", "" + i1);
+
+                if (p_makePotionProperties_1_)
+                {
+                    properties1.put("texture.potion_bottle_splash", p_makePotionProperties_0_);
+                }
+                else
+                {
+                    properties1.put("texture.potion_bottle_drinkable", p_makePotionProperties_0_);
+                }
+
+                return properties1;
             }
         }
     }
@@ -259,25 +376,25 @@ public class CustomItems
         return mapPotionIds;
     }
 
-    private static int[] getPotionIds(int baseId)
+    private static int[] getPotionIds(int p_getPotionIds_0_)
     {
-        return new int[] {baseId, baseId + 16, baseId + 32, baseId + 48};
+        return new int[] {p_getPotionIds_0_, p_getPotionIds_0_ + 16, p_getPotionIds_0_ + 32, p_getPotionIds_0_ + 48};
     }
 
-    private static int getPotionNameDamage(String name)
+    private static int getPotionNameDamage(String p_getPotionNameDamage_0_)
     {
-        String fullName = "potion." + name;
-        Potion[] effectPotions = Potion.potionTypes;
+        String s = "potion." + p_getPotionNameDamage_0_;
+        Potion[] apotion = Potion.potionTypes;
 
-        for (int i = 0; i < effectPotions.length; ++i)
+        for (int i = 0; i < apotion.length; ++i)
         {
-            Potion potion = effectPotions[i];
+            Potion potion = apotion[i];
 
             if (potion != null)
             {
-                String potionName = potion.getName();
+                String s1 = potion.getName();
 
-                if (fullName.equals(potionName))
+                if (s.equals(s1))
                 {
                     return potion.getId();
                 }
@@ -287,408 +404,551 @@ public class CustomItems
         return -1;
     }
 
-    private static List makePropertyList(CustomItemProperties[][] propsArr)
+    private static List makePropertyList(CustomItemProperties[][] p_makePropertyList_0_)
     {
-        ArrayList list = new ArrayList();
+        List list = new ArrayList();
 
-        if (propsArr != null)
+        if (p_makePropertyList_0_ != null)
         {
-            for (int i = 0; i < propsArr.length; ++i)
+            for (int i = 0; i < p_makePropertyList_0_.length; ++i)
             {
-                CustomItemProperties[] props = propsArr[i];
-                ArrayList propList = null;
+                CustomItemProperties[] acustomitemproperties = p_makePropertyList_0_[i];
+                List list1 = null;
 
-                if (props != null)
+                if (acustomitemproperties != null)
                 {
-                    propList = new ArrayList(Arrays.asList(props));
+                    list1 = new ArrayList(Arrays.asList(acustomitemproperties));
                 }
 
-                list.add(propList);
+                list.add(list1);
             }
         }
 
         return list;
     }
 
-    private static String[] collectFiles(IResourcePack rp, String prefix, String suffix)
+    private static CustomItemProperties[][] propertyListToArray(List p_propertyListToArray_0_)
     {
-        if (rp instanceof DefaultResourcePack)
-        {
-            return collectFilesDefault(rp);
-        }
-        else if (!(rp instanceof AbstractResourcePack))
-        {
-            return new String[0];
-        }
-        else
-        {
-            AbstractResourcePack arp = (AbstractResourcePack)rp;
-            File tpFile = ResourceUtils.getResourcePackFile(arp);
-            return tpFile == null ? new String[0] : (tpFile.isDirectory() ? collectFilesFolder(tpFile, "", prefix, suffix) : (tpFile.isFile() ? collectFilesZIP(tpFile, prefix, suffix) : new String[0]));
-        }
-    }
+        CustomItemProperties[][] acustomitemproperties = new CustomItemProperties[p_propertyListToArray_0_.size()][];
 
-    private static String[] collectFilesDefault(IResourcePack rp)
-    {
-        return new String[0];
-    }
-
-    private static String[] collectFilesFolder(File tpFile, String basePath, String prefix, String suffix)
-    {
-        ArrayList list = new ArrayList();
-        String prefixAssets = "assets/minecraft/";
-        File[] files = tpFile.listFiles();
-
-        if (files == null)
+        for (int i = 0; i < p_propertyListToArray_0_.size(); ++i)
         {
-            return new String[0];
-        }
-        else
-        {
-            for (int names = 0; names < files.length; ++names)
+            List list = (List)p_propertyListToArray_0_.get(i);
+
+            if (list != null)
             {
-                File file = files[names];
-                String dirPath;
-
-                if (file.isFile())
-                {
-                    dirPath = basePath + file.getName();
-
-                    if (dirPath.startsWith(prefixAssets))
-                    {
-                        dirPath = dirPath.substring(prefixAssets.length());
-
-                        if (dirPath.startsWith(prefix) && dirPath.endsWith(suffix))
-                        {
-                            list.add(dirPath);
-                        }
-                    }
-                }
-                else if (file.isDirectory())
-                {
-                    dirPath = basePath + file.getName() + "/";
-                    String[] names1 = collectFilesFolder(file, dirPath, prefix, suffix);
-
-                    for (int n = 0; n < names1.length; ++n)
-                    {
-                        String name = names1[n];
-                        list.add(name);
-                    }
-                }
-            }
-
-            String[] var13 = (String[])((String[])list.toArray(new String[list.size()]));
-            return var13;
-        }
-    }
-
-    private static String[] collectFilesZIP(File tpFile, String prefix, String suffix)
-    {
-        ArrayList list = new ArrayList();
-        String prefixAssets = "assets/minecraft/";
-
-        try
-        {
-            ZipFile e = new ZipFile(tpFile);
-            Enumeration en = e.entries();
-
-            while (en.hasMoreElements())
-            {
-                ZipEntry names = (ZipEntry)en.nextElement();
-                String name = names.getName();
-
-                if (name.startsWith(prefixAssets))
-                {
-                    name = name.substring(prefixAssets.length());
-
-                    if (name.startsWith(prefix) && name.endsWith(suffix))
-                    {
-                        list.add(name);
-                    }
-                }
-            }
-
-            e.close();
-            String[] names1 = (String[])((String[])list.toArray(new String[list.size()]));
-            return names1;
-        }
-        catch (IOException var9)
-        {
-            var9.printStackTrace();
-            return new String[0];
-        }
-    }
-
-    private static CustomItemProperties[][] propertyListToArray(List list)
-    {
-        CustomItemProperties[][] propArr = new CustomItemProperties[list.size()][];
-
-        for (int i = 0; i < list.size(); ++i)
-        {
-            List subList = (List)list.get(i);
-
-            if (subList != null)
-            {
-                CustomItemProperties[] subArr = (CustomItemProperties[])((CustomItemProperties[])subList.toArray(new CustomItemProperties[subList.size()]));
-                Arrays.sort(subArr, new CustomItemsComparator());
-                propArr[i] = subArr;
+                CustomItemProperties[] acustomitemproperties1 = (CustomItemProperties[])((CustomItemProperties[])list.toArray(new CustomItemProperties[list.size()]));
+                Arrays.sort(acustomitemproperties1, new CustomItemsComparator());
+                acustomitemproperties[i] = acustomitemproperties1;
             }
         }
 
-        return propArr;
+        return acustomitemproperties;
     }
 
-    private static void addToItemList(CustomItemProperties cp, List itemList)
+    private static void addToItemList(CustomItemProperties p_addToItemList_0_, List p_addToItemList_1_)
     {
-        if (cp.items != null)
+        if (p_addToItemList_0_.items != null)
         {
-            for (int i = 0; i < cp.items.length; ++i)
+            for (int i = 0; i < p_addToItemList_0_.items.length; ++i)
             {
-                int itemId = cp.items[i];
+                int j = p_addToItemList_0_.items[i];
 
-                if (itemId <= 0)
+                if (j <= 0)
                 {
-                    Config.warn("Invalid item ID: " + itemId);
+                    Config.warn("Invalid item ID: " + j);
                 }
                 else
                 {
-                    addToList(cp, itemList, itemId);
+                    addToList(p_addToItemList_0_, p_addToItemList_1_, j);
                 }
             }
         }
     }
 
-    private static void addToList(CustomItemProperties cp, List list, int id)
+    private static void addToEnchantmentList(CustomItemProperties p_addToEnchantmentList_0_, List p_addToEnchantmentList_1_)
     {
-        while (id >= list.size())
+        if (p_addToEnchantmentList_0_.type == 2)
         {
-            list.add((Object)null);
+            if (p_addToEnchantmentList_0_.enchantmentIds != null)
+            {
+                for (int i = 0; i < 256; ++i)
+                {
+                    if (p_addToEnchantmentList_0_.enchantmentIds.isInRange(i))
+                    {
+                        addToList(p_addToEnchantmentList_0_, p_addToEnchantmentList_1_, i);
+                    }
+                }
+            }
         }
-
-        Object subList = (List)list.get(id);
-
-        if (subList == null)
-        {
-            subList = new ArrayList();
-            list.set(id, subList);
-        }
-
-        ((List)subList).add(cp);
     }
 
-    public static IIcon getCustomItemTexture(ItemStack itemStack, IIcon icon)
+    private static void addToList(CustomItemProperties p_addToList_0_, List p_addToList_1_, int p_addToList_2_)
     {
-        if (itemProperties == null)
+        while (p_addToList_2_ >= p_addToList_1_.size())
         {
-            return icon;
+            p_addToList_1_.add(null);
         }
-        else if (itemStack == null)
+
+        List list = (List)p_addToList_1_.get(p_addToList_2_);
+
+        if (list == null)
         {
-            return icon;
+            list = new ArrayList();
+            p_addToList_1_.set(p_addToList_2_, list);
+        }
+
+        list.add(p_addToList_0_);
+    }
+
+    public static IBakedModel getCustomItemModel(ItemStack p_getCustomItemModel_0_, IBakedModel p_getCustomItemModel_1_, ModelResourceLocation p_getCustomItemModel_2_)
+    {
+        if (p_getCustomItemModel_1_.isGui3d())
+        {
+            return p_getCustomItemModel_1_;
+        }
+        else if (itemProperties == null)
+        {
+            return p_getCustomItemModel_1_;
         }
         else
         {
-            Item item = itemStack.getItem();
-            int itemId = Item.getIdFromItem(item);
+            CustomItemProperties customitemproperties = getCustomItemProperties(p_getCustomItemModel_0_, 1);
+            return customitemproperties == null ? p_getCustomItemModel_1_ : customitemproperties.getModel(p_getCustomItemModel_2_);
+        }
+    }
 
-            if (itemId >= 0 && itemId < itemProperties.length)
+    public static boolean bindCustomArmorTexture(ItemStack p_bindCustomArmorTexture_0_, int p_bindCustomArmorTexture_1_, String p_bindCustomArmorTexture_2_)
+    {
+        if (itemProperties == null)
+        {
+            return false;
+        }
+        else
+        {
+            ResourceLocation resourcelocation = getCustomArmorLocation(p_bindCustomArmorTexture_0_, p_bindCustomArmorTexture_1_, p_bindCustomArmorTexture_2_);
+
+            if (resourcelocation == null)
             {
-                CustomItemProperties[] cips = itemProperties[itemId];
+                return false;
+            }
+            else
+            {
+                Config.getTextureManager().bindTexture(resourcelocation);
+                return true;
+            }
+        }
+    }
 
-                if (cips != null)
+    private static ResourceLocation getCustomArmorLocation(ItemStack p_getCustomArmorLocation_0_, int p_getCustomArmorLocation_1_, String p_getCustomArmorLocation_2_)
+    {
+        CustomItemProperties customitemproperties = getCustomItemProperties(p_getCustomArmorLocation_0_, 3);
+
+        if (customitemproperties == null)
+        {
+            return null;
+        }
+        else if (customitemproperties.mapTextureLocations == null)
+        {
+            return null;
+        }
+        else
+        {
+            Item item = p_getCustomArmorLocation_0_.getItem();
+
+            if (!(item instanceof ItemArmor))
+            {
+                return null;
+            }
+            else
+            {
+                ItemArmor itemarmor = (ItemArmor)item;
+                String s = itemarmor.getArmorMaterial().getName();
+                StringBuffer stringbuffer = new StringBuffer();
+                stringbuffer.append("texture.");
+                stringbuffer.append(s);
+                stringbuffer.append("_layer_");
+                stringbuffer.append(p_getCustomArmorLocation_1_);
+
+                if (p_getCustomArmorLocation_2_ != null)
                 {
-                    for (int i = 0; i < cips.length; ++i)
-                    {
-                        CustomItemProperties cip = cips[i];
-                        IIcon iconNew = getCustomItemTexture(cip, itemStack, icon);
+                    stringbuffer.append("_");
+                    stringbuffer.append(p_getCustomArmorLocation_2_);
+                }
 
-                        if (iconNew != null)
+                String s1 = stringbuffer.toString();
+                ResourceLocation resourcelocation = (ResourceLocation)customitemproperties.mapTextureLocations.get(s1);
+                return resourcelocation;
+            }
+        }
+    }
+
+    private static CustomItemProperties getCustomItemProperties(ItemStack p_getCustomItemProperties_0_, int p_getCustomItemProperties_1_)
+    {
+        if (itemProperties == null)
+        {
+            return null;
+        }
+        else if (p_getCustomItemProperties_0_ == null)
+        {
+            return null;
+        }
+        else
+        {
+            Item item = p_getCustomItemProperties_0_.getItem();
+            int i = Item.getIdFromItem(item);
+
+            if (i >= 0 && i < itemProperties.length)
+            {
+                CustomItemProperties[] acustomitemproperties = itemProperties[i];
+
+                if (acustomitemproperties != null)
+                {
+                    for (int j = 0; j < acustomitemproperties.length; ++j)
+                    {
+                        CustomItemProperties customitemproperties = acustomitemproperties[j];
+
+                        if (customitemproperties.type == p_getCustomItemProperties_1_ && matchesProperties(customitemproperties, p_getCustomItemProperties_0_, (int[][])null))
                         {
-                            return iconNew;
+                            return customitemproperties;
                         }
                     }
                 }
             }
 
-            return icon;
+            return null;
         }
     }
 
-    public static IIcon getCustomPotionTexture(ItemPotion item, int damage)
+    private static boolean matchesProperties(CustomItemProperties p_matchesProperties_0_, ItemStack p_matchesProperties_1_, int[][] p_matchesProperties_2_)
     {
-        if (itemProperties == null)
+        Item item = p_matchesProperties_1_.getItem();
+
+        if (p_matchesProperties_0_.damage != null)
         {
-            return null;
+            int i = p_matchesProperties_1_.getItemDamage();
+
+            if (p_matchesProperties_0_.damageMask != 0)
+            {
+                i &= p_matchesProperties_0_.damageMask;
+            }
+
+            if (p_matchesProperties_0_.damagePercent)
+            {
+                int j = item.getMaxDamage();
+                i = (int)((double)(i * 100) / (double)j);
+            }
+
+            if (!p_matchesProperties_0_.damage.isInRange(i))
+            {
+                return false;
+            }
+        }
+
+        if (p_matchesProperties_0_.stackSize != null && !p_matchesProperties_0_.stackSize.isInRange(p_matchesProperties_1_.stackSize))
+        {
+            return false;
         }
         else
         {
-            int itemId = Item.getIdFromItem(item);
+            int[][] aint = p_matchesProperties_2_;
 
-            if (itemId >= 0 && itemId < itemProperties.length)
+            if (p_matchesProperties_0_.enchantmentIds != null)
             {
-                CustomItemProperties[] cips = itemProperties[itemId];
-
-                if (cips != null)
+                if (p_matchesProperties_2_ == null)
                 {
-                    for (int i = 0; i < cips.length; ++i)
-                    {
-                        CustomItemProperties cip = cips[i];
-                        IIcon iconNew = getCustomPotionTexture(cip, item, damage);
+                    aint = getEnchantmentIdLevels(p_matchesProperties_1_);
+                }
 
-                        if (iconNew != null)
+                boolean flag = false;
+
+                for (int k = 0; k < aint.length; ++k)
+                {
+                    int l = aint[k][0];
+
+                    if (p_matchesProperties_0_.enchantmentIds.isInRange(l))
+                    {
+                        flag = true;
+                        break;
+                    }
+                }
+
+                if (!flag)
+                {
+                    return false;
+                }
+            }
+
+            if (p_matchesProperties_0_.enchantmentLevels != null)
+            {
+                if (aint == null)
+                {
+                    aint = getEnchantmentIdLevels(p_matchesProperties_1_);
+                }
+
+                boolean flag1 = false;
+
+                for (int i1 = 0; i1 < aint.length; ++i1)
+                {
+                    int k1 = aint[i1][1];
+
+                    if (p_matchesProperties_0_.enchantmentLevels.isInRange(k1))
+                    {
+                        flag1 = true;
+                        break;
+                    }
+                }
+
+                if (!flag1)
+                {
+                    return false;
+                }
+            }
+
+            if (p_matchesProperties_0_.nbtTagValues != null)
+            {
+                NBTTagCompound nbttagcompound = p_matchesProperties_1_.getTagCompound();
+
+                for (int j1 = 0; j1 < p_matchesProperties_0_.nbtTagValues.length; ++j1)
+                {
+                    NbtTagValue nbttagvalue = p_matchesProperties_0_.nbtTagValues[j1];
+
+                    if (!nbttagvalue.matches(nbttagcompound))
+                    {
+                        return false;
+                    }
+                }
+            }
+
+            return true;
+        }
+    }
+
+    private static int[][] getEnchantmentIdLevels(ItemStack p_getEnchantmentIdLevels_0_)
+    {
+        Item item = p_getEnchantmentIdLevels_0_.getItem();
+        NBTTagList nbttaglist = item == Items.enchanted_book ? Items.enchanted_book.getEnchantments(p_getEnchantmentIdLevels_0_) : p_getEnchantmentIdLevels_0_.getEnchantmentTagList();
+
+        if (nbttaglist != null && nbttaglist.tagCount() > 0)
+        {
+            int[][] aint = new int[nbttaglist.tagCount()][2];
+
+            for (int i = 0; i < nbttaglist.tagCount(); ++i)
+            {
+                NBTTagCompound nbttagcompound = nbttaglist.getCompoundTagAt(i);
+                int j = nbttagcompound.getShort("id");
+                int k = nbttagcompound.getShort("lvl");
+                aint[i][0] = j;
+                aint[i][1] = k;
+            }
+
+            return aint;
+        }
+        else
+        {
+            return EMPTY_INT2_ARRAY;
+        }
+    }
+
+    public static boolean renderCustomEffect(RenderItem p_renderCustomEffect_0_, ItemStack p_renderCustomEffect_1_, IBakedModel p_renderCustomEffect_2_)
+    {
+        if (enchantmentProperties == null)
+        {
+            return false;
+        }
+        else if (p_renderCustomEffect_1_ == null)
+        {
+            return false;
+        }
+        else
+        {
+            int[][] aint = getEnchantmentIdLevels(p_renderCustomEffect_1_);
+
+            if (aint.length <= 0)
+            {
+                return false;
+            }
+            else
+            {
+                Set set = null;
+                boolean flag = false;
+                TextureManager texturemanager = Config.getTextureManager();
+
+                for (int i = 0; i < aint.length; ++i)
+                {
+                    int j = aint[i][0];
+
+                    if (j >= 0 && j < enchantmentProperties.length)
+                    {
+                        CustomItemProperties[] acustomitemproperties = enchantmentProperties[j];
+
+                        if (acustomitemproperties != null)
                         {
-                            return iconNew;
+                            for (int k = 0; k < acustomitemproperties.length; ++k)
+                            {
+                                CustomItemProperties customitemproperties = acustomitemproperties[k];
+
+                                if (set == null)
+                                {
+                                    set = new HashSet();
+                                }
+
+                                if (set.add(Integer.valueOf(j)) && matchesProperties(customitemproperties, p_renderCustomEffect_1_, aint) && customitemproperties.textureLocation != null)
+                                {
+                                    texturemanager.bindTexture(customitemproperties.textureLocation);
+                                    float f = customitemproperties.getTextureWidth(texturemanager);
+
+                                    if (!flag)
+                                    {
+                                        flag = true;
+                                        GlStateManager.depthMask(false);
+                                        GlStateManager.depthFunc(514);
+                                        GlStateManager.disableLighting();
+                                        GlStateManager.matrixMode(5890);
+                                    }
+
+                                    Blender.setupBlend(customitemproperties.blend, 1.0F);
+                                    GlStateManager.pushMatrix();
+                                    GlStateManager.scale(f / 2.0F, f / 2.0F, f / 2.0F);
+                                    float f1 = customitemproperties.speed * (float)(Minecraft.getSystemTime() % 3000L) / 3000.0F / 8.0F;
+                                    GlStateManager.translate(f1, 0.0F, 0.0F);
+                                    GlStateManager.rotate(customitemproperties.rotation, 0.0F, 0.0F, 1.0F);
+                                    p_renderCustomEffect_0_.renderModel(p_renderCustomEffect_2_, -1);
+                                    GlStateManager.popMatrix();
+                                }
+                            }
                         }
                     }
                 }
-            }
 
-            return null;
+                if (flag)
+                {
+                    GlStateManager.enableAlpha();
+                    GlStateManager.enableBlend();
+                    GlStateManager.blendFunc(770, 771);
+                    GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+                    GlStateManager.matrixMode(5888);
+                    GlStateManager.enableLighting();
+                    GlStateManager.depthFunc(515);
+                    GlStateManager.depthMask(true);
+                    texturemanager.bindTexture(TextureMap.locationBlocksTexture);
+                }
+
+                return flag;
+            }
         }
     }
 
-    private static IIcon getCustomPotionTexture(CustomItemProperties cip, ItemPotion item, int damage)
+    public static boolean renderCustomArmorEffect(EntityLivingBase p_renderCustomArmorEffect_0_, ItemStack p_renderCustomArmorEffect_1_, ModelBase p_renderCustomArmorEffect_2_, float p_renderCustomArmorEffect_3_, float p_renderCustomArmorEffect_4_, float p_renderCustomArmorEffect_5_, float p_renderCustomArmorEffect_6_, float p_renderCustomArmorEffect_7_, float p_renderCustomArmorEffect_8_, float p_renderCustomArmorEffect_9_)
     {
-        if (cip.damage != null)
+        if (enchantmentProperties == null)
         {
-            if (cip.damageMask != 0)
-            {
-                damage &= cip.damageMask;
-            }
-
-            if (!cip.damage.isInRange(damage))
-            {
-                return null;
-            }
+            return false;
         }
-
-        return cip.textureIcon;
-    }
-
-    private static IIcon getCustomItemTexture(CustomItemProperties cip, ItemStack itemStack, IIcon icon)
-    {
-        Item item = itemStack.getItem();
-
-        if (cip.damage != null)
+        else if (Config.isShaders() && Shaders.isShadowPass)
         {
-            int levels = itemStack.getItemDamage();
-
-            if (cip.damageMask != 0)
-            {
-                levels &= cip.damageMask;
-            }
-
-            int levelMatch = item.getMaxDamage();
-
-            if (cip.damagePercent)
-            {
-                levels = (int)((double)(levels * 100) / (double)levelMatch);
-            }
-
-            if (!cip.damage.isInRange(levels))
-            {
-                return null;
-            }
+            return false;
         }
-
-        if (cip.stackSize != null && !cip.stackSize.isInRange(itemStack.stackSize))
+        else if (p_renderCustomArmorEffect_1_ == null)
         {
-            return null;
+            return false;
         }
         else
         {
-            int i;
-            int level;
-            int[] var8;
-            boolean var9;
+            int[][] aint = getEnchantmentIdLevels(p_renderCustomArmorEffect_1_);
 
-            if (cip.enchantmentIds != null)
+            if (aint.length <= 0)
             {
-                var8 = getEnchantmentIds(itemStack);
-                var9 = false;
+                return false;
+            }
+            else
+            {
+                Set set = null;
+                boolean flag = false;
+                TextureManager texturemanager = Config.getTextureManager();
 
-                for (i = 0; i < var8.length; ++i)
+                for (int i = 0; i < aint.length; ++i)
                 {
-                    level = var8[i];
+                    int j = aint[i][0];
 
-                    if (cip.enchantmentIds.isInRange(level))
+                    if (j >= 0 && j < enchantmentProperties.length)
                     {
-                        var9 = true;
-                        break;
+                        CustomItemProperties[] acustomitemproperties = enchantmentProperties[j];
+
+                        if (acustomitemproperties != null)
+                        {
+                            for (int k = 0; k < acustomitemproperties.length; ++k)
+                            {
+                                CustomItemProperties customitemproperties = acustomitemproperties[k];
+
+                                if (set == null)
+                                {
+                                    set = new HashSet();
+                                }
+
+                                if (set.add(Integer.valueOf(j)) && matchesProperties(customitemproperties, p_renderCustomArmorEffect_1_, aint) && customitemproperties.textureLocation != null)
+                                {
+                                    texturemanager.bindTexture(customitemproperties.textureLocation);
+                                    float f = customitemproperties.getTextureWidth(texturemanager);
+
+                                    if (!flag)
+                                    {
+                                        flag = true;
+
+                                        if (Config.isShaders())
+                                        {
+                                            ShadersRender.renderEnchantedGlintBegin();
+                                        }
+
+                                        GlStateManager.enableBlend();
+                                        GlStateManager.depthFunc(514);
+                                        GlStateManager.depthMask(false);
+                                    }
+
+                                    Blender.setupBlend(customitemproperties.blend, 1.0F);
+                                    GlStateManager.disableLighting();
+                                    GlStateManager.matrixMode(5890);
+                                    GlStateManager.loadIdentity();
+                                    GlStateManager.rotate(customitemproperties.rotation, 0.0F, 0.0F, 1.0F);
+                                    float f1 = f / 8.0F;
+                                    GlStateManager.scale(f1, f1 / 2.0F, f1);
+                                    float f2 = customitemproperties.speed * (float)(Minecraft.getSystemTime() % 3000L) / 3000.0F / 8.0F;
+                                    GlStateManager.translate(0.0F, f2, 0.0F);
+                                    GlStateManager.matrixMode(5888);
+                                    p_renderCustomArmorEffect_2_.render(p_renderCustomArmorEffect_0_, p_renderCustomArmorEffect_3_, p_renderCustomArmorEffect_4_, p_renderCustomArmorEffect_6_, p_renderCustomArmorEffect_7_, p_renderCustomArmorEffect_8_, p_renderCustomArmorEffect_9_);
+                                }
+                            }
+                        }
                     }
                 }
 
-                if (!var9)
+                if (flag)
                 {
-                    return null;
-                }
-            }
+                    GlStateManager.enableAlpha();
+                    GlStateManager.enableBlend();
+                    GlStateManager.blendFunc(770, 771);
+                    GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+                    GlStateManager.matrixMode(5890);
+                    GlStateManager.loadIdentity();
+                    GlStateManager.matrixMode(5888);
+                    GlStateManager.enableLighting();
+                    GlStateManager.depthMask(true);
+                    GlStateManager.depthFunc(515);
+                    GlStateManager.disableBlend();
 
-            if (cip.enchantmentLevels != null)
-            {
-                var8 = getEnchantmentLevels(itemStack);
-                var9 = false;
-
-                for (i = 0; i < var8.length; ++i)
-                {
-                    level = var8[i];
-
-                    if (cip.enchantmentLevels.isInRange(level))
+                    if (Config.isShaders())
                     {
-                        var9 = true;
-                        break;
+                        ShadersRender.renderEnchantedGlintEnd();
                     }
                 }
 
-                if (!var9)
-                {
-                    return null;
-                }
+                return flag;
             }
-
-            if (cip.nbtTagValues != null)
-            {
-                ;
-            }
-
-            return cip.textureIcon;
         }
     }
 
-    private static int[] getEnchantmentIds(ItemStack itemStack)
+    public static boolean isUseGlint()
     {
-        Map map = EnchantmentHelper.getEnchantments(itemStack);
-        Set keySet = map.keySet();
-        int[] ids = new int[keySet.size()];
-        int index = 0;
-
-        for (Iterator it = keySet.iterator(); it.hasNext(); ++index)
-        {
-            Integer id = (Integer)it.next();
-            ids[index] = id.intValue();
-        }
-
-        return ids;
-    }
-
-    private static int[] getEnchantmentLevels(ItemStack itemStack)
-    {
-        Map map = EnchantmentHelper.getEnchantments(itemStack);
-        Collection values = map.values();
-        int[] levels = new int[values.size()];
-        int index = 0;
-
-        for (Iterator it = values.iterator(); it.hasNext(); ++index)
-        {
-            Integer level = (Integer)it.next();
-            levels[index] = level.intValue();
-        }
-
-        return levels;
-    }
-
-    public static ResourceLocation getLocationItemGlint(ItemStack par2ItemStack, ResourceLocation resItemGlint)
-    {
-        return resItemGlint;
+        return useGlint;
     }
 }

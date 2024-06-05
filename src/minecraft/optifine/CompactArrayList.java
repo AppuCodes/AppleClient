@@ -14,72 +14,72 @@ public class CompactArrayList
         this(10, 0.75F);
     }
 
-    public CompactArrayList(int initialCapacity)
+    public CompactArrayList(int p_i29_1_)
     {
-        this(initialCapacity, 0.75F);
+        this(p_i29_1_, 0.75F);
     }
 
-    public CompactArrayList(int initialCapacity, float loadFactor)
+    public CompactArrayList(int p_i30_1_, float p_i30_2_)
     {
         this.list = null;
         this.initialCapacity = 0;
         this.loadFactor = 1.0F;
         this.countValid = 0;
-        this.list = new ArrayList(initialCapacity);
-        this.initialCapacity = initialCapacity;
-        this.loadFactor = loadFactor;
+        this.list = new ArrayList(p_i30_1_);
+        this.initialCapacity = p_i30_1_;
+        this.loadFactor = p_i30_2_;
     }
 
-    public void add(int index, Object element)
+    public void add(int p_add_1_, Object p_add_2_)
     {
-        if (element != null)
+        if (p_add_2_ != null)
         {
             ++this.countValid;
         }
 
-        this.list.add(index, element);
+        this.list.add(p_add_1_, p_add_2_);
     }
 
-    public boolean add(Object element)
+    public boolean add(Object p_add_1_)
     {
-        if (element != null)
+        if (p_add_1_ != null)
         {
             ++this.countValid;
         }
 
-        return this.list.add(element);
+        return this.list.add(p_add_1_);
     }
 
-    public Object set(int index, Object element)
+    public Object set(int p_set_1_, Object p_set_2_)
     {
-        Object oldElement = this.list.set(index, element);
+        Object object = this.list.set(p_set_1_, p_set_2_);
 
-        if (element != oldElement)
+        if (p_set_2_ != object)
         {
-            if (oldElement == null)
+            if (object == null)
             {
                 ++this.countValid;
             }
 
-            if (element == null)
+            if (p_set_2_ == null)
             {
                 --this.countValid;
             }
         }
 
-        return oldElement;
+        return object;
     }
 
-    public Object remove(int index)
+    public Object remove(int p_remove_1_)
     {
-        Object oldElement = this.list.remove(index);
+        Object object = this.list.remove(p_remove_1_);
 
-        if (oldElement != null)
+        if (object != null)
         {
             --this.countValid;
         }
 
-        return oldElement;
+        return object;
     }
 
     public void clear()
@@ -96,44 +96,43 @@ public class CompactArrayList
         }
         else if (this.list.size() > this.initialCapacity)
         {
-            float currentLoadFactor = (float)this.countValid * 1.0F / (float)this.list.size();
+            float f = (float)this.countValid * 1.0F / (float)this.list.size();
 
-            if (currentLoadFactor <= this.loadFactor)
+            if (f <= this.loadFactor)
             {
-                int dstIndex = 0;
-                int i;
+                int i = 0;
 
-                for (i = 0; i < this.list.size(); ++i)
+                for (int j = 0; j < this.list.size(); ++j)
                 {
-                    Object wr = this.list.get(i);
+                    Object object = this.list.get(j);
 
-                    if (wr != null)
+                    if (object != null)
                     {
-                        if (i != dstIndex)
+                        if (j != i)
                         {
-                            this.list.set(dstIndex, wr);
+                            this.list.set(i, object);
                         }
 
-                        ++dstIndex;
+                        ++i;
                     }
                 }
 
-                for (i = this.list.size() - 1; i >= dstIndex; --i)
+                for (int k = this.list.size() - 1; k >= i; --k)
                 {
-                    this.list.remove(i);
+                    this.list.remove(k);
                 }
             }
         }
     }
 
-    public boolean contains(Object elem)
+    public boolean contains(Object p_contains_1_)
     {
-        return this.list.contains(elem);
+        return this.list.contains(p_contains_1_);
     }
 
-    public Object get(int index)
+    public Object get(int p_get_1_)
     {
-        return this.list.get(index);
+        return this.list.get(p_get_1_);
     }
 
     public boolean isEmpty()

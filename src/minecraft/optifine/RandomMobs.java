@@ -30,57 +30,57 @@ public class RandomMobs
     public static final String PREFIX_MCPATCHER_MOB = "mcpatcher/mob/";
     private static final String[] DEPENDANT_SUFFIXES = new String[] {"_armor", "_eyes", "_exploding", "_shooting", "_fur", "_eyes", "_invulnerable", "_angry", "_tame", "_collar"};
 
-    public static void entityLoaded(Entity entity, World world)
+    public static void entityLoaded(Entity p_entityLoaded_0_, World p_entityLoaded_1_)
     {
-        if (entity instanceof EntityLiving)
+        if (p_entityLoaded_0_ instanceof EntityLiving)
         {
-            if (world != null)
+            if (p_entityLoaded_1_ != null)
             {
-                EntityLiving el = (EntityLiving)entity;
-                el.spawnPosition = new BlockPos((int)el.posX, (int)el.posY, (int)el.posZ);
-                el.spawnBiome = world.getBiomeGenForCoords((int)el.posX, (int)el.posZ);
-                WorldServer ws = Config.getWorldServer();
+                EntityLiving entityliving = (EntityLiving)p_entityLoaded_0_;
+                entityliving.spawnPosition = entityliving.getPosition();
+                entityliving.spawnBiome = p_entityLoaded_1_.getBiomeGenForCoords(entityliving.spawnPosition);
+                WorldServer worldserver = Config.getWorldServer();
 
-                if (ws != null)
+                if (worldserver != null)
                 {
-                    Entity es = ws.getEntityByID(entity.getEntityId());
+                    Entity entity = worldserver.getEntityByID(p_entityLoaded_0_.getEntityId());
 
-                    if (es instanceof EntityLiving)
+                    if (entity instanceof EntityLiving)
                     {
-                        EntityLiving els = (EntityLiving)es;
-                        UUID uuid = els.getUniqueID();
-                        long uuidLow = uuid.getLeastSignificantBits();
-                        int id = (int)(uuidLow & 2147483647L);
-                        el.randomMobsId = id;
+                        EntityLiving entityliving1 = (EntityLiving)entity;
+                        UUID uuid = entityliving1.getUniqueID();
+                        long i = uuid.getLeastSignificantBits();
+                        int j = (int)(i & 2147483647L);
+                        entityliving.randomMobsId = j;
                     }
                 }
             }
         }
     }
 
-    public static void worldChanged(World oldWorld, World newWorld)
+    public static void worldChanged(World p_worldChanged_0_, World p_worldChanged_1_)
     {
-        if (newWorld != null)
+        if (p_worldChanged_1_ != null)
         {
-            List entityList = newWorld.getLoadedEntityList();
+            List list = p_worldChanged_1_.getLoadedEntityList();
 
-            for (int e = 0; e < entityList.size(); ++e)
+            for (int i = 0; i < list.size(); ++i)
             {
-                Entity entity = (Entity)entityList.get(e);
-                entityLoaded(entity, newWorld);
+                Entity entity = (Entity)list.get(i);
+                entityLoaded(entity, p_worldChanged_1_);
             }
         }
     }
 
-    public static ResourceLocation getTextureLocation(ResourceLocation loc)
+    public static ResourceLocation getTextureLocation(ResourceLocation p_getTextureLocation_0_)
     {
         if (working)
         {
-            return loc;
+            return p_getTextureLocation_0_;
         }
         else
         {
-            ResourceLocation var5;
+            ResourceLocation entity;
 
             try
             {
@@ -91,235 +91,235 @@ public class RandomMobs
                     initialize();
                 }
 
-                if (renderGlobal == null)
+                if (renderGlobal != null)
                 {
-                    ResourceLocation entity1 = loc;
-                    return entity1;
+                    Entity entity1 = renderGlobal.renderedEntity;
+
+                    if (!(entity1 instanceof EntityLiving))
+                    {
+                        ResourceLocation resourcelocation2 = p_getTextureLocation_0_;
+                        return resourcelocation2;
+                    }
+
+                    EntityLiving entityliving = (EntityLiving)entity1;
+                    String s = p_getTextureLocation_0_.getResourcePath();
+
+                    if (!s.startsWith("textures/entity/"))
+                    {
+                        ResourceLocation resourcelocation3 = p_getTextureLocation_0_;
+                        return resourcelocation3;
+                    }
+
+                    RandomMobsProperties randommobsproperties = getProperties(p_getTextureLocation_0_);
+
+                    if (randommobsproperties == null)
+                    {
+                        ResourceLocation resourcelocation4 = p_getTextureLocation_0_;
+                        return resourcelocation4;
+                    }
+
+                    ResourceLocation resourcelocation1 = randommobsproperties.getTextureLocation(p_getTextureLocation_0_, entityliving);
+                    return resourcelocation1;
                 }
 
-                Entity entity = renderGlobal.renderedEntity;
-
-                if (!(entity instanceof EntityLiving))
-                {
-                    ResourceLocation entityLiving1 = loc;
-                    return entityLiving1;
-                }
-
-                EntityLiving entityLiving = (EntityLiving)entity;
-                String name = loc.getResourcePath();
-
-                if (!name.startsWith("textures/entity/"))
-                {
-                    ResourceLocation props1 = loc;
-                    return props1;
-                }
-
-                RandomMobsProperties props = getProperties(loc);
-
-                if (props != null)
-                {
-                    var5 = props.getTextureLocation(loc, entityLiving);
-                    return var5;
-                }
-
-                var5 = loc;
+                entity = p_getTextureLocation_0_;
             }
             finally
             {
                 working = false;
             }
 
-            return var5;
+            return entity;
         }
     }
 
-    private static RandomMobsProperties getProperties(ResourceLocation loc)
+    private static RandomMobsProperties getProperties(ResourceLocation p_getProperties_0_)
     {
-        String name = loc.getResourcePath();
-        RandomMobsProperties props = (RandomMobsProperties)locationProperties.get(name);
+        String s = p_getProperties_0_.getResourcePath();
+        RandomMobsProperties randommobsproperties = (RandomMobsProperties)locationProperties.get(s);
 
-        if (props == null)
+        if (randommobsproperties == null)
         {
-            props = makeProperties(loc);
-            locationProperties.put(name, props);
+            randommobsproperties = makeProperties(p_getProperties_0_);
+            locationProperties.put(s, randommobsproperties);
         }
 
-        return props;
+        return randommobsproperties;
     }
 
-    private static RandomMobsProperties makeProperties(ResourceLocation loc)
+    private static RandomMobsProperties makeProperties(ResourceLocation p_makeProperties_0_)
     {
-        String path = loc.getResourcePath();
-        ResourceLocation propLoc = getPropertyLocation(loc);
+        String s = p_makeProperties_0_.getResourcePath();
+        ResourceLocation resourcelocation = getPropertyLocation(p_makeProperties_0_);
 
-        if (propLoc != null)
+        if (resourcelocation != null)
         {
-            RandomMobsProperties variants = parseProperties(propLoc, loc);
+            RandomMobsProperties randommobsproperties = parseProperties(resourcelocation, p_makeProperties_0_);
 
-            if (variants != null)
+            if (randommobsproperties != null)
             {
-                return variants;
+                return randommobsproperties;
             }
         }
 
-        ResourceLocation[] variants1 = getTextureVariants(loc);
-        return new RandomMobsProperties(path, variants1);
+        ResourceLocation[] aresourcelocation = getTextureVariants(p_makeProperties_0_);
+        return new RandomMobsProperties(s, aresourcelocation);
     }
 
-    private static RandomMobsProperties parseProperties(ResourceLocation propLoc, ResourceLocation resLoc)
+    private static RandomMobsProperties parseProperties(ResourceLocation p_parseProperties_0_, ResourceLocation p_parseProperties_1_)
     {
         try
         {
-            String e = propLoc.getResourcePath();
-            Config.dbg("RandomMobs: " + resLoc.getResourcePath() + ", variants: " + e);
-            InputStream in = Config.getResourceStream(propLoc);
+            String s = p_parseProperties_0_.getResourcePath();
+            Config.dbg("RandomMobs: " + p_parseProperties_1_.getResourcePath() + ", variants: " + s);
+            InputStream inputstream = Config.getResourceStream(p_parseProperties_0_);
 
-            if (in == null)
+            if (inputstream == null)
             {
-                Config.warn("RandomMobs properties not found: " + e);
+                Config.warn("RandomMobs properties not found: " + s);
                 return null;
             }
             else
             {
-                Properties props = new Properties();
-                props.load(in);
-                in.close();
-                RandomMobsProperties rmp = new RandomMobsProperties(props, e, resLoc);
-                return !rmp.isValid(e) ? null : rmp;
+                Properties properties = new Properties();
+                properties.load(inputstream);
+                inputstream.close();
+                RandomMobsProperties randommobsproperties = new RandomMobsProperties(properties, s, p_parseProperties_1_);
+                return !randommobsproperties.isValid(s) ? null : randommobsproperties;
             }
         }
         catch (FileNotFoundException var6)
         {
-            Config.warn("RandomMobs file not found: " + resLoc.getResourcePath());
+            Config.warn("RandomMobs file not found: " + p_parseProperties_1_.getResourcePath());
             return null;
         }
-        catch (IOException var7)
+        catch (IOException ioexception)
         {
-            var7.printStackTrace();
+            ioexception.printStackTrace();
             return null;
         }
     }
 
-    private static ResourceLocation getPropertyLocation(ResourceLocation loc)
+    private static ResourceLocation getPropertyLocation(ResourceLocation p_getPropertyLocation_0_)
     {
-        ResourceLocation locMcp = getMcpatcherLocation(loc);
+        ResourceLocation resourcelocation = getMcpatcherLocation(p_getPropertyLocation_0_);
 
-        if (locMcp == null)
+        if (resourcelocation == null)
         {
             return null;
         }
         else
         {
-            String domain = locMcp.getResourceDomain();
-            String path = locMcp.getResourcePath();
-            String pathBase = path;
+            String s = resourcelocation.getResourceDomain();
+            String s1 = resourcelocation.getResourcePath();
+            String s2 = s1;
 
-            if (path.endsWith(".png"))
+            if (s1.endsWith(".png"))
             {
-                pathBase = path.substring(0, path.length() - ".png".length());
+                s2 = s1.substring(0, s1.length() - ".png".length());
             }
 
-            String pathProps = pathBase + ".properties";
-            ResourceLocation locProps = new ResourceLocation(domain, pathProps);
+            String s3 = s2 + ".properties";
+            ResourceLocation resourcelocation1 = new ResourceLocation(s, s3);
 
-            if (Config.hasResource(locProps))
+            if (Config.hasResource(resourcelocation1))
             {
-                return locProps;
+                return resourcelocation1;
             }
             else
             {
-                String pathParent = getParentPath(pathBase);
+                String s4 = getParentPath(s2);
 
-                if (pathParent == null)
+                if (s4 == null)
                 {
                     return null;
                 }
                 else
                 {
-                    ResourceLocation locParentProps = new ResourceLocation(domain, pathParent + ".properties");
-                    return Config.hasResource(locParentProps) ? locParentProps : null;
+                    ResourceLocation resourcelocation2 = new ResourceLocation(s, s4 + ".properties");
+                    return Config.hasResource(resourcelocation2) ? resourcelocation2 : null;
                 }
             }
         }
     }
 
-    public static ResourceLocation getMcpatcherLocation(ResourceLocation loc)
+    public static ResourceLocation getMcpatcherLocation(ResourceLocation p_getMcpatcherLocation_0_)
     {
-        String path = loc.getResourcePath();
+        String s = p_getMcpatcherLocation_0_.getResourcePath();
 
-        if (!path.startsWith("textures/entity/"))
+        if (!s.startsWith("textures/entity/"))
         {
             return null;
         }
         else
         {
-            String pathMcp = "mcpatcher/mob/" + path.substring("textures/entity/".length());
-            return new ResourceLocation(loc.getResourceDomain(), pathMcp);
+            String s1 = "mcpatcher/mob/" + s.substring("textures/entity/".length());
+            return new ResourceLocation(p_getMcpatcherLocation_0_.getResourceDomain(), s1);
         }
     }
 
-    public static ResourceLocation getLocationIndexed(ResourceLocation loc, int index)
+    public static ResourceLocation getLocationIndexed(ResourceLocation p_getLocationIndexed_0_, int p_getLocationIndexed_1_)
     {
-        if (loc == null)
+        if (p_getLocationIndexed_0_ == null)
         {
             return null;
         }
         else
         {
-            String path = loc.getResourcePath();
-            int pos = path.lastIndexOf(46);
+            String s = p_getLocationIndexed_0_.getResourcePath();
+            int i = s.lastIndexOf(46);
 
-            if (pos < 0)
+            if (i < 0)
             {
                 return null;
             }
             else
             {
-                String prefix = path.substring(0, pos);
-                String suffix = path.substring(pos);
-                String pathNew = prefix + index + suffix;
-                ResourceLocation locNew = new ResourceLocation(loc.getResourceDomain(), pathNew);
-                return locNew;
+                String s1 = s.substring(0, i);
+                String s2 = s.substring(i);
+                String s3 = s1 + p_getLocationIndexed_1_ + s2;
+                ResourceLocation resourcelocation = new ResourceLocation(p_getLocationIndexed_0_.getResourceDomain(), s3);
+                return resourcelocation;
             }
         }
     }
 
-    private static String getParentPath(String path)
+    private static String getParentPath(String p_getParentPath_0_)
     {
         for (int i = 0; i < DEPENDANT_SUFFIXES.length; ++i)
         {
-            String suffix = DEPENDANT_SUFFIXES[i];
+            String s = DEPENDANT_SUFFIXES[i];
 
-            if (path.endsWith(suffix))
+            if (p_getParentPath_0_.endsWith(s))
             {
-                String pathParent = path.substring(0, path.length() - suffix.length());
-                return pathParent;
+                String s1 = p_getParentPath_0_.substring(0, p_getParentPath_0_.length() - s.length());
+                return s1;
             }
         }
 
         return null;
     }
 
-    private static ResourceLocation[] getTextureVariants(ResourceLocation loc)
+    private static ResourceLocation[] getTextureVariants(ResourceLocation p_getTextureVariants_0_)
     {
-        ArrayList list = new ArrayList();
-        list.add(loc);
-        ResourceLocation locMcp = getMcpatcherLocation(loc);
+        List list = new ArrayList();
+        list.add(p_getTextureVariants_0_);
+        ResourceLocation resourcelocation = getMcpatcherLocation(p_getTextureVariants_0_);
 
-        if (locMcp == null)
+        if (resourcelocation == null)
         {
             return null;
         }
         else
         {
-            for (int locs = 1; locs < list.size() + 10; ++locs)
+            for (int i = 1; i < ((List)list).size() + 10; ++i)
             {
-                int index = locs + 1;
-                ResourceLocation locIndex = getLocationIndexed(locMcp, index);
+                int j = i + 1;
+                ResourceLocation resourcelocation1 = getLocationIndexed(resourcelocation, j);
 
-                if (Config.hasResource(locIndex))
+                if (Config.hasResource(resourcelocation1))
                 {
-                    list.add(locIndex);
+                    list.add(resourcelocation1);
                 }
             }
 
@@ -329,9 +329,9 @@ public class RandomMobs
             }
             else
             {
-                ResourceLocation[] var6 = (ResourceLocation[])((ResourceLocation[])list.toArray(new ResourceLocation[list.size()]));
-                Config.dbg("RandomMobs: " + loc.getResourcePath() + ", variants: " + var6.length);
-                return var6;
+                ResourceLocation[] aresourcelocation = (ResourceLocation[])((ResourceLocation[])list.toArray(new ResourceLocation[list.size()]));
+                Config.dbg("RandomMobs: " + p_getTextureVariants_0_.getResourcePath() + ", variants: " + aresourcelocation.length);
+                return aresourcelocation;
             }
         }
     }
@@ -353,7 +353,7 @@ public class RandomMobs
         if (renderGlobal != null)
         {
             initialized = true;
-            ArrayList list = new ArrayList();
+            List list = new ArrayList();
             list.add("bat");
             list.add("blaze");
             list.add("cat/black");
@@ -399,18 +399,18 @@ public class RandomMobs
             list.add("zombie/zombie");
             list.add("zombie/zombie_villager");
 
-            for (int i = 0; i < list.size(); ++i)
+            for (int i = 0; i < ((List)list).size(); ++i)
             {
-                String name = (String)list.get(i);
-                String tex = "textures/entity/" + name + ".png";
-                ResourceLocation texLoc = new ResourceLocation(tex);
+                String s = (String)list.get(i);
+                String s1 = "textures/entity/" + s + ".png";
+                ResourceLocation resourcelocation = new ResourceLocation(s1);
 
-                if (!Config.hasResource(texLoc))
+                if (!Config.hasResource(resourcelocation))
                 {
-                    Config.warn("Not found: " + texLoc);
+                    Config.warn("Not found: " + resourcelocation);
                 }
 
-                getProperties(texLoc);
+                getProperties(resourcelocation);
             }
         }
     }

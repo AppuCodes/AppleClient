@@ -12,65 +12,65 @@ public class CacheLocalByte
     private byte[] lastZs = null;
     private int lastDz = 0;
 
-    public CacheLocalByte(int maxX, int maxY, int maxZ)
+    public CacheLocalByte(int p_i26_1_, int p_i26_2_, int p_i26_3_)
     {
-        this.maxX = maxX;
-        this.maxY = maxY;
-        this.maxZ = maxZ;
-        this.cache = new byte[maxX][maxY][maxZ];
+        this.maxX = p_i26_1_;
+        this.maxY = p_i26_2_;
+        this.maxZ = p_i26_3_;
+        this.cache = new byte[p_i26_1_][p_i26_2_][p_i26_3_];
         this.resetCache();
     }
 
     public void resetCache()
     {
-        for (int x = 0; x < this.maxX; ++x)
+        for (int i = 0; i < this.maxX; ++i)
         {
-            byte[][] ys = this.cache[x];
+            byte[][] abyte = this.cache[i];
 
-            for (int y = 0; y < this.maxY; ++y)
+            for (int j = 0; j < this.maxY; ++j)
             {
-                byte[] zs = ys[y];
+                byte[] abyte1 = abyte[j];
 
-                for (int z = 0; z < this.maxZ; ++z)
+                for (int k = 0; k < this.maxZ; ++k)
                 {
-                    zs[z] = -1;
+                    abyte1[k] = -1;
                 }
             }
         }
     }
 
-    public void setOffset(int x, int y, int z)
+    public void setOffset(int p_setOffset_1_, int p_setOffset_2_, int p_setOffset_3_)
     {
-        this.offsetX = x;
-        this.offsetY = y;
-        this.offsetZ = z;
+        this.offsetX = p_setOffset_1_;
+        this.offsetY = p_setOffset_2_;
+        this.offsetZ = p_setOffset_3_;
         this.resetCache();
     }
 
-    public byte get(int x, int y, int z)
+    public byte get(int p_get_1_, int p_get_2_, int p_get_3_)
     {
         try
         {
-            this.lastZs = this.cache[x - this.offsetX][y - this.offsetY];
-            this.lastDz = z - this.offsetZ;
+            this.lastZs = this.cache[p_get_1_ - this.offsetX][p_get_2_ - this.offsetY];
+            this.lastDz = p_get_3_ - this.offsetZ;
             return this.lastZs[this.lastDz];
         }
-        catch (ArrayIndexOutOfBoundsException var5)
+        catch (ArrayIndexOutOfBoundsException arrayindexoutofboundsexception)
         {
-            var5.printStackTrace();
+            arrayindexoutofboundsexception.printStackTrace();
             return (byte) - 1;
         }
     }
 
-    public void setLast(byte val)
+    public void setLast(byte p_setLast_1_)
     {
         try
         {
-            this.lastZs[this.lastDz] = val;
+            this.lastZs[this.lastDz] = p_setLast_1_;
         }
-        catch (Exception var3)
+        catch (Exception exception)
         {
-            var3.printStackTrace();
+            exception.printStackTrace();
         }
     }
 }

@@ -1,27 +1,54 @@
 package net.minecraft.block;
 
+import java.util.IdentityHashMap;
+import java.util.Map;
 import net.minecraft.block.material.Material;
+import net.minecraft.util.BlockPos;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.world.IBlockAccess;
+import optifine.Config;
 
 public class BlockLeavesBase extends Block
 {
-    protected boolean field_150121_P;
+    protected boolean fancyGraphics;
     private static final String __OBFID = "CL_00000326";
+    private static Map mapOriginalOpacity = new IdentityHashMap();
 
-    protected BlockLeavesBase(Material p_i45433_1_, boolean p_i45433_2_)
+    protected BlockLeavesBase(Material materialIn, boolean fancyGraphics)
     {
-        super(p_i45433_1_);
-        this.field_150121_P = p_i45433_2_;
+        super(materialIn);
+        this.fancyGraphics = fancyGraphics;
     }
 
+    /**
+     * Used to determine ambient occlusion and culling when rebuilding chunks for render
+     */
     public boolean isOpaqueCube()
     {
         return false;
     }
 
-    public boolean shouldSideBeRendered(IBlockAccess p_149646_1_, int p_149646_2_, int p_149646_3_, int p_149646_4_, int p_149646_5_)
+    public boolean shouldSideBeRendered(IBlockAccess worldIn, BlockPos pos, EnumFacing side)
     {
-        Block var6 = p_149646_1_.getBlock(p_149646_2_, p_149646_3_, p_149646_4_);
-        return !this.field_150121_P && var6 == this ? false : super.shouldSideBeRendered(p_149646_1_, p_149646_2_, p_149646_3_, p_149646_4_, p_149646_5_);
+        return Config.isCullFacesLeaves() && worldIn.getBlockState(pos).getBlock() == this ? false : super.shouldSideBeRendered(worldIn, pos, side);
+    }
+
+    public static void setLightOpacity(Block p_setLightOpacity_0_, int p_setLightOpacity_1_)
+    {
+        if (!mapOriginalOpacity.containsKey(p_setLightOpacity_0_))
+        {
+            mapOriginalOpacity.put(p_setLightOpacity_0_, Integer.valueOf(p_setLightOpacity_0_.getLightOpacity()));
+        }
+
+        p_setLightOpacity_0_.setLightOpacity(p_setLightOpacity_1_);
+    }
+
+    public static void restoreLightOpacity(Block p_restoreLightOpacity_0_)
+    {
+        if (mapOriginalOpacity.containsKey(p_restoreLightOpacity_0_))
+        {
+            int i = ((Integer)mapOriginalOpacity.get(p_restoreLightOpacity_0_)).intValue();
+            setLightOpacity(p_restoreLightOpacity_0_, i);
+        }
     }
 }
