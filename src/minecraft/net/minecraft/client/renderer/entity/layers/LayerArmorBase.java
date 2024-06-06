@@ -46,7 +46,7 @@ public abstract class LayerArmorBase<T extends ModelBase> implements LayerRender
 
     public boolean shouldCombineTextures()
     {
-        return false;
+        return true;
     }
 
     private void renderLayer(EntityLivingBase entitylivingbaseIn, float p_177182_2_, float p_177182_3_, float p_177182_4_, float p_177182_5_, float p_177182_6_, float p_177182_7_, float p_177182_8_, int armorSlot)

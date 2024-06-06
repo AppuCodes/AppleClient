@@ -1,6 +1,8 @@
 package net.minecraft.client.gui.inventory;
 
 import com.google.common.collect.Sets;
+
+import java.awt.Color;
 import java.io.IOException;
 import java.util.Set;
 import net.minecraft.client.Minecraft;
@@ -121,8 +123,7 @@ public abstract class GuiContainer extends GuiScreen
         for (int i1 = 0; i1 < this.inventorySlots.inventorySlots.size(); ++i1)
         {
             Slot slot = (Slot)this.inventorySlots.inventorySlots.get(i1);
-            this.drawSlot(slot);
-
+            
             if (this.isMouseOverSlot(slot, mouseX, mouseY) && slot.canBeHovered())
             {
                 this.theSlot = slot;
@@ -131,11 +132,13 @@ public abstract class GuiContainer extends GuiScreen
                 int j1 = slot.xDisplayPosition;
                 int k1 = slot.yDisplayPosition;
                 GlStateManager.colorMask(true, true, true, false);
-                this.drawGradientRect(j1, k1, j1 + 16, k1 + 16, -2130706433, -2130706433);
+                this.drawGradientRect(j1, k1, j1 + 16, k1 + 16, -2133338113, -2133338113);
                 GlStateManager.colorMask(true, true, true, true);
                 GlStateManager.enableLighting();
                 GlStateManager.enableDepth();
             }
+            
+            this.drawSlot(slot);
         }
 
         RenderHelper.disableStandardItemLighting();
@@ -196,7 +199,7 @@ public abstract class GuiContainer extends GuiScreen
 
         GlStateManager.enableLighting();
         GlStateManager.enableDepth();
-        RenderHelper.enableStandardItemLighting();
+        RenderHelper.disableStandardItemLighting();
     }
 
     /**

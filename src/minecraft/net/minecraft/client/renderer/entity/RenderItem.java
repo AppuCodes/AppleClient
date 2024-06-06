@@ -78,6 +78,7 @@ public class RenderItem implements IResourceManagerReloadListener
     private ModelResourceLocation modelLocation = null;
     private boolean renderItemGui = false;
     public ModelManager modelManager = null;
+    private EntityLivingBase lastEntityToRenderFor = null;
 
     public RenderItem(TextureManager textureManager, ModelManager modelManager)
     {
@@ -343,6 +344,8 @@ public class RenderItem implements IResourceManagerReloadListener
 
     public void renderItemModelForEntity(ItemStack stack, EntityLivingBase entityToRenderFor, ItemCameraTransforms.TransformType cameraTransformType)
     {
+        lastEntityToRenderFor = entityToRenderFor;
+        
         if (stack != null && entityToRenderFor != null)
         {
             IBakedModel ibakedmodel = this.itemModelMesher.getItemModel(stack);
@@ -386,7 +389,7 @@ public class RenderItem implements IResourceManagerReloadListener
                     ibakedmodel = this.itemModelMesher.getModelManager().getModel(modelresourcelocation);
                 }
             }
-
+            
             this.renderItemModelTransform(stack, ibakedmodel, cameraTransformType);
             this.modelLocation = null;
         }
@@ -417,7 +420,19 @@ public class RenderItem implements IResourceManagerReloadListener
                 GlStateManager.cullFace(1028);
             }
         }
-
+        
+        if (cameraTransformType == ItemCameraTransforms.TransformType.THIRD_PERSON && lastEntityToRenderFor instanceof EntityPlayer)
+        {
+            EntityPlayer player = (EntityPlayer) lastEntityToRenderFor;
+            
+            if (player.isBlocking())
+            {
+                GlStateManager.translate(-0.15F, -0.2F, 0.0F);
+                GlStateManager.rotate(70.0F, 1.0F, 0.0F, 0.0F);
+                GlStateManager.translate(0.119F, 0.2F, -0.024F);
+            }
+        }
+        
         this.renderItem(stack, model);
         GlStateManager.cullFace(1029);
         GlStateManager.popMatrix();

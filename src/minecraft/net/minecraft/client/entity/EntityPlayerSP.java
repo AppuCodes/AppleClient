@@ -118,6 +118,7 @@ public class EntityPlayerSP extends AbstractClientPlayer
     public float prevRenderArmPitch;
     private int horseJumpPowerCounter;
     private float horseJumpPower;
+    private float eyeHeight = 1.62F, prevEyeHeight = eyeHeight;
 
     /** The amount of time an entity has been in a Portal */
     public float timeInPortal;
@@ -167,6 +168,8 @@ public class EntityPlayerSP extends AbstractClientPlayer
      */
     public void onUpdate()
     {
+        prevEyeHeight = eyeHeight;
+        
         if (this.worldObj.isBlockLoaded(new BlockPos(this.posX, 0.0D, this.posZ)))
         {
             super.onUpdate();
@@ -906,5 +909,28 @@ public class EntityPlayerSP extends AbstractClientPlayer
             this.capabilities.isFlying = false;
             this.sendPlayerAbilities();
         }
+    }
+    
+    public void setVelocity(double x, double y, double z)
+    {
+        this.attackedAtYaw = (float) (Math.atan2(this.motionZ - z, this.motionX - x) * (360 / (Math.PI * 2)) - this.rotationYaw);
+        super.setVelocity(x, y, z);
+    }
+    
+    public float getEyeHeight(float partialTicks)
+    {
+        eyeHeight = 1.62F;
+
+        if (this.isPlayerSleeping())
+        {
+            eyeHeight = 0.2F;
+        }
+
+        if (this.isSneaking())
+        {
+            eyeHeight -= 0.08F;
+        }
+
+        return prevEyeHeight + (eyeHeight - prevEyeHeight) * partialTicks;
     }
 }

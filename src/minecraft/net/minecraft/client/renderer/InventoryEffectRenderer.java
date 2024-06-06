@@ -29,16 +29,7 @@ public abstract class InventoryEffectRenderer extends GuiContainer
 
     protected void updateActivePotionEffects()
     {
-        if (!this.mc.thePlayer.getActivePotionEffects().isEmpty())
-        {
-            this.guiLeft = 160 + (this.width - this.xSize - 200) / 2;
-            this.hasActivePotionEffects = true;
-        }
-        else
-        {
-            this.guiLeft = (this.width - this.xSize) / 2;
-            this.hasActivePotionEffects = false;
-        }
+        this.hasActivePotionEffects = !this.mc.thePlayer.getActivePotionEffects().isEmpty();
     }
 
     /**
