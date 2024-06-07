@@ -17,7 +17,7 @@ public class TileEntityBeaconRenderer extends TileEntitySpecialRenderer<TileEnti
     public void renderTileEntityAt(TileEntityBeacon te, double x, double y, double z, float partialTicks, int destroyStage)
     {
         float f = te.shouldBeamRender();
-        GlStateManager.alphaFunc(516, 0.1F);
+        GlStateManager.alphaFunc(516, 0.0F);
 
         if (f > 0.0F)
         {

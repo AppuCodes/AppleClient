@@ -1,35 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
-		<item key="selection" value="lastEnt"/>
+		<item key="selection" value="renderglobal"/>
 		<item key="wrap" value="true"/>
 		<item key="casesensitive" value="false"/>
 		<item key="wholeword" value="false"/>
 		<item key="incremental" value="false"/>
 		<item key="isRegEx" value="false"/>
 		<list key="findhistory">
-			<item value="lastEnt"/>
-			<item value="EntityToRenderFor"/>
-			<item value="entityToRenderFor"/>
-			<item value="renderItem"/>
-			<item value="renderItemModel"/>
-			<item value="BOW"/>
-			<item value="bow"/>
-			<item value="doBowTra"/>
-			<item value="doBowTrans"/>
-			<item value="renderPla"/>
-			<item value="c"/>
-			<item value="drawOutlin"/>
-			<item value="renderDebug"/>
-			<item value="renderDedbug"/>
-			<item value="entity"/>
+			<item value="renderglobal"/>
+			<item value="blockbr"/>
+			<item value="blockbrk"/>
+			<item value="drawSelectionBox"/>
+			<item value="Selection"/>
+			<item value="selection"/>
+			<item value="BlockBr"/>
+			<item value="break"/>
+			<item value="block"/>
+			<item value="blockb"/>
+			<item value="renderStringAtPos"/>
+			<item value="clouds"/>
+			<item value="fancy"/>
+			<item value="fancyC"/>
+			<item value="fancyClouds"/>
 		</list>
 		<list key="replacehistory">
 		</list>
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">
-		<item key="DIALOG_X_ORIGIN" value="889"/>
-		<item key="DIALOG_Y_ORIGIN" value="157"/>
+		<item key="DIALOG_X_ORIGIN" value="196"/>
+		<item key="DIALOG_Y_ORIGIN" value="126"/>
 		<item key="DIALOG_WIDTH" value="511"/>
 		<item key="DIALOG_HEIGHT" value="523"/>
 		<item key="DIALOG_FONT_NAME" value="1|Segoe UI|9.0|0|WINDOWS|1|-18|0|0|0|400|0|0|0|1|0|0|0|0|Segoe UI"/>

@@ -332,7 +332,7 @@ public class EffectRenderer
 
         GlStateManager.depthMask(true);
         GlStateManager.disableBlend();
-        GlStateManager.alphaFunc(516, 0.1F);
+        GlStateManager.alphaFunc(516, 0.0F);
     }
 
     public void renderLitParticles(Entity entityIn, float p_78872_2_)

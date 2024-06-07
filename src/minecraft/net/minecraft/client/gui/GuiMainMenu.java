@@ -511,7 +511,6 @@ public class GuiMainMenu extends GuiScreen implements GuiYesNoCallback
         int i = 274;
         int j = this.width / 2 - i / 2;
         int k = 30;
-        this.drawGradientRect(0, 0, this.width, this.height, -2130706433, 16777215);
         this.drawGradientRect(0, 0, this.width, this.height, 0, Integer.MIN_VALUE);
         this.mc.getTextureManager().bindTexture(minecraftTitleTextures);
         GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
@@ -538,7 +537,7 @@ public class GuiMainMenu extends GuiScreen implements GuiYesNoCallback
         GlStateManager.scale(f, f, f);
         this.drawCenteredString(this.fontRendererObj, this.splashText, 0, -8, -256);
         GlStateManager.popMatrix();
-        String s = "Minecraft 1.8.9";
+        String s = "Minecraft 1.8.8";
 
         if (this.mc.isDemo())
         {
@@ -547,7 +546,7 @@ public class GuiMainMenu extends GuiScreen implements GuiYesNoCallback
 
         this.drawString(this.fontRendererObj, s, 2, this.height - 10, -1);
         String s1 = "Copyright Mojang AB. Do not distribute!";
-        this.drawString(this.fontRendererObj, s1, this.width - this.fontRendererObj.getStringWidth(s1) - 2, this.height - 10, -1);
+        this.drawString(this.fontRendererObj, s1, this.width - this.fontRendererObj.getStringWidth(s1) - 1, this.height - 10, -1);
 
         if (this.openGLWarning1 != null && this.openGLWarning1.length() > 0)
         {

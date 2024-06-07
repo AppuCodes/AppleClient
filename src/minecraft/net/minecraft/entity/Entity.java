@@ -1154,7 +1154,7 @@ public abstract class Entity implements ICommandSender
      */
     public void spawnRunningParticles()
     {
-        if (this.isSprinting() && !this.isInWater())
+        if (this.isSprinting() && !this.isInWater() && this.onGround)
         {
             this.createRunningParticles();
         }

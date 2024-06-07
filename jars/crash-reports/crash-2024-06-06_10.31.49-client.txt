@@ -1,0 +1,81 @@
+---- Minecraft Crash Report ----
+// Surprise! Haha. Well, this is awkward.
+
+Time: 6/6/24, 10:31?AM
+Description: Unexpected error
+
+java.lang.Error: Unresolved compilation problem: 
+	Syntax error on token "!", delete this token
+
+	at net.minecraft.client.renderer.EntityRenderer.renderHand(EntityRenderer.java:983)
+	at net.minecraft.client.renderer.EntityRenderer.renderHand(EntityRenderer.java:962)
+	at net.minecraft.client.renderer.EntityRenderer.renderWorldPass(EntityRenderer.java:1897)
+	at net.minecraft.client.renderer.EntityRenderer.renderWorld(EntityRenderer.java:1527)
+	at net.minecraft.client.renderer.EntityRenderer.updateCameraAndRender(EntityRenderer.java:1325)
+	at net.minecraft.client.Minecraft.runGameLoop(Minecraft.java:1097)
+	at net.minecraft.client.Minecraft.run(Minecraft.java:414)
+	at net.minecraft.client.main.Main.main(Main.java:113)
+	at Start.main(Start.java:11)
+
+
+A detailed walkthrough of the error, its code path and all known details is as follows:
+---------------------------------------------------------------------------------------
+
+-- Head --
+Stacktrace:
+	at net.minecraft.client.renderer.EntityRenderer.renderHand(EntityRenderer.java:983)
+	at net.minecraft.client.renderer.EntityRenderer.renderHand(EntityRenderer.java:962)
+	at net.minecraft.client.renderer.EntityRenderer.renderWorldPass(EntityRenderer.java:1897)
+	at net.minecraft.client.renderer.EntityRenderer.renderWorld(EntityRenderer.java:1527)
+
+-- Affected level --
+Details:
+	Level name: MpServer
+	All players: 1 total; [EntityPlayerSP['AppleClient'/128, l='MpServer', x=212.30, y=66.00, z=-114.04]]
+	Chunk stats: MultiplayerChunkCache: 289, 289
+	Level seed: 0
+	Level generator: ID 00 - default, ver 1. Features enabled: false
+	Level generator options: 
+	Level spawn location: 217.00,64.00,-122.00 - World: (217,64,-122), Chunk: (at 9,4,6 in 13,-8; contains blocks 208,0,-128 to 223,255,-113), Region: (0,-1; contains chunks 0,-32 to 31,-1, blocks 0,0,-512 to 511,255,-1)
+	Level time: 105694 game time, 6461 day time
+	Level dimension: 0
+	Level storage version: 0x00000 - Unknown?
+	Level weather: Rain time: 0 (now: false), thunder time: 0 (now: false)
+	Level game mode: Game mode: creative (ID 1). Hardcore: false. Cheats: false
+	Forced entities: 35 total; [EntityPlayerSP['AppleClient'/128, l='MpServer', x=78.78, y=63.00, z=-388.27], EntityPlayerSP['AppleClient'/128, l='MpServer', x=212.30, y=66.00, z=-114.04], EntityZombie['Zombie'/406943, l='MpServer', x=158.50, y=28.00, z=-192.50], EntityBat['Bat'/406689, l='MpServer', x=146.59, y=16.31, z=-40.06], EntityBat['Bat'/407214, l='MpServer', x=244.03, y=24.28, z=-143.94], EntityCreeper['Creeper'/404392, l='MpServer', x=138.50, y=45.00, z=-186.50], EntityBat['Bat'/406326, l='MpServer', x=161.69, y=47.84, z=-122.25], EntityZombie['Zombie'/404915, l='MpServer', x=240.47, y=55.00, z=-142.13], EntityPig['Pig'/53, l='MpServer', x=151.09, y=64.00, z=-179.94], EntityPig['Pig'/54, l='MpServer', x=156.03, y=63.00, z=-171.03], EntitySheep['Sheep'/55, l='MpServer', x=173.09, y=64.00, z=-161.19], EntityPig['Pig'/61, l='MpServer', x=182.38, y=64.00, z=-180.16], EntityBat['Bat'/406849, l='MpServer', x=136.03, y=35.09, z=-159.31], EntityItem['item.item.seeds'/406095, l='MpServer', x=225.38, y=67.00, z=-127.25], EntityBat['Bat'/406856, l='MpServer', x=231.75, y=51.38, z=-119.78], EntityBat['Bat'/406857, l='MpServer', x=246.16, y=24.31, z=-139.75], EntitySheep['Sheep'/80, l='MpServer', x=251.75, y=69.00, z=-127.59], EntityBat['Bat'/406870, l='MpServer', x=284.25, y=44.53, z=-83.25], EntitySheep['Sheep'/81, l='MpServer', x=242.03, y=64.00, z=-113.13], EntityCreeper['Creeper'/403280, l='MpServer', x=138.44, y=60.00, z=-74.03], EntitySkeleton['Skeleton'/405086, l='MpServer', x=265.09, y=31.00, z=-36.53], EntitySquid['Squid'/404324, l='MpServer', x=179.28, y=61.81, z=-55.56], EntityPlayerSP['AppleClient'/128, l='MpServer', x=138.76, y=67.00, z=-71.33], EntityBat['Bat'/404965, l='MpServer', x=167.25, y=44.03, z=-102.41], EntityZombie['Zombie'/406766, l='MpServer', x=243.50, y=24.00, z=-137.50], EntitySkeleton['Skeleton'/406894, l='MpServer', x=142.50, y=47.00, z=-173.88], EntityZombie['Zombie'/407023, l='MpServer', x=286.50, y=19.00, z=-144.91], EntitySkeleton['Skeleton'/406895, l='MpServer', x=141.63, y=47.00, z=-175.00], EntitySquid['Squid'/404332, l='MpServer', x=181.59, y=61.03, z=-66.75], EntityZombie['Zombie'/406765, l='MpServer', x=133.50, y=31.00, z=-185.50], EntitySquid['Squid'/404330, l='MpServer', x=176.75, y=62.25, z=-78.53], EntitySkeleton['Skeleton'/407155, l='MpServer', x=264.50, y=47.00, z=-68.50], EntitySpider['Spider'/406896, l='MpServer', x=140.00, y=47.00, z=-177.00], EntityZombie['Zombie'/406769, l='MpServer', x=246.50, y=24.00, z=-135.50], EntityZombie['Zombie'/407036, l='MpServer', x=286.50, y=16.00, z=-173.50]]
+	Retry entities: 0 total; []
+	Server brand: vanilla
+	Server type: Integrated singleplayer server
+Stacktrace:
+	at net.minecraft.client.multiplayer.WorldClient.addWorldInfoToCrashReport(WorldClient.java:401)
+	at net.minecraft.client.Minecraft.addGraphicsAndWorldToCrashReport(Minecraft.java:2703)
+	at net.minecraft.client.Minecraft.run(Minecraft.java:443)
+	at net.minecraft.client.main.Main.main(Main.java:113)
+	at Start.main(Start.java:11)
+
+-- System Details --
+Details:
+	Minecraft Version: 1.8.9
+	Operating System: Windows 11 (amd64) version 10.0
+	CPU: 12x AMD Ryzen 5 5500U with Radeon Graphics 
+	Java Version: 21.0.2, Oracle Corporation
+	Java VM Version: Java HotSpot(TM) 64-Bit Server VM (mixed mode, sharing), Oracle Corporation
+	Memory: 555191536 bytes (529 MB) / 1073741824 bytes (1024 MB) up to 2147483648 bytes (2048 MB)
+	JVM Flags: 7 total; -XX:ThreadPriorityPolicy=1 -XX:+UnlockExperimentalVMOptions -XX:+EnableJVMCIProduct -XX:-UnlockExperimentalVMOptions -XX:+ShowCodeDetailsInExceptionMessages -Xmx2048M -Xms1024M
+	IntCache: cache: 0, tcache: 0, allocated: 12, tallocated: 94
+	Launched Version: mcp
+	LWJGL: 2.9.4
+	OpenGL: AMD Radeon(TM) Graphics GL version 4.6.0 Compatibility Profile Context 23.10.24.230718, ATI Technologies Inc.
+	GL Caps: Using GL 1.3 multitexturing.
+Using GL 1.3 texture combiners.
+Using framebuffer objects because OpenGL 3.0 is supported and separate blending is supported.
+Shaders are available because OpenGL 2.1 is supported.
+VBOs are available because OpenGL 1.5 is supported.
+
+	Using VBOs: No
+	Is Modded: Definitely; Client brand changed to 'appleclient'
+	Type: Client (map_client.txt)
+	Resource Packs: 
+	Current Language: English (US)
+	Profiler Position: N/A (disabled)
+	CPU: 12x AMD Ryzen 5 5500U with Radeon Graphics 

@@ -282,7 +282,6 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient
         this.gameController.gameSettings.difficulty = packetIn.getDifficulty();
         this.gameController.loadWorld(this.clientWorldController);
         this.gameController.thePlayer.dimension = packetIn.getDimension();
-        this.gameController.displayGuiScreen(new GuiDownloadTerrain(this));
         this.gameController.thePlayer.setEntityId(packetIn.getEntityId());
         this.currentServerMaxPlayers = packetIn.getMaxPlayers();
         this.gameController.thePlayer.setReducedDebug(packetIn.isReducedDebugInfo());
@@ -528,7 +527,7 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient
      * Handles the creation of a nearby player entity, sets the position and held item
      */
     public void handleSpawnPlayer(S0CPacketSpawnPlayer packetIn)
-    {
+    {   
         PacketThreadUtil.checkThreadAndEnqueue(packetIn, this, this.gameController);
         double d0 = (double)packetIn.getX() / 32.0D;
         double d1 = (double)packetIn.getY() / 32.0D;
@@ -1065,7 +1064,6 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient
             this.clientWorldController.setWorldScoreboard(scoreboard);
             this.gameController.loadWorld(this.clientWorldController);
             this.gameController.thePlayer.dimension = packetIn.getDimensionID();
-            this.gameController.displayGuiScreen(new GuiDownloadTerrain(this));
         }
 
         this.gameController.setDimensionAndSpawnPlayer(packetIn.getDimensionID());
@@ -1252,11 +1250,6 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient
 
                 flag = true;
             }
-        }
-
-        if (!flag && this.gameController.thePlayer != null)
-        {
-            this.gameController.thePlayer.addChatMessage(new ChatComponentText("Unable to locate sign at " + packetIn.getPos().getX() + ", " + packetIn.getPos().getY() + ", " + packetIn.getPos().getZ()));
         }
     }
 

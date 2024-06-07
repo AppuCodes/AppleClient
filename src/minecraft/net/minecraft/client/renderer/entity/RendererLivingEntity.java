@@ -295,7 +295,7 @@ public abstract class RendererLivingEntity<T extends EntityLivingBase> extends R
             if (flag1)
             {
                 GlStateManager.disableBlend();
-                GlStateManager.alphaFunc(516, 0.1F);
+                GlStateManager.alphaFunc(516, 0.0F);
                 GlStateManager.popMatrix();
                 GlStateManager.depthMask(true);
             }
@@ -355,11 +355,11 @@ public abstract class RendererLivingEntity<T extends EntityLivingBase> extends R
                 this.brightnessBuffer.put(1.0F);
                 this.brightnessBuffer.put(0.0F);
                 this.brightnessBuffer.put(0.0F);
-                this.brightnessBuffer.put(0.3F);
+                this.brightnessBuffer.put(0.5F);
 
                 if (Config.isShaders())
                 {
-                    Shaders.setEntityColor(1.0F, 0.0F, 0.0F, 0.3F);
+                    Shaders.setEntityColor(1.0F, 0.0F, 0.0F, 0.5F);
                 }
             }
             else
@@ -544,7 +544,7 @@ public abstract class RendererLivingEntity<T extends EntityLivingBase> extends R
                 {
                     String s = entity.getDisplayName().getFormattedText();
                     float f1 = 0.02666667F;
-                    GlStateManager.alphaFunc(516, 0.1F);
+                    GlStateManager.alphaFunc(516, 0.0F);
 
                     if (entity.isSneaking())
                     {

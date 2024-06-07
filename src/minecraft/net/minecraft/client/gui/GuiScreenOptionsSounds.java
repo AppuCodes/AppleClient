@@ -111,7 +111,6 @@ public class GuiScreenOptionsSounds extends GuiScreen
                     this.field_146156_o = (float)(mouseX - (this.xPosition + 4)) / (float)(this.width - 8);
                     this.field_146156_o = MathHelper.clamp_float(this.field_146156_o, 0.0F, 1.0F);
                     mc.gameSettings.setSoundLevel(this.field_146153_r, this.field_146156_o);
-                    mc.gameSettings.saveOptions();
                     this.displayString = this.field_146152_s + ": " + GuiScreenOptionsSounds.this.getSoundVolume(this.field_146153_r);
                 }
 
@@ -128,7 +127,6 @@ public class GuiScreenOptionsSounds extends GuiScreen
                 this.field_146156_o = (float)(mouseX - (this.xPosition + 4)) / (float)(this.width - 8);
                 this.field_146156_o = MathHelper.clamp_float(this.field_146156_o, 0.0F, 1.0F);
                 mc.gameSettings.setSoundLevel(this.field_146153_r, this.field_146156_o);
-                mc.gameSettings.saveOptions();
                 this.displayString = this.field_146152_s + ": " + GuiScreenOptionsSounds.this.getSoundVolume(this.field_146153_r);
                 this.field_146155_p = true;
                 return true;
@@ -155,7 +153,8 @@ public class GuiScreenOptionsSounds extends GuiScreen
                 {
                     GuiScreenOptionsSounds.this.game_settings_4.getSoundLevel(this.field_146153_r);
                 }
-
+                
+                GuiScreenOptionsSounds.this.mc.gameSettings.saveOptions();
                 GuiScreenOptionsSounds.this.mc.getSoundHandler().playSound(PositionedSoundRecord.create(new ResourceLocation("gui.button.press"), 1.0F));
             }
 

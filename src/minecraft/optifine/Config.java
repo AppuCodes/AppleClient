@@ -63,10 +63,10 @@ import shadersmod.client.Shaders;
 public class Config
 {
     public static final String OF_NAME = "OptiFine";
-    public static final String MC_VERSION = "1.8.9";
+    public static final String MC_VERSION = "1.8.8";
     public static final String OF_EDITION = "HD_U";
     public static final String OF_RELEASE = "H8";
-    public static final String VERSION = "OptiFine_1.8.9_HD_U_H8";
+    public static final String VERSION = "OptiFine_1.8.8_HD_U_H8";
     private static String newRelease = null;
     private static boolean notify64BitJava = false;
     public static String openGlVersion = null;
@@ -97,7 +97,7 @@ public class Config
 
     public static String getVersion()
     {
-        return "OptiFine_1.8.9_HD_U_H8";
+        return "OptiFine_1.8.8_HD_U_H8";
     }
 
     public static String getVersionDebug()
@@ -111,7 +111,7 @@ public class Config
             stringbuffer.append(", ");
         }
 
-        stringbuffer.append("OptiFine_1.8.9_HD_U_H8");
+        stringbuffer.append("OptiFine_1.8.8_HD_U_H8");
         String s = Shaders.getShaderPackName();
 
         if (s != null)
@@ -233,7 +233,7 @@ public class Config
     {
         if (minecraftVersionInt < 0)
         {
-            String[] astring = tokenize("1.8.9", ".");
+            String[] astring = tokenize("1.8.8", ".");
             int i = 0;
 
             if (astring.length > 0)

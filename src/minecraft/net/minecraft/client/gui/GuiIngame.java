@@ -255,7 +255,7 @@ public class GuiIngame extends Gui
                     i1 = MathHelper.func_181758_c(f3 / 50.0F, 0.7F, 0.6F) & 16777215;
                 }
 
-                this.getFontRenderer().drawString(this.recordPlaying, -this.getFontRenderer().getStringWidth(this.recordPlaying) / 2, -4, i1 + (k1 << 24 & -16777216));
+                this.getFontRenderer().drawStringWithShadow(this.recordPlaying, -this.getFontRenderer().getStringWidth(this.recordPlaying) / 2, -4, i1 + (k1 << 24 & -16777216));
                 GlStateManager.disableBlend();
                 GlStateManager.popMatrix();
             }
@@ -300,7 +300,7 @@ public class GuiIngame extends Gui
                 GlStateManager.disableBlend();
                 GlStateManager.popMatrix();
             }
-
+            
             this.mc.mcProfiler.endSection();
         }
 
@@ -324,7 +324,7 @@ public class GuiIngame extends Gui
         {
             this.renderScoreboard(scoreobjective1, scaledresolution);
         }
-
+        
         GlStateManager.enableBlend();
         GlStateManager.tryBlendFuncSeparate(770, 771, 1, 0);
         GlStateManager.disableAlpha();
@@ -592,7 +592,7 @@ public class GuiIngame extends Gui
             String s1 = ScorePlayerTeam.formatPlayerName(scoreplayerteam1, ((Score) score1).getPlayerName());
             String s2 = EnumChatFormatting.RED + "" + ((Score) score1).getScorePoints();
             int l = k1 - k * this.getFontRenderer().FONT_HEIGHT;
-            int i1 = p_180475_2_.getScaledWidth() - b0 + 2;
+            int i1 = p_180475_2_.getScaledWidth();
             drawRect(j - 2, l, i1, l + this.getFontRenderer().FONT_HEIGHT, 1342177280);
             this.getFontRenderer().drawString(s1, j, l, 553648127);
             this.getFontRenderer().drawString(s2, i1 - this.getFontRenderer().getStringWidth(s2), l, 553648127);

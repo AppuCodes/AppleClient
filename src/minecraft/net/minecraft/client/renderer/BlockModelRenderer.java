@@ -605,6 +605,7 @@ public class BlockModelRenderer
 
         public void updateVertexBrightness(IBlockAccess blockAccessIn, Block blockIn, BlockPos blockPosIn, EnumFacing facingIn, float[] quadBounds, BitSet boundsFlags)
         {
+            Block block;
             BlockPos blockpos = boundsFlags.get(0) ? blockPosIn.offset(facingIn) : blockPosIn;
             BlockModelRenderer.EnumNeighborInfo blockmodelrenderer$enumneighborinfo = BlockModelRenderer.EnumNeighborInfo.getNeighbourInfo(facingIn);
             BlockPos blockpos1 = blockpos.offset(blockmodelrenderer$enumneighborinfo.field_178276_g[0]);
@@ -619,10 +620,10 @@ public class BlockModelRenderer
             float f1 = BlockModelRenderer.fixAoLightValue(blockAccessIn.getBlockState(blockpos2).getBlock().getAmbientOcclusionLightValue());
             float f2 = BlockModelRenderer.fixAoLightValue(blockAccessIn.getBlockState(blockpos3).getBlock().getAmbientOcclusionLightValue());
             float f3 = BlockModelRenderer.fixAoLightValue(blockAccessIn.getBlockState(blockpos4).getBlock().getAmbientOcclusionLightValue());
-            boolean flag = blockAccessIn.getBlockState(blockpos1.offset(facingIn)).getBlock().isTranslucent();
-            boolean flag1 = blockAccessIn.getBlockState(blockpos2.offset(facingIn)).getBlock().isTranslucent();
-            boolean flag2 = blockAccessIn.getBlockState(blockpos3.offset(facingIn)).getBlock().isTranslucent();
-            boolean flag3 = blockAccessIn.getBlockState(blockpos4.offset(facingIn)).getBlock().isTranslucent();
+            boolean flag = !(block = blockAccessIn.getBlockState(blockpos1.offset(facingIn)).getBlock()).isVisuallyOpaque() || block.getLightOpacity() == 0;
+            boolean flag1 = !(block = blockAccessIn.getBlockState(blockpos2.offset(facingIn)).getBlock()).isVisuallyOpaque() || block.getLightOpacity() == 0;
+            boolean flag2 = !(block = blockAccessIn.getBlockState(blockpos3.offset(facingIn)).getBlock()).isVisuallyOpaque() || block.getLightOpacity() == 0;
+            boolean flag3 = !(block = blockAccessIn.getBlockState(blockpos4.offset(facingIn)).getBlock()).isVisuallyOpaque() || block.getLightOpacity() == 0;
             float f4;
             int i1;
 

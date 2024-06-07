@@ -47,18 +47,18 @@ public class Gui
     /**
      * Draws a solid color rectangle with the specified coordinates and color (ARGB format). Args: x1, y1, x2, y2, color
      */
-    public static void drawRect(int left, int top, int right, int bottom, int color)
+    public static void drawRect(float left, float top, float right, float bottom, int color)
     {
         if (left < right)
         {
-            int i = left;
+            float i = left;
             left = right;
             right = i;
         }
 
         if (top < bottom)
         {
-            int j = top;
+            float j = top;
             top = bottom;
             bottom = j;
         }
@@ -87,7 +87,7 @@ public class Gui
      * Draws a rectangle with a vertical gradient between the specified colors (ARGB format). Args : x1, y1, x2, y2,
      * topColor, bottomColor
      */
-    protected void drawGradientRect(int left, int top, int right, int bottom, int startColor, int endColor)
+    protected void drawGradientRect(float left, float top, float right, float bottom, int startColor, int endColor)
     {
         float f = (float)(startColor >> 24 & 255) / 255.0F;
         float f1 = (float)(startColor >> 16 & 255) / 255.0F;
@@ -119,9 +119,9 @@ public class Gui
     /**
      * Renders the specified text to the screen, center-aligned. Args : renderer, string, x, y, color
      */
-    public void drawCenteredString(FontRenderer fontRendererIn, String text, int x, int y, int color)
+    public void drawCenteredString(FontRenderer fontRendererIn, String text, float x, float y, int color)
     {
-        fontRendererIn.drawStringWithShadow(text, (float)(x - fontRendererIn.getStringWidth(text) / 2), (float)y, color);
+        fontRendererIn.drawStringWithShadow(text, (x - fontRendererIn.getStringWidth(text) / 2), y, color);
     }
 
     /**
@@ -135,7 +135,7 @@ public class Gui
     /**
      * Draws a textured rectangle at the stored z-value. Args: x, y, u, v, width, height
      */
-    public void drawTexturedModalRect(int x, int y, int textureX, int textureY, int width, int height)
+    public void drawTexturedModalRect(float x, float y, float textureX, float textureY, float width, float height)
     {
         float f = 0.00390625F;
         float f1 = 0.00390625F;
@@ -179,6 +179,19 @@ public class Gui
         worldrenderer.pos((double)(xCoord + widthIn), (double)(yCoord + 0), (double)this.zLevel).tex((double)textureSprite.getMaxU(), (double)textureSprite.getMinV()).endVertex();
         worldrenderer.pos((double)(xCoord + 0), (double)(yCoord + 0), (double)this.zLevel).tex((double)textureSprite.getMinU(), (double)textureSprite.getMinV()).endVertex();
         tessellator.draw();
+    }
+    
+    /**
+     * Draws a textured rectangle at z = 0. Args: x, y, u, v, width, height, textureWidth, textureHeight
+     */
+    public static void drawModalRectWithBatch(WorldRenderer worldrenderer, float x, float y, float u, float v, float width, float height, float textureWidth, float textureHeight, float red, float green, float blue, float alpha)
+    {
+        float f = 1.0F / textureWidth;
+        float f1 = 1.0F / textureHeight;
+        worldrenderer.pos((double)x, (double)(y + height), 0.0D).tex((double)(u * f), (double)((v + (float)height) * f1)).color(red, green, blue, alpha).endVertex();
+        worldrenderer.pos((double)(x + width), (double)(y + height), 0.0D).tex((double)((u + (float)width) * f), (double)((v + (float)height) * f1)).color(red, green, blue, alpha).endVertex();
+        worldrenderer.pos((double)(x + width), (double)y, 0.0D).tex((double)((u + (float)width) * f), (double)(v * f1)).color(red, green, blue, alpha).endVertex();
+        worldrenderer.pos((double)x, (double)y, 0.0D).tex((double)(u * f), (double)(v * f1)).color(red, green, blue, alpha).endVertex();
     }
 
     /**

@@ -177,7 +177,7 @@ public class IntegratedServer extends MinecraftServer
      */
     protected boolean startServer() throws IOException
     {
-        logger.info("Starting integrated minecraft server version 1.8.9");
+        logger.info("Starting integrated minecraft server version 1.8.8");
         this.setOnlineMode(true);
         this.setCanSpawnAnimals(true);
         this.setCanSpawnNPCs(true);

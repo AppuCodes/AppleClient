@@ -528,7 +528,7 @@ public abstract class MinecraftServer implements Runnable, ICommandSender, IThre
                 this.currentTime = getCurrentTimeMillis();
                 long i = 0L;
                 this.statusResponse.setServerDescription(new ChatComponentText(this.motd));
-                this.statusResponse.setProtocolVersionInfo(new ServerStatusResponse.MinecraftProtocolVersionIdentifier("1.8.9", 47));
+                this.statusResponse.setProtocolVersionInfo(new ServerStatusResponse.MinecraftProtocolVersionIdentifier("1.8.8", 47));
                 this.addFaviconToStatusResponse(this.statusResponse);
 
                 while (this.serverRunning)
@@ -636,6 +636,7 @@ public abstract class MinecraftServer implements Runnable, ICommandSender, IThre
                 ImageIO.write(bufferedimage, "PNG", (OutputStream)(new ByteBufOutputStream(bytebuf)));
                 ByteBuf bytebuf1 = Base64.encode(bytebuf);
                 response.setFavicon("data:image/png;base64," + bytebuf1.toString(Charsets.UTF_8));
+                bytebuf1.release();
             }
             catch (Exception exception)
             {
@@ -846,7 +847,7 @@ public abstract class MinecraftServer implements Runnable, ICommandSender, IThre
      */
     public String getMinecraftVersion()
     {
-        return "1.8.9";
+        return "1.8.8";
     }
 
     /**

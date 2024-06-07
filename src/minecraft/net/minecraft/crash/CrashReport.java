@@ -65,7 +65,7 @@ public class CrashReport
             private static final String __OBFID = "CL_00001197";
             public String call()
             {
-                return "1.8.9";
+                return "1.8.8";
             }
         });
         this.theReportCategory.addCrashSectionCallable("Operating System", new Callable()

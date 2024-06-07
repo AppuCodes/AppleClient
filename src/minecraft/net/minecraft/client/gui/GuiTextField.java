@@ -540,7 +540,7 @@ public class GuiTextField extends Gui
             boolean flag1 = this.isFocused && this.cursorCounter / 6 % 2 == 0 && flag;
             int l = this.enableBackgroundDrawing ? this.xPosition + 4 : this.xPosition;
             int i1 = this.enableBackgroundDrawing ? this.yPosition + (this.height - 8) / 2 : this.yPosition;
-            int j1 = l;
+            float j1 = l;
 
             if (k > s.length())
             {
@@ -554,7 +554,7 @@ public class GuiTextField extends Gui
             }
 
             boolean flag2 = this.cursorPosition < this.text.length() || this.text.length() >= this.getMaxStringLength();
-            int k1 = j1;
+            float k1 = j1;
 
             if (!flag)
             {
@@ -594,18 +594,18 @@ public class GuiTextField extends Gui
     /**
      * draws the vertical line cursor in the textbox
      */
-    private void drawCursorVertical(int p_146188_1_, int p_146188_2_, int p_146188_3_, int p_146188_4_)
+    private void drawCursorVertical(float p_146188_1_, float p_146188_2_, float p_146188_3_, float p_146188_4_)
     {
         if (p_146188_1_ < p_146188_3_)
         {
-            int i = p_146188_1_;
+            float i = p_146188_1_;
             p_146188_1_ = p_146188_3_;
             p_146188_3_ = i;
         }
 
         if (p_146188_2_ < p_146188_4_)
         {
-            int j = p_146188_2_;
+            float j = p_146188_2_;
             p_146188_2_ = p_146188_4_;
             p_146188_4_ = j;
         }

@@ -1,14 +1,14 @@
 ofRenderDistanceChunks:8
-ofFogType:1
-ofFogStart:0.8
+ofFogType:3
+ofFogStart:0.4
 ofMipmapType:0
 ofOcclusionFancy:false
 ofSmoothFps:false
 ofSmoothWorld:false
 ofAoLevel:1.0
-ofClouds:0
+ofClouds:2
 ofCloudsHeight:0.0
-ofTrees:0
+ofTrees:4
 ofDroppedItems:0
 ofRain:0
 ofAnimatedWater:0
@@ -37,7 +37,7 @@ ofWeather:true
 ofSky:true
 ofStars:true
 ofSunMoon:true
-ofVignette:0
+ofVignette:1
 ofChunkUpdates:1
 ofChunkUpdatesDynamic:false
 ofTime:0

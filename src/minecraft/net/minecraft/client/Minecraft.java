@@ -417,7 +417,6 @@ public class Minecraft implements IThreadListener, IPlayerUsage
                         {
                             this.freeMemory();
                             this.displayGuiScreen(new GuiMemoryErrorScreen());
-                            System.gc();
                         }
                     }
                     else
@@ -526,7 +525,7 @@ public class Minecraft implements IThreadListener, IPlayerUsage
         GlStateManager.enableDepth();
         GlStateManager.depthFunc(515);
         GlStateManager.enableAlpha();
-        GlStateManager.alphaFunc(516, 0.1F);
+        GlStateManager.alphaFunc(516, 0.0F);
         GlStateManager.cullFace(1029);
         GlStateManager.matrixMode(5889);
         GlStateManager.loadIdentity();
@@ -609,7 +608,7 @@ public class Minecraft implements IThreadListener, IPlayerUsage
     private void createDisplay() throws LWJGLException
     {
         Display.setResizable(true);
-        Display.setTitle("Minecraft 1.8.9");
+        Display.setTitle("Minecraft 1.8.8");
 
         try
         {
@@ -926,7 +925,7 @@ public class Minecraft implements IThreadListener, IPlayerUsage
         framebuffer.unbindFramebuffer();
         framebuffer.framebufferRender(scaledresolution.getScaledWidth() * i, scaledresolution.getScaledHeight() * i);
         GlStateManager.enableAlpha();
-        GlStateManager.alphaFunc(516, 0.1F);
+        GlStateManager.alphaFunc(516, 0.0F);
         this.updateDisplay();
     }
 
@@ -1025,8 +1024,6 @@ public class Minecraft implements IThreadListener, IPlayerUsage
                 System.exit(0);
             }
         }
-
-        System.gc();
     }
 
     /**
@@ -1121,9 +1118,6 @@ public class Minecraft implements IThreadListener, IPlayerUsage
         GlStateManager.popMatrix();
         GlStateManager.pushMatrix();
         this.framebufferMc.framebufferRender(this.displayWidth, this.displayHeight);
-        GlStateManager.popMatrix();
-        GlStateManager.pushMatrix();
-        this.entityRenderer.renderStreamIndicator(this.timer.renderPartialTicks);
         GlStateManager.popMatrix();
         this.mcProfiler.startSection("root");
         this.updateDisplay();
@@ -1229,8 +1223,6 @@ public class Minecraft implements IThreadListener, IPlayerUsage
         {
             ;
         }
-
-        System.gc();
     }
 
     /**
@@ -3220,7 +3212,7 @@ public class Minecraft implements IThreadListener, IPlayerUsage
         Map<String, String> map = Maps.<String, String>newHashMap();
         map.put("X-Minecraft-Username", getMinecraft().getSession().getUsername());
         map.put("X-Minecraft-UUID", getMinecraft().getSession().getPlayerID());
-        map.put("X-Minecraft-Version", "1.8.9");
+        map.put("X-Minecraft-Version", "1.8.8");
         return map;
     }
 
