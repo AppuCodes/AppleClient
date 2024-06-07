@@ -1,0 +1,13 @@
+package appleclient.mods;
+
+import java.util.ArrayList;
+
+public class ModsManager
+{
+    private ArrayList<Mod> mods = new ArrayList<>();
+    
+    public void initialize()
+    {
+        
+    }
+}

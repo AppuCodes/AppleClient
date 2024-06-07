@@ -256,7 +256,7 @@ public class FontRenderer implements IResourceManagerReloadListener
 //        GL11.glTexCoord2f(((float)i + f1 - 1.0F) / 128.0F, ((float)j + 7.99F) / 128.0F);
 //        GL11.glVertex3f(this.posX + f1 - 1.0F - (float)k, this.posY + 7.99F, 0.0F);
 //        GL11.glEnd();
-        Gui.drawModalRectWithBatch(renderer, this.posX, this.posY, i, j, 8, 8, 128, 128, GlStateManager.colorState.red, GlStateManager.colorState.green, GlStateManager.colorState.blue, GlStateManager.colorState.alpha);
+        Gui.drawModalRectWithBatch(renderer, this.posX, this.posY, i, j, f1, f1, 128, 128, GlStateManager.colorState.red, GlStateManager.colorState.green, GlStateManager.colorState.blue, GlStateManager.colorState.alpha);
         return f;
     }
 
@@ -398,7 +398,7 @@ public class FontRenderer implements IResourceManagerReloadListener
             if (c0 == 167 && i + 1 < p_78255_1_.length())
             {
                 int i1 = "0123456789abcdefklmnor".indexOf(p_78255_1_.toLowerCase().charAt(i + 1));
-
+                
                 if (i1 < 16)
                 {
                     this.randomStyle = false;
@@ -454,6 +454,7 @@ public class FontRenderer implements IResourceManagerReloadListener
                     this.strikethroughStyle = false;
                     this.underlineStyle = false;
                     this.italicStyle = false;
+                    GlStateManager.color((float)(color >> 16 & 255) / 255.0F, (float)(color >> 8 & 255) / 255.0F, (float)(color & 255) / 255.0F, GlStateManager.colorState.alpha);
                 }
 
                 ++i;

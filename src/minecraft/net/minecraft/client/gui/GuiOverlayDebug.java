@@ -45,12 +45,10 @@ public class GuiOverlayDebug extends Gui
 
     public void renderDebugInfo(ScaledResolution scaledResolutionIn)
     {
-        this.mc.mcProfiler.startSection("debug");
         GlStateManager.pushMatrix();
         this.renderDebugInfoLeft();
         this.renderDebugInfoRight(scaledResolutionIn);
         GlStateManager.popMatrix();
-        this.mc.mcProfiler.endSection();
     }
 
     private boolean isReducedDebug()

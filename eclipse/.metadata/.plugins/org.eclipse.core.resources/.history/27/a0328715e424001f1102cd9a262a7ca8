@@ -1,0 +1,67 @@
+package appleclient.mods.impl;
+
+import com.google.common.eventbus.Subscribe;
+
+import appleclient.mods.Mod;
+import appleclient.mods.events.impl.EventWorldChange;
+import net.java.games.input.Controller;
+import net.java.games.input.Controller.Type;
+import net.java.games.input.ControllerEnvironment;
+import net.java.games.input.Mouse;
+import net.minecraft.util.MouseHelper;
+import net.minecraft.util.Util;
+
+public class RawInput extends Mod
+{
+    private volatile boolean enabled = false;
+    private int deltaX = 0, deltaY = 0;
+    private Controller[] controllers;
+    private Mouse mouse;
+    
+    public RawInput()
+    {
+        super("Raw Input");
+    }
+    
+    @Override
+    public void onEnable()
+    {
+        super.onEnable();
+    }
+    
+    @Subscribe
+    public void onWorldChange(EventWorldChange e)
+    {
+        
+    }
+    
+    public void createThread()
+    {
+        
+    }
+    
+    @Override
+    public void onDisable()
+    {
+        super.onDisable();
+        
+        if (!Util.getOSType().equals(Util.EnumOS.UNKNOWN) && enabled)
+        {
+            mc.mouseHelper = new MouseHelper();
+            enabled = false;
+        }
+    }
+    
+    public class RawMouseHelper extends MouseHelper
+    {
+        private RawInput rawInput = RawInput.this;
+        
+        public void mouseXYChange()
+        {
+           deltaX = rawInput.deltaX;
+           deltaY = -rawInput.deltaY;
+           rawInput.deltaX = 0;
+           rawInput.deltaY = 0;
+        }
+     }
+}

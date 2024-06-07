@@ -1,10 +1,18 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-    <fullyQualifiedTypeName name="java.awt.Color"/>
     <fullyQualifiedTypeName name="net.minecraft.client.renderer.GlStateManager.FogState"/>
     <fullyQualifiedTypeName name="java.lang.InterruptedException"/>
     <fullyQualifiedTypeName name="net.minecraft.client.settings.GameSettings.Options"/>
-    <fullyQualifiedTypeName name="net.minecraft.client.Minecraft"/>
     <fullyQualifiedTypeName name="org.lwjgl.opengl.GL11"/>
     <fullyQualifiedTypeName name="net.minecraft.client.renderer.block.model.ItemCameraTransforms.TransformType"/>
+    <fullyQualifiedTypeName name="appleclient.mods.events.EventBus"/>
+    <fullyQualifiedTypeName name="net.java.games.input.Keyboard"/>
+    <fullyQualifiedTypeName name="net.java.games.input.Controller.Type"/>
+    <fullyQualifiedTypeName name="appleclient.mods.events.Event"/>
+    <fullyQualifiedTypeName name="net.minecraft.util.Util.EnumOS"/>
+    <fullyQualifiedTypeName name="org.lwjgl.input.Keyboard"/>
+    <fullyQualifiedTypeName name="net.minecraft.client.Minecraft"/>
+    <fullyQualifiedTypeName name="java.awt.Color"/>
+    <fullyQualifiedTypeName name="appleclient.Apple"/>
+    <fullyQualifiedTypeName name="net.minecraft.client.renderer.GlStateManager"/>
 </qualifiedTypeNameHistroy>

@@ -1,0 +1,34 @@
+package appleclient;
+
+import org.lwjgl.input.Keyboard;
+
+import com.google.common.eventbus.Subscribe;
+
+import appleclient.mods.ModsManager;
+import appleclient.mods.events.EventBus;
+import appleclient.mods.events.impl.EventKey;
+
+public enum Apple
+{
+    CLIENT;
+    
+    public EventBus eventBus;
+    public ModsManager modsManager;
+    
+    public void initialize()
+    {
+        modsManager = new ModsManager();
+        eventBus = new EventBus();
+        modsManager.setupMods();
+        eventBus.register(this);
+    }
+    
+    @Subscribe
+    public void onKey(EventKey e)
+    {
+        if (e.key == Keyboard.KEY_RSHIFT)
+        {
+            
+        }
+    }
+}

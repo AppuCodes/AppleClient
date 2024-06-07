@@ -8,7 +8,7 @@ import net.minecraft.util.ResourceLocation;
 
 public class GuiButton extends Gui
 {
-    protected static final ResourceLocation buttonTextures = new ResourceLocation("textures/gui/widgets.png");
+    public static final ResourceLocation buttonTextures = new ResourceLocation("textures/gui/widgets.png");
 
     /** Button width in pixels */
     protected int width;

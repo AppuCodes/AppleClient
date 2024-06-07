@@ -1,8 +1,5 @@
 package net.minecraft.world;
 
-import com.google.common.base.Predicate;
-import com.google.common.collect.Lists;
-import com.google.common.collect.Sets;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.Iterator;
@@ -11,6 +8,11 @@ import java.util.Random;
 import java.util.Set;
 import java.util.UUID;
 import java.util.concurrent.Callable;
+
+import com.google.common.base.Predicate;
+import com.google.common.collect.Lists;
+import com.google.common.collect.Sets;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockHopper;
 import net.minecraft.block.BlockLiquid;
@@ -27,7 +29,6 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.profiler.Profiler;
 import net.minecraft.scoreboard.Scoreboard;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.tileentity.TileEntity;
@@ -120,7 +121,6 @@ public abstract class World implements IBlockAccess
     protected boolean findingSpawnPoint;
     protected MapStorage mapStorage;
     protected VillageCollection villageCollectionObj;
-    public final Profiler theProfiler;
     private final Calendar theCalendar = Calendar.getInstance();
     protected Scoreboard worldScoreboard = new Scoreboard();
 
@@ -150,14 +150,13 @@ public abstract class World implements IBlockAccess
      */
     int[] lightUpdateBlockList;
 
-    protected World(ISaveHandler saveHandlerIn, WorldInfo info, WorldProvider providerIn, Profiler profilerIn, boolean client)
+    protected World(ISaveHandler saveHandlerIn, WorldInfo info, WorldProvider providerIn, boolean client)
     {
         this.ambientTickCountdown = this.rand.nextInt(12000);
         this.spawnHostileMobs = true;
         this.spawnPeacefulMobs = true;
         this.lightUpdateBlockList = new int[32768];
         this.saveHandler = saveHandlerIn;
-        this.theProfiler = profilerIn;
         this.worldInfo = info;
         this.provider = providerIn;
         this.isRemote = client;
@@ -368,9 +367,7 @@ public abstract class World implements IBlockAccess
 
                 if (block.getLightOpacity() != block1.getLightOpacity() || block.getLightValue() != block1.getLightValue())
                 {
-                    this.theProfiler.startSection("checkLight");
                     this.checkLight(pos);
-                    this.theProfiler.endSection();
                 }
 
                 if ((flags & 2) != 0 && (!this.isRemote || (flags & 4) == 0) && chunk.isPopulated())
@@ -1618,9 +1615,6 @@ public abstract class World implements IBlockAccess
      */
     public void updateEntities()
     {
-        this.theProfiler.startSection("entities");
-        this.theProfiler.startSection("global");
-
         for (int i = 0; i < this.weatherEffects.size(); ++i)
         {
             Entity entity = (Entity)this.weatherEffects.get(i);
@@ -1653,7 +1647,6 @@ public abstract class World implements IBlockAccess
             }
         }
 
-        this.theProfiler.endStartSection("remove");
         this.loadedEntityList.removeAll(this.unloadedEntityList);
 
         for (int k = 0; k < this.unloadedEntityList.size(); ++k)
@@ -1674,7 +1667,6 @@ public abstract class World implements IBlockAccess
         }
 
         this.unloadedEntityList.clear();
-        this.theProfiler.endStartSection("regular");
 
         for (int i1 = 0; i1 < this.loadedEntityList.size(); ++i1)
         {
@@ -1691,8 +1683,6 @@ public abstract class World implements IBlockAccess
                 entity2.ridingEntity = null;
             }
 
-            this.theProfiler.startSection("tick");
-
             if (!entity2.isDead)
             {
                 try
@@ -1707,10 +1697,7 @@ public abstract class World implements IBlockAccess
                     throw new ReportedException(crashreport1);
                 }
             }
-
-            this.theProfiler.endSection();
-            this.theProfiler.startSection("remove");
-
+            
             if (entity2.isDead)
             {
                 int k1 = entity2.chunkCoordX;
@@ -1724,11 +1711,8 @@ public abstract class World implements IBlockAccess
                 this.loadedEntityList.remove(i1--);
                 this.onEntityRemoved(entity2);
             }
-
-            this.theProfiler.endSection();
         }
-
-        this.theProfiler.endStartSection("blockEntities");
+        
         this.processingLoadedTiles = true;
         Iterator<TileEntity> iterator = this.tickableTileEntities.iterator();
 
@@ -1777,8 +1761,6 @@ public abstract class World implements IBlockAccess
             this.tileEntitiesToBeRemoved.clear();
         }
 
-        this.theProfiler.endStartSection("pendingBlockEntities");
-
         if (!this.addedTileEntityList.isEmpty())
         {
             for (int j1 = 0; j1 < this.addedTileEntityList.size(); ++j1)
@@ -1803,9 +1785,6 @@ public abstract class World implements IBlockAccess
 
             this.addedTileEntityList.clear();
         }
-
-        this.theProfiler.endSection();
-        this.theProfiler.endSection();
     }
 
     public boolean addTileEntity(TileEntity tile)
@@ -1880,8 +1859,6 @@ public abstract class World implements IBlockAccess
                 }
             }
 
-            this.theProfiler.startSection("chunkCheck");
-
             if (Double.isNaN(entityIn.posX) || Double.isInfinite(entityIn.posX))
             {
                 entityIn.posX = entityIn.lastTickPosX;
@@ -1928,8 +1905,6 @@ public abstract class World implements IBlockAccess
                     entityIn.addedToChunk = false;
                 }
             }
-
-            this.theProfiler.endSection();
 
             if (forceUpdate && entityIn.addedToChunk && entityIn.riddenByEntity != null)
             {
@@ -2592,8 +2567,7 @@ public abstract class World implements IBlockAccess
     protected void setActivePlayerChunksAndCheckLight()
     {
         this.activeChunkSet.clear();
-        this.theProfiler.startSection("buildList");
-
+        
         for (int i = 0; i < this.playerEntities.size(); ++i)
         {
             EntityPlayer entityplayer = (EntityPlayer)this.playerEntities.get(i);
@@ -2610,14 +2584,10 @@ public abstract class World implements IBlockAccess
             }
         }
 
-        this.theProfiler.endSection();
-
         if (this.ambientTickCountdown > 0)
         {
             --this.ambientTickCountdown;
         }
-
-        this.theProfiler.startSection("playerCheckLight");
 
         if (!this.playerEntities.isEmpty())
         {
@@ -2628,16 +2598,12 @@ public abstract class World implements IBlockAccess
             int j2 = MathHelper.floor_double(entityplayer1.posZ) + this.rand.nextInt(11) - 5;
             this.checkLight(new BlockPos(l1, i2, j2));
         }
-
-        this.theProfiler.endSection();
     }
 
     protected abstract int getRenderDistanceChunks();
 
     protected void playMoodSoundAndCheckLight(int p_147467_1_, int p_147467_2_, Chunk chunkIn)
     {
-        this.theProfiler.endStartSection("moodSound");
-
         if (this.ambientTickCountdown == 0 && !this.isRemote)
         {
             this.updateLCG = this.updateLCG * 3 + 1013904223;
@@ -2662,7 +2628,6 @@ public abstract class World implements IBlockAccess
             }
         }
 
-        this.theProfiler.endStartSection("checkLight");
         chunkIn.enqueueRelightChecks();
     }
 
@@ -2843,7 +2808,6 @@ public abstract class World implements IBlockAccess
         {
             int i = 0;
             int j = 0;
-            this.theProfiler.startSection("getBrightness");
             int k = this.getLightFor(lightType, pos);
             int l = this.getRawLight(pos, lightType);
             int i1 = pos.getX();
@@ -2904,9 +2868,6 @@ public abstract class World implements IBlockAccess
                 i = 0;
             }
 
-            this.theProfiler.endSection();
-            this.theProfiler.startSection("checkedPosition < toCheckCount");
-
             while (i < j)
             {
                 int i5 = this.lightUpdateBlockList[i++];
@@ -2964,7 +2925,6 @@ public abstract class World implements IBlockAccess
                 }
             }
 
-            this.theProfiler.endSection();
             return true;
         }
     }

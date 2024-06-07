@@ -1,0 +1,8 @@
+package appleclient;
+
+public enum Apple
+{
+    CLIENT;
+    
+    
+}

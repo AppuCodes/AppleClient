@@ -1,20 +1,24 @@
 package net.minecraft.server.integrated;
 
-import com.google.common.collect.Lists;
-import com.google.common.util.concurrent.Futures;
 import java.io.File;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.util.Queue;
 import java.util.concurrent.Callable;
 import java.util.concurrent.FutureTask;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import com.google.common.collect.Lists;
+import com.google.common.util.concurrent.Futures;
+
 import net.minecraft.client.ClientBrandRetriever;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ThreadLanServerPing;
 import net.minecraft.command.ServerCommandManager;
 import net.minecraft.crash.CrashReport;
 import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.profiler.PlayerUsageSnooper;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.CryptManager;
 import net.minecraft.util.HttpUtil;
@@ -30,9 +34,6 @@ import net.minecraft.world.storage.ISaveHandler;
 import net.minecraft.world.storage.WorldInfo;
 import optifine.Reflector;
 import optifine.WorldServerOF;
-
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 public class IntegratedServer extends MinecraftServer
 {
@@ -81,7 +82,7 @@ public class IntegratedServer extends MinecraftServer
 
         if (Reflector.DimensionManager.exists())
         {
-            WorldServer worldserver = this.isDemo() ? (WorldServer)((WorldServer)(new DemoWorldServer(this, isavehandler, worldinfo, 0, this.theProfiler)).init()) : (WorldServer)(new WorldServerOF(this, isavehandler, worldinfo, 0, this.theProfiler)).init();
+            WorldServer worldserver = this.isDemo() ? (WorldServer)((WorldServer)(new DemoWorldServer(this, isavehandler, worldinfo, 0)).init()) : (WorldServer)(new WorldServerOF(this, isavehandler, worldinfo, 0)).init();
             worldserver.initialize(this.theWorldSettings);
             Integer[] ainteger = (Integer[])((Integer[])Reflector.call(Reflector.DimensionManager_getStaticDimensionIDs, new Object[0]));
             Integer[] ainteger1 = ainteger;
@@ -90,7 +91,7 @@ public class IntegratedServer extends MinecraftServer
             for (int j = 0; j < i; ++j)
             {
                 int k = ainteger1[j].intValue();
-                WorldServer worldserver1 = k == 0 ? worldserver : (WorldServer)((WorldServer)(new WorldServerMulti(this, isavehandler, k, worldserver, this.theProfiler)).init());
+                WorldServer worldserver1 = k == 0 ? worldserver : (WorldServer)((WorldServer)(new WorldServerMulti(this, isavehandler, k, worldserver)).init());
                 worldserver1.addWorldAccess(new WorldManager(this, worldserver1));
 
                 if (!this.isSinglePlayer())
@@ -144,18 +145,18 @@ public class IntegratedServer extends MinecraftServer
                 {
                     if (this.isDemo())
                     {
-                        this.worldServers[l] = (WorldServer)(new DemoWorldServer(this, isavehandler, worldinfo, b0, this.theProfiler)).init();
+                        this.worldServers[l] = (WorldServer)(new DemoWorldServer(this, isavehandler, worldinfo, b0)).init();
                     }
                     else
                     {
-                        this.worldServers[l] = (WorldServer)(new WorldServerOF(this, isavehandler, worldinfo, b0, this.theProfiler)).init();
+                        this.worldServers[l] = (WorldServer)(new WorldServerOF(this, isavehandler, worldinfo, b0)).init();
                     }
 
                     this.worldServers[l].initialize(this.theWorldSettings);
                 }
                 else
                 {
-                    this.worldServers[l] = (WorldServer)(new WorldServerMulti(this, isavehandler, b0, this.worldServers[0], this.theProfiler)).init();
+                    this.worldServers[l] = (WorldServer)(new WorldServerMulti(this, isavehandler, b0, this.worldServers[0])).init();
                 }
 
                 this.worldServers[l].addWorldAccess(new WorldManager(this, this.worldServers[l]));
@@ -380,13 +381,7 @@ public class IntegratedServer extends MinecraftServer
             this.mc.theWorld.getWorldInfo().setDifficulty(difficulty);
         }
     }
-
-    public void addServerStatsToSnooper(PlayerUsageSnooper playerSnooper)
-    {
-        super.addServerStatsToSnooper(playerSnooper);
-        playerSnooper.addClientStat("snooper_partner", this.mc.getPlayerUsageSnooper().getUniqueID());
-    }
-
+    
     /**
      * Returns whether snooping is enabled or not.
      */

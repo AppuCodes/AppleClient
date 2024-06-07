@@ -5,11 +5,12 @@ import java.io.FileWriter;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-import net.minecraft.profiler.Profiler;
-import net.minecraft.server.MinecraftServer;
-import net.minecraft.util.BlockPos;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.util.BlockPos;
 
 public class CommandDebug extends CommandBase
 {
@@ -75,18 +76,12 @@ public class CommandDebug extends CommandBase
                 {
                     throw new WrongUsageException("commands.debug.usage", new Object[0]);
                 }
-
-                if (!MinecraftServer.getServer().theProfiler.profilingEnabled)
-                {
-                    throw new CommandException("commands.debug.notStarted", new Object[0]);
-                }
-
+                
                 long i = MinecraftServer.getCurrentTimeMillis();
                 int j = MinecraftServer.getServer().getTickCounter();
                 long k = i - this.field_147206_b;
                 int l = j - this.field_147207_c;
                 this.func_147205_a(k, l);
-                MinecraftServer.getServer().theProfiler.profilingEnabled = false;
                 notifyOperators(sender, this, "commands.debug.stop", new Object[] {Float.valueOf((float)k / 1000.0F), Integer.valueOf(l)});
             }
         }
@@ -119,45 +114,9 @@ public class CommandDebug extends CommandBase
         stringbuilder.append("Time span: ").append(p_147204_1_).append(" ms\n");
         stringbuilder.append("Tick span: ").append(p_147204_3_).append(" ticks\n");
         stringbuilder.append("// This is approximately ").append(String.format("%.2f", new Object[] {Float.valueOf((float)p_147204_3_ / ((float)p_147204_1_ / 1000.0F))})).append(" ticks per second. It should be ").append((int)20).append(" ticks per second\n\n");
-        stringbuilder.append("--- BEGIN PROFILE DUMP ---\n\n");
-        this.func_147202_a(0, "root", stringbuilder);
-        stringbuilder.append("--- END PROFILE DUMP ---\n\n");
         return stringbuilder.toString();
     }
-
-    private void func_147202_a(int p_147202_1_, String p_147202_2_, StringBuilder p_147202_3_)
-    {
-        List<Profiler.Result> list = MinecraftServer.getServer().theProfiler.getProfilingData(p_147202_2_);
-
-        if (list != null && list.size() >= 3)
-        {
-            for (int i = 1; i < list.size(); ++i)
-            {
-                Profiler.Result profiler$result = (Profiler.Result)list.get(i);
-                p_147202_3_.append(String.format("[%02d] ", new Object[] {Integer.valueOf(p_147202_1_)}));
-
-                for (int j = 0; j < p_147202_1_; ++j)
-                {
-                    p_147202_3_.append(" ");
-                }
-
-                p_147202_3_.append(profiler$result.field_76331_c).append(" - ").append(String.format("%.2f", new Object[] {Double.valueOf(profiler$result.field_76332_a)})).append("%/").append(String.format("%.2f", new Object[] {Double.valueOf(profiler$result.field_76330_b)})).append("%\n");
-
-                if (!profiler$result.field_76331_c.equals("unspecified"))
-                {
-                    try
-                    {
-                        this.func_147202_a(p_147202_1_ + 1, p_147202_2_ + "." + profiler$result.field_76331_c, p_147202_3_);
-                    }
-                    catch (Exception exception)
-                    {
-                        p_147202_3_.append("[[ EXCEPTION ").append((Object)exception).append(" ]]");
-                    }
-                }
-            }
-        }
-    }
-
+    
     private static String func_147203_d()
     {
         String[] astring = new String[] {"Shiny numbers!", "Am I not running fast enough? :(", "I\'m working as hard as I can!", "Will I ever be good enough for you? :(", "Speedy. Zoooooom!", "Hello world", "40% better than a crash report.", "Now with extra numbers", "Now with less numbers", "Now with the same numbers", "You should add flames to things, it makes them go faster!", "Do you feel the need for... optimization?", "*cracks redstone whip*", "Maybe if you treated it better then it\'ll have more motivation to work faster! Poor server."};

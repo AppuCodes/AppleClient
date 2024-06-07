@@ -257,7 +257,6 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable
 
         if (!this.worldObj.isRemote && this.worldObj instanceof WorldServer)
         {
-            this.worldObj.theProfiler.startSection("portal");
             MinecraftServer minecraftserver = ((WorldServer)this.worldObj).getMinecraftServer();
             int i = this.getMaxInPortalTime();
 
@@ -303,8 +302,6 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable
             {
                 --this.timeUntilPortal;
             }
-
-            this.worldObj.theProfiler.endSection();
         }
 
         if (this.worldObj.isRemote)

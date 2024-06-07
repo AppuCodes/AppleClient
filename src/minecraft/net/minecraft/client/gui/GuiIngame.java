@@ -1,11 +1,15 @@
 package net.minecraft.client.gui;
 
-import com.google.common.base.Predicate;
-import com.google.common.collect.Iterables;
-import com.google.common.collect.Lists;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Random;
+
+import com.google.common.base.Predicate;
+import com.google.common.collect.Iterables;
+import com.google.common.collect.Lists;
+
+import appleclient.Apple;
+import appleclient.mods.events.impl.EventRender;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
@@ -157,6 +161,7 @@ public class GuiIngame extends Gui
             this.renderTooltip(scaledresolution, partialTicks);
         }
 
+        Apple.CLIENT.eventBus.post(new EventRender());
         GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
         this.mc.getTextureManager().bindTexture(icons);
         GlStateManager.enableBlend();
@@ -169,9 +174,7 @@ public class GuiIngame extends Gui
         }
 
         GlStateManager.tryBlendFuncSeparate(770, 771, 1, 0);
-        this.mc.mcProfiler.startSection("bossHealth");
         this.renderBossHealth();
-        this.mc.mcProfiler.endSection();
 
         if (this.mc.playerController.shouldDrawHUD())
         {
@@ -182,7 +185,6 @@ public class GuiIngame extends Gui
 
         if (this.mc.thePlayer.getSleepTimer() > 0)
         {
-            this.mc.mcProfiler.startSection("sleep");
             GlStateManager.disableDepth();
             GlStateManager.disableAlpha();
             int l = this.mc.thePlayer.getSleepTimer();
@@ -197,7 +199,6 @@ public class GuiIngame extends Gui
             drawRect(0, 0, i, j, k);
             GlStateManager.enableAlpha();
             GlStateManager.enableDepth();
-            this.mc.mcProfiler.endSection();
         }
 
         GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
@@ -233,7 +234,6 @@ public class GuiIngame extends Gui
 
         if (this.recordPlayingUpFor > 0)
         {
-            this.mc.mcProfiler.startSection("overlayMessage");
             float f3 = (float)this.recordPlayingUpFor - partialTicks;
             int k1 = (int)(f3 * 255.0F / 20.0F);
 
@@ -259,13 +259,10 @@ public class GuiIngame extends Gui
                 GlStateManager.disableBlend();
                 GlStateManager.popMatrix();
             }
-
-            this.mc.mcProfiler.endSection();
         }
 
         if (this.field_175195_w > 0)
         {
-            this.mc.mcProfiler.startSection("titleAndSubtitle");
             float f4 = (float)this.field_175195_w - partialTicks;
             int l1 = 255;
 
@@ -300,8 +297,6 @@ public class GuiIngame extends Gui
                 GlStateManager.disableBlend();
                 GlStateManager.popMatrix();
             }
-            
-            this.mc.mcProfiler.endSection();
         }
 
         Scoreboard scoreboard = this.mc.theWorld.getScoreboard();
@@ -330,9 +325,7 @@ public class GuiIngame extends Gui
         GlStateManager.disableAlpha();
         GlStateManager.pushMatrix();
         GlStateManager.translate(0.0F, (float)(j - 48), 0.0F);
-        this.mc.mcProfiler.startSection("chat");
         this.persistantChatGUI.drawChat(this.updateCounter);
-        this.mc.mcProfiler.endSection();
         GlStateManager.popMatrix();
         scoreobjective1 = scoreboard.getObjectiveInDisplaySlot(0);
 
@@ -384,7 +377,6 @@ public class GuiIngame extends Gui
 
     public void renderHorseJumpBar(ScaledResolution p_175186_1_, int p_175186_2_)
     {
-        this.mc.mcProfiler.startSection("jumpBar");
         this.mc.getTextureManager().bindTexture(Gui.icons);
         float f = this.mc.thePlayer.getHorseJumpPower();
         short short1 = 182;
@@ -396,13 +388,10 @@ public class GuiIngame extends Gui
         {
             this.drawTexturedModalRect(p_175186_2_, j, 0, 89, i, 5);
         }
-
-        this.mc.mcProfiler.endSection();
     }
 
     public void renderExpBar(ScaledResolution p_175176_1_, int p_175176_2_)
     {
-        this.mc.mcProfiler.startSection("expBar");
         this.mc.getTextureManager().bindTexture(Gui.icons);
         int i = this.mc.thePlayer.xpBarCap();
 
@@ -419,11 +408,8 @@ public class GuiIngame extends Gui
             }
         }
 
-        this.mc.mcProfiler.endSection();
-
         if (this.mc.thePlayer.experienceLevel > 0)
         {
-            this.mc.mcProfiler.startSection("expLevel");
             int j1 = 8453920;
 
             if (Config.isCustomColors())
@@ -440,14 +426,11 @@ public class GuiIngame extends Gui
             this.getFontRenderer().drawString(s, i1, l + 1, 0);
             this.getFontRenderer().drawString(s, i1, l - 1, 0);
             this.getFontRenderer().drawString(s, i1, l, j1);
-            this.mc.mcProfiler.endSection();
         }
     }
 
     public void func_181551_a(ScaledResolution p_181551_1_)
     {
-        this.mc.mcProfiler.startSection("selectedItemName");
-
         if (this.remainingHighlightTicks > 0 && this.highlightingItemStack != null)
         {
             String s = this.highlightingItemStack.getDisplayName();
@@ -482,13 +465,10 @@ public class GuiIngame extends Gui
                 GlStateManager.popMatrix();
             }
         }
-
-        this.mc.mcProfiler.endSection();
     }
 
     public void renderDemo(ScaledResolution p_175185_1_)
     {
-        this.mc.mcProfiler.startSection("demo");
         String s = "";
 
         if (this.mc.theWorld.getTotalWorldTime() >= 120500L)
@@ -502,7 +482,6 @@ public class GuiIngame extends Gui
 
         int i = this.getFontRenderer().getStringWidth(s);
         this.getFontRenderer().drawStringWithShadow(s, (float)(p_175185_1_.getScaledWidth() - i - 10), 5.0F, 16777215);
-        this.mc.mcProfiler.endSection();
     }
 
     protected boolean showCrosshair()
@@ -658,8 +637,6 @@ public class GuiIngame extends Gui
                 l2 = this.updateCounter % MathHelper.ceiling_float_int(f + 5.0F);
             }
 
-            this.mc.mcProfiler.startSection("armor");
-
             for (int i3 = 0; i3 < 10; ++i3)
             {
                 if (k2 > 0)
@@ -682,8 +659,6 @@ public class GuiIngame extends Gui
                     }
                 }
             }
-
-            this.mc.mcProfiler.endStartSection("health");
 
             for (int j5 = MathHelper.ceiling_float_int((f + f1) / 2.0F) - 1; j5 >= 0; --j5)
             {
@@ -772,8 +747,6 @@ public class GuiIngame extends Gui
 
             if (entity == null)
             {
-                this.mc.mcProfiler.endStartSection("food");
-
                 for (int l5 = 0; l5 < 10; ++l5)
                 {
                     int i8 = k1;
@@ -825,7 +798,6 @@ public class GuiIngame extends Gui
             }
             else if (entity instanceof EntityLivingBase)
             {
-                this.mc.mcProfiler.endStartSection("mountHealth");
                 EntityLivingBase entitylivingbase = (EntityLivingBase)entity;
                 int l7 = (int)Math.ceil((double)entitylivingbase.getHealth());
                 float f3 = entitylivingbase.getMaxHealth();
@@ -871,8 +843,6 @@ public class GuiIngame extends Gui
                 }
             }
 
-            this.mc.mcProfiler.endStartSection("air");
-
             if (entityplayer.isInsideOfMaterial(Material.water))
             {
                 int i6 = this.mc.thePlayer.getAir();
@@ -891,8 +861,6 @@ public class GuiIngame extends Gui
                     }
                 }
             }
-
-            this.mc.mcProfiler.endSection();
         }
     }
 

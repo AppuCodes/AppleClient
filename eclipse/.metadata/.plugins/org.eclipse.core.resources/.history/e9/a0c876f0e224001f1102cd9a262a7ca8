@@ -1,0 +1,16 @@
+package appleclient.mods;
+
+import java.util.ArrayList;
+
+import appleclient.mods.impl.ToggleSprint;
+
+public class ModsManager
+{
+    public ArrayList<Mod> mods = new ArrayList<>();
+    
+    public void setupMods()
+    {
+        mods.add(new ToggleSprint());
+        mods.get(0).setEnabled(true);
+    }
+}

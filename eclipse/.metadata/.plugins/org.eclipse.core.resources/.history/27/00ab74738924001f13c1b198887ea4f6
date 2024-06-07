@@ -1,0 +1,22 @@
+package appleclient.mods.impl;
+
+import com.google.common.eventbus.Subscribe;
+
+import appleclient.mods.Mod;
+import appleclient.mods.events.impl.EventTick;
+
+public class ToggleSprint extends Mod
+{
+    private boolean toggled = true;
+    
+    public ToggleSprint()
+    {
+        super("Toggle Sprint");
+    }
+    
+    @Subscribe
+    public void onTick(EventTick e)
+    {
+        mc.gameSettings.keyBindSprint.setKeyBindState(mc.gameSettings.keyBindSprint.getKeyCode(), true);
+    }
+}

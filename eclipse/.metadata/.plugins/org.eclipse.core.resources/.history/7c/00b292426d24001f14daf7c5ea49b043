@@ -1,0 +1,13 @@
+package appleclient;
+
+public enum Apple
+{
+    CLIENT;
+    
+    
+    
+    public void initialize()
+    {
+        
+    }
+}

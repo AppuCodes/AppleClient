@@ -1,0 +1,20 @@
+package appleclient;
+
+import appleclient.mods.ModsManager;
+import appleclient.mods.events.EventBus;
+
+public enum Apple
+{
+    CLIENT;
+    
+    public EventBus eventBus;
+    public ModsManager modsManager;
+    
+    public void initialize()
+    {
+        modsManager = new ModsManager();
+        eventBus = new EventBus();
+        modsManager.setupMods();
+        eventBus.register(this);
+    }
+}

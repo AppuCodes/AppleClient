@@ -1,0 +1,16 @@
+package appleclient.mods;
+
+public class Mod
+{
+    public String name;
+    
+    public Mod(String name)
+    {
+        this.name = name;
+    }
+    
+    public void onEnable()
+    {
+        
+    }
+}
