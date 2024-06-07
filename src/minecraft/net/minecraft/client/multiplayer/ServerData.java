@@ -26,7 +26,7 @@ public class ServerData
     public int version = 47;
 
     /** Game version for this server. */
-    public String gameVersion = "1.8.8";
+    public String gameVersion = "1.8.9";
     public boolean field_78841_f;
     public String playerList;
     private ServerData.ServerResourceMode resourceMode = ServerData.ServerResourceMode.PROMPT;

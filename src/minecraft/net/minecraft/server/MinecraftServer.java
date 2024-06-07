@@ -519,7 +519,7 @@ public abstract class MinecraftServer implements Runnable, ICommandSender, IThre
                 this.currentTime = getCurrentTimeMillis();
                 long i = 0L;
                 this.statusResponse.setServerDescription(new ChatComponentText(this.motd));
-                this.statusResponse.setProtocolVersionInfo(new ServerStatusResponse.MinecraftProtocolVersionIdentifier("1.8.8", 47));
+                this.statusResponse.setProtocolVersionInfo(new ServerStatusResponse.MinecraftProtocolVersionIdentifier("1.8.9", 47));
                 this.addFaviconToStatusResponse(this.statusResponse);
 
                 while (this.serverRunning)
@@ -799,7 +799,7 @@ public abstract class MinecraftServer implements Runnable, ICommandSender, IThre
      */
     public String getMinecraftVersion()
     {
-        return "1.8.8";
+        return "1.8.9";
     }
 
     /**

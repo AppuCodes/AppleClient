@@ -1,12 +1,15 @@
 package appleclient.gui;
 
 import java.awt.Color;
+import java.io.IOException;
 
 import appleclient.Apple;
 import appleclient.mods.Mod;
+import net.minecraft.client.audio.PositionedSoundRecord;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.util.ResourceLocation;
 
 public class GuiModsList extends GuiScreen
 {
@@ -40,6 +43,30 @@ public class GuiModsList extends GuiScreen
             drawCenteredString(fontRendererObj, mod.isEnabled() ? "ENABLED" : "DISABLED", x + 44, y + 74, -1);
             x += 97.5F;
         }
+    }
+    
+    @Override
+    protected void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException
+    {
+        super.mouseClicked(mouseX, mouseY, mouseButton);
+        float w2 = width / 2, h2 = height / 2;
+        float x = w2 - 190, y = h2 - 140;
+        
+        for (Mod mod : Apple.CLIENT.modsManager.mods)
+        {
+            if (cursorInsideBox(mouseX, mouseY, x, y, x + 88, y + 88) && mouseButton == 0)
+            {
+                mc.getSoundHandler().playSound(PositionedSoundRecord.create(new ResourceLocation("gui.button.press"), 1.0F));
+                mod.toggle();
+            }
+            
+            x += 97.5F;
+        }
+    }
+    
+    public boolean cursorInsideBox(int mouseX, int mouseY, float x, float y, float width, float height)
+    {
+        return mouseX < width && mouseX > x && mouseY < height && mouseY > y;
     }
     
     @Override

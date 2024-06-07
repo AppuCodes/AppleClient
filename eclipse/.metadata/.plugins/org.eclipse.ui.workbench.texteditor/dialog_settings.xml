@@ -1,13 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
-		<item key="selection" value="PauseGa"/>
+		<item key="selection" value="getHandle"/>
 		<item key="wrap" value="true"/>
 		<item key="casesensitive" value="false"/>
 		<item key="wholeword" value="false"/>
 		<item key="incremental" value="false"/>
 		<item key="isRegEx" value="false"/>
 		<list key="findhistory">
+			<item value="getHandle"/>
+			<item value="setTitle"/>
+			<item value="mouseClick"/>
 			<item value="pauseGa"/>
 			<item value="setNativeBarWin"/>
 			<item value="setNative"/>
@@ -20,9 +23,6 @@
 			<item value="104,"/>
 			<item value="104"/>
 			<item value="drawModal"/>
-			<item value="drawTex"/>
-			<item value="loadWor"/>
-			<item value="crosshair"/>
 		</list>
 		<list key="replacehistory">
 		</list>

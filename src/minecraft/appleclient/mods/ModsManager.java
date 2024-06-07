@@ -13,8 +13,6 @@ public class ModsManager
     {
         mods.add(new ToggleSprint());
         mods.add(new RawInput());
-        mods.get(0).setEnabled(true);
-        mods.get(1).setEnabled(true);
     }
     
     public Mod findMod(String name)

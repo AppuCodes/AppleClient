@@ -54,10 +54,10 @@
     <typeInfo handle="=Client/src&lt;net.minecraft.client.gui{GuiResourcePackList.java[GuiResourcePackList" modifiers="1025" timestamp="1508474242473"/>
     <typeInfo handle="=Client/src&lt;net.minecraft.client.gui{GuiResourcePackSelected.java[GuiResourcePackSelected" modifiers="1" timestamp="1508474231661"/>
     <typeInfo handle="=Client/src&lt;net.minecraft.client.gui{GuiOptions.java[GuiOptions" modifiers="1" timestamp="1717776332216"/>
-    <typeInfo handle="=Client/src&lt;net.minecraft.client.gui{GuiMainMenu.java[GuiMainMenu" modifiers="1" timestamp="1717737371516"/>
     <typeInfo handle="=Client/src&lt;net.minecraft.client.gui{GuiIngame.java[GuiIngame" modifiers="1" timestamp="1717776968686"/>
     <typeInfo handle="=Client/src&lt;appleclient.mods{Mod.java[Mod" modifiers="1" timestamp="1717782092739"/>
     <typeInfo handle="=Client/src&lt;net.minecraft.client.gui{FontRenderer.java[FontRenderer" modifiers="1" timestamp="1717775807096"/>
+    <typeInfo handle="=Client/src&lt;net.minecraft.client.gui{GuiButton.java[GuiButton" modifiers="1" timestamp="1717783386323"/>
+    <typeInfo handle="=Client/src&lt;net.minecraft.client.gui{GuiMainMenu.java[GuiMainMenu" modifiers="1" timestamp="1717737371516"/>
     <typeInfo handle="=Client/src&lt;net.minecraft.client{Minecraft.java[Minecraft" modifiers="1" timestamp="1717781984475"/>
-    <typeInfo handle="=Client/src&lt;net.minecraft.client.gui{GuiButton.java[GuiButton" modifiers="1" timestamp="1508474240625"/>
 </typeInfoHistroy>

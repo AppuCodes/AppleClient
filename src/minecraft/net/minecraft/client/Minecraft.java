@@ -609,7 +609,7 @@ public class Minecraft implements IThreadListener
     private void createDisplay() throws LWJGLException
     {
         Display.setResizable(true);
-        Display.setTitle("Minecraft 1.8.8");
+        Display.setTitle("Minecraft 1.8.9 - Apple Client");
 
         try
         {
@@ -2840,10 +2840,10 @@ public class Minecraft implements IThreadListener
         Map<String, String> map = Maps.<String, String>newHashMap();
         map.put("X-Minecraft-Username", getMinecraft().getSession().getUsername());
         map.put("X-Minecraft-UUID", getMinecraft().getSession().getPlayerID());
-        map.put("X-Minecraft-Version", "1.8.8");
+        map.put("X-Minecraft-Version", "1.8.9");
         return map;
     }
-    
+
     protected long getHandle()
     {
         try

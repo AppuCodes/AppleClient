@@ -13,12 +13,12 @@ public class VersionCheckThread extends Thread
 
         try
         {
-            URL url = new URL("http://optifine.net/version/1.8.8/HD_U.txt");
+            URL url = new URL("http://optifine.net/version/1.8.9/HD_U.txt");
             httpurlconnection = (HttpURLConnection)url.openConnection();
 
             if (Config.getGameSettings().snooperEnabled)
             {
-                httpurlconnection.setRequestProperty("OF-MC-Version", "1.8.8");
+                httpurlconnection.setRequestProperty("OF-MC-Version", "1.8.9");
                 httpurlconnection.setRequestProperty("OF-MC-Brand", "" + ClientBrandRetriever.getClientModName());
                 httpurlconnection.setRequestProperty("OF-Edition", "HD_U");
                 httpurlconnection.setRequestProperty("OF-Release", "H8");
