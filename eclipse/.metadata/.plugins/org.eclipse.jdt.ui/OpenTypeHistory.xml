@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <typeInfoHistroy>
-    <typeInfo handle="=Client/src&lt;net.minecraft.network{NetworkManager.java[NetworkManager" modifiers="1" timestamp="1508474239475"/>
     <typeInfo handle="=Client/src&lt;net.minecraft.client.main{Main.java[Main" modifiers="1" timestamp="1717642808873"/>
     <typeInfo handle="=Client/src&lt;net.minecraft.client.gui{GuiNewChat.java[GuiNewChat" modifiers="1" timestamp="1717644713592"/>
     <typeInfo handle="=Client/src&lt;net.minecraft.client.gui.inventory{GuiInventory.java[GuiInventory" modifiers="1" timestamp="1717644805937"/>
@@ -36,17 +35,17 @@
     <typeInfo handle="=Client/src&lt;net.minecraft.client.model{ModelRenderer.java[ModelRenderer" modifiers="1" timestamp="1717704735671"/>
     <typeInfo handle="=Client/src&lt;net.minecraft.client.renderer.entity{RenderFish.java[RenderFish" modifiers="1" timestamp="1717704797291"/>
     <typeInfo handle="=Client/src&lt;net.minecraft.client.network{NetHandlerPlayClient.java[NetHandlerPlayClient" modifiers="1" timestamp="1717777253651"/>
-    <typeInfo handle="=Client/src&lt;shadersmod.common{SMCVersion.java[SMCVersion" modifiers="1" timestamp="1717718947851"/>
-    <typeInfo handle="=Client/src&lt;optifine{Config.java[Config" modifiers="1" timestamp="1717718985278"/>
-    <typeInfo handle="=Client/src&lt;net.minecraft.server.network{NetHandlerHandshakeTCP.java[NetHandlerHandshakeTCP" modifiers="1" timestamp="1717719017323"/>
-    <typeInfo handle="=Client/src&lt;net.minecraft.server.integrated{IntegratedServer.java[IntegratedServer" modifiers="1" timestamp="1717777039852"/>
-    <typeInfo handle="=Client/src&lt;net.minecraft.server{MinecraftServer.java[MinecraftServer" modifiers="1025" timestamp="1717777421010"/>
-    <typeInfo handle="=Client/src&lt;net.minecraft.realms{RealmsSharedConstants.java[RealmsSharedConstants" modifiers="1" timestamp="1717719071606"/>
-    <typeInfo handle="=Client/src&lt;net.minecraft.crash{CrashReport.java[CrashReport" modifiers="1" timestamp="1717719092404"/>
-    <typeInfo handle="=Client/src&lt;net.minecraft.client.multiplayer{ServerData.java[ServerData" modifiers="1" timestamp="1717719117751"/>
-    <typeInfo handle="=Client/src&lt;net.minecraft.client.gui{GuiVideoSettings.java[GuiVideoSettings" modifiers="1" timestamp="1717719130338"/>
-    <typeInfo handle="=Client/src&lt;net.minecraft.client.gui{GuiOverlayDebug.java[GuiOverlayDebug[GuiOverlayDebug$1" modifiers="24" timestamp="1717776974440"/>
-    <typeInfo handle="=Client/src&lt;net.minecraft.client.gui{GuiOverlayDebug.java[GuiOverlayDebug" modifiers="1" timestamp="1717776974440"/>
+    <typeInfo handle="=Client/src&lt;shadersmod.common{SMCVersion.java[SMCVersion" modifiers="1" timestamp="1717798833013"/>
+    <typeInfo handle="=Client/src&lt;optifine{Config.java[Config" modifiers="1" timestamp="1717798817888"/>
+    <typeInfo handle="=Client/src&lt;net.minecraft.server.network{NetHandlerHandshakeTCP.java[NetHandlerHandshakeTCP" modifiers="1" timestamp="1717798794816"/>
+    <typeInfo handle="=Client/src&lt;net.minecraft.server.integrated{IntegratedServer.java[IntegratedServer" modifiers="1" timestamp="1717798790850"/>
+    <typeInfo handle="=Client/src&lt;net.minecraft.server{MinecraftServer.java[MinecraftServer" modifiers="1025" timestamp="1717798802457"/>
+    <typeInfo handle="=Client/src&lt;net.minecraft.realms{RealmsSharedConstants.java[RealmsSharedConstants" modifiers="1" timestamp="1717798786318"/>
+    <typeInfo handle="=Client/src&lt;net.minecraft.crash{CrashReport.java[CrashReport" modifiers="1" timestamp="1717798781742"/>
+    <typeInfo handle="=Client/src&lt;net.minecraft.client.multiplayer{ServerData.java[ServerData" modifiers="1" timestamp="1717798765709"/>
+    <typeInfo handle="=Client/src&lt;net.minecraft.client.gui{GuiVideoSettings.java[GuiVideoSettings" modifiers="1" timestamp="1717798760038"/>
+    <typeInfo handle="=Client/src&lt;net.minecraft.client.gui{GuiOverlayDebug.java[GuiOverlayDebug[GuiOverlayDebug$1" modifiers="24" timestamp="1717798754437"/>
+    <typeInfo handle="=Client/src&lt;net.minecraft.client.gui{GuiOverlayDebug.java[GuiOverlayDebug" modifiers="1" timestamp="1717798754437"/>
     <typeInfo handle="=Client/src&lt;net.minecraft.client.gui{GuiMultiplayer.java[GuiMultiplayer" modifiers="1" timestamp="1717719438272"/>
     <typeInfo handle="=Client/src&lt;net.minecraft.client.renderer{GlStateManager.java[GlStateManager" modifiers="1" timestamp="1717722182831"/>
     <typeInfo handle="=Client/src&lt;net.minecraft.client.renderer{RenderGlobal.java[RenderGlobal" modifiers="1" timestamp="1717777437942"/>
@@ -58,6 +57,7 @@
     <typeInfo handle="=Client/src&lt;appleclient.mods{Mod.java[Mod" modifiers="1" timestamp="1717782092739"/>
     <typeInfo handle="=Client/src&lt;net.minecraft.client.gui{FontRenderer.java[FontRenderer" modifiers="1" timestamp="1717775807096"/>
     <typeInfo handle="=Client/src&lt;net.minecraft.client.gui{GuiButton.java[GuiButton" modifiers="1" timestamp="1717783386323"/>
-    <typeInfo handle="=Client/src&lt;net.minecraft.client.gui{GuiMainMenu.java[GuiMainMenu" modifiers="1" timestamp="1717737371516"/>
-    <typeInfo handle="=Client/src&lt;net.minecraft.client{Minecraft.java[Minecraft" modifiers="1" timestamp="1717781984475"/>
+    <typeInfo handle="=Client/src&lt;net.minecraft.client.gui{GuiMainMenu.java[GuiMainMenu" modifiers="1" timestamp="1717798747817"/>
+    <typeInfo handle="=Client/src&lt;net.minecraft.client{Minecraft.java[Minecraft" modifiers="1" timestamp="1717798885976"/>
+    <typeInfo handle="=Client/src&lt;appleclient.mods.impl{ToggleSprint.java[ToggleSprint" modifiers="1" timestamp="1717773498070"/>
 </typeInfoHistroy>

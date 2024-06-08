@@ -64,14 +64,12 @@ public class ToggleSprint extends Mod
     {
         if (toggled)
         {
-            mc.fontRendererObj.drawStringWithShadow("§7[           §7] §rToggled", 2, 2, -1);
-            mc.fontRendererObj.drawStringWithShadow("Sprinting", 6, 2, Color.ORANGE.getRGB());
+            mc.fontRendererObj.drawStringWithShadow("§7[§6Sprinting§7] §rToggled", 2, 2, -1);
         }
         
         else if (mc.thePlayer.isSprinting())
         {
-            mc.fontRendererObj.drawStringWithShadow("§7[           §7] §rVanilla", 2, 2, -1);
-            mc.fontRendererObj.drawStringWithShadow("Sprinting", 6, 2, Color.ORANGE.getRGB());
+            mc.fontRendererObj.drawStringWithShadow("§7[§6Sprinting§7] §rVanilla", 2, 2, -1);
         }
     }
 }
