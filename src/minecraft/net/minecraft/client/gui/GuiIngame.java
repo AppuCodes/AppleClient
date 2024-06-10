@@ -11,6 +11,7 @@ import com.google.common.collect.Lists;
 import appleclient.Apple;
 import appleclient.mods.Mod;
 import appleclient.mods.events.impl.EventRender;
+import appleclient.mods.settings.ToggleSetting;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
@@ -169,9 +170,9 @@ public class GuiIngame extends Gui
 
         if (this.showCrosshair() && this.mc.gameSettings.thirdPersonView < 1)
         {
-            Mod mod = Apple.CLIENT.modsManager.findMod("Crosshair");
+            Mod mod = Apple.CLIENT.modsManager.getMod("Crosshair");
             
-            if (mod.isEnabled())
+            if (mod.isEnabled() && !((ToggleSetting) mod.getSetting("Transparency")).enabled)
             {
                 GlStateManager.tryBlendFuncSeparate(770, 1, 1, 0);
             }
@@ -367,7 +368,7 @@ public class GuiIngame extends Gui
             float f = this.zLevel;
             this.zLevel = -90.0F;
             this.drawTexturedModalRect(i - 91, sr.getScaledHeight() - 22, 0, 0, 182, 22);
-            this.drawTexturedModalRect(i - 91 - 1 + entityplayer.inventory.currentItem * 20, sr.getScaledHeight() - 22 - 1, 0, 22, 24, 22);
+            this.drawTexturedModalRect(i - 91 - 1 + entityplayer.inventory.currentItem * 20, sr.getScaledHeight() - 22 - 1, 0, 22, 24, 23);
             this.zLevel = f;
             GlStateManager.enableRescaleNormal();
             GlStateManager.enableBlend();

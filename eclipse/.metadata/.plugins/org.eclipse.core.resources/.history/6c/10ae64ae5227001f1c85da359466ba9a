@@ -1,0 +1,13 @@
+package appleclient.mods.settings;
+
+public class Setting
+{
+    public int red, green, blue;
+    
+    public String name;
+    
+    protected Setting(String name)
+    {
+        this.name = name;
+    }
+}

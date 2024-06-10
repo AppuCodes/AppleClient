@@ -13,7 +13,6 @@ import net.minecraft.util.ResourceLocation;
 
 public class GuiModsList extends GuiScreen
 {
-    @Override
     public void drawScreen(int mouseX, int mouseY, float partialTicks)
     {
         super.drawScreen(mouseX, mouseY, partialTicks);
@@ -23,11 +22,11 @@ public class GuiModsList extends GuiScreen
         
         for (Mod mod : Apple.CLIENT.modsManager.mods)
         {
-            drawRect(x, y, x + 88, y + 88, new Color(50, 50, 50, 200).getRGB());
+            boolean insideBox = cursorInsideBox(mouseX, mouseY, x, y, x + 88, y + 88);
+            drawRect(x, y, x + 88, y + 88, insideBox ? new Color(70, 70, 70, 128).getRGB() : new Color(60, 60, 60, 128).getRGB());
             drawCenteredString(fontRendererObj, mod.name, x + 44, y + 35, -1);
             GlStateManager.color(1, 1, 1, 1);
             mc.getTextureManager().bindTexture(GuiButton.buttonTextures);
-            boolean insideBox = cursorInsideBox(mouseX, mouseY, x, y, x + 88, y + 88);
             this.drawTexturedModalRect(x, y + 68, 0, 46 + (insideBox ? 40 : 20), 44, 20);
             this.drawTexturedModalRect(x + 44, y + 68, 200 - 44, 46 + (insideBox ? 40 : 20), 44, 20);
             
@@ -46,7 +45,6 @@ public class GuiModsList extends GuiScreen
         }
     }
     
-    @Override
     protected void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException
     {
         super.mouseClicked(mouseX, mouseY, mouseButton);
@@ -70,7 +68,11 @@ public class GuiModsList extends GuiScreen
         return mouseX < width && mouseX > x && mouseY < height && mouseY > y;
     }
     
-    @Override
+    public void onGuiClosed()
+    {
+        Apple.CLIENT.config.saveMods();
+    }
+    
     public boolean doesGuiPauseGame()
     {
         return false;

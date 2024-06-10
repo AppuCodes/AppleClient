@@ -2,22 +2,26 @@ package appleclient.mods;
 
 import java.util.ArrayList;
 
-import appleclient.mods.impl.Crosshair;
-import appleclient.mods.impl.RawInput;
-import appleclient.mods.impl.ToggleSprint;
+import appleclient.mods.impl.*;
 
 public class ModsManager
 {
     public ArrayList<Mod> mods = new ArrayList<>();
+    
+    public ModsManager()
+    {
+        setupMods();
+    }
     
     public void setupMods()
     {
         mods.add(new ToggleSprint());
         mods.add(new RawInput());
         mods.add(new Crosshair());
+        mods.add(new BlockSelection());
     }
     
-    public Mod findMod(String name)
+    public Mod getMod(String name)
     {
         Mod result = null;
         

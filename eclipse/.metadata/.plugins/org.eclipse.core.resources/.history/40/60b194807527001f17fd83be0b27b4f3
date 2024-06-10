@@ -1,0 +1,11 @@
+package appleclient.mods.impl;
+
+import appleclient.mods.Mod;
+
+public class BlockSelection extends Mod
+{
+    public BlockSelection()
+    {
+        super("Block Selection", "Allows you to customize the block selection.");
+    }
+}

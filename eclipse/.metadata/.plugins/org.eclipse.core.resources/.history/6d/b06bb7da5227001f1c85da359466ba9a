@@ -1,0 +1,28 @@
+package appleclient.mods.settings;
+
+public class Setting
+{
+    public float minValue, currentValue, maxValue;
+    public int red, green, blue;
+    public boolean enabled;
+    public String name;
+    
+    protected Setting(String name)
+    {
+        this.name = name;
+    }
+    
+    public Setting(String name, boolean enabled)
+    {
+        this(name);
+        this.enabled = enabled;
+    }
+    
+    public Setting(String name, float minValue, float currentValue, float maxValue)
+    {
+        this(name);
+        this.minValue = minValue;
+        this.currentValue = currentValue;
+        this.maxValue = maxValue;
+    }
+}

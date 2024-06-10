@@ -1,0 +1,14 @@
+package appleclient.mods.impl;
+
+import appleclient.mods.Mod;
+import appleclient.mods.settings.ToggleSetting;
+
+public class Crosshair extends Mod
+{
+    public Crosshair()
+    {
+        setupSettings(1);
+        super("Crosshair", "Changes how the crosshair looks.");
+        addSetting(new ToggleSetting("Transparency", true));
+    }
+}

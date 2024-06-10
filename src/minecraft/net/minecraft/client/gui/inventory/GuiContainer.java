@@ -132,7 +132,7 @@ public abstract class GuiContainer extends GuiScreen
                 int j1 = slot.xDisplayPosition;
                 int k1 = slot.yDisplayPosition;
                 GlStateManager.colorMask(true, true, true, false);
-                this.drawGradientRect(j1, k1, j1 + 16, k1 + 16, -2133338113, -2133338113);
+                this.drawGradientRect(j1, k1, j1 + 16, k1 + 16, -2130706433, -2130706433);
                 GlStateManager.colorMask(true, true, true, true);
                 GlStateManager.enableLighting();
                 GlStateManager.enableDepth();

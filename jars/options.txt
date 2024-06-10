@@ -6,11 +6,11 @@ saturation:0.0
 renderDistance:12
 guiScale:3
 particles:0
-bobView:false
+bobView:true
 anaglyph3d:false
 maxFps:260
 fboEnable:true
-difficulty:2
+difficulty:1
 fancyGraphics:false
 ao:1
 renderClouds:true

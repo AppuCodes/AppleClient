@@ -1,0 +1,17 @@
+{
+  "Toggle Sprint": {
+    "Enabled": true
+  },
+  "Raw Input": {
+    "Enabled": true
+  },
+  "Crosshair": {
+    "Enabled": true,
+    "Transparency": true
+  },
+  "Block Selection": {
+    "Enabled": true,
+    "Outline Thickness": 1.0,
+    "Outline Color": "30;0;0;255"
+  }
+}

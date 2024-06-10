@@ -4,6 +4,7 @@ import org.lwjgl.input.Keyboard;
 
 import com.google.common.eventbus.Subscribe;
 
+import appleclient.config.AppleConfig;
 import appleclient.gui.GuiModsList;
 import appleclient.interfaces.IMinecraft;
 import appleclient.mods.ModsManager;
@@ -15,14 +16,15 @@ public enum Apple implements IMinecraft
     CLIENT;
     
     public EventBus eventBus;
+    public AppleConfig config;
     public ModsManager modsManager;
     
     public void initialize()
     {
-        modsManager = new ModsManager();
         eventBus = new EventBus();
-        modsManager.setupMods();
         eventBus.register(this);
+        modsManager = new ModsManager();
+        config = new AppleConfig();
     }
     
     @Subscribe

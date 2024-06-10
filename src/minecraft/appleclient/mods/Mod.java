@@ -1,12 +1,17 @@
 package appleclient.mods;
 
+import java.util.ArrayList;
+
 import appleclient.Apple;
 import appleclient.interfaces.IMinecraft;
+import appleclient.mods.settings.Setting;
 
 public class Mod implements IMinecraft
 {
     public String name, description;
     private boolean enabled = false;
+    public Setting[] settings;
+    private int index = 0;
     
     public Mod(String name, String description)
     {
@@ -47,5 +52,32 @@ public class Mod implements IMinecraft
         {
             onDisable();
         }
+    }
+    
+    public Setting getSetting(String name)
+    {
+        Setting result = null;
+        
+        for (Setting setting : settings)
+        {
+            if (setting.name.equals(name))
+            {
+                result = setting;
+                break;
+            }
+        }
+        
+        return result;
+    }
+    
+    protected void setupSettings(int number)
+    {
+        settings = new Setting[number];
+    }
+    
+    protected void addSetting(Setting setting)
+    {
+        settings[index] = setting;
+        index++;
     }
 }

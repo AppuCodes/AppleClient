@@ -1,0 +1,5 @@
+package appleclient.mods.settings;
+
+public class Setting {
+
+}

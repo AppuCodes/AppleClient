@@ -1,0 +1,6 @@
+package appleclient.mods.settings;
+
+public class ToggleSetting extends Setting
+{
+    
+}

@@ -1,0 +1,12 @@
+{
+  "Toggle Sprint": {
+    "Enabled": true
+  },
+  "Raw Input": {
+    "Enabled": true
+  },
+  "Crosshair": {
+    "Enabled": true,
+    "Transparency": true
+  }
+}

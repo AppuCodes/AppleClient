@@ -10,9 +10,9 @@
     <fullyQualifiedTypeName name="appleclient.mods.events.Event"/>
     <fullyQualifiedTypeName name="net.minecraft.util.Util.EnumOS"/>
     <fullyQualifiedTypeName name="org.lwjgl.input.Keyboard"/>
-    <fullyQualifiedTypeName name="net.minecraft.client.Minecraft"/>
-    <fullyQualifiedTypeName name="java.awt.Color"/>
-    <fullyQualifiedTypeName name="appleclient.Apple"/>
     <fullyQualifiedTypeName name="net.minecraft.client.renderer.GlStateManager"/>
     <fullyQualifiedTypeName name="net.minecraft.client.renderer.GlStateManager.FogState"/>
+    <fullyQualifiedTypeName name="java.awt.Color"/>
+    <fullyQualifiedTypeName name="net.minecraft.client.Minecraft"/>
+    <fullyQualifiedTypeName name="appleclient.Apple"/>
 </qualifiedTypeNameHistroy>
