@@ -5,12 +5,13 @@ import appleclient.interfaces.IMinecraft;
 
 public class Mod implements IMinecraft
 {
+    public String name, description;
     private boolean enabled = false;
-    public String name;
     
-    public Mod(String name)
+    public Mod(String name, String description)
     {
         this.name = name;
+        this.description = description;
     }
     
     public void onEnable()

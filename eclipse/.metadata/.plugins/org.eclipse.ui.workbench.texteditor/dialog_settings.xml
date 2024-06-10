@@ -1,13 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
-		<item key="selection" value="getHandle"/>
+		<item key="selection" value="Damage"/>
 		<item key="wrap" value="true"/>
 		<item key="casesensitive" value="false"/>
 		<item key="wholeword" value="false"/>
 		<item key="incremental" value="false"/>
 		<item key="isRegEx" value="false"/>
 		<list key="findhistory">
+			<item value="Damage"/>
+			<item value="damage"/>
+			<item value="damagebl"/>
+			<item value="selection"/>
+			<item value="0.5"/>
+			<item value="crosshair"/>
+			<item value="moon"/>
 			<item value="getHandle"/>
 			<item value="setTitle"/>
 			<item value="mouseClick"/>
@@ -16,13 +23,6 @@
 			<item value="setNative"/>
 			<item value="runTi"/>
 			<item value="fullscr"/>
-			<item value="window"/>
-			<item value="createWindow"/>
-			<item value="createDispla"/>
-			<item value="snooper"/>
-			<item value="104,"/>
-			<item value="104"/>
-			<item value="drawModal"/>
 		</list>
 		<list key="replacehistory">
 		</list>

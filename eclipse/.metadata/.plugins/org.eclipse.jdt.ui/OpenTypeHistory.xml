@@ -1,9 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <typeInfoHistroy>
-    <typeInfo handle="=Client/src&lt;net.minecraft.client.main{Main.java[Main" modifiers="1" timestamp="1717642808873"/>
-    <typeInfo handle="=Client/src&lt;net.minecraft.client.gui{GuiNewChat.java[GuiNewChat" modifiers="1" timestamp="1717644713592"/>
-    <typeInfo handle="=Client/src&lt;net.minecraft.client.gui.inventory{GuiInventory.java[GuiInventory" modifiers="1" timestamp="1717644805937"/>
-    <typeInfo handle="=Client/src&lt;net.minecraft.world{World.java[World" modifiers="1025" timestamp="1717776709736"/>
     <typeInfo handle="=Client/src&lt;net.minecraft.client.gui{GuiChat.java[GuiChat" modifiers="1" timestamp="1717646893008"/>
     <typeInfo handle="=Client/src&lt;net.minecraft.client.audio{SoundManager.java[SoundManager" modifiers="1" timestamp="1717648744446"/>
     <typeInfo handle="=Client/src&lt;net.minecraft.client.gui{GuiWinGame.java[GuiWinGame" modifiers="1" timestamp="1717648174247"/>
@@ -12,7 +8,6 @@
     <typeInfo handle="=Client/src&lt;net.minecraft.entity.passive{EntityWolf.java[EntityWolf" modifiers="1" timestamp="1717650749552"/>
     <typeInfo handle="=Client/src&lt;net.minecraft.client.renderer.entity{RenderManager.java[RenderManager" modifiers="1" timestamp="1717651272522"/>
     <typeInfo handle="=Client/src&lt;net.minecraft.client.renderer{ItemRenderer.java[ItemRenderer" modifiers="1" timestamp="1717694095858"/>
-    <typeInfo handle="=Client/src&lt;net.minecraft.client.renderer.entity{RendererLivingEntity.java[RendererLivingEntity" modifiers="1025" timestamp="1717719910850"/>
     <typeInfo handle="=Client/src&lt;net.minecraft.client.renderer.entity{RenderItem.java[RenderItem" modifiers="1" timestamp="1717719916203"/>
     <typeInfo handle="=Client/src&lt;net.minecraft.client.settings{GameSettings.java[GameSettings" modifiers="1" timestamp="1717640683676"/>
     <typeInfo handle="=Client/src&lt;net.minecraft.client.gui{GuiGameOver.java[GuiGameOver" modifiers="1" timestamp="1508474236361"/>
@@ -48,16 +43,21 @@
     <typeInfo handle="=Client/src&lt;net.minecraft.client.gui{GuiOverlayDebug.java[GuiOverlayDebug" modifiers="1" timestamp="1717798754437"/>
     <typeInfo handle="=Client/src&lt;net.minecraft.client.gui{GuiMultiplayer.java[GuiMultiplayer" modifiers="1" timestamp="1717719438272"/>
     <typeInfo handle="=Client/src&lt;net.minecraft.client.renderer{GlStateManager.java[GlStateManager" modifiers="1" timestamp="1717722182831"/>
-    <typeInfo handle="=Client/src&lt;net.minecraft.client.renderer{RenderGlobal.java[RenderGlobal" modifiers="1" timestamp="1717777437942"/>
     <typeInfo handle="=Client/src&lt;net.minecraft.client.entity{EntityPlayerSP.java[EntityPlayerSP" modifiers="1" timestamp="1717735620972"/>
     <typeInfo handle="=Client/src&lt;net.minecraft.client.gui{GuiResourcePackList.java[GuiResourcePackList" modifiers="1025" timestamp="1508474242473"/>
     <typeInfo handle="=Client/src&lt;net.minecraft.client.gui{GuiResourcePackSelected.java[GuiResourcePackSelected" modifiers="1" timestamp="1508474231661"/>
     <typeInfo handle="=Client/src&lt;net.minecraft.client.gui{GuiOptions.java[GuiOptions" modifiers="1" timestamp="1717776332216"/>
-    <typeInfo handle="=Client/src&lt;net.minecraft.client.gui{GuiIngame.java[GuiIngame" modifiers="1" timestamp="1717776968686"/>
-    <typeInfo handle="=Client/src&lt;appleclient.mods{Mod.java[Mod" modifiers="1" timestamp="1717782092739"/>
+    <typeInfo handle="=Client/src&lt;appleclient.mods{Mod.java[Mod" modifiers="1" timestamp="1717970647901"/>
     <typeInfo handle="=Client/src&lt;net.minecraft.client.gui{FontRenderer.java[FontRenderer" modifiers="1" timestamp="1717775807096"/>
-    <typeInfo handle="=Client/src&lt;net.minecraft.client.gui{GuiButton.java[GuiButton" modifiers="1" timestamp="1717783386323"/>
     <typeInfo handle="=Client/src&lt;net.minecraft.client.gui{GuiMainMenu.java[GuiMainMenu" modifiers="1" timestamp="1717798747817"/>
     <typeInfo handle="=Client/src&lt;net.minecraft.client{Minecraft.java[Minecraft" modifiers="1" timestamp="1717798885976"/>
-    <typeInfo handle="=Client/src&lt;appleclient.mods.impl{ToggleSprint.java[ToggleSprint" modifiers="1" timestamp="1717773498070"/>
+    <typeInfo handle="=Client/src&lt;appleclient.mods.impl{ToggleSprint.java[ToggleSprint" modifiers="1" timestamp="1717970379132"/>
+    <typeInfo handle="=Client/src&lt;appleclient.mods{ModsManager.java[ModsManager" modifiers="1" timestamp="1717985118586"/>
+    <typeInfo handle="=Client/src&lt;net.minecraft.client.gui{GuiIngame.java[GuiIngame" modifiers="1" timestamp="1717985197204"/>
+    <typeInfo handle="=Client/src&lt;appleclient.mods.impl{RawInput.java[RawInput" modifiers="1" timestamp="1717985289568"/>
+    <typeInfo handle="=Client/src&lt;net.minecraft.client.renderer{RenderGlobal.java[RenderGlobal" modifiers="1" timestamp="1717985885254"/>
+    <typeInfo handle="=Client/src&lt;net.minecraft.client.gui{Gui.java[Gui" modifiers="1" timestamp="1717717273996"/>
+    <typeInfo handle="=Client/src&lt;appleclient.gui{GuiModsList.java[GuiModsList" modifiers="1" timestamp="1717986135429"/>
+    <typeInfo handle="=Client/src&lt;net.minecraft.client.gui{GuiButton.java[GuiButton" modifiers="1" timestamp="1717986100606"/>
+    <typeInfo handle="=Client/src&lt;net.minecraft.client.renderer.entity{RendererLivingEntity.java[RendererLivingEntity" modifiers="1025" timestamp="1717719910850"/>
 </typeInfoHistroy>

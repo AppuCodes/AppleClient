@@ -1,5 +1,5 @@
-ofRenderDistanceChunks:8
-ofFogType:3
+ofRenderDistanceChunks:12
+ofFogType:1
 ofFogStart:0.6
 ofMipmapType:0
 ofOcclusionFancy:false

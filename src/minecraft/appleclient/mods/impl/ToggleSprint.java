@@ -17,7 +17,7 @@ public class ToggleSprint extends Mod
     
     public ToggleSprint()
     {
-        super("Toggle Sprint");
+        super("Toggle Sprint", "Allows you to toggle sprinting.");
     }
     
     @Subscribe

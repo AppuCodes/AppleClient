@@ -1,9 +1,6 @@
 package appleclient.mods.impl;
 
-import com.google.common.eventbus.Subscribe;
-
 import appleclient.mods.Mod;
-import appleclient.mods.events.impl.EventWorldChange;
 import net.java.games.input.Controller;
 import net.java.games.input.Controller.Type;
 import net.java.games.input.ControllerEnvironment;
@@ -20,7 +17,8 @@ public class RawInput extends Mod
     
     public RawInput()
     {
-        super("Raw Input");
+        super("Raw Input", "Disables mouse acceleration. Recommended on.");
+        toggle();
     }
     
     @Override
@@ -30,15 +28,9 @@ public class RawInput extends Mod
         setupInput();
     }
     
-    @Subscribe
-    public void onWorldChange(EventWorldChange e)
-    {
-        setupInput();
-    }
-    
     public void setupInput()
     {
-        if (!enabled && !Util.getOSType().equals(Util.EnumOS.UNKNOWN) && mc.thePlayer != null)
+        if (!enabled && !Util.getOSType().equals(Util.EnumOS.UNKNOWN))
         {
             enabled = true;
             mc.mouseHelper = new RawMouseHelper();
@@ -91,7 +83,7 @@ public class RawInput extends Mod
     {
         super.onDisable();
         
-        if (enabled && !Util.getOSType().equals(Util.EnumOS.UNKNOWN))
+        if (enabled)
         {
             mc.mouseHelper = new MouseHelper();
             enabled = false;
