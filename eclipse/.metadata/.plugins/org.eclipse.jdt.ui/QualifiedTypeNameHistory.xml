@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-    <fullyQualifiedTypeName name="net.minecraft.client.renderer.GlStateManager.FogState"/>
     <fullyQualifiedTypeName name="java.lang.InterruptedException"/>
     <fullyQualifiedTypeName name="net.minecraft.client.settings.GameSettings.Options"/>
     <fullyQualifiedTypeName name="org.lwjgl.opengl.GL11"/>
@@ -15,4 +14,5 @@
     <fullyQualifiedTypeName name="java.awt.Color"/>
     <fullyQualifiedTypeName name="appleclient.Apple"/>
     <fullyQualifiedTypeName name="net.minecraft.client.renderer.GlStateManager"/>
+    <fullyQualifiedTypeName name="net.minecraft.client.renderer.GlStateManager.FogState"/>
 </qualifiedTypeNameHistroy>
