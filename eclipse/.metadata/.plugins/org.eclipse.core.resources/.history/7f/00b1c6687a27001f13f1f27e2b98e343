@@ -1,0 +1,5 @@
+package dev.tr7zw.skinlayers.opengl;
+
+public class NativeImage {
+
+}

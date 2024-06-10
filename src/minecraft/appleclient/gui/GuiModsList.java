@@ -19,9 +19,17 @@ public class GuiModsList extends GuiScreen
         float w2 = width / 2, h2 = height / 2;
         drawRect(w2 - 200, h2 - 150, w2 + 200, h2 + 150, new Color(0, 0, 0, 200).getRGB());
         float x = w2 - 190, y = h2 - 140;
+        int i = 0;
         
         for (Mod mod : Apple.CLIENT.modsManager.mods)
         {
+            if (i++ == 4)
+            {
+                x = w2 - 190;
+                y += 97.5F;
+                i = 0;
+            }
+            
             boolean insideBox = cursorInsideBox(mouseX, mouseY, x, y, x + 88, y + 88);
             drawRect(x, y, x + 88, y + 88, insideBox ? new Color(70, 70, 70, 128).getRGB() : new Color(60, 60, 60, 128).getRGB());
             drawCenteredString(fontRendererObj, mod.name, x + 44, y + 35, -1);
@@ -50,9 +58,17 @@ public class GuiModsList extends GuiScreen
         super.mouseClicked(mouseX, mouseY, mouseButton);
         float w2 = width / 2, h2 = height / 2;
         float x = w2 - 190, y = h2 - 140;
+        int i = 0;
         
         for (Mod mod : Apple.CLIENT.modsManager.mods)
         {
+            if (i++ == 4)
+            {
+                x = w2 - 190;
+                y += 97.5F;
+                i = 0;
+            }
+            
             if (cursorInsideBox(mouseX, mouseY, x, y, x + 88, y + 88) && mouseButton == 0)
             {
                 mc.getSoundHandler().playSound(PositionedSoundRecord.create(new ResourceLocation("gui.button.press"), 1.0F));

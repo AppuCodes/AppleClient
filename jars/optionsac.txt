@@ -13,5 +13,8 @@
     "Enabled": false,
     "Outline Thickness": 2.0,
     "Outline Color": "0;0;0;102"
+  },
+  "3D Skins": {
+    "Enabled": false
   }
 }

@@ -1,5 +1,12 @@
 package net.minecraft.client.renderer.entity;
 
+import appleclient.Apple;
+import appleclient.mods.Mod;
+import dev.tr7zw.skinlayers.SkinUtil;
+import dev.tr7zw.skinlayers.accessor.PlayerEntityModelAccessor;
+import dev.tr7zw.skinlayers.accessor.PlayerSettings;
+import dev.tr7zw.skinlayers.renderlayers.BodyLayerFeatureRenderer;
+import dev.tr7zw.skinlayers.renderlayers.HeadLayerFeatureRenderer;
 import net.minecraft.client.entity.AbstractClientPlayer;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.model.ModelPlayer;
@@ -10,7 +17,6 @@ import net.minecraft.client.renderer.entity.layers.LayerCape;
 import net.minecraft.client.renderer.entity.layers.LayerCustomHead;
 import net.minecraft.client.renderer.entity.layers.LayerDeadmau5Head;
 import net.minecraft.client.renderer.entity.layers.LayerHeldItem;
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EnumPlayerModelParts;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.ItemStack;
@@ -19,10 +25,12 @@ import net.minecraft.scoreboard.ScoreObjective;
 import net.minecraft.scoreboard.Scoreboard;
 import net.minecraft.util.ResourceLocation;
 
-public class RenderPlayer extends RendererLivingEntity<AbstractClientPlayer>
+public class RenderPlayer extends RendererLivingEntity<AbstractClientPlayer> implements PlayerEntityModelAccessor
 {
     /** this field is used to indicate the 3-pixel wide arms */
     private boolean smallArms;
+    private HeadLayerFeatureRenderer headLayer;
+    private BodyLayerFeatureRenderer bodyLayer;
 
     public RenderPlayer(RenderManager renderManager)
     {
@@ -39,6 +47,8 @@ public class RenderPlayer extends RendererLivingEntity<AbstractClientPlayer>
         this.addLayer(new LayerDeadmau5Head(this));
         this.addLayer(new LayerCape(this));
         this.addLayer(new LayerCustomHead(this.getMainModel().bipedHead));
+        this.headLayer = new HeadLayerFeatureRenderer(this);
+        this.bodyLayer = new BodyLayerFeatureRenderer(this);
     }
 
     public ModelPlayer getMainModel()
@@ -160,6 +170,13 @@ public class RenderPlayer extends RendererLivingEntity<AbstractClientPlayer>
 
     public void renderRightArm(AbstractClientPlayer clientPlayer)
     {
+        Mod depthSkins = Apple.CLIENT.modsManager.getMod("3D Skins");
+        
+        if (depthSkins.isEnabled())
+        {
+            renderFirstPersonArm(clientPlayer, 3);
+        }
+        
         float f = 1.0F;
         GlStateManager.color(f, f, f);
         ModelPlayer modelplayer = this.getMainModel();
@@ -172,6 +189,14 @@ public class RenderPlayer extends RendererLivingEntity<AbstractClientPlayer>
 
     public void renderLeftArm(AbstractClientPlayer clientPlayer)
     {
+        Mod depthSkins = Apple.CLIENT.modsManager.getMod("3D Skins");
+        
+        if (depthSkins.isEnabled())
+        {
+            renderFirstPersonArm(clientPlayer, 3);
+        }
+        
+        renderFirstPersonArm(clientPlayer, 2);
         float f = 1.0F;
         GlStateManager.color(f, f, f);
         ModelPlayer modelplayer = this.getMainModel();
@@ -209,5 +234,64 @@ public class RenderPlayer extends RendererLivingEntity<AbstractClientPlayer>
         {
             super.rotateCorpse(bat, p_77043_2_, p_77043_3_, partialTicks);
         }
+    }
+    
+    @Override
+    public HeadLayerFeatureRenderer getHeadLayer()
+    {
+        return headLayer;
+    }
+    
+    @Override
+    public BodyLayerFeatureRenderer getBodyLayer()
+    {
+        return bodyLayer;
+    }
+    
+    @Override
+    public boolean hasThinArms()
+    {
+        return smallArms;
+    }
+    
+    private void renderFirstPersonArm(AbstractClientPlayer player, int layerId)
+    {
+        ModelPlayer modelplayer = getMainModel();
+        float pixelScaling = 1.15F;
+        PlayerSettings settings = (PlayerSettings) player;
+        
+        if (settings.getSkinLayers() == null && !setupModel(player, settings))
+        {
+            return;
+        }
+        
+        GlStateManager.pushMatrix();
+        modelplayer.bipedRightArm.postRender(0.0625F);
+        GlStateManager.scale(0.0625F, 0.0625F, 0.0625F);
+        GlStateManager.scale(pixelScaling, pixelScaling, pixelScaling);
+        
+        if (!smallArms)
+        {
+            settings.getSkinLayers()[layerId].x = -0.998F * 16;
+        }
+        
+        else
+        {
+            settings.getSkinLayers()[layerId].x = -0.499F * 16;
+        }
+        
+        settings.getSkinLayers()[layerId].render(false);
+        GlStateManager.popMatrix();
+    }
+    
+    private boolean setupModel(AbstractClientPlayer abstractClientPlayerEntity, PlayerSettings settings)
+    {
+        if (!SkinUtil.hasCustomSkin(abstractClientPlayerEntity))
+        {
+            return false;
+        }
+        
+        SkinUtil.setup3DLayers(abstractClientPlayerEntity, settings, smallArms, null);
+        return true;
     }
 }

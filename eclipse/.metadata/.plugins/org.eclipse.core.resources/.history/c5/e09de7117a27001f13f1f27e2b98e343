@@ -1,0 +1,5 @@
+package dev.tr7zw.skinlayers.render;
+
+public class CustomizableCube {
+
+}

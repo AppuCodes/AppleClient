@@ -3,6 +3,10 @@ package net.minecraft.entity.player;
 import com.google.common.base.Charsets;
 import com.google.common.collect.Lists;
 import com.mojang.authlib.GameProfile;
+
+import dev.tr7zw.skinlayers.accessor.PlayerSettings;
+import dev.tr7zw.skinlayers.render.CustomizableModelPart;
+
 import java.util.Collection;
 import java.util.List;
 import java.util.UUID;
@@ -76,7 +80,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.WorldSettings;
 
 @SuppressWarnings("incomplete-switch")
-public abstract class EntityPlayer extends EntityLivingBase
+public abstract class EntityPlayer extends EntityLivingBase implements PlayerSettings
 {
     /** Inventory of the player */
     public InventoryPlayer inventory = new InventoryPlayer(this);
@@ -172,6 +176,8 @@ public abstract class EntityPlayer extends EntityLivingBase
      * An instance of a fishing rod's hook. If this isn't null, the icon image of the fishing rod is slightly different
      */
     public EntityFishHook fishEntity;
+    private CustomizableModelPart headLayer;
+    private CustomizableModelPart[] skinLayer;
 
     public EntityPlayer(World worldIn, GameProfile gameProfileIn)
     {
@@ -2465,6 +2471,30 @@ public abstract class EntityPlayer extends EntityLivingBase
     public void setReducedDebug(boolean reducedDebug)
     {
         this.hasReducedDebug = reducedDebug;
+    }
+
+    @Override
+    public CustomizableModelPart[] getSkinLayers()
+    {
+        return skinLayer;
+    }
+    
+    @Override
+    public void setupSkinLayers(CustomizableModelPart[] box)
+    {
+        this.skinLayer = box;
+    }
+    
+    @Override
+    public CustomizableModelPart getHeadLayers()
+    {
+        return headLayer;
+    }
+    
+    @Override
+    public void setupHeadLayers(CustomizableModelPart box)
+    {
+        this.headLayer = box;
     }
 
     public static enum EnumChatVisibility

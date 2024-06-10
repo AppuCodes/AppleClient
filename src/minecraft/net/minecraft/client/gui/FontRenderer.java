@@ -390,6 +390,7 @@ public class FontRenderer implements IResourceManagerReloadListener
         WorldRenderer renderer = Tessellator.getInstance().getWorldRenderer();
         renderer.begin(7, DefaultVertexFormats.POSITION_TEX_COLOR);
         this.textColor = color;
+        float prevColorStateAlpha = GlStateManager.colorState.alpha;
         
         for (int i = 0; i < p_78255_1_.length(); ++i)
         {
@@ -536,7 +537,7 @@ public class FontRenderer implements IResourceManagerReloadListener
                     tessellator.draw();
                     GlStateManager.enableTexture2D();
                     float alpha = (float)(textColor >> 24 & 255) / 255.0F;
-                    GlStateManager.color((float)(textColor >> 16 & 255) / 255.0F, (float)(textColor >> 8 & 255) / 255.0F, (float)(textColor & 255) / 255.0F, alpha == 0 ? 1 : alpha);
+                    GlStateManager.color((float)(textColor >> 16 & 255) / 255.0F, (float)(textColor >> 8 & 255) / 255.0F, (float)(textColor & 255) / 255.0F, alpha == 0 ? prevColorStateAlpha : alpha);
                     renderer.begin(7, DefaultVertexFormats.POSITION_TEX_COLOR);
                 }
 
@@ -556,7 +557,7 @@ public class FontRenderer implements IResourceManagerReloadListener
                     tessellator1.draw();
                     GlStateManager.enableTexture2D();
                     float alpha = (float)(textColor >> 24 & 255) / 255.0F;
-                    GlStateManager.color((float)(textColor >> 16 & 255) / 255.0F, (float)(textColor >> 8 & 255) / 255.0F, (float)(textColor & 255) / 255.0F, alpha == 0 ? 1 : alpha);
+                    GlStateManager.color((float)(textColor >> 16 & 255) / 255.0F, (float)(textColor >> 8 & 255) / 255.0F, (float)(textColor & 255) / 255.0F, alpha == 0 ? prevColorStateAlpha : alpha);
                     renderer.begin(7, DefaultVertexFormats.POSITION_TEX_COLOR);
                 }
 

@@ -1,9 +1,15 @@
 package net.minecraft.client.renderer.entity;
 
 import com.google.common.collect.Lists;
+
+import appleclient.Apple;
+import appleclient.mods.Mod;
+import dev.tr7zw.skinlayers.accessor.PlayerEntityModelAccessor;
+
 import java.nio.FloatBuffer;
 import java.util.List;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.entity.AbstractClientPlayer;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.model.ModelBase;
@@ -272,7 +278,8 @@ public abstract class RendererLivingEntity<T extends EntityLivingBase> extends R
     {
         boolean flag = !entitylivingbaseIn.isInvisible();
         boolean flag1 = !flag && !entitylivingbaseIn.isInvisibleToPlayer(Minecraft.getMinecraft().thePlayer);
-
+        Mod depthSkins = Apple.CLIENT.modsManager.getMod("3D Skins");
+        
         if (flag || flag1)
         {
             if (!this.bindEntityTexture(entitylivingbaseIn))
@@ -298,6 +305,35 @@ public abstract class RendererLivingEntity<T extends EntityLivingBase> extends R
                 GlStateManager.alphaFunc(516, 0.0F);
                 GlStateManager.popMatrix();
                 GlStateManager.depthMask(true);
+            }
+        }
+        
+        if (this instanceof PlayerEntityModelAccessor && depthSkins.isEnabled())
+        {
+            if (flag || flag1)
+            {
+                PlayerEntityModelAccessor playerRenderer = (PlayerEntityModelAccessor) this;
+                
+                if (flag1)
+                {
+                    GlStateManager.pushMatrix();
+                    GlStateManager.color(1.0F, 1.0F, 1.0F, 0.15F);
+                    GlStateManager.depthMask(false);
+                    GlStateManager.enableBlend();
+                    GlStateManager.blendFunc(770, 771);
+                    GlStateManager.alphaFunc(516, 0.0F);
+                }
+                
+                playerRenderer.getHeadLayer().doRenderLayer((AbstractClientPlayer) entitylivingbaseIn, p_77036_2_, 0f, p_77036_3_, p_77036_4_, p_77036_5_, p_77036_6_, p_77036_7_);
+                playerRenderer.getBodyLayer().doRenderLayer((AbstractClientPlayer) entitylivingbaseIn, p_77036_2_, 0f, p_77036_3_, p_77036_4_, p_77036_5_, p_77036_6_, p_77036_7_);
+                
+                if (flag1)
+                {
+                    GlStateManager.disableBlend();
+                    GlStateManager.alphaFunc(516, 0.0F);
+                    GlStateManager.popMatrix();
+                    GlStateManager.depthMask(true);
+                }
             }
         }
     }

@@ -19,6 +19,7 @@ public class ModsManager
         mods.add(new RawInput());
         mods.add(new Crosshair());
         mods.add(new BlockSelection());
+        mods.add(new DepthSkins());
     }
     
     public Mod getMod(String name)
