@@ -1,0 +1,11 @@
+package appleclient.mods.settings;
+
+public class TextSetting extends Setting
+{
+    public String text;
+    
+    public TextSetting(String name)
+    {
+        super(name);
+    }
+}

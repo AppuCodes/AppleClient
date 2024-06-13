@@ -20,6 +20,7 @@ import appleclient.mods.Mod;
 import appleclient.mods.settings.ColorSetting;
 import appleclient.mods.settings.Setting;
 import appleclient.mods.settings.SliderSetting;
+import appleclient.mods.settings.TextSetting;
 import appleclient.mods.settings.ToggleSetting;
 
 public class AppleConfig
@@ -78,6 +79,12 @@ public class AppleConfig
                     {
                         ColorSetting colorSetting = (ColorSetting) setting;
                         jsonMod.addProperty(setting.name, colorSetting.red + ";" + colorSetting.green + ";" + colorSetting.blue + ";" + colorSetting.alpha);
+                    }
+                    
+                    else if (setting instanceof TextSetting)
+                    {
+                        TextSetting textSetting = (TextSetting) setting;
+                        jsonMod.addProperty(setting.name, textSetting.text);
                     }
                 }
             }
@@ -143,6 +150,12 @@ public class AppleConfig
                             colorSetting.green = Integer.parseInt(colors[1]);
                             colorSetting.blue = Integer.parseInt(colors[2]);
                             colorSetting.alpha = Integer.parseInt(colors[3]);
+                        }
+                        
+                        else if (setting instanceof TextSetting)
+                        {
+                            TextSetting textSetting = (TextSetting) setting;
+                            textSetting.text = element.getAsString();
                         }
                     }
                 }

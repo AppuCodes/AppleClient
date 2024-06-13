@@ -1,6 +1,8 @@
 {
   "Toggle Sprint": {
-    "Enabled": false
+    "Enabled": true,
+    "Show Status": true,
+    "Background": true
   },
   "Raw Input": {
     "Enabled": true
@@ -15,12 +17,13 @@
     "Outline Color": "0;0;0;102"
   },
   "3D Skins": {
-    "Enabled": true
+    "Enabled": false
   },
   "Auto GG": {
-    "Enabled": true
+    "Enabled": false,
+    "GG Message": "GG"
   },
   "Shiny Pots": {
-    "Enabled": true
+    "Enabled": false
   }
 }

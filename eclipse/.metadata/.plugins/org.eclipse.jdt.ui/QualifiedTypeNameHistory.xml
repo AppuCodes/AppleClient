@@ -12,7 +12,6 @@
     <fullyQualifiedTypeName name="org.lwjgl.input.Keyboard"/>
     <fullyQualifiedTypeName name="net.minecraft.client.renderer.GlStateManager"/>
     <fullyQualifiedTypeName name="net.minecraft.client.renderer.GlStateManager.FogState"/>
-    <fullyQualifiedTypeName name="java.awt.Color"/>
     <fullyQualifiedTypeName name="net.minecraft.client.Minecraft"/>
     <fullyQualifiedTypeName name="appleclient.gui.font.CustomFontRenderer.FontType"/>
     <fullyQualifiedTypeName name="appleclient.gui.font.CustomFontRenderer"/>
@@ -23,4 +22,6 @@
     <fullyQualifiedTypeName name="appleclient.events.impl.EventPacketReceive"/>
     <fullyQualifiedTypeName name="appleclient.mods.impl.AutoGG"/>
     <fullyQualifiedTypeName name="appleclient.Apple"/>
+    <fullyQualifiedTypeName name="net.minecraft.client.gui.Gui"/>
+    <fullyQualifiedTypeName name="java.awt.Color"/>
 </qualifiedTypeNameHistroy>

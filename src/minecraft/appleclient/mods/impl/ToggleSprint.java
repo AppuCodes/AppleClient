@@ -10,6 +10,8 @@ import appleclient.events.impl.EventKey;
 import appleclient.events.impl.EventRender;
 import appleclient.events.impl.EventTick;
 import appleclient.mods.Mod;
+import appleclient.mods.settings.ToggleSetting;
+import net.minecraft.client.gui.Gui;
 
 public class ToggleSprint extends Mod
 {
@@ -18,6 +20,9 @@ public class ToggleSprint extends Mod
     public ToggleSprint()
     {
         super("Toggle Sprint", "Allows you to toggle sprinting.");
+        setupSettings(2);
+        addSetting(new ToggleSetting("Show Status", true));
+        addSetting(new ToggleSetting("Background", true));
     }
     
     @Subscribe
@@ -62,14 +67,35 @@ public class ToggleSprint extends Mod
     @Subscribe
     public void onRender(EventRender e)
     {
-        if (toggled)
-        {
-            mc.fontRendererObj.drawStringWithShadow("§7[§6Sprinting§7] §rToggled", 2, 2, -1);
-        }
+        ToggleSetting showStatus = (ToggleSetting) getSetting("Show Status");
         
-        else if (mc.thePlayer.isSprinting())
+        if (showStatus.enabled)
         {
-            mc.fontRendererObj.drawStringWithShadow("§7[§6Sprinting§7] §rVanilla", 2, 2, -1);
+            ToggleSetting background = (ToggleSetting) getSetting("Background");
+            
+            if (toggled)
+            {
+                int width = mc.fontRendererObj.getStringWidth("§7[§6Sprinting§7] §rToggled");
+                
+                if (background.enabled)
+                {
+                    Gui.drawRect(0, 0, width + 4, 12, new Color(0, 0, 0, 128).getRGB());
+                }
+                
+                mc.fontRendererObj.drawStringWithShadow("§7[§6Sprinting§7] §rToggled", 2, 2, -1);
+            }
+            
+            else if (mc.thePlayer.isSprinting())
+            {
+                int width = mc.fontRendererObj.getStringWidth("§7[§6Sprinting§7] §rVanilla");
+                
+                if (background.enabled)
+                {
+                    Gui.drawRect(0, 0, width + 4, 12, new Color(0, 0, 0, 128).getRGB());
+                }
+                
+                mc.fontRendererObj.drawStringWithShadow("§7[§6Sprinting§7] §rVanilla", 2, 2, -1);
+            }
         }
     }
 }

@@ -120,12 +120,13 @@ public class RenderEntityItem extends Render<EntityItem>
         {
             if (!ibakedmodel.isGui3d())
             {
+                GlStateManager.disableLighting();
                 GlStateManager.rotate(180.0F - getRenderManager().playerViewY, 0.0F, 1.0F, 0.0F);
                 GlStateManager.rotate(-getRenderManager().playerViewX, 1.0F, 0.0F, 0.0F);
                 GlStateManager.scale(1.0F, 1.0F, 0.001F);
             }
         }
-        
+            
         for (int j = 0; j < i; ++j)
         {
             if (ibakedmodel.isGui3d())
@@ -167,7 +168,15 @@ public class RenderEntityItem extends Render<EntityItem>
         {
             this.renderManager.renderEngine.getTexture(this.getEntityTexture(entity)).restoreLastBlurMipmap();
         }
-
+        
+        if (Minecraft.getMinecraft().gameSettings.ofDroppedItems != 2 && !(Minecraft.getMinecraft().gameSettings.ofDroppedItems == 0 && Minecraft.getMinecraft().isFancyGraphicsEnabled()))
+        {
+            if (!ibakedmodel.isGui3d())
+            {
+                GlStateManager.enableLighting();
+            }
+        }
+        
         super.doRender(entity, x, y, z, entityYaw, partialTicks);
     }
 

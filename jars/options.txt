@@ -55,7 +55,7 @@ forceUnicodeFont:false
 allowBlockAlternatives:false
 reducedDebugInfo:false
 useNativeTransport:true
-entityShadows:true
+entityShadows:false
 key_key.attack:-100
 key_key.use:-99
 key_key.forward:17
