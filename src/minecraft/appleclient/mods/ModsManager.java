@@ -20,6 +20,8 @@ public class ModsManager
         mods.add(new Crosshair());
         mods.add(new BlockSelection());
         mods.add(new DepthSkins());
+        mods.add(new AutoGG());
+        mods.add(new ShinyPots());
     }
     
     public Mod getMod(String name)

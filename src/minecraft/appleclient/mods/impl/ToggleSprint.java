@@ -6,10 +6,10 @@ import org.lwjgl.input.Keyboard;
 
 import com.google.common.eventbus.Subscribe;
 
+import appleclient.events.impl.EventKey;
+import appleclient.events.impl.EventRender;
+import appleclient.events.impl.EventTick;
 import appleclient.mods.Mod;
-import appleclient.mods.events.impl.EventKey;
-import appleclient.mods.events.impl.EventRender;
-import appleclient.mods.events.impl.EventTick;
 
 public class ToggleSprint extends Mod
 {

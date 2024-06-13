@@ -5,11 +5,11 @@ import org.lwjgl.input.Keyboard;
 import com.google.common.eventbus.Subscribe;
 
 import appleclient.config.AppleConfig;
+import appleclient.events.EventBus;
+import appleclient.events.impl.EventKey;
 import appleclient.gui.GuiModsList;
 import appleclient.interfaces.IMinecraft;
 import appleclient.mods.ModsManager;
-import appleclient.mods.events.EventBus;
-import appleclient.mods.events.impl.EventKey;
 
 public enum Apple implements IMinecraft
 {

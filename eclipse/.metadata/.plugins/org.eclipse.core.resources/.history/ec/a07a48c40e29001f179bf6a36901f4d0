@@ -1,0 +1,19 @@
+package appleclient.mods.impl;
+
+import appleclient.gui.font.CustomFontRenderer;
+import appleclient.mods.Mod;
+
+public class CustomFont extends Mod
+{
+    public CustomFont()
+    {
+        super("Custom Font", "Replaces the Minecraft font with a HD one.");
+    }
+    
+    @Override
+    public void onEnable()
+    {
+        super.onEnable();
+        mc.fontRendererObj = new CustomFontRenderer();
+    }
+}

@@ -9,8 +9,8 @@ import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 
 import appleclient.Apple;
+import appleclient.events.impl.EventRender;
 import appleclient.mods.Mod;
-import appleclient.mods.events.impl.EventRender;
 import appleclient.mods.settings.ToggleSetting;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;

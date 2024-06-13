@@ -1,0 +1,31 @@
+package appleclient.mods.impl;
+
+import appleclient.gui.font.CustomFontRenderer;
+import appleclient.mods.Mod;
+import net.minecraft.client.gui.FontRenderer;
+import net.minecraft.util.ResourceLocation;
+
+public class CustomFont extends Mod
+{
+    private FontRenderer vanillaFont;
+    
+    public CustomFont()
+    {
+        super("Custom Font", "Replaces the Minecraft font with a HD one.");
+    }
+    
+    @Override
+    public void onEnable()
+    {
+        super.onEnable();
+        vanillaFont = mc.fontRendererObj;
+        mc.fontRendererObj = new CustomFontRenderer(mc.gameSettings, mc.getTextureManager(), mc.isUnicode());
+    }
+    
+    @Override
+    public void onDisable()
+    {
+        super.onDisable();
+        mc.fontRendererObj = new FontRenderer(mc.gameSettings, new ResourceLocation("textures/font/ascii.png"), mc.getTextureManager(), false);
+    }
+}

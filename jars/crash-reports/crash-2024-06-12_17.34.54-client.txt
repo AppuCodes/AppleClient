@@ -1,0 +1,85 @@
+---- Minecraft Crash Report ----
+// My bad.
+
+Time: 6/12/24, 5:34?PM
+Description: Registering texture
+
+java.lang.NullPointerException: Cannot invoke "net.minecraft.util.ResourceLocation.getResourceDomain()" because "location" is null
+	at net.minecraft.client.resources.SimpleReloadableResourceManager.getResource(SimpleReloadableResourceManager.java:57)
+	at net.minecraft.client.renderer.texture.SimpleTexture.loadTexture(SimpleTexture.java:34)
+	at net.minecraft.client.renderer.texture.TextureManager.loadTexture(TextureManager.java:100)
+	at net.minecraft.client.renderer.texture.TextureManager.bindTexture(TextureManager.java:67)
+	at net.minecraft.client.gui.FontRenderer.bindTexture(FontRenderer.java:1038)
+	at net.minecraft.client.gui.FontRenderer.renderStringAtPos(FontRenderer.java:571)
+	at net.minecraft.client.gui.FontRenderer.renderString(FontRenderer.java:618)
+	at net.minecraft.client.gui.FontRenderer.drawString(FontRenderer.java:348)
+	at net.minecraft.client.gui.FontRenderer.drawStringWithShadow(FontRenderer.java:326)
+	at net.minecraft.client.gui.Gui.drawCenteredString(Gui.java:124)
+	at net.minecraft.client.gui.GuiMainMenu.drawScreen(GuiMainMenu.java:529)
+	at net.minecraft.client.renderer.EntityRenderer.updateCameraAndRender(EntityRenderer.java:1374)
+	at net.minecraft.client.Minecraft.runGameLoop(Minecraft.java:1098)
+	at net.minecraft.client.Minecraft.run(Minecraft.java:414)
+	at net.minecraft.client.main.Main.main(Main.java:113)
+	at Start.main(Start.java:11)
+
+
+A detailed walkthrough of the error, its code path and all known details is as follows:
+---------------------------------------------------------------------------------------
+
+-- Head --
+Stacktrace:
+	at net.minecraft.client.resources.SimpleReloadableResourceManager.getResource(SimpleReloadableResourceManager.java:57)
+	at net.minecraft.client.renderer.texture.SimpleTexture.loadTexture(SimpleTexture.java:34)
+
+-- Resource location being registered --
+Details:
+	Resource location: ~~NULL~~
+	Texture object class: net.minecraft.client.renderer.texture.SimpleTexture
+Stacktrace:
+	at net.minecraft.client.renderer.texture.TextureManager.loadTexture(TextureManager.java:100)
+	at net.minecraft.client.renderer.texture.TextureManager.bindTexture(TextureManager.java:67)
+	at net.minecraft.client.gui.FontRenderer.bindTexture(FontRenderer.java:1038)
+	at net.minecraft.client.gui.FontRenderer.renderStringAtPos(FontRenderer.java:571)
+	at net.minecraft.client.gui.FontRenderer.renderString(FontRenderer.java:618)
+	at net.minecraft.client.gui.FontRenderer.drawString(FontRenderer.java:348)
+	at net.minecraft.client.gui.FontRenderer.drawStringWithShadow(FontRenderer.java:326)
+	at net.minecraft.client.gui.Gui.drawCenteredString(Gui.java:124)
+	at net.minecraft.client.gui.GuiMainMenu.drawScreen(GuiMainMenu.java:529)
+
+-- Screen render details --
+Details:
+	Screen name: net.minecraft.client.gui.GuiMainMenu
+	Mouse location: Scaled: (0, 239). Absolute: (0, 0)
+	Screen size: Scaled: (427, 240). Absolute: (854, 480). Scale factor of 2
+Stacktrace:
+	at net.minecraft.client.renderer.EntityRenderer.updateCameraAndRender(EntityRenderer.java:1374)
+	at net.minecraft.client.Minecraft.runGameLoop(Minecraft.java:1098)
+	at net.minecraft.client.Minecraft.run(Minecraft.java:414)
+	at net.minecraft.client.main.Main.main(Main.java:113)
+	at Start.main(Start.java:11)
+
+-- System Details --
+Details:
+	Minecraft Version: 1.8.9
+	Operating System: Windows 11 (amd64) version 10.0
+	CPU: 12x AMD Ryzen 5 5500U with Radeon Graphics 
+	Java Version: 21.0.2, Oracle Corporation
+	Java VM Version: Java HotSpot(TM) 64-Bit Server VM (mixed mode, sharing), Oracle Corporation
+	Memory: 850919424 bytes (811 MB) / 1073741824 bytes (1024 MB) up to 2147483648 bytes (2048 MB)
+	JVM Flags: 7 total; -XX:ThreadPriorityPolicy=1 -XX:+UnlockExperimentalVMOptions -XX:+EnableJVMCIProduct -XX:-UnlockExperimentalVMOptions -XX:+ShowCodeDetailsInExceptionMessages -Xmx2048M -Xms1024M
+	IntCache: cache: 0, tcache: 0, allocated: 0, tallocated: 0
+	Launched Version: mcp
+	LWJGL: 2.9.4
+	OpenGL: AMD Radeon(TM) Graphics GL version 4.6.0 Compatibility Profile Context 23.10.24.230718, ATI Technologies Inc.
+	GL Caps: Using GL 1.3 multitexturing.
+Using GL 1.3 texture combiners.
+Using framebuffer objects because OpenGL 3.0 is supported and separate blending is supported.
+Shaders are available because OpenGL 2.1 is supported.
+VBOs are available because OpenGL 1.5 is supported.
+
+	Using VBOs: Yes
+	Is Modded: Definitely; Client brand changed to 'appleclient'
+	Type: Client (map_client.txt)
+	Resource Packs: 
+	Current Language: English (US)
+	CPU: 12x AMD Ryzen 5 5500U with Radeon Graphics 

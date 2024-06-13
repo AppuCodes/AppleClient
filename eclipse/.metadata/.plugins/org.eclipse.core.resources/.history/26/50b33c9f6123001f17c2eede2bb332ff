@@ -1,6 +1,0 @@
-package tv.twitch.chat;
-
-public class ChatMessage {
-    boolean action;
-    HashSet<String> emoticonSet;
-}

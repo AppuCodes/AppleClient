@@ -15,6 +15,12 @@
     "Outline Color": "0;0;0;102"
   },
   "3D Skins": {
-    "Enabled": false
+    "Enabled": true
+  },
+  "Auto GG": {
+    "Enabled": true
+  },
+  "Shiny Pots": {
+    "Enabled": true
   }
 }

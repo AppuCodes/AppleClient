@@ -49,6 +49,7 @@
 		<item key="updateTextualMatches" value="false"/>
 		<item key="updateQualifiedNames" value="false"/>
 		<item key="patterns" value="*"/>
+		<item key="renameSubpackages" value="true"/>
 	</section>
 	<section name="JavaEditorCodeMiningConfigurationBlock">
 		<item key="expanded0" value="true"/>
