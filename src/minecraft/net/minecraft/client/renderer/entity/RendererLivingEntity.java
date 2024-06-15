@@ -4,6 +4,7 @@ import com.google.common.collect.Lists;
 
 import appleclient.Apple;
 import appleclient.mods.Mod;
+import appleclient.mods.settings.ToggleSetting;
 import dev.tr7zw.skinlayers.accessor.PlayerEntityModelAccessor;
 
 import java.nio.FloatBuffer;
@@ -573,8 +574,10 @@ public abstract class RendererLivingEntity<T extends EntityLivingBase> extends R
         {
             if (this.canRenderName(entity))
             {
-                double d0 = entity.getDistanceSqToEntity(this.renderManager.livingPlayer);
+                Mod nametags = Apple.CLIENT.modsManager.getMod("Nametags");
                 float f = entity.isSneaking() ? NAME_TAG_RANGE_SNEAK : NAME_TAG_RANGE;
+                double d0 = entity.getDistanceSqToEntity(this.renderManager.livingPlayer);
+                ToggleSetting textShadow = (ToggleSetting) nametags.getSetting("Text Shadow");
 
                 if (d0 < (double)(f * f))
                 {
@@ -589,7 +592,7 @@ public abstract class RendererLivingEntity<T extends EntityLivingBase> extends R
                         GlStateManager.translate((float)x, (float)y + entity.height + 0.5F - (entity.isChild() ? entity.height / 2.0F : 0.0F), (float)z);
                         GL11.glNormal3f(0.0F, 1.0F, 0.0F);
                         GlStateManager.rotate(-this.renderManager.playerViewY, 0.0F, 1.0F, 0.0F);
-                        GlStateManager.rotate(this.renderManager.playerViewX, 1.0F, 0.0F, 0.0F);
+                        GlStateManager.rotate(Minecraft.getMinecraft().gameSettings.thirdPersonView == 2 ? -this.renderManager.playerViewX : this.renderManager.playerViewX, 1.0F, 0.0F, 0.0F);
                         GlStateManager.scale(-0.02666667F, -0.02666667F, 0.02666667F);
                         GlStateManager.translate(0.0F, 9.374999F, 0.0F);
                         GlStateManager.disableLighting();
@@ -601,14 +604,30 @@ public abstract class RendererLivingEntity<T extends EntityLivingBase> extends R
                         Tessellator tessellator = Tessellator.getInstance();
                         WorldRenderer worldrenderer = tessellator.getWorldRenderer();
                         worldrenderer.begin(7, DefaultVertexFormats.POSITION_COLOR);
-                        worldrenderer.pos((double)(-i - 1), -1.0D, 0.0D).color(0.0F, 0.0F, 0.0F, 0.25F).endVertex();
-                        worldrenderer.pos((double)(-i - 1), 8.0D, 0.0D).color(0.0F, 0.0F, 0.0F, 0.25F).endVertex();
-                        worldrenderer.pos((double)(i + 1), 8.0D, 0.0D).color(0.0F, 0.0F, 0.0F, 0.25F).endVertex();
-                        worldrenderer.pos((double)(i + 1), -1.0D, 0.0D).color(0.0F, 0.0F, 0.0F, 0.25F).endVertex();
+                        worldrenderer.pos((double)(-i - 2), -2.0D, 0.0D).color(0.0F, 0.0F, 0.0F, 0.25F).endVertex();
+                        worldrenderer.pos((double)(-i - 2), 9.0D, 0.0D).color(0.0F, 0.0F, 0.0F, 0.25F).endVertex();
+                        worldrenderer.pos((double)(i + 2), 9.0D, 0.0D).color(0.0F, 0.0F, 0.0F, 0.25F).endVertex();
+                        worldrenderer.pos((double)(i + 2), -2.0D, 0.0D).color(0.0F, 0.0F, 0.0F, 0.25F).endVertex();
                         tessellator.draw();
                         GlStateManager.enableTexture2D();
                         GlStateManager.depthMask(true);
-                        fontrenderer.drawString(s, -fontrenderer.getStringWidth(s) / 2, 0, 553648127);
+                        
+                        if (nametags.isEnabled() && textShadow.enabled)
+                        {
+                            /**
+                             * Avoids Z-Fighting
+                             */
+                            GlStateManager.translate(0, 0, 0.01F);
+                            fontrenderer.renderString(s, -fontrenderer.getStringWidth(s) / 2 + 1, 1, 553648127, true);
+                            GlStateManager.translate(0, 0, -0.01F);
+                            fontrenderer.renderString(s, -fontrenderer.getStringWidth(s) / 2, 0, 553648127, false);
+                        }
+                        
+                        else
+                        {
+                            fontrenderer.drawString(s, -fontrenderer.getStringWidth(s) / 2, 0, 553648127);
+                        }
+                        
                         GlStateManager.enableLighting();
                         GlStateManager.disableBlend();
                         GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
@@ -630,7 +649,9 @@ public abstract class RendererLivingEntity<T extends EntityLivingBase> extends R
 
     protected boolean canRenderName(T entity)
     {
+        Mod nametags = Apple.CLIENT.modsManager.getMod("Nametags");
         EntityPlayerSP entityplayersp = Minecraft.getMinecraft().thePlayer;
+        ToggleSetting showSelfName = (ToggleSetting) nametags.getSetting("Show Self Name");
 
         if (entity instanceof EntityPlayer && entity != entityplayersp)
         {
@@ -661,7 +682,7 @@ public abstract class RendererLivingEntity<T extends EntityLivingBase> extends R
             }
         }
 
-        return Minecraft.isGuiEnabled() && entity != this.renderManager.livingPlayer && !entity.isInvisibleToPlayer(entityplayersp) && entity.riddenByEntity == null;
+        return Minecraft.isGuiEnabled() && (entity != this.renderManager.livingPlayer || (nametags.isEnabled() && showSelfName.enabled && Minecraft.getMinecraft().currentScreen == null)) && !entity.isInvisibleToPlayer(entityplayersp) && entity.riddenByEntity == null;
     }
 
     public void setRenderOutlines(boolean renderOutlinesIn)

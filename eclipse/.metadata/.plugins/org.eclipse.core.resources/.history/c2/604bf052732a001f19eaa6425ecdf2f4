@@ -1,0 +1,11 @@
+package appleclient.mods.impl;
+
+import appleclient.mods.Mod;
+
+public class Scoreboard extends Mod
+{
+    public Scoreboard()
+    {
+        super("Scoreboard", "Customize the scoreboard!");
+    }
+}

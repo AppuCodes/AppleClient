@@ -1426,6 +1426,8 @@ public class Minecraft implements IThreadListener
                 {
                     this.displayHeight = 1;
                 }
+                
+                setNativeBarWindows(getHandle());
             }
 
             if (this.currentScreen != null)
@@ -2092,13 +2094,14 @@ public class Minecraft implements IThreadListener
 
         if (worldClientIn == null && this.theWorld != null)
         {
+            this.mcSoundHandler.stopSounds(); // Brought here to keep music playing
             this.mcResourcePackRepository.func_148529_f();
             this.ingameGUI.func_181029_i();
             this.setServerData((ServerData)null);
             this.integratedServerIsRunning = false;
         }
 
-        this.mcSoundHandler.stopSounds();
+        // this.mcSoundHandler.stopSounds();
         this.theWorld = worldClientIn;
 
         if (worldClientIn != null)

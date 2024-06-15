@@ -1,5 +1,0 @@
-package appleclient.mods.events.impl;
-
-public class EventTick {
-
-}

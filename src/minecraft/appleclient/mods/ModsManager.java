@@ -22,6 +22,8 @@ public class ModsManager
         mods.add(new DepthSkins());
         mods.add(new AutoGG());
         mods.add(new ShinyPots());
+        mods.add(new Scoreboard());
+        mods.add(new Nametags());
     }
     
     public Mod getMod(String name)

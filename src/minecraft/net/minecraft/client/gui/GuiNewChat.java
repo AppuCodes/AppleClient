@@ -78,11 +78,11 @@ public class GuiNewChat extends Gui
                             if (l1 > 3)
                             {
                                 int i2 = 0;
-                                int j2 = -i1 * 9;
-                                drawRect(i2 - 2, j2 - 9, i2 + l + 4, j2, l1 / 2 << 24);
+                                int j2 = -i1 * 12;
+                                drawRect(i2 - 2, j2 - 12, i2 + l + 4, j2, l1 / 2 << 24);
                                 String s = chatline.getChatComponent().getFormattedText();
                                 GlStateManager.enableBlend();
-                                this.mc.fontRendererObj.drawStringWithShadow(s, (float)i2, (float)(j2 - 8), 16777215 + (l1 << 24));
+                                this.mc.fontRendererObj.drawStringWithShadow(s, (float)i2, (float)(j2 - 10), 16777215 + (l1 << 24));
                                 GlStateManager.disableAlpha();
                                 GlStateManager.disableBlend();
                             }
@@ -92,7 +92,7 @@ public class GuiNewChat extends Gui
 
                 if (flag)
                 {
-                    int k2 = this.mc.fontRendererObj.FONT_HEIGHT;
+                    int k2 = 11;
                     GlStateManager.translate(-3.0F, 0.0F, 0.0F);
                     int l2 = k * k2 + k;
                     int i3 = j * k2 + j;
@@ -257,7 +257,7 @@ public class GuiNewChat extends Gui
 
                 if (j <= MathHelper.floor_float((float)this.getChatWidth() / this.getChatScale()) && k < this.mc.fontRendererObj.FONT_HEIGHT * l + l)
                 {
-                    int i1 = k / this.mc.fontRendererObj.FONT_HEIGHT + this.scrollPos;
+                    int i1 = k / 12 + this.scrollPos;
 
                     if (i1 >= 0 && i1 < this.field_146253_i.size())
                     {

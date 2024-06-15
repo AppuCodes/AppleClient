@@ -25,5 +25,15 @@
   },
   "Shiny Pots": {
     "Enabled": false
+  },
+  "Scoreboard": {
+    "Enabled": true,
+    "Text Shadow": true,
+    "Show Numbers": false
+  },
+  "Nametags": {
+    "Enabled": true,
+    "Text Shadow": true,
+    "Show Self Name": true
   }
 }

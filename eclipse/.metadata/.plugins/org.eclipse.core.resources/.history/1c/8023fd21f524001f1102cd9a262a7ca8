@@ -1,5 +1,0 @@
-package appleclient.interfaces;
-
-public interface IMinecraft {
-
-}

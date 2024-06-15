@@ -15,7 +15,6 @@ public class FieldLocatorActionKeyF3 implements IFieldLocator
 
         if (field == null)
         {
-            Config.log("(Reflector) Field not present: " + oclass.getName() + ".actionKeyF3 (field renderChunksMany not found)");
             return null;
         }
         else
@@ -24,7 +23,6 @@ public class FieldLocatorActionKeyF3 implements IFieldLocator
 
             if (field1 == null)
             {
-                Config.log("(Reflector) Field not present: " + oclass.getName() + ".actionKeyF3");
                 return null;
             }
             else

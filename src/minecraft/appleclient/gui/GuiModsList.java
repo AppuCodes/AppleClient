@@ -27,7 +27,7 @@ public class GuiModsList extends GuiScreen
             {
                 x = w2 - 190;
                 y += 97.5F;
-                i = 0;
+                i = 1;
             }
             
             boolean insideBox = cursorInsideBox(mouseX, mouseY, x, y, x + 88, y + 88);
@@ -66,7 +66,7 @@ public class GuiModsList extends GuiScreen
             {
                 x = w2 - 190;
                 y += 97.5F;
-                i = 0;
+                i = 1;
             }
             
             if (cursorInsideBox(mouseX, mouseY, x, y, x + 88, y + 88) && mouseButton == 0)

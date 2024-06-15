@@ -21,7 +21,8 @@
     <fullyQualifiedTypeName name="appleclient.events.Event"/>
     <fullyQualifiedTypeName name="appleclient.events.impl.EventPacketReceive"/>
     <fullyQualifiedTypeName name="appleclient.mods.impl.AutoGG"/>
-    <fullyQualifiedTypeName name="appleclient.Apple"/>
     <fullyQualifiedTypeName name="net.minecraft.client.gui.Gui"/>
+    <fullyQualifiedTypeName name="appleclient.mods.impl.Scoreboard"/>
+    <fullyQualifiedTypeName name="appleclient.Apple"/>
     <fullyQualifiedTypeName name="java.awt.Color"/>
 </qualifiedTypeNameHistroy>
