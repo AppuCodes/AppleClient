@@ -1,5 +1,6 @@
 package net.minecraft.client.renderer.texture;
 
+import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -306,6 +307,28 @@ public class TextureUtil
             }
 
             return bufferedimage;
+        }
+    }
+
+    public static BufferedImage scalePackImage(BufferedImage image) throws IOException
+    {
+        if (image == null)
+        {
+            return null;
+        }
+
+        else
+        {
+            if (image.getWidth() == 64 && image.getHeight() == 64)
+            {
+                return image;
+            }
+
+            BufferedImage smallImage = new BufferedImage(64, 64, BufferedImage.TYPE_INT_ARGB);
+            Graphics graphics = smallImage.getGraphics();
+            graphics.drawImage(image, 0, 0, 64, 64, null);
+            graphics.dispose();
+            return smallImage;
         }
     }
 

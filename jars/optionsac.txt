@@ -9,7 +9,8 @@
   },
   "Crosshair": {
     "Enabled": false,
-    "Transparency": true
+    "Transparency": true,
+    "Show 3rd Person": false
   },
   "Block Selection": {
     "Enabled": false,
@@ -27,13 +28,19 @@
     "Enabled": false
   },
   "Scoreboard": {
-    "Enabled": true,
-    "Text Shadow": true,
-    "Show Numbers": false
+    "Enabled": false,
+    "Text Shadow": false,
+    "Show Numbers": true
   },
   "Nametags": {
-    "Enabled": true,
-    "Text Shadow": true,
-    "Show Self Name": true
+    "Enabled": false,
+    "Text Shadow": false,
+    "Show Self Name": false
+  },
+  "Full Bright": {
+    "Enabled": false
+  },
+  "No Hunger": {
+    "Enabled": true
   }
 }

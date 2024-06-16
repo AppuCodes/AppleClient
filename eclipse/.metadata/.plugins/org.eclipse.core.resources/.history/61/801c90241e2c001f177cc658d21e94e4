@@ -1,0 +1,25 @@
+package appleclient.gui;
+
+import net.minecraft.client.renderer.texture.DynamicTexture;
+import net.minecraft.util.ResourceLocation;
+
+public class PanoramaRenderer
+{
+    /** Timer used to rotate the panorama, increases every tick. */
+    public static int panoramaTimer;
+    
+    /**
+     * Texture allocated for the current viewport of the main menu's panorama background.
+     */
+    private static DynamicTexture viewportTexture;
+    
+    /** An array of all the paths to the panorama pictures. */
+    private static final ResourceLocation[] titlePanoramaPaths = new ResourceLocation[] {new ResourceLocation("textures/gui/title/background/panorama_0.png"), new ResourceLocation("textures/gui/title/background/panorama_1.png"), new ResourceLocation("textures/gui/title/background/panorama_2.png"), new ResourceLocation("textures/gui/title/background/panorama_3.png"), new ResourceLocation("textures/gui/title/background/panorama_4.png"), new ResourceLocation("textures/gui/title/background/panorama_5.png")};
+    private static ResourceLocation backgroundTexture;
+    
+    static
+    {
+        viewportTexture = new DynamicTexture(256, 256);
+        backgroundTexture = mc.getTextureManager().getDynamicTextureLocation("background", this.viewportTexture);
+    }
+}

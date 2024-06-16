@@ -2,6 +2,9 @@ package net.minecraft.client.gui;
 
 import com.google.common.base.Splitter;
 import com.google.common.collect.Lists;
+
+import appleclient.gui.PanoramaRenderer;
+
 import java.io.IOException;
 import java.util.List;
 import net.minecraft.client.multiplayer.GuiConnecting;
@@ -114,6 +117,7 @@ public class GuiMultiplayer extends GuiScreen implements GuiYesNoCallback
             this.serverListSelector.func_148194_a(list);
         }
 
+        PanoramaRenderer.tick();
         this.oldServerPinger.pingPendingNetworks();
     }
 
@@ -367,7 +371,8 @@ public class GuiMultiplayer extends GuiScreen implements GuiYesNoCallback
     public void drawScreen(int mouseX, int mouseY, float partialTicks)
     {
         this.hoveringText = null;
-        this.drawDefaultBackground();
+        PanoramaRenderer.renderSkybox(partialTicks, width, height);
+        this.drawGradientRect(0, 0, this.width, this.height, -1072689136, -804253680);
         this.serverListSelector.drawScreen(mouseX, mouseY, partialTicks);
         this.drawCenteredString(this.fontRendererObj, I18n.format("multiplayer.title", new Object[0]), this.width / 2, 20, 16777215);
         super.drawScreen(mouseX, mouseY, partialTicks);

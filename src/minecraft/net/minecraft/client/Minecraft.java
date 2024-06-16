@@ -1213,6 +1213,7 @@ public class Minecraft implements IThreadListener
                 this.inGameHasFocus = true;
                 this.mouseHelper.grabMouseCursor();
                 this.displayGuiScreen((GuiScreen)null);
+                this.updateKeyBindState();
                 this.leftClickCounter = 10000;
             }
         }
@@ -1314,7 +1315,6 @@ public class Minecraft implements IThreadListener
     /**
      * Called when user clicked he's mouse right button (place)
      */
-    @SuppressWarnings("incomplete-switch")
     private void rightClickMouse()
     {
         if (!this.playerController.func_181040_m())
@@ -1370,6 +1370,10 @@ public class Minecraft implements IThreadListener
                                 this.entityRenderer.itemRenderer.resetEquippedProgress();
                             }
                         }
+
+                        break;
+
+                    default: {}
                 }
             }
 
@@ -2874,6 +2878,21 @@ public class Minecraft implements IThreadListener
     public void func_181537_a(boolean p_181537_1_)
     {
         this.field_181541_X = p_181537_1_;
+    }
+    
+    private void updateKeyBindState()
+    {
+        for (KeyBinding keyBinding : KeyBinding.keybindArray)
+        {
+            try
+            {
+                keyBinding.setKeyBindState(keyBinding.getKeyCode(), keyBinding.getKeyCode() < 256 && Keyboard.isKeyDown(keyBinding.getKeyCode()));
+            }
+            
+            catch (IndexOutOfBoundsException e)
+            {
+            }
+        }
     }
     
     public interface DwmApi extends StdCallLibrary

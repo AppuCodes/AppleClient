@@ -334,7 +334,6 @@ public class ItemRenderer
         float f3 = entityplayersp.prevRotationYaw + (entityplayersp.rotationYaw - entityplayersp.prevRotationYaw) * partialTicks;
         this.func_178101_a(f2, f3);
         this.func_178109_a(entityplayersp);
-        this.func_178110_a(entityplayersp, partialTicks);
         GlStateManager.enableRescaleNormal();
         GlStateManager.pushMatrix();
 

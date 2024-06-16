@@ -9,7 +9,7 @@ import net.minecraft.util.IntHashMap;
 
 public class KeyBinding implements Comparable<KeyBinding>
 {
-    private static final List<KeyBinding> keybindArray = Lists.<KeyBinding>newArrayList();
+    public static final List<KeyBinding> keybindArray = Lists.<KeyBinding>newArrayList();
     private static final IntHashMap<KeyBinding> hash = new IntHashMap();
     private static final Set<String> keybindSet = Sets.<String>newHashSet();
     private final String keyDescription;

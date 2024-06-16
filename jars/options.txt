@@ -1,14 +1,14 @@
 invertYMouse:false
 mouseSensitivity:0.28873238
 fov:0.125
-gamma:1.0
+gamma:0.0
 saturation:0.0
 renderDistance:12
 guiScale:3
 particles:0
 bobView:true
 anaglyph3d:false
-maxFps:90
+maxFps:260
 fboEnable:true
 difficulty:1
 fancyGraphics:false
@@ -52,7 +52,7 @@ streamChatEnabled:0
 streamChatUserFilter:0
 streamMicToggleBehavior:0
 forceUnicodeFont:false
-allowBlockAlternatives:false
+allowBlockAlternatives:true
 reducedDebugInfo:false
 useNativeTransport:true
 entityShadows:false

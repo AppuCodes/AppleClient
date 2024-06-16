@@ -24,6 +24,8 @@ public class ModsManager
         mods.add(new ShinyPots());
         mods.add(new Scoreboard());
         mods.add(new Nametags());
+        mods.add(new FullBright());
+        mods.add(new NoHunger());
     }
     
     public Mod getMod(String name)

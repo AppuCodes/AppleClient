@@ -8,7 +8,7 @@ ofSmoothWorld:false
 ofAoLevel:1.0
 ofClouds:2
 ofCloudsHeight:1.0
-ofTrees:2
+ofTrees:4
 ofDroppedItems:0
 ofRain:0
 ofAnimatedWater:0
@@ -30,7 +30,7 @@ ofAnimatedTextures:true
 ofRainSplash:true
 ofLagometer:false
 ofShowFps:false
-ofAutoSaveTicks:40
+ofAutoSaveTicks:40000
 ofBetterGrass:3
 ofConnectedTextures:2
 ofWeather:true

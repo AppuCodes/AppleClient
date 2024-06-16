@@ -1,6 +1,9 @@
 package net.minecraft.network.play.server;
 
 import java.io.IOException;
+
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiChat;
 import net.minecraft.network.Packet;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.network.play.INetHandlerPlayClient;
@@ -23,7 +26,10 @@ public class S2EPacketCloseWindow implements Packet<INetHandlerPlayClient>
      */
     public void processPacket(INetHandlerPlayClient handler)
     {
-        handler.handleCloseWindow(this);
+        if (!(Minecraft.getMinecraft().currentScreen instanceof GuiChat))
+        {
+            handler.handleCloseWindow(this);
+        }
     }
 
     /**

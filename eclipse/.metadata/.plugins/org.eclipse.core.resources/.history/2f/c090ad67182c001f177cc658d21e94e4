@@ -1,0 +1,11 @@
+package appleclient.mods.impl;
+
+import appleclient.mods.Mod;
+
+public class FullBright extends Mod
+{
+    public FullBright()
+    {
+        super("Full Bright", "Disables lighting.");
+    }
+}

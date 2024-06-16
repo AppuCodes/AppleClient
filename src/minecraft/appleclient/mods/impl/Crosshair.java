@@ -8,7 +8,8 @@ public class Crosshair extends Mod
     public Crosshair()
     {
         super("Crosshair", "Changes how the crosshair looks.");
-        setupSettings(1);
+        setupSettings(2);
         addSetting(new ToggleSetting("Transparency", true));
+        addSetting(new ToggleSetting("Show 3rd Person", false));
     }
 }
