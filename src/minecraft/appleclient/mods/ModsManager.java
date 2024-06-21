@@ -25,8 +25,7 @@ public class ModsManager
         mods.add(new Scoreboard());
         mods.add(new Nametags());
         mods.add(new FullBright());
-        mods.add(new NoHunger());
-        mods.add(new AutoHideBar());
+        mods.add(new HotbarTweaks());
     }
     
     public Mod getMod(String name)

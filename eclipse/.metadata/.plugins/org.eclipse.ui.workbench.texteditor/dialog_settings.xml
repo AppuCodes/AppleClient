@@ -1,28 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
-		<item key="selection" value="remainingHighlightTicks"/>
+		<item key="selection" value="LINE_SMOOTH"/>
 		<item key="wrap" value="true"/>
 		<item key="casesensitive" value="false"/>
 		<item key="wholeword" value="false"/>
 		<item key="incremental" value="false"/>
 		<item key="isRegEx" value="false"/>
 		<list key="findhistory">
+			<item value="line_smooth"/>
+			<item value="noHunger"/>
+			<item value="animationsToGo"/>
+			<item value="animatinosto"/>
+			<item value="animation"/>
+			<item value="renderHotbar"/>
+			<item value="dropItem"/>
+			<item value="drop"/>
+			<item value="pick"/>
+			<item value="pickup"/>
+			<item value="getSkyColo"/>
+			<item value="bossstatus"/>
+			<item value="renderTOOLTIP"/>
 			<item value="remainingHighlightTicks"/>
 			<item value="renderTooltip"/>
-			<item value="heldItemTooltips"/>
-			<item value="tooltip"/>
-			<item value="advancedItemTooltips"/>
-			<item value="tool"/>
-			<item value="hotbar"/>
-			<item value="health"/>
-			<item value="drawStat"/>
-			<item value="renderS"/>
-			<item value="renderSt"/>
-			<item value="renderSta"/>
-			<item value="renderStat"/>
-			<item value="renderStats"/>
-			<item value="hunger"/>
 		</list>
 		<list key="replacehistory">
 			<item value="x("/>

@@ -40,10 +40,9 @@
   "Full Bright": {
     "Enabled": false
   },
-  "No Hunger": {
-    "Enabled": true
-  },
-  "Auto Hide Bar": {
-    "Enabled": true
+  "Hotbar Tweaks": {
+    "Enabled": true,
+    "No Hunger": false,
+    "Automatically Hide Hotbar": false
   }
 }

@@ -1,9 +1,13 @@
 package net.minecraft.inventory;
 
-import com.google.common.collect.Lists;
-import com.google.common.collect.Sets;
 import java.util.List;
 import java.util.Set;
+
+import com.google.common.collect.Lists;
+import com.google.common.collect.Sets;
+
+import appleclient.Apple;
+import appleclient.mods.impl.HotbarTweaks;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.item.Item;
@@ -537,7 +541,9 @@ public abstract class Container
      */
     public void putStackInSlot(int slotID, ItemStack stack)
     {
+        HotbarTweaks hotbarTweaks = (HotbarTweaks) Apple.CLIENT.modsManager.getMod("Hotbar Tweaks");
         this.getSlot(slotID).putStack(stack);
+        hotbarTweaks.flag = true;
     }
 
     /**

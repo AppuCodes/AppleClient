@@ -118,7 +118,7 @@ public class GuiPlayerTabOverlay extends Gui
 
         int i1 = Math.min(j4 * ((flag ? 9 : 0) + i + l + 13), width - 50) / j4;
         int j1 = width / 2 - (i1 * j4 + (j4 - 1) * 5) / 2;
-        int k1 = BossStatus.bossName != null ? 22 : 2;
+        int k1 = BossStatus.bossName != null && BossStatus.statusBarTime > 0 ? 22 : 2;
         int l1 = i1 * j4 + (j4 - 1) * 5;
         List<String> list1 = null;
         List<String> list2 = null;

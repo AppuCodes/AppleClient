@@ -11,7 +11,7 @@ import com.google.common.collect.Lists;
 import appleclient.Apple;
 import appleclient.events.impl.EventRender;
 import appleclient.mods.Mod;
-import appleclient.mods.impl.AutoHideBar;
+import appleclient.mods.impl.HotbarTweaks;
 import appleclient.mods.settings.ToggleSetting;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
@@ -122,14 +122,15 @@ public class GuiIngame extends Gui
 
     public void renderGameOverlay(float partialTicks)
     {
-        AutoHideBar autoHideBar = (AutoHideBar) Apple.CLIENT.modsManager.getMod("Auto Hide Bar");
+        HotbarTweaks hotbarTweaks = (HotbarTweaks) Apple.CLIENT.modsManager.getMod("Hotbar Tweaks");
         ScaledResolution scaledresolution = new ScaledResolution(this.mc);
         int i = scaledresolution.getScaledWidth();
         int j = scaledresolution.getScaledHeight();
         this.mc.entityRenderer.setupOverlayRendering();
         GlStateManager.enableBlend();
-        boolean translate = autoHideBar.isEnabled() && autoHideBar.ticks <= 10;
-        float translateAmount = Math.min((10 - autoHideBar.ticks + partialTicks) * 6, 24);
+        ToggleSetting autoHideHotbar = (ToggleSetting) hotbarTweaks.getSetting("Automatically Hide Hotbar");
+        boolean translate = hotbarTweaks.isEnabled() && autoHideHotbar.enabled && hotbarTweaks.ticks <= 10;
+        float translateAmount = Math.min((10 - hotbarTweaks.ticks + partialTicks) * 6, 24);
         
         if (Config.isVignetteEnabled())
         {
@@ -831,9 +832,9 @@ public class GuiIngame extends Gui
             }
 
             Entity entity = entityplayer.ridingEntity;
-            Mod noHunger = Apple.CLIENT.modsManager.getMod("No Hunger");
-
-            if (entity == null && !noHunger.isEnabled())
+            HotbarTweaks hotbarTweaks = (HotbarTweaks) Apple.CLIENT.modsManager.getMod("Hotbar Tweaks");
+            
+            if (entity == null && !(hotbarTweaks.isEnabled() && ((ToggleSetting) hotbarTweaks.getSetting("No Hunger")).enabled))
             {
                 for (int l5 = 0; l5 < 10; ++l5)
                 {

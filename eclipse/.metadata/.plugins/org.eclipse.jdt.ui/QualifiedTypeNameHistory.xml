@@ -25,6 +25,6 @@
     <fullyQualifiedTypeName name="java.awt.Color"/>
     <fullyQualifiedTypeName name="java.net.URI"/>
     <fullyQualifiedTypeName name="net.minecraft.client.Minecraft"/>
-    <fullyQualifiedTypeName name="appleclient.Apple"/>
     <fullyQualifiedTypeName name="appleclient.gui.PanoramaRenderer"/>
+    <fullyQualifiedTypeName name="appleclient.Apple"/>
 </qualifiedTypeNameHistroy>

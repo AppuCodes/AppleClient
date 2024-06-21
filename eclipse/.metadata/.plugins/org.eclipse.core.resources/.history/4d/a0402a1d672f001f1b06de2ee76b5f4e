@@ -1,0 +1,12 @@
+package appleclient.mods.impl;
+
+import appleclient.mods.Mod;
+
+public class HotbarTweaks extends Mod
+{
+    public HotbarTweaks()
+    {
+        super("Hotbar Tweaks", "Tweaks for the hotbar.");
+        setupSettings(2);
+    }
+}
