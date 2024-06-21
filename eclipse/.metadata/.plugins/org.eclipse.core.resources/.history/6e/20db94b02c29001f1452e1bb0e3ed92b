@@ -1,6 +1,0 @@
-package appleclient.mods.events.copy;
-
-public class Event
-{
-    public boolean cancelled;
-}

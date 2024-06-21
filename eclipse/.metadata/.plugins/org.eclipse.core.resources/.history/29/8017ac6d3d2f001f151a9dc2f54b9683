@@ -1,0 +1,11 @@
+package appleclient.mods.impl;
+
+import appleclient.mods.Mod;
+
+public class AutoHideBar extends Mod
+{
+    public AutoHideBar()
+    {
+        super("Auto Hide Bar", "Automatically hides the hotbar when not in use. Similar to Immersive HUD and useful with a large GUI scale.");
+    }
+}

@@ -42,5 +42,8 @@
   },
   "No Hunger": {
     "Enabled": true
+  },
+  "Auto Hide Bar": {
+    "Enabled": true
   }
 }

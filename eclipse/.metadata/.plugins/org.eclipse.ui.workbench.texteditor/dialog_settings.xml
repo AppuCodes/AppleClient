@@ -1,13 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
-		<item key="selection" value="Health"/>
+		<item key="selection" value="remainingHighlightTicks"/>
 		<item key="wrap" value="true"/>
 		<item key="casesensitive" value="false"/>
 		<item key="wholeword" value="false"/>
 		<item key="incremental" value="false"/>
 		<item key="isRegEx" value="false"/>
 		<list key="findhistory">
+			<item value="remainingHighlightTicks"/>
+			<item value="renderTooltip"/>
+			<item value="heldItemTooltips"/>
+			<item value="tooltip"/>
+			<item value="advancedItemTooltips"/>
+			<item value="tool"/>
+			<item value="hotbar"/>
 			<item value="health"/>
 			<item value="drawStat"/>
 			<item value="renderS"/>
@@ -16,13 +23,6 @@
 			<item value="renderStat"/>
 			<item value="renderStats"/>
 			<item value="hunger"/>
-			<item value="x( "/>
-			<item value="s( "/>
-			<item value=",  "/>
-			<item value="(double)"/>
-			<item value="updateS"/>
-			<item value="drawScre"/>
-			<item value="drawScreeen"/>
 		</list>
 		<list key="replacehistory">
 			<item value="x("/>

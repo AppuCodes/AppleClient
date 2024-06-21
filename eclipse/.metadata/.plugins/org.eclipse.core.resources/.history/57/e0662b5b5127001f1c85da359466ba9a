@@ -1,6 +1,0 @@
-package appleclient.mods.settings;
-
-public class Setting
-{
-    public String name;
-}

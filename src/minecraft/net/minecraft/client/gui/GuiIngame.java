@@ -11,6 +11,7 @@ import com.google.common.collect.Lists;
 import appleclient.Apple;
 import appleclient.events.impl.EventRender;
 import appleclient.mods.Mod;
+import appleclient.mods.impl.AutoHideBar;
 import appleclient.mods.settings.ToggleSetting;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
@@ -121,12 +122,15 @@ public class GuiIngame extends Gui
 
     public void renderGameOverlay(float partialTicks)
     {
+        AutoHideBar autoHideBar = (AutoHideBar) Apple.CLIENT.modsManager.getMod("Auto Hide Bar");
         ScaledResolution scaledresolution = new ScaledResolution(this.mc);
         int i = scaledresolution.getScaledWidth();
         int j = scaledresolution.getScaledHeight();
         this.mc.entityRenderer.setupOverlayRendering();
         GlStateManager.enableBlend();
-
+        boolean translate = autoHideBar.isEnabled() && autoHideBar.ticks <= 10;
+        float translateAmount = Math.min((10 - autoHideBar.ticks + partialTicks) * 6, 24);
+        
         if (Config.isVignetteEnabled())
         {
             this.renderVignette(this.mc.thePlayer.getBrightness(partialTicks), scaledresolution);
@@ -154,6 +158,12 @@ public class GuiIngame extends Gui
             }
         }
 
+        if (translate)
+        {
+            GlStateManager.pushMatrix();
+            GlStateManager.translate(0, translateAmount, 0);
+        }
+
         if (this.mc.playerController.isSpectator())
         {
             this.spectatorGui.renderTooltip(scaledresolution, partialTicks);
@@ -162,7 +172,12 @@ public class GuiIngame extends Gui
         {
             this.renderTooltip(scaledresolution, partialTicks);
         }
-
+        
+        if (translate)
+        {
+            GlStateManager.popMatrix();
+        }
+        
         Apple.CLIENT.eventBus.post(new EventRender());
         GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
         this.mc.getTextureManager().bindTexture(icons);
@@ -187,12 +202,23 @@ public class GuiIngame extends Gui
 
         GlStateManager.tryBlendFuncSeparate(770, 771, 1, 0);
         this.renderBossHealth();
-
+        
+        if (translate)
+        {
+            GlStateManager.pushMatrix();
+            GlStateManager.translate(0, translateAmount, 0);
+        }
+        
         if (this.mc.playerController.shouldDrawHUD())
         {
             this.renderPlayerStats(scaledresolution);
         }
-
+        
+        if (translate)
+        {
+            GlStateManager.popMatrix();
+        }
+        
         GlStateManager.disableBlend();
 
         if (this.mc.thePlayer.getSleepTimer() > 0)
@@ -215,7 +241,13 @@ public class GuiIngame extends Gui
 
         GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
         int i2 = i / 2 - 91;
-
+        
+        if (translate)
+        {
+            GlStateManager.pushMatrix();
+            GlStateManager.translate(0, translateAmount, 0);
+        }
+        
         if (this.mc.thePlayer.isRidingHorse())
         {
             this.renderHorseJumpBar(scaledresolution, i2);
@@ -233,7 +265,12 @@ public class GuiIngame extends Gui
         {
             this.spectatorGui.func_175263_a(scaledresolution);
         }
-
+        
+        if (translate)
+        {
+            GlStateManager.popMatrix();
+        }
+        
         if (this.mc.isDemo())
         {
             this.renderDemo(scaledresolution);
