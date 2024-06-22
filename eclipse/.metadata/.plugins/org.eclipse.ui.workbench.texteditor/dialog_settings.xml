@@ -1,13 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
-		<item key="selection" value="LINE_SMOOTH"/>
+		<item key="selection" value="RotationYaw"/>
 		<item key="wrap" value="true"/>
 		<item key="casesensitive" value="false"/>
 		<item key="wholeword" value="false"/>
 		<item key="incremental" value="false"/>
 		<item key="isRegEx" value="false"/>
 		<list key="findhistory">
+			<item value="rotationYaw"/>
+			<item value="-0.1"/>
+			<item value="translate"/>
+			<item value="fogColor"/>
+			<item value="p_181561_0_"/>
+			<item value="func_181"/>
 			<item value="line_smooth"/>
 			<item value="noHunger"/>
 			<item value="animationsToGo"/>
@@ -17,14 +23,9 @@
 			<item value="dropItem"/>
 			<item value="drop"/>
 			<item value="pick"/>
-			<item value="pickup"/>
-			<item value="getSkyColo"/>
-			<item value="bossstatus"/>
-			<item value="renderTOOLTIP"/>
-			<item value="remainingHighlightTicks"/>
-			<item value="renderTooltip"/>
 		</list>
 		<list key="replacehistory">
+			<item value="box"/>
 			<item value="x("/>
 			<item value="s("/>
 			<item value=", "/>
