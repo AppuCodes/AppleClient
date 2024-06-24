@@ -65,9 +65,9 @@ public class EntitySelection extends Mod
                 double entityX = entity.lastTickPosX + (entity.posX - entity.lastTickPosX) * partialTicks;
                 double entityY = entity.lastTickPosY + (entity.posY - entity.lastTickPosY) * partialTicks;
                 double entityZ = entity.lastTickPosZ + (entity.posZ - entity.lastTickPosZ) * partialTicks;
-                float width = entity.width / 2.0F, height = entity.height;
-                AxisAlignedBB boundingBox = new AxisAlignedBB(entityX - width, entityY, entityZ - width, entityX + width, entityY + height, entityZ + width);
-                mc.renderGlobal.drawSelection(boundingBox.offset(-playerX, -playerY, -playerZ));
+                float width = entity.width, height = entity.height;
+                AxisAlignedBB boundingBox = new AxisAlignedBB(0, 0, 0, width, height, width).offset(-entityX, -entityY, -entityZ);
+                mc.renderGlobal.drawSelection(boundingBox);
             }
 
             GlStateManager.depthMask(true);
