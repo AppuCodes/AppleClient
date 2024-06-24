@@ -28,4 +28,6 @@
     <fullyQualifiedTypeName name="appleclient.gui.PanoramaRenderer"/>
     <fullyQualifiedTypeName name="appleclient.Apple"/>
     <fullyQualifiedTypeName name="net.minecraft.client.gui.ScaledResolution"/>
+    <fullyQualifiedTypeName name="java.util.Collections"/>
+    <fullyQualifiedTypeName name="java.util.Comparator"/>
 </qualifiedTypeNameHistroy>

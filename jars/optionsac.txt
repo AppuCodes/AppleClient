@@ -1,22 +1,4 @@
 {
-  "Toggle Sprint": {
-    "Enabled": true,
-    "Show Status": true,
-    "Background": true
-  },
-  "Raw Input": {
-    "Enabled": true
-  },
-  "Crosshair": {
-    "Enabled": false,
-    "Transparency": true,
-    "Show 3rd Person": false
-  },
-  "Block Selection": {
-    "Enabled": false,
-    "Outline Thickness": 2.0,
-    "Outline Color": "0;0;0;102"
-  },
   "3D Skins": {
     "Enabled": false
   },
@@ -24,18 +6,15 @@
     "Enabled": false,
     "GG Message": "GG"
   },
-  "Shiny Pots": {
-    "Enabled": false
-  },
-  "Scoreboard": {
+  "Block Selection": {
     "Enabled": false,
-    "Text Shadow": false,
-    "Show Numbers": true
+    "Outline Thickness": 2.0,
+    "Outline Color": "0;0;0;102"
   },
-  "Nametags": {
+  "Crosshair": {
     "Enabled": false,
-    "Text Shadow": false,
-    "Show Self Name": false
+    "Transparency": true,
+    "Show 3rd Person": false
   },
   "Full Bright": {
     "Enabled": false
@@ -44,5 +23,26 @@
     "Enabled": true,
     "No Hunger": false,
     "Automatically Hide Hotbar": false
+  },
+  "Nametags": {
+    "Enabled": false,
+    "Text Shadow": false,
+    "Show Self Name": false
+  },
+  "Raw Input": {
+    "Enabled": true
+  },
+  "Scoreboard": {
+    "Enabled": false,
+    "Text Shadow": false,
+    "Show Numbers": true
+  },
+  "Shiny Pots": {
+    "Enabled": false
+  },
+  "Toggle Sprint": {
+    "Enabled": true,
+    "Show Status": true,
+    "Background": true
   }
 }

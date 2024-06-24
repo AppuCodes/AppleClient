@@ -1,6 +1,8 @@
 package appleclient.mods;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 import appleclient.mods.impl.*;
 
@@ -26,6 +28,13 @@ public class ModsManager
         mods.add(new Nametags());
         mods.add(new FullBright());
         mods.add(new HotbarTweaks());
+        sortModsAlphabetically();
+    }
+    
+    private void sortModsAlphabetically()
+    {
+        Comparator<Mod> comparator = (a, b) -> a.name.compareTo(b.name);
+        mods.sort(comparator);
     }
     
     public Mod getMod(String name)

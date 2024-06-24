@@ -1,5 +1,5 @@
 invertYMouse:false
-mouseSensitivity:0.28873238
+mouseSensitivity:0.2535211
 fov:0.125
 gamma:1.0
 saturation:0.0
@@ -26,7 +26,7 @@ chatOpacity:1.0
 snooperEnabled:false
 fullscreen:false
 enableVsync:false
-useVbo:false
+useVbo:true
 hideServerAddress:false
 advancedItemTooltips:false
 pauseOnLostFocus:true
@@ -52,7 +52,7 @@ streamChatEnabled:0
 streamChatUserFilter:0
 streamMicToggleBehavior:0
 forceUnicodeFont:false
-allowBlockAlternatives:false
+allowBlockAlternatives:true
 reducedDebugInfo:false
 useNativeTransport:true
 entityShadows:false
