@@ -28,6 +28,7 @@ public class ModsManager
         mods.add(new Nametags());
         mods.add(new FullBright());
         mods.add(new HotbarTweaks());
+        mods.add(new EntitySelection());
         sortModsAlphabetically();
     }
     

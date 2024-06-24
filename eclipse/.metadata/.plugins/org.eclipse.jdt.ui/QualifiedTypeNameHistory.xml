@@ -26,8 +26,10 @@
     <fullyQualifiedTypeName name="java.net.URI"/>
     <fullyQualifiedTypeName name="net.minecraft.client.Minecraft"/>
     <fullyQualifiedTypeName name="appleclient.gui.PanoramaRenderer"/>
-    <fullyQualifiedTypeName name="appleclient.Apple"/>
     <fullyQualifiedTypeName name="net.minecraft.client.gui.ScaledResolution"/>
     <fullyQualifiedTypeName name="java.util.Collections"/>
     <fullyQualifiedTypeName name="java.util.Comparator"/>
+    <fullyQualifiedTypeName name="javax.swing.text.html.parser.Entity"/>
+    <fullyQualifiedTypeName name="appleclient.mods.impl.EntitySelection"/>
+    <fullyQualifiedTypeName name="appleclient.Apple"/>
 </qualifiedTypeNameHistroy>

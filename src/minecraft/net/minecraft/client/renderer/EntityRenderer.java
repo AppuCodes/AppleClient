@@ -2,6 +2,10 @@ package net.minecraft.client.renderer;
 
 import com.google.common.base.Predicates;
 import com.google.gson.JsonSyntaxException;
+
+import appleclient.Apple;
+import appleclient.mods.impl.EntitySelection;
+
 import java.io.IOException;
 import java.lang.reflect.Field;
 import java.nio.FloatBuffer;
@@ -1695,6 +1699,7 @@ public class EntityRenderer implements IResourceManagerReloadListener
                 {
                     renderglobal.drawSelectionBox(entityplayer, this.mc.objectMouseOver, 0, partialTicks);
                 }
+
                 GlStateManager.enableAlpha();
             }
         }
@@ -1711,6 +1716,15 @@ public class EntityRenderer implements IResourceManagerReloadListener
             {
                 renderglobal.drawSelectionBox(entityplayer1, this.mc.objectMouseOver, 0, partialTicks);
             }
+
+
+            EntitySelection entitySelection = (EntitySelection) Apple.CLIENT.modsManager.getMod("Entity Selection");
+
+            if (entitySelection.isEnabled())
+            {
+                entitySelection.drawSelectionBox(entityplayer1, this.mc.objectMouseOver, 0, partialTicks);
+            }
+
             GlStateManager.enableAlpha();
         }
 
