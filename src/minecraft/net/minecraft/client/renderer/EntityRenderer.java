@@ -1717,6 +1717,7 @@ public class EntityRenderer implements IResourceManagerReloadListener
                 renderglobal.drawSelectionBox(entityplayer1, this.mc.objectMouseOver, 0, partialTicks);
             }
 
+
             EntitySelection entitySelection = (EntitySelection) Apple.CLIENT.modsManager.getMod("Entity Selection");
 
             if (entitySelection.isEnabled())
