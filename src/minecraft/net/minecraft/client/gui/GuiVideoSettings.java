@@ -104,7 +104,7 @@ public class GuiVideoSettings extends GuiScreen
 
             if (this.guiGameSettings.guiScale != i)
             {
-                ScaledResolution scaledresolution = new ScaledResolution(this.mc);
+                ScaledResolution scaledresolution = ScaledResolution.get();
                 int j = scaledresolution.getScaledWidth();
                 int k = scaledresolution.getScaledHeight();
                 this.setWorldAndResolution(this.mc, j, k);

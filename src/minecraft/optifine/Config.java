@@ -1895,7 +1895,7 @@ public class Config
 
                 if (minecraft.currentScreen != null)
                 {
-                    ScaledResolution scaledresolution = new ScaledResolution(minecraft);
+                    ScaledResolution scaledresolution = ScaledResolution.get();
                     int i = scaledresolution.getScaledWidth();
                     int j = scaledresolution.getScaledHeight();
                     minecraft.currentScreen.setWorldAndResolution(minecraft, i, j);

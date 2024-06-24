@@ -89,8 +89,8 @@ public class TextureAtlasSprite
         this.originX = originInX;
         this.originY = originInY;
         this.rotated = rotatedIn;
-        float f = (float)(0.009999999776482582D / (double)inX);
-        float f1 = (float)(0.009999999776482582D / (double)inY);
+        float f = (float)(0.0001D / (double)inX); // Model stitching fix
+        float f1 = (float)(0.0001D / (double)inY); // Model stitching fix
         this.minU = (float)originInX / (float)((double)inX) + f;
         this.maxU = (float)(originInX + this.width) / (float)((double)inX) - f;
         this.minV = (float)originInY / (float)inY + f1;

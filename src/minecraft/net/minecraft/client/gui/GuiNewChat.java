@@ -243,7 +243,7 @@ public class GuiNewChat extends Gui
         }
         else
         {
-            ScaledResolution scaledresolution = new ScaledResolution(this.mc);
+            ScaledResolution scaledresolution = ScaledResolution.get();
             int i = scaledresolution.getScaleFactor();
             float f = this.getChatScale();
             int j = p_146236_1_ / i - 3;

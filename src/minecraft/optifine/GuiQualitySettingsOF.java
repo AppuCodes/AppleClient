@@ -70,7 +70,7 @@ public class GuiQualitySettingsOF extends GuiScreen
 
             if (button.id != GameSettings.Options.AA_LEVEL.ordinal())
             {
-                ScaledResolution scaledresolution = new ScaledResolution(this.mc);
+                ScaledResolution scaledresolution = ScaledResolution.get();
                 this.setWorldAndResolution(this.mc, scaledresolution.getScaledWidth(), scaledresolution.getScaledHeight());
             }
         }

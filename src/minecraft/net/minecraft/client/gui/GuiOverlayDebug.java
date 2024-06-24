@@ -228,7 +228,7 @@ public class GuiOverlayDebug extends Gui
         int i = frametimer.func_181749_a();
         int j = frametimer.func_181750_b();
         long[] along = frametimer.func_181746_c();
-        ScaledResolution scaledresolution = new ScaledResolution(this.mc);
+        ScaledResolution scaledresolution = ScaledResolution.get();
         int k = i;
         int l = 0;
         drawRect(0, scaledresolution.getScaledHeight() - 60, 240, scaledresolution.getScaledHeight(), -1873784752);
