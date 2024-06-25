@@ -57,7 +57,7 @@ public class EntitySelection extends Mod
             GlStateManager.depthMask(false);
             Entity entity = movingObjectPositionIn.entityHit;
 
-            if (!entity.isInvisibleToPlayer(player))
+            if (!entity.isInvisibleToPlayer(player) && entity.isEntityAlive())
             {
                 double playerX = player.lastTickPosX + (player.posX - player.lastTickPosX) * partialTicks;
                 double playerY = player.lastTickPosY + (player.posY - player.lastTickPosY) * partialTicks;

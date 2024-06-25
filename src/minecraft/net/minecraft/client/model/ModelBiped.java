@@ -1,5 +1,9 @@
 package net.minecraft.client.model;
 
+import appleclient.Apple;
+import appleclient.mods.Mod;
+import dev.tr7zw.skinlayers.accessor.PlayerSettings;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.MathHelper;
@@ -82,6 +86,7 @@ public class ModelBiped extends ModelBase
      */
     public void render(Entity entityIn, float p_78088_2_, float p_78088_3_, float p_78088_4_, float p_78088_5_, float p_78088_6_, float scale)
     {
+        Mod depthSkins = Apple.CLIENT.modsManager.getMod("3D Skins");
         this.setRotationAngles(p_78088_2_, p_78088_3_, p_78088_4_, p_78088_5_, p_78088_6_, scale, entityIn);
         GlStateManager.pushMatrix();
 
@@ -100,7 +105,12 @@ public class ModelBiped extends ModelBase
             this.bipedLeftArm.render(scale);
             this.bipedRightLeg.render(scale);
             this.bipedLeftLeg.render(scale);
-            this.bipedHeadwear.render(scale);
+            
+            if (!(depthSkins.isEnabled() && entityIn instanceof PlayerSettings) || Minecraft.getMinecraft().thePlayer.getPositionVector().squareDistanceTo(entityIn.getPositionVector()) > 14 * 14)
+            {
+                GlStateManager.disableCull();
+                this.bipedHeadwear.render(scale);
+            }
         }
         else
         {
@@ -115,7 +125,12 @@ public class ModelBiped extends ModelBase
             this.bipedLeftArm.render(scale);
             this.bipedRightLeg.render(scale);
             this.bipedLeftLeg.render(scale);
-            this.bipedHeadwear.render(scale);
+            
+            if (!(depthSkins.isEnabled() && entityIn instanceof PlayerSettings) || Minecraft.getMinecraft().thePlayer.getPositionVector().squareDistanceTo(entityIn.getPositionVector()) > 14 * 14)
+            {
+                GlStateManager.disableCull();
+                this.bipedHeadwear.render(scale);
+            }
         }
 
         GlStateManager.popMatrix();

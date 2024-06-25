@@ -24,7 +24,6 @@
     <fullyQualifiedTypeName name="appleclient.mods.impl.Scoreboard"/>
     <fullyQualifiedTypeName name="java.awt.Color"/>
     <fullyQualifiedTypeName name="java.net.URI"/>
-    <fullyQualifiedTypeName name="net.minecraft.client.Minecraft"/>
     <fullyQualifiedTypeName name="appleclient.gui.PanoramaRenderer"/>
     <fullyQualifiedTypeName name="net.minecraft.client.gui.ScaledResolution"/>
     <fullyQualifiedTypeName name="java.util.Collections"/>
@@ -32,4 +31,5 @@
     <fullyQualifiedTypeName name="javax.swing.text.html.parser.Entity"/>
     <fullyQualifiedTypeName name="appleclient.mods.impl.EntitySelection"/>
     <fullyQualifiedTypeName name="appleclient.Apple"/>
+    <fullyQualifiedTypeName name="net.minecraft.client.Minecraft"/>
 </qualifiedTypeNameHistroy>
