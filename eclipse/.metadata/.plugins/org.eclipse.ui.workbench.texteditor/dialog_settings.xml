@@ -1,28 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
-		<item key="selection" value="7.99"/>
+		<item key="selection" value="overlayPlayerList"/>
 		<item key="wrap" value="true"/>
 		<item key="casesensitive" value="false"/>
 		<item key="wholeword" value="false"/>
 		<item key="incremental" value="false"/>
 		<item key="isRegEx" value="false"/>
 		<list key="findhistory">
-			<item value="7.99"/>
-			<item value="isTop"/>
-			<item value="blockSelection"/>
-			<item value="Clouds"/>
-			<item value="clouds"/>
-			<item value="entityselection"/>
-			<item value="renderLivingAt"/>
-			<item value="rotateCorpse"/>
-			<item value="rotateCorp"/>
-			<item value="rotateCorpe"/>
-			<item value="rotateCorprse"/>
-			<item value="renderDebug"/>
-			<item value="bounding"/>
-			<item value="boudning"/>
-			<item value="drawBox"/>
+			<item value="overlayPlayerList"/>
+			<item value="15"/>
+			<item value="k == 15"/>
+			<item value="guiplayer"/>
+			<item value="player"/>
+			<item value="tab"/>
+			<item value="tAb"/>
+			<item value="ViewBobbing"/>
+			<item value="viewbobbing"/>
+			<item value="unable to"/>
+			<item value="getMouseOver"/>
+			<item value="selection"/>
+			<item value="s"/>
+			<item value="renderSelection"/>
+			<item value="renderSeletion"/>
 		</list>
 		<list key="replacehistory">
 			<item value="box"/>

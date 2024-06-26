@@ -3,21 +3,36 @@ package appleclient.mods.impl;
 import com.google.common.eventbus.Subscribe;
 
 import appleclient.events.impl.EventPacketReceive;
+import appleclient.events.impl.EventTick;
 import appleclient.events.impl.EventWorldChange;
 import appleclient.mods.Mod;
 import appleclient.mods.settings.TextSetting;
+import appleclient.mods.settings.ToggleSetting;
 import net.minecraft.network.play.server.S02PacketChat;
 
 public class AutoGG extends Mod
 {
     private String[] triggers = new String[] {"1st Killer - ", "1st Place - ", "Winner: ", " - Damage Dealt - ", "Winning Team -", "1st - ", "Winners: ", "Winner: ", "Winning Team: ", " won the game!", "Top Seeker: ", "1st Place: ", "Last team standing!", "Winner #1 (", "Top Survivors", "Winners - ", "Sumo Duel - "};
-    private boolean canGG = true;
+    private boolean canGG = true, canSecondMessage = false;
     
     public AutoGG()
     {
         super("Auto GG", "Automatically says GG in chat after a game ends.");
-        setupSettings(1);
+        setupSettings(3);
         addSetting(new TextSetting("GG Message", "GG"));
+        addSetting(new ToggleSetting("Enable 2nd Message", false));
+        addSetting(new TextSetting("2nd GG Message", "I enjoyed playing with you! <3"));
+    }
+    
+    @Subscribe
+    public void onTick(EventTick e)
+    {
+        if (canSecondMessage)
+        {
+            TextSetting textSetting = (TextSetting) getSetting("2nd GG Message");
+            mc.thePlayer.sendChatMessage("/ac " + textSetting.text);
+            canSecondMessage = false;
+        }
     }
     
     @Subscribe
@@ -37,6 +52,12 @@ public class AutoGG extends Mod
                         TextSetting textSetting = (TextSetting) getSetting("GG Message");
                         mc.thePlayer.sendChatMessage("/ac " + textSetting.text);
                         canGG = false;
+                        
+                        if (((ToggleSetting) getSetting("Enable 2nd Message")).enabled)
+                        {
+                            canSecondMessage = true;
+                        }
+                        
                         break;
                     }
                 }

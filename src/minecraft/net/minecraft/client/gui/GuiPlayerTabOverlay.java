@@ -1,10 +1,15 @@
 package net.minecraft.client.gui;
 
+import java.awt.Color;
+import java.util.Comparator;
+import java.util.List;
+
 import com.google.common.collect.ComparisonChain;
 import com.google.common.collect.Ordering;
 import com.mojang.authlib.GameProfile;
-import java.util.Comparator;
-import java.util.List;
+
+import appleclient.Apple;
+import appleclient.mods.Mod;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.network.NetHandlerPlayClient;
 import net.minecraft.client.network.NetworkPlayerInfo;
@@ -237,39 +242,70 @@ public class GuiPlayerTabOverlay extends Gui
 
     protected void drawPing(int p_175245_1_, int p_175245_2_, int p_175245_3_, NetworkPlayerInfo networkPlayerInfoIn)
     {
-        GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-        this.mc.getTextureManager().bindTexture(icons);
-        int i = 0;
-        int j = 0;
-
-        if (networkPlayerInfoIn.getResponseTime() < 0)
+        Mod pingIndicator = Apple.CLIENT.modsManager.getMod("Ping Indicator");
+        
+        if (pingIndicator.isEnabled())
         {
-            j = 5;
+            GlStateManager.pushMatrix();
+            GlStateManager.scale(0.65F, 0.65F, 0.65F);
+            Color color = null;
+            
+            if (networkPlayerInfoIn.getResponseTime() < 300)
+            {
+                color = Color.GREEN;
+            }
+            
+            else if (networkPlayerInfoIn.getResponseTime() < 600)
+            {
+                color = Color.ORANGE;
+            }
+            
+            else
+            {
+                color = Color.RED;
+            }
+            
+            this.mc.fontRendererObj.drawStringWithShadow(networkPlayerInfoIn.getResponseTime() + "", (p_175245_2_ + p_175245_1_ - (int) (this.mc.fontRendererObj.getStringWidth(networkPlayerInfoIn.getResponseTime() + "") * 0.65F) - 1) / 0.65F, (p_175245_3_ + 2) / 0.65F, color.getRGB());
+            GlStateManager.popMatrix();
+            GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
         }
-        else if (networkPlayerInfoIn.getResponseTime() < 150)
-        {
-            j = 0;
-        }
-        else if (networkPlayerInfoIn.getResponseTime() < 300)
-        {
-            j = 1;
-        }
-        else if (networkPlayerInfoIn.getResponseTime() < 600)
-        {
-            j = 2;
-        }
-        else if (networkPlayerInfoIn.getResponseTime() < 1000)
-        {
-            j = 3;
-        }
+        
         else
         {
-            j = 4;
-        }
+            GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+            this.mc.getTextureManager().bindTexture(icons);
+            int i = 0;
+            int j = 0;
 
-        this.zLevel += 100.0F;
-        this.drawTexturedModalRect(p_175245_2_ + p_175245_1_ - 11, p_175245_3_, 0 + i * 10, 176 + j * 8, 10, 8);
-        this.zLevel -= 100.0F;
+            if (networkPlayerInfoIn.getResponseTime() < 0)
+            {
+                j = 5;
+            }
+            else if (networkPlayerInfoIn.getResponseTime() < 150)
+            {
+                j = 0;
+            }
+            else if (networkPlayerInfoIn.getResponseTime() < 300)
+            {
+                j = 1;
+            }
+            else if (networkPlayerInfoIn.getResponseTime() < 600)
+            {
+                j = 2;
+            }
+            else if (networkPlayerInfoIn.getResponseTime() < 1000)
+            {
+                j = 3;
+            }
+            else
+            {
+                j = 4;
+            }
+
+            this.zLevel += 100.0F;
+            this.drawTexturedModalRect(p_175245_2_ + p_175245_1_ - 11, p_175245_3_, 0 + i * 10, 176 + j * 8, 10, 8);
+            this.zLevel -= 100.0F;
+        }
     }
 
     private void drawScoreboardValues(ScoreObjective p_175247_1_, int p_175247_2_, String p_175247_3_, int p_175247_4_, int p_175247_5_, NetworkPlayerInfo p_175247_6_)

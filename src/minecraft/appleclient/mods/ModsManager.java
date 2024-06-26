@@ -29,6 +29,8 @@ public class ModsManager
         mods.add(new FullBright());
         mods.add(new HotbarTweaks());
         mods.add(new EntitySelection());
+        mods.add(new NoBobShake());
+        mods.add(new PingIndicator());
         sortModsAlphabetically();
     }
     

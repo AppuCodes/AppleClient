@@ -338,6 +338,11 @@ public class SoundManager
 
     public void playSound(ISound sound)
     {
+        if (sound.getSoundLocation().getResourcePath().equals("NULL") || sound.getSoundLocation().getResourcePath().isEmpty())
+        {
+            return;
+        }
+
         if (this.loaded)
         {
             if (this.sndSystem.getMasterVolume() <= 0.0F)
@@ -348,7 +353,7 @@ public class SoundManager
             {
                 SoundEventAccessorComposite soundeventaccessorcomposite = this.sndHandler.getSound(sound.getSoundLocation());
 
-                if (soundeventaccessorcomposite == null && !sound.getSoundLocation().getResourcePath().equals("NULL"))
+                if (soundeventaccessorcomposite == null)
                 {
                     logger.warn(LOG_MARKER, "Unable to play unknown soundEvent: {}", new Object[] {sound.getSoundLocation()});
                 }

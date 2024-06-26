@@ -22,7 +22,6 @@
     <fullyQualifiedTypeName name="appleclient.mods.impl.AutoGG"/>
     <fullyQualifiedTypeName name="net.minecraft.client.gui.Gui"/>
     <fullyQualifiedTypeName name="appleclient.mods.impl.Scoreboard"/>
-    <fullyQualifiedTypeName name="java.awt.Color"/>
     <fullyQualifiedTypeName name="java.net.URI"/>
     <fullyQualifiedTypeName name="appleclient.gui.PanoramaRenderer"/>
     <fullyQualifiedTypeName name="net.minecraft.client.gui.ScaledResolution"/>
@@ -30,6 +29,7 @@
     <fullyQualifiedTypeName name="java.util.Comparator"/>
     <fullyQualifiedTypeName name="javax.swing.text.html.parser.Entity"/>
     <fullyQualifiedTypeName name="appleclient.mods.impl.EntitySelection"/>
-    <fullyQualifiedTypeName name="appleclient.Apple"/>
     <fullyQualifiedTypeName name="net.minecraft.client.Minecraft"/>
+    <fullyQualifiedTypeName name="appleclient.Apple"/>
+    <fullyQualifiedTypeName name="java.awt.Color"/>
 </qualifiedTypeNameHistroy>

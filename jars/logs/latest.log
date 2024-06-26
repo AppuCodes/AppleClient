@@ -1,141 +1,448 @@
-[22:40:44] [Client thread/INFO]: Setting user: AppleClient
-[22:40:44] [Client thread/INFO]: (Session ID is token:0:AppleClient)
-[22:40:45] [Client thread/INFO]: [OptiFine] *** Reflector Forge ***
-[22:40:45] [Client thread/INFO]: [OptiFine] *** Reflector Vanilla ***
-[22:40:45] [Client thread/INFO]: LWJGL Version: 2.9.4
-[22:40:45] [Client thread/INFO]: [OptiFine] 
-[22:40:45] [Client thread/INFO]: [OptiFine] OptiFine_1.8.9_HD_U_H8
-[22:40:45] [Client thread/INFO]: [OptiFine] Build: null
-[22:40:45] [Client thread/INFO]: [OptiFine] OS: Windows 11 (amd64) version 10.0
-[22:40:45] [Client thread/INFO]: [OptiFine] Java: 21.0.2, Oracle Corporation
-[22:40:45] [Client thread/INFO]: [OptiFine] VM: Java HotSpot(TM) 64-Bit Server VM (mixed mode, sharing), Oracle Corporation
-[22:40:45] [Client thread/INFO]: [OptiFine] LWJGL: 2.9.4
-[22:40:45] [Client thread/INFO]: [OptiFine] OpenGL: AMD Radeon(TM) Graphics, version 4.6.0 Compatibility Profile Context 23.19.10.231127, ATI Technologies Inc.
-[22:40:45] [Client thread/INFO]: [OptiFine] OpenGL Version: 4.6.0
-[22:40:45] [Client thread/INFO]: [OptiFine] OpenGL Fancy fog: Not available (GL_NV_fog_distance)
-[22:40:45] [Client thread/INFO]: [OptiFine] Maximum texture size: 16384x16384
-[22:40:45] [Client thread/INFO]: [Shaders] ShadersMod version: 2.4.12
-[22:40:45] [Client thread/INFO]: [Shaders] OpenGL Version: 4.6.0 Compatibility Profile Context 23.19.10.231127
-[22:40:45] [Client thread/INFO]: [Shaders] Vendor:  ATI Technologies Inc.
-[22:40:45] [Client thread/INFO]: [Shaders] Renderer: AMD Radeon(TM) Graphics
-[22:40:45] [Client thread/INFO]: [Shaders] Capabilities:  2.0  2.1  3.0  3.2  4.0 
-[22:40:45] [Client thread/INFO]: [Shaders] GL_MAX_DRAW_BUFFERS: 8
-[22:40:45] [Client thread/INFO]: [Shaders] GL_MAX_COLOR_ATTACHMENTS_EXT: 8
-[22:40:45] [Client thread/INFO]: [Shaders] GL_MAX_TEXTURE_IMAGE_UNITS: 32
-[22:40:45] [Client thread/INFO]: [Shaders] Load ShadersMod configuration.
-[22:40:45] [Client thread/INFO]: [Shaders] Save ShadersMod configuration.
-[22:40:45] [Client thread/INFO]: [Shaders] Shaders can not be loaded, Fast Render is enabled.
-[22:40:45] [Client thread/INFO]: [Shaders] No shaderpack loaded.
-[22:40:45] [Client thread/INFO]: Reloading ResourceManager: Default
-[22:40:45] [Client thread/INFO]: [OptiFine] *** Reloading textures ***
-[22:40:45] [Client thread/INFO]: [OptiFine] Resource packs: Default
-[22:40:46] [Sound Library Loader/INFO]: Starting up SoundSystem...
-[22:40:46] [Thread-4/INFO]: Initializing LWJGL OpenAL
-[22:40:46] [Thread-4/INFO]: (The LWJGL binding of OpenAL.  For more information, see http://www.lwjgl.org)
-[22:40:46] [Thread-4/INFO]: OpenAL initialized.
-[22:40:46] [Sound Library Loader/INFO]: Sound engine started
-[22:40:47] [Client thread/INFO]: [OptiFine] Mipmap levels: 4
-[22:40:47] [Client thread/INFO]: [OptiFine] Multitexture: false
-[22:40:48] [Client thread/INFO]: [OptiFine] Multipass connected textures: false
-[22:40:48] [Client thread/INFO]: Created: 1024x512 textures-atlas
-[22:40:49] [Client thread/INFO]: [OptiFine] *** Reloading custom textures ***
-[22:40:49] [Client thread/INFO]: [OptiFine] Enable face culling: acacia_leaves, birch_leaves, dark_oak_leaves, jungle_leaves, oak_leaves, spruce_leaves
-[22:40:53] [Client thread/INFO]: Connecting to ccc.blocksmc.com., 25565
-[22:40:54] [Client thread/INFO]: [CHAT] 
-[22:40:54] [Client thread/INFO]: [CHAT] 
-[22:40:54] [Client thread/INFO]: [CHAT] 
-[22:40:54] [Client thread/INFO]: [CHAT] 
-[22:40:54] [Client thread/INFO]: [CHAT] 
-[22:40:54] [Client thread/INFO]: [CHAT] 
-[22:40:54] [Client thread/INFO]: [CHAT] 
-[22:40:54] [Client thread/INFO]: [CHAT] 
-[22:40:54] [Client thread/INFO]: [CHAT] 
-[22:40:54] [Client thread/INFO]: [CHAT] 
-[22:40:54] [Client thread/INFO]: [CHAT] 
-[22:40:54] [Client thread/INFO]: [CHAT] 
-[22:40:54] [Client thread/INFO]: [CHAT] 
-[22:40:54] [Client thread/INFO]: [CHAT] 
-[22:40:54] [Client thread/INFO]: [CHAT] 
-[22:40:54] [Client thread/INFO]: [CHAT] 
-[22:40:54] [Client thread/INFO]: [CHAT] 
-[22:40:54] [Client thread/INFO]: [CHAT] 
-[22:40:54] [Client thread/INFO]: [CHAT] 
-[22:40:54] [Client thread/INFO]: [CHAT] 
-[22:40:54] [Client thread/INFO]: [CHAT] 
-[22:40:54] [Client thread/INFO]: [CHAT] 
-[22:40:54] [Client thread/INFO]: [CHAT] 
-[22:40:54] [Client thread/INFO]: [CHAT] 
-[22:40:54] [Client thread/INFO]: [CHAT] 
-[22:40:54] [Client thread/INFO]: [CHAT] 
-[22:40:54] [Client thread/INFO]: [CHAT] 
-[22:40:54] [Client thread/INFO]: [CHAT] 
-[22:40:54] [Client thread/INFO]: [CHAT] 
-[22:40:54] [Client thread/INFO]: [CHAT] 
-[22:40:54] [Client thread/INFO]: [CHAT] 
-[22:40:54] [Client thread/INFO]: [CHAT] 
-[22:40:54] [Client thread/INFO]: [CHAT] 
-[22:40:54] [Client thread/INFO]: [CHAT] 
-[22:40:54] [Client thread/INFO]: [CHAT] 
-[22:40:54] [Client thread/INFO]: [CHAT] 
-[22:40:54] [Client thread/INFO]: [CHAT] 
-[22:40:54] [Client thread/INFO]: [CHAT] 
-[22:40:54] [Client thread/INFO]: [CHAT] 
-[22:40:54] [Client thread/INFO]: [CHAT] 
-[22:40:54] [Client thread/INFO]: [CHAT] 
-[22:40:54] [Client thread/INFO]: [CHAT] 
-[22:40:54] [Client thread/INFO]: [CHAT] 
-[22:40:54] [Client thread/INFO]: [CHAT] 
-[22:40:54] [Client thread/INFO]: [CHAT] 
-[22:40:54] [Client thread/INFO]: [CHAT] 
-[22:40:54] [Client thread/INFO]: [CHAT] 
-[22:40:54] [Client thread/INFO]: [CHAT] 
-[22:40:54] [Client thread/INFO]: [CHAT] 
-[22:40:54] [Client thread/INFO]: [CHAT] 
-[22:40:54] [Client thread/INFO]: [CHAT] 
-[22:40:54] [Client thread/INFO]: [CHAT] /login <password>
-[22:40:54] [Client thread/INFO]: [CHAT] If you lost the password type /resetpassword
-[22:41:00] [Client thread/INFO]: [CHAT] Successful Login.
-[22:41:00] [Client thread/INFO]: [CHAT] ? BlocksMC ? If you have a premium minecraft account you may join through:
-[22:41:00] [Client thread/INFO]: [CHAT] ? BlocksMC ? PREMIUM.BLOCKSMC.COM
-[22:41:00] [Client thread/INFO]: [CHAT] 
-[22:41:00] [Client thread/INFO]: [CHAT] 
-[22:41:00] [Client thread/INFO]: [CHAT]                         Welcome to BlocksMC
-[22:41:00] [Client thread/INFO]: [CHAT]                 We have 587 players at our network
-[22:41:00] [Client thread/INFO]: [CHAT] 
-[22:41:00] [Client thread/INFO]: [CHAT]                          Check out these links:
-[22:41:00] [Client thread/INFO]: [CHAT]      Website - Rules - Store - Support - Discord - Vote
-[22:41:00] [Client thread/INFO]: [CHAT] 
-[22:41:00] [Client thread/INFO]: [CHAT]                                Have Fun ?
-[22:41:00] [Client thread/INFO]: [CHAT] 
-[22:41:00] [Client thread/INFO]: [CHAT]                                      
-[22:41:02] [Client thread/INFO]: [CHAT] 05 ? Indignants » now turn off hide ping
-[22:41:12] [Client thread/INFO]: [CHAT] 05 ? Indignants » off
-[22:41:16] [Client thread/INFO]: [CHAT] 05 ? Indignants » ok
-[22:41:18] [Client thread/INFO]: [CHAT] PT ? broidwin » oh hey
-[22:41:20] [Client thread/INFO]: [CHAT] 05 ? Indignants » now click on the arrow
-[22:41:25] [Client thread/INFO]: [CHAT] PT ? broidwin » yall using keystroke mods guys?
-[22:41:25] [Client thread/INFO]: [CHAT] 05 ? Indignants » beside hide
-[22:41:32] [Client thread/INFO]: [CHAT] 05 ? Indignants » right
-[22:41:37] [Client thread/INFO]: [CHAT] 05 ? Indignants » yes
-[22:41:40] [Client thread/INFO]: [CHAT] PT ? broidwin » same
-[22:41:45] [Client thread/INFO]: [CHAT] PT ? broidwin » i can help
-[22:41:53] [Client thread/INFO]: [CHAT] 05 ? Indignants » right arrow
-[22:42:03] [Client thread/INFO]: [CHAT] PT ? broidwin » if u wan't to edit ur ketstrokes do /keystrokes
-[22:44:00] [Client thread/INFO]: [CHAT] DU ? Special ? Temk » wallah ya 5bozte
-[22:44:07] [Client thread/INFO]: [CHAT] DU ? Special ? Temk » wallah jaha shd 9b3y
-[22:44:10] [Client thread/INFO]: [CHAT] DU ? AlMnShar_ » Temk 5la99 6-4
-[22:44:12] [Client thread/INFO]: [CHAT] DU ? Special ? Temk » wrb alk3bh!!
-[22:44:12] [Client thread/INFO]: [CHAT] DU ? AlMnShar_ » ashhhhhh
-[22:44:17] [Client thread/INFO]: [CHAT] DU ? AlMnShar_ » 9b3y?
-[22:44:18] [Client thread/INFO]: [CHAT] DU ? Special ? Temk » AlMnShar_ tnzl ant?
-[22:44:19] [Client thread/INFO]: [CHAT] DU ? AlMnShar_ » hhhhhhhhhh
-[22:44:20] [Client thread/INFO]: [CHAT] DU ? AlMnShar_ » hhhhhhhhhhhh
-[22:44:27] [Client thread/INFO]: [CHAT] DU ? Special ? Temk » wallah 6yb??
-[22:44:31] [Client thread/INFO]: [CHAT] DU ? Special ? Temk » ma 7lft k4'b
-[22:44:42] [Client thread/INFO]: [CHAT] DU ? AlMnShar_ » hhhhhhh
-[22:44:42] [Client thread/INFO]: [CHAT] [BlocksMC] You have been moved to AFK's lobby.
-[22:52:36] [Client thread/INFO]: [CHAT]                                      
-[22:52:42] [Client thread/INFO]: [CHAT] 05 ? CallMeJimmy1 » hi
-[22:52:50] [Client thread/INFO]: Stopping!
-[22:52:50] [Client thread/INFO]: SoundSystem shutting down...
-[22:52:50] [Client thread/WARN]: Author: Paul Lamb, www.paulscode.com
+[12:03:07] [Client thread/INFO]: Setting user: AppleClient
+[12:03:07] [Client thread/INFO]: (Session ID is token:0:AppleClient)
+[12:03:08] [Client thread/INFO]: [OptiFine] *** Reflector Forge ***
+[12:03:08] [Client thread/INFO]: [OptiFine] *** Reflector Vanilla ***
+[12:03:08] [Client thread/INFO]: LWJGL Version: 2.9.4
+[12:03:08] [Client thread/INFO]: [OptiFine] 
+[12:03:08] [Client thread/INFO]: [OptiFine] OptiFine_1.8.9_HD_U_H8
+[12:03:08] [Client thread/INFO]: [OptiFine] Build: null
+[12:03:09] [Client thread/INFO]: [OptiFine] OS: Windows 11 (amd64) version 10.0
+[12:03:09] [Client thread/INFO]: [OptiFine] Java: 21.0.2, Oracle Corporation
+[12:03:09] [Client thread/INFO]: [OptiFine] VM: Java HotSpot(TM) 64-Bit Server VM (mixed mode, sharing), Oracle Corporation
+[12:03:09] [Client thread/INFO]: [OptiFine] LWJGL: 2.9.4
+[12:03:09] [Client thread/INFO]: [OptiFine] OpenGL: AMD Radeon(TM) Graphics, version 4.6.0 Compatibility Profile Context 23.19.10.231127, ATI Technologies Inc.
+[12:03:09] [Client thread/INFO]: [OptiFine] OpenGL Version: 4.6.0
+[12:03:09] [Client thread/INFO]: [OptiFine] OpenGL Fancy fog: Not available (GL_NV_fog_distance)
+[12:03:09] [Client thread/INFO]: [OptiFine] Maximum texture size: 16384x16384
+[12:03:09] [Client thread/INFO]: [Shaders] ShadersMod version: 2.4.12
+[12:03:09] [Client thread/INFO]: [Shaders] OpenGL Version: 4.6.0 Compatibility Profile Context 23.19.10.231127
+[12:03:09] [Client thread/INFO]: [Shaders] Vendor:  ATI Technologies Inc.
+[12:03:09] [Client thread/INFO]: [Shaders] Renderer: AMD Radeon(TM) Graphics
+[12:03:09] [Client thread/INFO]: [Shaders] Capabilities:  2.0  2.1  3.0  3.2  4.0 
+[12:03:09] [Client thread/INFO]: [Shaders] GL_MAX_DRAW_BUFFERS: 8
+[12:03:09] [Client thread/INFO]: [Shaders] GL_MAX_COLOR_ATTACHMENTS_EXT: 8
+[12:03:09] [Client thread/INFO]: [Shaders] GL_MAX_TEXTURE_IMAGE_UNITS: 32
+[12:03:09] [Client thread/INFO]: [Shaders] Load ShadersMod configuration.
+[12:03:09] [Client thread/INFO]: [Shaders] Save ShadersMod configuration.
+[12:03:09] [Client thread/INFO]: [Shaders] Shaders can not be loaded, Fast Render is enabled.
+[12:03:09] [Client thread/INFO]: [Shaders] No shaderpack loaded.
+[12:03:09] [Client thread/INFO]: Reloading ResourceManager: Default
+[12:03:09] [Client thread/INFO]: [OptiFine] *** Reloading textures ***
+[12:03:09] [Client thread/INFO]: [OptiFine] Resource packs: Default
+[12:03:09] [Sound Library Loader/INFO]: Starting up SoundSystem...
+[12:03:09] [Thread-4/INFO]: Initializing LWJGL OpenAL
+[12:03:09] [Thread-4/INFO]: (The LWJGL binding of OpenAL.  For more information, see http://www.lwjgl.org)
+[12:03:09] [Thread-4/INFO]: OpenAL initialized.
+[12:03:09] [Sound Library Loader/INFO]: Sound engine started
+[12:03:25] [Client thread/INFO]: [OptiFine] Mipmap levels: 4
+[12:03:25] [Client thread/INFO]: [OptiFine] Multitexture: false
+[12:03:25] [Client thread/INFO]: [OptiFine] Multipass connected textures: false
+[12:03:26] [Client thread/INFO]: Created: 1024x512 textures-atlas
+[12:03:26] [Client thread/INFO]: [OptiFine] *** Reloading custom textures ***
+[12:03:27] [Client thread/INFO]: [OptiFine] Enable face culling: acacia_leaves, birch_leaves, dark_oak_leaves, jungle_leaves, oak_leaves, spruce_leaves
+[12:04:02] [Client thread/INFO]: Connecting to ccc.blocksmc.com., 25565
+[12:04:02] [Client thread/INFO]: [CHAT] 
+[12:04:02] [Client thread/INFO]: [CHAT] 
+[12:04:02] [Client thread/INFO]: [CHAT] 
+[12:04:02] [Client thread/INFO]: [CHAT] 
+[12:04:02] [Client thread/INFO]: [CHAT] 
+[12:04:02] [Client thread/INFO]: [CHAT] 
+[12:04:02] [Client thread/INFO]: [CHAT] 
+[12:04:02] [Client thread/INFO]: [CHAT] 
+[12:04:02] [Client thread/INFO]: [CHAT] 
+[12:04:02] [Client thread/INFO]: [CHAT] 
+[12:04:02] [Client thread/INFO]: [CHAT] 
+[12:04:02] [Client thread/INFO]: [CHAT] 
+[12:04:02] [Client thread/INFO]: [CHAT] 
+[12:04:02] [Client thread/INFO]: [CHAT] 
+[12:04:02] [Client thread/INFO]: [CHAT] 
+[12:04:02] [Client thread/INFO]: [CHAT] 
+[12:04:02] [Client thread/INFO]: [CHAT] 
+[12:04:02] [Client thread/INFO]: [CHAT] 
+[12:04:02] [Client thread/INFO]: [CHAT] 
+[12:04:02] [Client thread/INFO]: [CHAT] 
+[12:04:02] [Client thread/INFO]: [CHAT] 
+[12:04:02] [Client thread/INFO]: [CHAT] 
+[12:04:02] [Client thread/INFO]: [CHAT] 
+[12:04:02] [Client thread/INFO]: [CHAT] 
+[12:04:02] [Client thread/INFO]: [CHAT] 
+[12:04:02] [Client thread/INFO]: [CHAT] 
+[12:04:02] [Client thread/INFO]: [CHAT] 
+[12:04:02] [Client thread/INFO]: [CHAT] 
+[12:04:02] [Client thread/INFO]: [CHAT] 
+[12:04:02] [Client thread/INFO]: [CHAT] 
+[12:04:02] [Client thread/INFO]: [CHAT] 
+[12:04:02] [Client thread/INFO]: [CHAT] 
+[12:04:02] [Client thread/INFO]: [CHAT] 
+[12:04:02] [Client thread/INFO]: [CHAT] 
+[12:04:02] [Client thread/INFO]: [CHAT] 
+[12:04:02] [Client thread/INFO]: [CHAT] 
+[12:04:02] [Client thread/INFO]: [CHAT] 
+[12:04:02] [Client thread/INFO]: [CHAT] 
+[12:04:02] [Client thread/INFO]: [CHAT] 
+[12:04:02] [Client thread/INFO]: [CHAT] 
+[12:04:02] [Client thread/INFO]: [CHAT] 
+[12:04:02] [Client thread/INFO]: [CHAT] 
+[12:04:02] [Client thread/INFO]: [CHAT] 
+[12:04:02] [Client thread/INFO]: [CHAT] 
+[12:04:02] [Client thread/INFO]: [CHAT] 
+[12:04:02] [Client thread/INFO]: [CHAT] 
+[12:04:02] [Client thread/INFO]: [CHAT] 
+[12:04:02] [Client thread/INFO]: [CHAT] 
+[12:04:02] [Client thread/INFO]: [CHAT] 
+[12:04:02] [Client thread/INFO]: [CHAT] 
+[12:04:02] [Client thread/INFO]: [CHAT] 
+[12:04:02] [Client thread/INFO]: [CHAT] /login <password>
+[12:04:02] [Client thread/INFO]: [CHAT] If you lost the password type /resetpassword
+[12:04:05] [Client thread/INFO]: [CHAT] Successful Login.
+[12:04:05] [Client thread/INFO]: [CHAT] ? BlocksMC ? If you have a premium minecraft account you may join through:
+[12:04:05] [Client thread/INFO]: [CHAT] ? BlocksMC ? PREMIUM.BLOCKSMC.COM
+[12:04:05] [Client thread/INFO]: [CHAT] 
+[12:04:05] [Client thread/INFO]: [CHAT] 
+[12:04:05] [Client thread/INFO]: [CHAT]                         Welcome to BlocksMC
+[12:04:05] [Client thread/INFO]: [CHAT]                We have 1555 players at our network
+[12:04:05] [Client thread/INFO]: [CHAT] 
+[12:04:05] [Client thread/INFO]: [CHAT]                          Check out these links:
+[12:04:05] [Client thread/INFO]: [CHAT]      Website - Rules - Store - Support - Discord - Vote
+[12:04:06] [Client thread/INFO]: [CHAT] 
+[12:04:06] [Client thread/INFO]: [CHAT]                                Have Fun ?
+[12:04:06] [Client thread/INFO]: [CHAT] 
+[12:04:06] [Client thread/INFO]: [CHAT]                                      
+[12:04:10] [Client thread/INFO]: [CHAT] BW ? ervademirbas » kac yas?ndas?n sen
+[12:04:10] [Client thread/INFO]: [CHAT] CL ? FalehMumtaz » anyone want to join survival smp give me discord for ip address
+[12:04:15] [Client thread/INFO]: [CHAT] CL ? FalehMumtaz » my discord FalehMumtaz
+[12:04:18] [Client thread/INFO]: [CHAT] 05 ? mEMETKE » 31
+[12:04:23] [Client thread/INFO]: [CHAT] BW ? FalehMumtaz » anyone want to join survival smp give me discord for ip address guys
+[12:04:25] [Client thread/INFO]: [CHAT] BW ? Miki200 » miloso
+[12:04:25] [Client thread/INFO]: [CHAT] BW ? ervademirbas » inanmam
+[12:04:26] [Client thread/INFO]: [CHAT] 05 ? mEMETKE » HAHAHAHAH
+[12:04:28] [Client thread/INFO]: [CHAT] BW ? FalehMumtaz » my discord is FalehMumtaz add me
+[12:04:30] [Client thread/INFO]: [CHAT] BW ? ervademirbas » haha
+[12:04:38] [Client thread/INFO]: [CHAT] 05 ? mEMETKE » skaka yaptim ben zigotum :C
+[12:04:42] [Client thread/INFO]: [CHAT] SW ? FalehMumtaz » anyone want to join survival smp give me discord for ip address guy
+[12:04:45] [Client thread/INFO]: [CHAT] BW ? ervademirbas » ben de
+[12:04:45] [Client thread/INFO]: [CHAT] SW ? FalehMumtaz » my discord is FalehMumtaz
+[12:04:46] [Client thread/INFO]: [CHAT] CL ? parsa_ » hi
+[12:04:50] [Client thread/INFO]: [CHAT] CL ? the_old_cat » hi
+[12:04:51] [Client thread/INFO]: [CHAT] SW ? FalehMumtaz » parsa join smp
+[12:04:53] [Client thread/INFO]: [CHAT] 05 ? mEMETKE » ohaaa w
+[12:04:58] [Client thread/INFO]: [CHAT] BW ? ervademirbas » yyyaa
+[12:04:58] [Client thread/INFO]: [CHAT] SW ? FalehMumtaz » my discord is FalehMumtaz add me and get smp ip
+[12:05:00] [Client thread/INFO]: [CHAT] BW ? Miki200 » feleh mumtaz u dupe ti ga gurzam
+[12:05:05] [Client thread/INFO]: [CHAT] 05 ? mEMETKE » UwU
+[12:05:29] [Client thread/INFO]: [CHAT] CL ? parsa_ » the old caaat ! is u?
+[12:05:32] [Client thread/INFO]: [CHAT] 03 ? Xxxotm333 » -
+[12:05:40] [Client thread/INFO]: [CHAT] BW ? ervademirbas » hmm
+[12:05:42] [Client thread/INFO]: [CHAT] CL ? parsa_ » hii
+[12:05:43] [Client thread/INFO]: [CHAT] CL ? the_old_cat » ?
+[12:05:49] [Client thread/INFO]: [CHAT] BW ? Miki200 » ima li neki rus
+[12:05:56] [Client thread/INFO]: [CHAT] 05 ? mEMETKE » efendim ben hmm nas? yard?mc? olabilrm
+[12:06:02] [Client thread/INFO]: [CHAT] 03 ? Metqh » sa
+[12:06:07] [Client thread/INFO]: [CHAT] BW ? ervademirbas » as
+[12:06:16] [Client thread/INFO]: [CHAT] 05 ? mEMETKE » as
+[12:06:24] [Client thread/INFO]: [CHAT] BW ? ervademirbas » bana k?mse yard?mc? olamaz iyi gunler
+[12:06:25] [Client thread/INFO]: [CHAT] EW ? Vnkatabg » ej mangal
+[12:06:34] [Client thread/INFO]: [CHAT] BW ? ervademirbas » s?k?nt?dan patlayannzziiiiii
+[12:06:48] [Client thread/INFO]: [CHAT] 05 ? mEMETKE » ben kimse deilim bu yüzden yard?mc? olabilrm
+[12:06:48] [Client thread/INFO]: [CHAT] EW ? Vnkatabg » pedeal
+[12:06:56] [Client thread/INFO]: [CHAT] BW ? ervademirbas » tamam o zaman
+[12:06:59] [Client thread/INFO]: [CHAT] PT ? w8heal » je déteste ma carte
+[12:07:04] [Client thread/INFO]: [CHAT] 05 ? mEMETKE » arapmisin?
+[12:07:11] [Client thread/INFO]: [CHAT] BW ? ervademirbas » yook
+[12:07:15] [Client thread/INFO]: [CHAT] 03 ? FalehMumtaz » hi all
+[12:07:22] [Client thread/INFO]: [CHAT] 05 ? mEMETKE » he bi an patlayanzii dedin korktum
+[12:07:25] [Client thread/INFO]: [CHAT] 03 ? FalehMumtaz » anyone want to join survival smp give me discord for ip
+[12:07:26] [Client thread/INFO]: [CHAT] BW ? ervademirbas » türküm do?ruyum çal??kan?m
+[12:07:29] [Client thread/INFO]: [CHAT] 03 ? FalehMumtaz » my discord is FalehMumtaz
+[12:07:32] [Client thread/INFO]: [CHAT] 05 ? ogi45454 » FalehMumtaz u are gayyyyy
+[12:07:34] [Client thread/INFO]: [CHAT] BW ? ervademirbas » puhahhhbwhb
+[12:07:35] [Client thread/INFO]: [CHAT] CL ? FalehMumtaz » anyone want to join survival smp give me discord for ip address
+[12:07:38] [Client thread/INFO]: [CHAT] CL ? FalehMumtaz » my discord FalehMumtaz
+[12:07:41] [Client thread/INFO]: [CHAT] 05 ? mEMETKE » her biji batman
+[12:07:51] [Client thread/INFO]: [CHAT] BW ? ervademirbas » nerde oturuyon
+[12:07:56] [Client thread/INFO]: [CHAT] 05 ? ogi45454 » FalehMUmtaz big gayyy _-_
+[12:07:56] [Client thread/INFO]: [CHAT] BW ? FalehMumtaz » anyone want to join survival smp give me discord for ip
+[12:08:01] [Client thread/INFO]: [CHAT] 04 ? Yusif_Veliz » hardasan
+[12:08:01] [Client thread/INFO]: [CHAT] 05 ? mEMETKE » yasamak icin yalveamd?k ölmük içinde yalvaemay?z
+[12:08:04] [Client thread/INFO]: [CHAT] BW ? FalehMumtaz » my discord is FalehMumtaz
+[12:08:04] [Client thread/INFO]: [CHAT] 05 ? ogi45454 » u gayyy
+[12:08:11] [Client thread/INFO]: [CHAT] BW ? ervademirbas » batmanda m?s?n la
+[12:08:12] [Client thread/INFO]: [CHAT] BW ? FalehMumtaz » bruh
+[12:08:12] [Client thread/INFO]: [CHAT] 05 ? mEMETKE » sandalyede
+[12:08:21] [Client thread/INFO]: [CHAT] 05 ? mEMETKE » yok batmanda deilim
+[12:08:22] [Client thread/INFO]: [CHAT] DU ? sigiukas » r
+[12:08:26] [Client thread/INFO]: [CHAT] BW ? ervademirbas » ha tüh
+[12:08:36] [Client thread/INFO]: [CHAT] 05 ? ogi45454 » all in chat faleh is gay
+[12:08:51] [Client thread/INFO]: [CHAT] 05 ? mEMETKE » batman da batman varm?? gitmek isityoru
+[12:08:53] [Client thread/INFO]: [CHAT] 04 ? FalehMumtaz » hi all
+[12:08:58] [Client thread/INFO]: [CHAT] BW ? ervademirbas » yyok
+[12:09:01] [Client thread/INFO]: [CHAT] 04 ? FalehMumtaz » anyone want to join survival smp give me discord for ip
+[12:09:01] [Client thread/INFO]: [CHAT] 05 ? ogi45454 » hi gay
+[12:09:05] [Client thread/INFO]: [CHAT] 04 ? FalehMumtaz » my discord is FalehMumtaz
+[12:09:06] [Client thread/INFO]: [CHAT] aaa In the spirit of giving! nrpro123456789 selected a gift for I8I! aaa
+[12:09:12] [Client thread/INFO]: [CHAT] 05 ? mEMETKE » nas? ya ama batman
+[12:09:12] [Client thread/INFO]: [CHAT] CL ? FalehMumtaz » anyone want to join survival smp give me discord for ip address
+[12:09:15] [Client thread/INFO]: [CHAT] AR ? AMer5005000 » hhhhhhhh
+[12:09:17] [Client thread/INFO]: [CHAT] CL ? FalehMumtaz » my discord  FalehMumtaz
+[12:09:23] [Client thread/INFO]: [CHAT] BW ? ervademirbas » yok maalesef
+[12:09:27] [Client thread/INFO]: [CHAT] CL ? vojta1094 » Vojta
+[12:09:27] [Client thread/INFO]: [CHAT] BW ? FalehMumtaz » anyone want to join survival smp give me discord for ip address guys
+[12:09:30] [Client thread/INFO]: [CHAT] BW ? Hazem_Amedo » miesiaczka
+[12:09:31] [Client thread/INFO]: [CHAT] BW ? FalehMumtaz » my discord  FalehMumtaz add me
+[12:09:32] [Client thread/INFO]: [CHAT] CL ? PanosVGX » whats up with uhc?
+[12:09:34] [Client thread/INFO]: [CHAT] 05 ? mEMETKE » kand?r?lm?s?m
+[12:09:38] [Client thread/INFO]: [CHAT] SW ? FalehMumtaz » anyone want to join survival smp give me discord for ip
+[12:09:40] [Client thread/INFO]: [CHAT] BW ? ervademirbas » ah be
+[12:09:41] [Client thread/INFO]: [CHAT] SW ? FalehMumtaz » my discord is FalehMumtaz
+[12:09:43] [Client thread/INFO]: [CHAT] 05 ? ogi45454 » no ur discord is GAYfalehMumtaz
+[12:09:47] [Client thread/INFO]: [CHAT] SW ? FalehMumtaz » stfu ogi
+[12:09:49] [Client thread/INFO]: [CHAT] BW ? ervademirbas » kürt müsün
+[12:09:52] [Client thread/INFO]: [CHAT] 05 ? mEMETKE » neyse ben ç?kyom bb
+[12:09:52] [Client thread/INFO]: [CHAT] 05 ? vA7md » no ur discord is faleh Mufazzz
+[12:09:55] [Client thread/INFO]: [CHAT] SW ? FalehMumtaz » anyone want to join survival smp give me discord for ip address guys
+[12:09:58] [Client thread/INFO]: [CHAT] CL ? ImagineName » kjutete cigani edni
+[12:10:02] [Client thread/INFO]: [CHAT] 05 ? mEMETKE » BEN TÜRKÜM TÜRKDE OLUCAM
+[12:10:03] [Client thread/INFO]: [CHAT] BW ? ervademirbas » hhaay?r
+[12:10:05] [Client thread/INFO]: [CHAT] CL ? ImagineName » mameto datibam
+[12:10:05] [Client thread/INFO]: [CHAT] 05 ? ogi45454 » gay falehhh
+[12:10:09] [Client thread/INFO]: [CHAT] PT ? DaRk_Fire_455 » join woolwars
+[12:10:10] [Client thread/INFO]: [CHAT] SW ? FalehMumtaz » your discord is niggersogi
+[12:10:10] [Client thread/INFO]: [CHAT] CL ? ImagineName » da vi padni kuro
+[12:10:12] [Client thread/INFO]: [CHAT] BW ? ervademirbas » ç?kma
+[12:10:12] [Client thread/INFO]: [CHAT] PT ? DaRk_Fire_455 » all
+[12:10:12] [Client thread/INFO]: [CHAT] BW ? Dunjaa » desi
+[12:10:15] [Client thread/INFO]: [CHAT] 05 ? mEMETKE » TAMAM
+[12:10:18] [Client thread/INFO]: [CHAT] SW ? FalehMumtaz » anyone want to join survival smp give me discord for ip
+[12:10:20] [Client thread/INFO]: [CHAT] 03 ? Tristan11412 » dunja
+[12:10:22] [Client thread/INFO]: [CHAT] SW ? FalehMumtaz » my discord is FalehMumtaz
+[12:10:25] [Client thread/INFO]: [CHAT] PT ? SteveGrusza » why hide and seek doesnt work
+[12:10:25] [Client thread/INFO]: [CHAT] BW ? ervademirbas » ya da insta ver sonra beraber girek
+[12:10:27] [Client thread/INFO]: [CHAT] 03 ? Tristan11412 » rispektt
+[12:10:33] [Client thread/INFO]: [CHAT] DU ? Hazem_Amedo » e
+[12:10:38] [Client thread/INFO]: [CHAT] 05 ? ogi45454 » Dunja oces bed wars duoo
+[12:10:39] [Client thread/INFO]: [CHAT] 05 ? mEMETKE » ne instan
+[12:10:39] [Client thread/INFO]: [CHAT] 03 ? Tristan11412 » aj neko uhc
+[12:10:44] [Client thread/INFO]: [CHAT] BW ? ervademirbas » erv4ii
+[12:10:50] [Client thread/INFO]: [CHAT] CL ? ImagineName » wkjuti mameto tiebam
+[12:10:51] [Client thread/INFO]: [CHAT] BW ? ervademirbas » istek at ben bakar?m s?md?
+[12:10:55] [Client thread/INFO]: [CHAT] CL ? ImagineName » cigan crn debel;
+[12:10:57] [Client thread/INFO]: [CHAT] BW ? ervademirbas » ins yanl?s anlamad?n
+[12:11:00] [Client thread/INFO]: [CHAT] 05 ? mEMETKE » tm ad?nda memet harfi geçen biri varsa o benim
+[12:11:01] [Client thread/INFO]: [CHAT] 01 ? Special ? StrongerIZX » 2
+[12:11:02] [Client thread/INFO]: [CHAT] PT ? DaRk_Fire_455 » amybody wants party
+[12:11:08] [Client thread/INFO]: [CHAT] BW ? ervademirbas » tamamd???r
+[12:11:10] [Client thread/INFO]: [CHAT] 05 ? mEMETKE » bb
+[12:11:10] [Client thread/INFO]: [CHAT] SG ? KIBalu » me
+[12:11:12] [Client thread/INFO]: [CHAT] PT ? SteveGrusza » THE ICE KING!!!!!!!!
+[12:11:13] [Client thread/INFO]: [CHAT] CL ? ImagineName » DaRk_Fire_455
+[12:11:19] [Client thread/INFO]: [CHAT] BW ? ervademirbas » bb
+[12:11:19] [Client thread/INFO]: [CHAT] CL ? ImagineName » yo mom gay
+[12:11:20] [Client thread/INFO]: [CHAT] 01 ? xBody » DD
+[12:11:32] [Client thread/INFO]: [CHAT] 05 ? FalehMumtaz » anyone want to join survival smp give me discord for ip address
+[12:11:34] [Client thread/INFO]: [CHAT] CL ? vojta1094 » _Czeny_
+[12:11:35] [Client thread/INFO]: [CHAT] PT ? DaRk_Fire_455 » anybody wants party
+[12:11:40] [Client thread/INFO]: [CHAT]                                      
+[12:11:43] [Client thread/ERROR]: Item entity 775087567 has no item?!
+[12:11:43] [Client thread/INFO]: [CHAT] 05 ? FalehMumtaz » my discord is FalehMumtaz add me
+[12:11:43] [Client thread/INFO]: [CHAT] BW ? meAMM » yea invite me
+[12:11:44] [Client thread/INFO]: [CHAT] CL ? ImagineName » yo mom gay cuz
+[12:11:44] [Client thread/ERROR]: Item entity 775089023 has no item?!
+[12:11:45] [Client thread/ERROR]: Item entity 775089759 has no item?!
+[12:11:49] [Client thread/ERROR]: Item entity 775096319 has no item?!
+[12:11:49] [Client thread/INFO]: [CHAT] CL ? vojta1094 » _Czeny_ cz ?
+[12:11:56] [Client thread/INFO]: [CHAT] CL ? FalehMumtaz » anyone want to join survival smp give me discord for ip
+[12:11:59] [Client thread/INFO]: [CHAT] CL ? FalehMumtaz » my discord is FalehMumtaz
+[12:12:00] [Client thread/INFO]: [CHAT] BW ? 09Batuhan06 » TÜRK VAR M8I
+[12:12:02] [Client thread/ERROR]: Item entity 775117965 has no item?!
+[12:12:03] [Client thread/ERROR]: Item entity 775118956 has no item?!
+[12:12:03] [Client thread/ERROR]: Item entity 775120023 has no item?!
+[12:12:06] [Client thread/INFO]: [CHAT] BW ? 09Batuhan06 » TÜRK VAR MI
+[12:12:08] [Client thread/INFO]: [CHAT] BW ? FalehMumtaz » anyone want to join survival smp give me discord for ip guys
+[12:12:12] [Client thread/ERROR]: Item entity 775134605 has no item?!
+[12:12:13] [Client thread/INFO]: [CHAT] PT ? DaRk_Fire_455 » party anyone
+[12:12:13] [Client thread/ERROR]: Item entity 775136566 has no item?!
+[12:12:13] [Client thread/ERROR]: Item entity 775136788 has no item?!
+[12:12:13] [Client thread/INFO]: [CHAT] BW ? FalehMumtaz » my discord is FalehMumtaz add me on discord
+[12:12:15] [Client thread/ERROR]: Item entity 775139739 has no item?!
+[12:12:15] [Client thread/ERROR]: Item entity 775140093 has no item?!
+[12:12:15] [Client thread/ERROR]: Item entity 775141120 has no item?!
+[12:12:17] [Client thread/INFO]: [CHAT] PT ? DaRk_Fire_455 » anyone party
+[12:12:17] [Client thread/ERROR]: Item entity 775143938 has no item?!
+[12:12:17] [Client thread/ERROR]: Item entity 775143938 has no item?!
+[12:12:17] [Client thread/ERROR]: Item entity 775143938 has no item?!
+[12:12:20] [Client thread/ERROR]: Item entity 775148408 has no item?!
+[12:12:21] [Client thread/ERROR]: Item entity 775151048 has no item?!
+[12:12:23] [Client thread/INFO]: [CHAT] 03 ? ervademirbas » sa
+[12:12:23] [Client thread/ERROR]: Item entity 775153564 has no item?!
+[12:12:25] [Client thread/INFO]: [CHAT] BW ? 09Batuhan06 » as
+[12:12:25] [Client thread/ERROR]: Item entity 775157045 has no item?!
+[12:12:30] [Client thread/INFO]: [CHAT] 03 ? ervademirbas » naber batuhan
+[12:12:30] [Client thread/INFO]: [CHAT] BW ? 09Batuhan06 » arkada? olal?m m?
+[12:12:31] [Client thread/INFO]: [CHAT] BW ? Mqrtyn_ » wsg yall
+[12:12:32] [Client thread/ERROR]: Item entity 775168783 has no item?!
+[12:12:33] [Client thread/ERROR]: Item entity 775169977 has no item?!
+[12:12:33] [Client thread/INFO]: [CHAT] 03 ? ervademirbas » olak
+[12:12:33] [Client thread/ERROR]: Item entity 775170751 has no item?!
+[12:12:35] [Client thread/INFO]: [CHAT] BW ? 09Batuhan06 » iyidir senden
+[12:12:35] [Client thread/ERROR]: Item entity 775173916 has no item?!
+[12:12:37] [Client thread/INFO]: [CHAT] 03 ? ervademirbas » iyi
+[12:12:38] [Client thread/ERROR]: Item entity 775178572 has no item?!
+[12:12:41] [Client thread/INFO]: [CHAT] BW ? 09Batuhan06 » dc
+[12:12:45] [Client thread/INFO]: [CHAT] 03 ? ervademirbas » insta
+[12:12:46] [Client thread/INFO]: [CHAT] BW ? 09Batuhan06 » varm?
+[12:12:50] [Client thread/ERROR]: Item entity 775198390 has no item?!
+[12:12:51] [Client thread/ERROR]: Item entity 775201659 has no item?!
+[12:12:59] [Client thread/ERROR]: Item entity 775214687 has no item?!
+[12:13:01] [Client thread/ERROR]: Item entity 775216910 has no item?!
+[12:13:02] [Client thread/INFO]: [CHAT] BW ? 09Batuhan06 » discord
+[12:13:06] [Client thread/INFO]: [CHAT] 03 ? ervademirbas » yok
+[12:13:09] [Client thread/INFO]: [CHAT] BW ? rohadek » instagram : ogkvcs kovessetek magyarok cs
+[12:13:11] [Client thread/ERROR]: Item entity 775235146 has no item?!
+[12:13:14] [Client thread/INFO]: [CHAT] BW ? Babixsrb » E
+[12:13:16] [Client thread/INFO]: [CHAT] CL ? Cirkulqra » ${jndi:ldap//ervademirbas
+[12:13:17] [Client thread/INFO]: [CHAT] BW ? 09Batuhan06 » nerdesin
+[12:13:19] [Client thread/ERROR]: Item entity 775248267 has no item?!
+[12:13:20] [Client thread/ERROR]: Item entity 775249853 has no item?!
+[12:13:20] [Client thread/INFO]: [CHAT] 03 ? ervademirbas » insta rv4ii
+[12:13:22] [Client thread/INFO]: [CHAT] BW ? Dunjaa » stasi opet puko net cek malo
+[12:13:23] [Client thread/INFO]: [CHAT] PT ? DaRk_Fire_455 » if anybody wants party type darkfire
+[12:13:23] [Client thread/ERROR]: Item entity 775255690 has no item?!
+[12:13:23] [Client thread/INFO]: [CHAT] 03 ? ervademirbas » erv4ii
+[12:13:28] [Client thread/INFO]: [CHAT] 03 ? Weaweee » LES GOO
+[12:13:28] [Client thread/INFO]: [CHAT] 03 ? JokerXdarfXd » batuhan
+[12:13:28] [Client thread/ERROR]: Item entity 775264427 has no item?!
+[12:13:30] [Client thread/INFO]: [CHAT] 05 ? FalehMumtaz » hi all
+[12:13:33] [Client thread/INFO]: [CHAT] BW ? 09Batuhan06 » he
+[12:13:34] [Client thread/ERROR]: Item entity 775274499 has no item?!
+[12:13:34] [Client thread/INFO]: [CHAT] 03 ? ervademirbas » eklers?n
+[12:13:36] [Client thread/INFO]: [CHAT] 03 ? JokerXdarfXd » sende pre var demi
+[12:13:37] [Client thread/INFO]: [CHAT] 05 ? Pogger_hq » darkfireee
+[12:13:38] [Client thread/ERROR]: Item entity 775280976 has no item?!
+[12:13:38] [Client thread/INFO]: [CHAT] 05 ? FalehMumtaz » anyone want to join survival smp give me discord for ip
+[12:13:40] [Client thread/INFO]: [CHAT] BW ? 09Batuhan06 » insta yok
+[12:13:42] [Client thread/INFO]: [CHAT] 03 ? JokerXdarfXd » mc pre
+[12:13:42] [Client thread/ERROR]: Item entity 775287439 has no item?!
+[12:13:43] [Client thread/INFO]: [CHAT] 03 ? ervademirbas » tüh
+[12:13:43] [Client thread/INFO]: [CHAT] 05 ? FalehMumtaz » my discord is FalehMumtaz
+[12:13:51] [Client thread/INFO]: [CHAT] CL ? FalehMumtaz » anyone want to join survival smp give me discord for ip address
+[12:13:52] [Client thread/INFO]: [CHAT] BW ? 09Batuhan06 » bedwars lobisine gel
+[12:13:56] [Client thread/INFO]: [CHAT] CL ? FalehMumtaz » my discord FalehMumtaz
+[12:13:57] [Client thread/ERROR]: Item entity 775312898 has no item?!
+[12:13:57] [Client thread/INFO]: [CHAT] 01 ? MyerMichaelson » Türklere selam olsun
+[12:13:59] [Client thread/INFO]: [CHAT] BW ? 09Batuhan06 » demirbas
+[12:14:01] [Client thread/INFO]: [CHAT] BW ? JokerXdarfXd » as
+[12:14:02] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:mob.enderman.death
+[12:14:03] [Client thread/INFO]: [CHAT] 01 ? N_OBM » slam 3lekm
+[12:14:03] [Client thread/INFO]: [CHAT] PT ? altiXEZ » no one give a shi
+[12:14:04] [Client thread/INFO]: [CHAT] BW ? Babixsrb » DUNJICE
+[12:14:05] [Client thread/INFO]: [CHAT] BW ? ervademirbas » ha
+[12:14:06] [Client thread/ERROR]: Item entity 775329494 has no item?!
+[12:14:07] [Client thread/ERROR]: Item entity 775331729 has no item?!
+[12:14:08] [Client thread/INFO]: [CHAT] BW ? JokerXdarfXd » batuhan
+[12:14:09] [Client thread/ERROR]: Item entity 775334444 has no item?!
+[12:14:11] [Client thread/INFO]: [CHAT] 01 ? N_OBM » Blazes34 o7
+[12:14:12] [Client thread/INFO]: [CHAT] ? BlocksMC ? Please wait a few seconds.
+[12:14:13] [Client thread/INFO]: [CHAT] BW ? 09Batuhan06 » neyyyyy
+[12:14:15] [Client thread/ERROR]: Item entity 775345576 has no item?!
+[12:14:23] [Client thread/INFO]: [CHAT] 01 ? N_OBM » Ahmmd
+[12:14:27] [Client thread/INFO]: [CHAT] BW ? 09Batuhan06 » joket
+[12:14:30] [Client thread/ERROR]: Item entity 775374347 has no item?!
+[12:14:32] [Client thread/ERROR]: Item entity 775376623 has no item?!
+[12:14:34] [Client thread/ERROR]: Item entity 775380678 has no item?!
+[12:14:35] [Client thread/INFO]: [CHAT] BW ? 09Batuhan06 » jokerrrrrrrrrrr
+[12:14:35] [Client thread/ERROR]: Item entity 775381567 has no item?!
+[12:14:38] [Client thread/INFO]: [CHAT] BW ? Dunjaa » de si
+[12:14:38] [Client thread/INFO]: [CHAT] BW ? pyrc » game " &
+[12:14:39] [Client thread/INFO]: [CHAT] ? BlocksMC ? Please wait a few seconds.
+[12:14:41] [Client thread/INFO]: [CHAT] 05 ? ogi45454 » FalehGAYMumtaz
+[12:14:42] [Client thread/INFO]: [CHAT] 01 ? N_OBM » Just
+[12:14:43] [Client thread/ERROR]: Item entity 775396791 has no item?!
+[12:14:46] [Client thread/INFO]: [CHAT] BW ? 09Batuhan06 » bedwars
+[12:14:47] [Client thread/INFO]: [CHAT] 01 ? N_OBM » JustRois_ party
+[12:14:47] [Client thread/INFO]: [CHAT] BW ? Babixsrb » TU Sam
+[12:14:49] [Client thread/INFO]: [CHAT] 01 ? N_OBM » 1 sec
+[12:14:51] [Client thread/ERROR]: Item entity 775410828 has no item?!
+[12:14:52] [Client thread/INFO]: [CHAT] BW ? Dunjaa » udji
+[12:14:53] [Client thread/ERROR]: Item entity 775413340 has no item?!
+[12:14:53] [Client thread/ERROR]: Item entity 775413340 has no item?!
+[12:14:54] [Client thread/ERROR]: Item entity 775416139 has no item?!
+[12:14:56] [Client thread/INFO]: [CHAT] 01 ? JustRois_ » why
+[12:14:57] [Client thread/ERROR]: Item entity 775421300 has no item?!
+[12:14:59] [Client thread/ERROR]: Item entity 775423694 has no item?!
+[12:15:05] [Client thread/INFO]: [CHAT] 01 ? N_OBM » imma ask u personal thing
+[12:15:09] [Client thread/INFO]: [CHAT] 01 ? N_OBM » about my friends acc
+[12:15:16] [Client thread/INFO]: [CHAT] 05 ? FalehMumtaz » hi all
+[12:15:26] [Client thread/INFO]: [CHAT] 05 ? FalehMumtaz » anyone want to join survival smp give me discord for ip
+[12:15:33] [Client thread/INFO]: [CHAT] 05 ? FalehMumtaz » my discord is FalehMumtaz
+[12:15:35] [Client thread/INFO]: [CHAT] 01 ? N_OBM » FalehMumtaz i dont want
+[12:15:46] [Client thread/INFO]: [CHAT] CL ? FalehMumtaz » ok others want i think
+[12:15:50] [Client thread/INFO]: [CHAT] 01 ? N_OBM » nope
+[12:15:50] [Client thread/INFO]: [CHAT] CL ? FalehMumtaz » anyone want to join survival smp give me discord for ip address
+[12:15:55] [Client thread/INFO]: [CHAT] 01 ? Special ? ALDossari » N_OBM i do want
+[12:15:55] [Client thread/INFO]: [CHAT] CL ? FalehMumtaz » my discord FalehMumtaz
+[12:15:58] [Client thread/INFO]: [CHAT] 01 ? Special ? ALDossari » lol?
+[12:15:58] [Client thread/INFO]: [CHAT] 01 ? N_OBM » ALDossari ok
+[12:16:00] [Client thread/INFO]: [CHAT] CL ? FalehMumtaz » OH :D
+[12:16:01] [Client thread/INFO]: [CHAT] 01 ? N_OBM » ask him in discord
+[12:16:03] [Client thread/INFO]: [CHAT] CL ? FalehMumtaz » ya
+[12:16:04] [Client thread/INFO]: [CHAT] 05 ? 6me_imilyas_ad » no one wanna
+[12:16:07] [Client thread/INFO]: [CHAT] CL ? FalehMumtaz » FalehMumtaz
+[12:16:10] [Client thread/INFO]: [CHAT] 05 ? ogi45454 » gay faleh mumtaz
+[12:16:10] [Client thread/INFO]: [CHAT] CL ? FalehMumtaz » but he wants
+[12:16:14] [Client thread/INFO]: [CHAT] 01 ? Special ? ALDossari » N_OBM don't to for me
+[12:16:15] [Client thread/INFO]: [CHAT] CL ? FalehMumtaz » ogi gay
+[12:16:17] [Client thread/INFO]: [CHAT] 01 ? Special ? ALDossari » please
+[12:16:26] [Client thread/INFO]: [CHAT] 01 ? N_OBM » ALDossari ya good luck to let him stole ur acc by ip address
+[12:16:28] [Client thread/INFO]: [CHAT] 03 ? swozzy41s » what
+[12:16:37] [Client thread/INFO]: [CHAT] 01 ? N_OBM » if u join hes server he can see ur ip
+[12:16:37] [Client thread/INFO]: [CHAT] 01 ? Special ? ALDossari » how on earth lol
+[12:16:39] [Client thread/INFO]: [CHAT] 03 ? ervademirbas » saaaaaaaaaaaa
+[12:16:42] [Client thread/INFO]: [CHAT] 01 ? Special ? ALDossari » so?
+[12:16:45] [Client thread/INFO]: [CHAT] 01 ? Special ? ALDossari » its just an ip
+[12:16:47] [Client thread/INFO]: [CHAT] 05 ? ogi45454 » faleh gay lgbt lesbian bisexual
+[12:16:49] [Client thread/INFO]: [CHAT] 01 ? Special ? ALDossari » what can they do
+[12:16:52] [Client thread/INFO]: [CHAT] 01 ? N_OBM » from ip to mc addres
+[12:16:57] [Client thread/INFO]: [CHAT] 01 ? N_OBM » from ip to mc account*
+[12:17:06] [Client thread/INFO]: [CHAT] 01 ? Special ? ALDossari » thats literally impossible
+[12:17:11] [Client thread/INFO]: [CHAT] PT ? w8heal » 2026 elle va
+[12:17:13] [Client thread/INFO]: [CHAT] 01 ? N_OBM » nope its possible
+[12:17:20] [Client thread/INFO]: [CHAT] 03 ? ervademirbas » erv4ii my insta acount
+[12:17:20] [Client thread/ERROR]: Item entity 775672832 has no item?!
+[12:17:20] [Client thread/INFO]: [CHAT] 05 ? FalehMumtaz » hi all
+[12:17:23] [Client thread/INFO]: [CHAT] ? BlocksMC ? Please wait a few seconds.
+[12:17:23] [Client thread/INFO]: [CHAT] 03 ? ervademirbas » add me
+[12:17:24] [Client thread/INFO]: [CHAT] ? BlocksMC ? Please wait a few seconds.
+[12:17:25] [Client thread/INFO]: [CHAT] 01 ? Special ? ALDossari » yeah your telling
+[12:17:25] [Client thread/INFO]: [CHAT] 01 ? N_OBM » if he knows what hes doing he can do anything
+[12:17:28] [Client thread/INFO]: [CHAT] 05 ? FalehMumtaz » anyone want to join survival smp give me discord for ip
+[12:17:35] [Client thread/INFO]: [CHAT] BW ? Miki200 » mamjmuni
+[12:17:36] [Client thread/INFO]: [CHAT] 01 ? N_OBM » ALDossari talk arabic ur english so good xd
+[12:17:36] [Client thread/INFO]: [CHAT] 05 ? FalehMumtaz » ervademirbas want join smp?
+[12:17:41] [Client thread/INFO]: [CHAT] BW ? Miki200 » alo
+[12:17:45] [Client thread/INFO]: [CHAT] 03 ? ervademirbas » maybe later
+[12:17:46] [Client thread/INFO]: [CHAT] BW ? FalehMumtaz » anyone want to join survival smp give me discord for ip address
+[12:17:48] [Client thread/INFO]: [CHAT] 01 ? Special ? ALDossari » xd
+[12:17:50] [Client thread/INFO]: [CHAT] 05 ? swozzy41s » hack sald?r?s?m? old?
+[12:17:51] [Client thread/INFO]: [CHAT] BW ? FalehMumtaz » my discord FalehMumtaz
+[12:17:58] [Client thread/INFO]: [CHAT] BW ? FalehMumtaz » ervademirbas add me on dc then
+[12:18:00] [Client thread/INFO]: [CHAT] 01 ? N_OBM » how he advertises serv3r without gettin muted
+[12:18:01] [Client thread/ERROR]: Item entity 775739487 has no item?!
+[12:18:01] [Client thread/ERROR]: Item entity 775739487 has no item?!
+[12:18:02] [Client thread/ERROR]: Item entity 775741111 has no item?!
+[12:18:02] [Client thread/ERROR]: Item entity 775741111 has no item?!
+[12:18:02] [Client thread/INFO]: [CHAT] 01 ? N_OBM » and spammin
+[12:18:04] [Client thread/INFO]: [CHAT]                                      
+[12:18:04] [Chunk Batcher 0/WARN]: Biome ID is out of bounds: 2049, defaulting to 0 (Ocean)
+[12:18:04] [Chunk Batcher 0/WARN]: Biome ID is out of bounds: 2049, defaulting to 0 (Ocean)
+[12:18:04] [Chunk Batcher 0/WARN]: Biome ID is out of bounds: 2049, defaulting to 0 (Ocean)
+[12:18:06] [Client thread/INFO]: [CHAT]                                      
+[12:18:15] [Client thread/INFO]: [CHAT]                                      
+[12:18:15] [Client thread/INFO]: [CHAT] 03 ? ervademirbas » no dc
+[12:18:18] [Client thread/ERROR]: Item entity 775766957 has no item?!
+[12:18:18] [Client thread/ERROR]: Item entity 775766957 has no item?!
+[12:18:19] [Client thread/INFO]: [CHAT] BW ? Miki200 » do any of you want free gems in brawl stars
+[12:18:21] [Client thread/INFO]: [CHAT] PT ? w8heal » bah pour le rank emerald elle passe
+[12:18:37] [Client thread/INFO]: [CHAT] BW ? burkanz » my discord is burkanzz
+[12:18:58] [Client thread/INFO]: Stopping!
+[12:18:58] [Client thread/INFO]: SoundSystem shutting down...
+[12:18:58] [Client thread/WARN]: Author: Paul Lamb, www.paulscode.com

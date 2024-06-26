@@ -4,7 +4,9 @@
   },
   "Auto GG": {
     "Enabled": false,
-    "GG Message": "GG"
+    "GG Message": "GG",
+    "Enable 2nd Message": false,
+    "2nd GG Message": "I enjoyed playing with you! \u003c3"
   },
   "Block Selection": {
     "Enabled": false,
@@ -17,13 +19,13 @@
     "Show 3rd Person": false
   },
   "Entity Selection": {
-    "Enabled": true
+    "Enabled": false
   },
   "Full Bright": {
-    "Enabled": true
+    "Enabled": false
   },
   "Hotbar Tweaks": {
-    "Enabled": true,
+    "Enabled": false,
     "No Hunger": false,
     "Automatically Hide Hotbar": false
   },
@@ -31,6 +33,12 @@
     "Enabled": false,
     "Text Shadow": false,
     "Show Self Name": false
+  },
+  "No Bob Shake": {
+    "Enabled": true
+  },
+  "Ping Indicator": {
+    "Enabled": true
   },
   "Raw Input": {
     "Enabled": true
