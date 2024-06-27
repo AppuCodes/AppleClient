@@ -31,6 +31,7 @@ public class ModsManager
         mods.add(new EntitySelection());
         mods.add(new NoBobShake());
         mods.add(new PingIndicator());
+        mods.add(new FOVChanger());
         sortModsAlphabetically();
     }
     

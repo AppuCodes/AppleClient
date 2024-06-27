@@ -1,28 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
-		<item key="selection" value="overlayPlayerList"/>
+		<item key="selection" value="setupFog"/>
 		<item key="wrap" value="true"/>
 		<item key="casesensitive" value="false"/>
 		<item key="wholeword" value="false"/>
 		<item key="incremental" value="false"/>
 		<item key="isRegEx" value="false"/>
 		<list key="findhistory">
-			<item value="overlayPlayerList"/>
-			<item value="15"/>
-			<item value="k == 15"/>
-			<item value="guiplayer"/>
-			<item value="player"/>
-			<item value="tab"/>
-			<item value="tAb"/>
-			<item value="ViewBobbing"/>
-			<item value="viewbobbing"/>
-			<item value="unable to"/>
-			<item value="getMouseOver"/>
-			<item value="selection"/>
-			<item value="s"/>
-			<item value="renderSelection"/>
-			<item value="renderSeletion"/>
+			<item value="setupFog"/>
+			<item value="fog"/>
+			<item value="renderHotbarItem"/>
+			<item value="renderHotbari"/>
+			<item value="renderHotbar"/>
+			<item value="setCurrentCreativeTab"/>
+			<item value="selectedTabIndex ="/>
+			<item value="selectedTabIndex"/>
+			<item value="renderClouds"/>
+			<item value="setupCameraTransform"/>
+			<item value="orientCamera"/>
+			<item value="blocks"/>
+			<item value="toggleFullscre"/>
+			<item value="gameSettings"/>
+			<item value="toggleFullsc"/>
 		</list>
 		<list key="replacehistory">
 			<item value="box"/>

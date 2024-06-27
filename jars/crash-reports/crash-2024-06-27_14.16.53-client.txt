@@ -1,0 +1,106 @@
+---- Minecraft Crash Report ----
+// My bad.
+
+Time: 6/27/24, 2:16?PM
+Description: Rendering item
+
+java.lang.NullPointerException: Cannot invoke "java.util.List.size()" because "quads" is null
+	at net.minecraft.client.renderer.entity.RenderItem.renderQuads(RenderItem.java:295)
+	at net.minecraft.client.renderer.entity.RenderItem.renderModel(RenderItem.java:159)
+	at net.minecraft.client.renderer.entity.RenderItem.renderModel(RenderItem.java:135)
+	at net.minecraft.client.renderer.entity.RenderItem.renderItem(RenderItem.java:195)
+	at net.minecraft.client.renderer.entity.RenderItem.renderItemIntoGUI(RenderItem.java:483)
+	at net.minecraft.client.renderer.entity.RenderItem.renderItemAndEffectIntoGUI(RenderItem.java:523)
+	at net.minecraft.client.gui.inventory.GuiContainerCreative.func_147051_a(GuiContainerCreative.java:824)
+	at net.minecraft.client.gui.inventory.GuiContainerCreative.drawGuiContainerBackgroundLayer(GuiContainerCreative.java:688)
+	at net.minecraft.client.gui.inventory.GuiContainer.drawScreen(GuiContainer.java:106)
+	at net.minecraft.client.renderer.InventoryEffectRenderer.drawScreen(InventoryEffectRenderer.java:40)
+	at net.minecraft.client.gui.inventory.GuiContainerCreative.drawScreen(GuiContainerCreative.java:603)
+	at net.minecraft.client.renderer.EntityRenderer.updateCameraAndRender(EntityRenderer.java:1376)
+	at net.minecraft.client.Minecraft.runGameLoop(Minecraft.java:1097)
+	at net.minecraft.client.Minecraft.run(Minecraft.java:413)
+	at net.minecraft.client.main.Main.main(Main.java:113)
+	at Start.main(Start.java:11)
+
+
+A detailed walkthrough of the error, its code path and all known details is as follows:
+---------------------------------------------------------------------------------------
+
+-- Head --
+Stacktrace:
+	at net.minecraft.client.renderer.entity.RenderItem.renderQuads(RenderItem.java:295)
+	at net.minecraft.client.renderer.entity.RenderItem.renderModel(RenderItem.java:159)
+	at net.minecraft.client.renderer.entity.RenderItem.renderModel(RenderItem.java:135)
+	at net.minecraft.client.renderer.entity.RenderItem.renderItem(RenderItem.java:195)
+	at net.minecraft.client.renderer.entity.RenderItem.renderItemIntoGUI(RenderItem.java:483)
+
+-- Item being rendered --
+Details:
+	Item Type: net.minecraft.item.ItemBlock@773eca84
+	Item Aux: 0
+	Item NBT: null
+	Item Foil: false
+Stacktrace:
+	at net.minecraft.client.renderer.entity.RenderItem.renderItemAndEffectIntoGUI(RenderItem.java:523)
+	at net.minecraft.client.gui.inventory.GuiContainerCreative.func_147051_a(GuiContainerCreative.java:824)
+	at net.minecraft.client.gui.inventory.GuiContainerCreative.drawGuiContainerBackgroundLayer(GuiContainerCreative.java:688)
+	at net.minecraft.client.gui.inventory.GuiContainer.drawScreen(GuiContainer.java:106)
+	at net.minecraft.client.renderer.InventoryEffectRenderer.drawScreen(InventoryEffectRenderer.java:40)
+	at net.minecraft.client.gui.inventory.GuiContainerCreative.drawScreen(GuiContainerCreative.java:603)
+
+-- Screen render details --
+Details:
+	Screen name: net.minecraft.client.gui.inventory.GuiContainerCreative
+	Mouse location: Scaled: (320, 174). Absolute: (960, 523)
+	Screen size: Scaled: (640, 349). Absolute: (1920, 1046). Scale factor of 3
+
+-- Affected level --
+Details:
+	Level name: MpServer
+	All players: 1 total; [EntityPlayerSP['AppleClient'/187, l='MpServer', x=204.36, y=65.00, z=-144.40]]
+	Chunk stats: MultiplayerChunkCache: 600, 600
+	Level seed: 0
+	Level generator: ID 00 - default, ver 1. Features enabled: false
+	Level generator options: 
+	Level spawn location: 217.00,64.00,-122.00 - World: (217,64,-122), Chunk: (at 9,4,6 in 13,-8; contains blocks 208,0,-128 to 223,255,-113), Region: (0,-1; contains chunks 0,-32 to 31,-1, blocks 0,0,-512 to 511,255,-1)
+	Level time: 834968 game time, 19830 day time
+	Level dimension: 0
+	Level storage version: 0x00000 - Unknown?
+	Level weather: Rain time: 0 (now: true), thunder time: 0 (now: false)
+	Level game mode: Game mode: creative (ID 1). Hardcore: false. Cheats: false
+	Forced entities: 37 total; [EntitySpider['Spider'/129, l='MpServer', x=267.50, y=64.00, z=-108.50], EntityBat['Bat'/66, l='MpServer', x=179.75, y=20.97, z=-216.53], EntitySheep['Sheep'/68, l='MpServer', x=182.13, y=64.00, z=-92.81], EntityZombie['Zombie'/134, l='MpServer', x=276.34, y=65.00, z=-212.66], EntityCreeper['Creeper'/135, l='MpServer', x=277.50, y=65.00, z=-162.50], EntityPlayerSP['AppleClient'/187, l='MpServer', x=204.36, y=65.00, z=-144.40], EntityCreeper['Creeper'/136, l='MpServer', x=279.50, y=65.00, z=-164.50], EntityBat['Bat'/83, l='MpServer', x=200.31, y=28.63, z=-212.75], EntityCreeper['Creeper'/29, l='MpServer', x=136.50, y=64.00, z=-152.50], EntityBat['Bat'/93, l='MpServer', x=224.94, y=65.91, z=-189.53], EntityMinecartEmpty['entity.MinecartRideable.name'/94, l='MpServer', x=220.50, y=66.00, z=-138.72], EntityZombie['Zombie'/30, l='MpServer', x=141.50, y=43.00, z=-124.50], EntitySpider['Spider'/31, l='MpServer', x=143.50, y=66.00, z=-104.50], EntityBat['Bat'/1311, l='MpServer', x=136.56, y=35.06, z=-159.22], EntitySkeleton['Skeleton'/32, l='MpServer', x=131.50, y=36.00, z=-70.50], EntitySheep['Sheep'/98, l='MpServer', x=234.72, y=67.00, z=-158.56], EntitySquid['Squid'/99, l='MpServer', x=237.09, y=59.47, z=-89.56], EntityZombie['Zombie'/39, l='MpServer', x=155.47, y=37.00, z=-215.25], EntityZombie['Zombie'/40, l='MpServer', x=150.50, y=66.00, z=-203.50], EntityCreeper['Creeper'/41, l='MpServer', x=156.50, y=66.00, z=-206.50], EntitySkeleton['Skeleton'/42, l='MpServer', x=149.50, y=36.00, z=-160.50], EntitySpider['Spider'/43, l='MpServer', x=146.50, y=66.00, z=-101.50], EntityCreeper['Creeper'/48, l='MpServer', x=173.50, y=66.00, z=-205.50], EntitySpider['Spider'/49, l='MpServer', x=167.81, y=64.00, z=-95.31], EntityZombie['Zombie'/113, l='MpServer', x=254.50, y=65.00, z=-226.13], EntityCreeper['Creeper'/114, l='MpServer', x=243.50, y=64.00, z=-197.50], EntityCreeper['Creeper'/115, l='MpServer', x=241.72, y=64.00, z=-184.91], EntityCreeper['Creeper'/116, l='MpServer', x=241.50, y=64.00, z=-191.50], EntitySkeleton['Skeleton'/117, l='MpServer', x=250.50, y=67.00, z=-146.50], EntityBat['Bat'/118, l='MpServer', x=257.47, y=19.25, z=-137.31], EntitySheep['Sheep'/119, l='MpServer', x=248.09, y=64.00, z=-113.06], EntityCreeper['Creeper'/121, l='MpServer', x=270.50, y=64.00, z=-188.50], EntityZombie['Zombie'/122, l='MpServer', x=265.50, y=64.00, z=-189.50], EntityBat['Bat'/123, l='MpServer', x=263.13, y=13.13, z=-154.81], EntitySkeleton['Skeleton'/124, l='MpServer', x=265.50, y=6.00, z=-138.50], EntitySkeleton['Skeleton'/125, l='MpServer', x=264.50, y=6.00, z=-137.50], EntitySkeleton['Skeleton'/126, l='MpServer', x=265.50, y=6.00, z=-137.50]]
+	Retry entities: 0 total; []
+	Server brand: vanilla
+	Server type: Integrated singleplayer server
+Stacktrace:
+	at net.minecraft.client.multiplayer.WorldClient.addWorldInfoToCrashReport(WorldClient.java:394)
+	at net.minecraft.client.Minecraft.addGraphicsAndWorldToCrashReport(Minecraft.java:2477)
+	at net.minecraft.client.Minecraft.run(Minecraft.java:433)
+	at net.minecraft.client.main.Main.main(Main.java:113)
+	at Start.main(Start.java:11)
+
+-- System Details --
+Details:
+	Minecraft Version: 1.8.9
+	Operating System: Windows 11 (amd64) version 10.0
+	CPU: 12x AMD Ryzen 5 5500U with Radeon Graphics 
+	Java Version: 21.0.2, Oracle Corporation
+	Java VM Version: Java HotSpot(TM) 64-Bit Server VM (mixed mode, sharing), Oracle Corporation
+	Memory: 597686272 bytes (569 MB) / 1073741824 bytes (1024 MB) up to 2147483648 bytes (2048 MB)
+	JVM Flags: 7 total; -XX:ThreadPriorityPolicy=1 -XX:+UnlockExperimentalVMOptions -XX:+EnableJVMCIProduct -XX:-UnlockExperimentalVMOptions -XX:+ShowCodeDetailsInExceptionMessages -Xmx2048M -Xms1024M
+	IntCache: cache: 0, tcache: 0, allocated: 13, tallocated: 95
+	Launched Version: mcp
+	LWJGL: 2.9.4
+	OpenGL: AMD Radeon(TM) Graphics GL version 4.6.0 Compatibility Profile Context 23.19.10.231127, ATI Technologies Inc.
+	GL Caps: Using GL 1.3 multitexturing.
+Using GL 1.3 texture combiners.
+Using framebuffer objects because OpenGL 3.0 is supported and separate blending is supported.
+Shaders are available because OpenGL 2.1 is supported.
+VBOs are available because OpenGL 1.5 is supported.
+
+	Using VBOs: Yes
+	Is Modded: Definitely; Client brand changed to 'appleclient'
+	Type: Client (map_client.txt)
+	Resource Packs: 
+	Current Language: English (US)
+	CPU: 12x AMD Ryzen 5 5500U with Radeon Graphics 

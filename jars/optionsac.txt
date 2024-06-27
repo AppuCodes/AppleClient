@@ -21,6 +21,10 @@
   "Entity Selection": {
     "Enabled": false
   },
+  "FOV Changer": {
+    "Enabled": false,
+    "Bow Pull Change": true
+  },
   "Full Bright": {
     "Enabled": false
   },

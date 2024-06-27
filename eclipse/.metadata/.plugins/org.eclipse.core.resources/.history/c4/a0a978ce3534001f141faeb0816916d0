@@ -1,0 +1,12 @@
+package appleclient.mods.impl;
+
+import appleclient.mods.Mod;
+
+public class FOVChanger extends Mod
+{
+    public FOVChanger()
+    {
+        super("FOV Changer", "Allows you to set when to change the FOV.");
+        setupSettings(1);
+    }
+}

@@ -26,7 +26,7 @@ public class GuiModsList extends GuiScreen
             if (i++ == 4)
             {
                 x = w2 - 190;
-                y += 97.5F;
+                y += 97;
                 i = 1;
             }
             

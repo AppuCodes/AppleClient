@@ -1451,6 +1451,8 @@ public class Minecraft implements IThreadListener
         {
             logger.error((String)"Couldn\'t toggle fullscreen", (Throwable)exception);
         }
+
+        ScaledResolution.get().update(this);
     }
 
     /**
