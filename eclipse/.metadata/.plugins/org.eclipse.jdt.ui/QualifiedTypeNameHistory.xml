@@ -2,7 +2,6 @@
 <qualifiedTypeNameHistroy>
     <fullyQualifiedTypeName name="java.lang.InterruptedException"/>
     <fullyQualifiedTypeName name="net.minecraft.client.settings.GameSettings.Options"/>
-    <fullyQualifiedTypeName name="org.lwjgl.opengl.GL11"/>
     <fullyQualifiedTypeName name="net.minecraft.client.renderer.block.model.ItemCameraTransforms.TransformType"/>
     <fullyQualifiedTypeName name="appleclient.mods.events.EventBus"/>
     <fullyQualifiedTypeName name="net.java.games.input.Keyboard"/>
@@ -20,7 +19,6 @@
     <fullyQualifiedTypeName name="appleclient.events.Event"/>
     <fullyQualifiedTypeName name="appleclient.events.impl.EventPacketReceive"/>
     <fullyQualifiedTypeName name="appleclient.mods.impl.AutoGG"/>
-    <fullyQualifiedTypeName name="net.minecraft.client.gui.Gui"/>
     <fullyQualifiedTypeName name="appleclient.mods.impl.Scoreboard"/>
     <fullyQualifiedTypeName name="java.net.URI"/>
     <fullyQualifiedTypeName name="appleclient.gui.PanoramaRenderer"/>
@@ -32,4 +30,9 @@
     <fullyQualifiedTypeName name="net.minecraft.client.Minecraft"/>
     <fullyQualifiedTypeName name="java.awt.Color"/>
     <fullyQualifiedTypeName name="appleclient.Apple"/>
+    <fullyQualifiedTypeName name="net.minecraft.client.gui.Gui"/>
+    <fullyQualifiedTypeName name="net.minecraft.client.renderer.texture.SimpleTexture"/>
+    <fullyQualifiedTypeName name="org.lwjgl.util.glu.GLU"/>
+    <fullyQualifiedTypeName name="org.lwjgl.opengl.GL11"/>
+    <fullyQualifiedTypeName name="org.lwjgl.util.Color"/>
 </qualifiedTypeNameHistroy>

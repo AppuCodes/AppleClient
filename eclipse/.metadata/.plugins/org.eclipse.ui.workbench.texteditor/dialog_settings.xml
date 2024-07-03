@@ -1,28 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
-		<item key="selection" value="setupFog"/>
+		<item key="selection" value=""/>
 		<item key="wrap" value="true"/>
 		<item key="casesensitive" value="false"/>
 		<item key="wholeword" value="false"/>
 		<item key="incremental" value="false"/>
 		<item key="isRegEx" value="false"/>
 		<list key="findhistory">
-			<item value="setupFog"/>
-			<item value="fog"/>
-			<item value="renderHotbarItem"/>
-			<item value="renderHotbari"/>
-			<item value="renderHotbar"/>
-			<item value="setCurrentCreativeTab"/>
-			<item value="selectedTabIndex ="/>
-			<item value="selectedTabIndex"/>
-			<item value="renderClouds"/>
-			<item value="setupCameraTransform"/>
-			<item value="orientCamera"/>
-			<item value="blocks"/>
-			<item value="toggleFullscre"/>
-			<item value="gameSettings"/>
-			<item value="toggleFullsc"/>
+			<item value="getLightValue"/>
+			<item value="getLightvalu"/>
+			<item value="p_renderModelStandardQuads_5_"/>
+			<item value="torch"/>
+			<item value="lightmapColors"/>
+			<item value="updateLightmap"/>
+			<item value="updateLig"/>
+			<item value="rebuild"/>
+			<item value="buildLi"/>
+			<item value="lightmap"/>
+			<item value="lightMap"/>
+			<item value="LightMap"/>
+			<item value="renderCloudsFancy"/>
+			<item value="cloud"/>
+			<item value="0."/>
 		</list>
 		<list key="replacehistory">
 			<item value="box"/>
@@ -34,7 +34,7 @@
 		</list>
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">
-		<item key="DIALOG_X_ORIGIN" value="225"/>
+		<item key="DIALOG_X_ORIGIN" value="348"/>
 		<item key="DIALOG_Y_ORIGIN" value="11"/>
 		<item key="DIALOG_WIDTH" value="511"/>
 		<item key="DIALOG_HEIGHT" value="523"/>

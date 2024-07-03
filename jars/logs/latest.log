@@ -1,76 +1,164 @@
-[14:27:16] [Client thread/INFO]: Setting user: AppleClient
-[14:27:16] [Client thread/INFO]: (Session ID is token:0:AppleClient)
-[14:27:17] [Client thread/INFO]: [OptiFine] *** Reflector Forge ***
-[14:27:17] [Client thread/INFO]: [OptiFine] *** Reflector Vanilla ***
-[14:27:17] [Client thread/INFO]: LWJGL Version: 2.9.4
-[14:27:18] [Client thread/INFO]: [OptiFine] 
-[14:27:18] [Client thread/INFO]: [OptiFine] OptiFine_1.8.9_HD_U_H8
-[14:27:18] [Client thread/INFO]: [OptiFine] Build: null
-[14:27:18] [Client thread/INFO]: [OptiFine] OS: Windows 11 (amd64) version 10.0
-[14:27:18] [Client thread/INFO]: [OptiFine] Java: 21.0.2, Oracle Corporation
-[14:27:18] [Client thread/INFO]: [OptiFine] VM: Java HotSpot(TM) 64-Bit Server VM (mixed mode, sharing), Oracle Corporation
-[14:27:18] [Client thread/INFO]: [OptiFine] LWJGL: 2.9.4
-[14:27:18] [Client thread/INFO]: [OptiFine] OpenGL: AMD Radeon(TM) Graphics, version 4.6.0 Compatibility Profile Context 23.19.10.231127, ATI Technologies Inc.
-[14:27:18] [Client thread/INFO]: [OptiFine] OpenGL Version: 4.6.0
-[14:27:18] [Client thread/INFO]: [OptiFine] OpenGL Fancy fog: Not available (GL_NV_fog_distance)
-[14:27:18] [Client thread/INFO]: [OptiFine] Maximum texture size: 16384x16384
-[14:27:18] [Client thread/INFO]: [Shaders] ShadersMod version: 2.4.12
-[14:27:18] [Client thread/INFO]: [Shaders] OpenGL Version: 4.6.0 Compatibility Profile Context 23.19.10.231127
-[14:27:18] [Client thread/INFO]: [Shaders] Vendor:  ATI Technologies Inc.
-[14:27:18] [Client thread/INFO]: [Shaders] Renderer: AMD Radeon(TM) Graphics
-[14:27:18] [Client thread/INFO]: [Shaders] Capabilities:  2.0  2.1  3.0  3.2  4.0 
-[14:27:18] [Client thread/INFO]: [Shaders] GL_MAX_DRAW_BUFFERS: 8
-[14:27:18] [Client thread/INFO]: [Shaders] GL_MAX_COLOR_ATTACHMENTS_EXT: 8
-[14:27:18] [Client thread/INFO]: [Shaders] GL_MAX_TEXTURE_IMAGE_UNITS: 32
-[14:27:18] [Client thread/INFO]: [Shaders] Load ShadersMod configuration.
-[14:27:18] [Client thread/INFO]: [Shaders] Shaders can not be loaded, Fast Render is enabled.
-[14:27:18] [Client thread/INFO]: [Shaders] No shaderpack loaded.
-[14:27:18] [Client thread/INFO]: Reloading ResourceManager: Default
-[14:27:18] [Client thread/INFO]: [OptiFine] *** Reloading textures ***
-[14:27:18] [Client thread/INFO]: [OptiFine] Resource packs: Default
-[14:27:18] [Sound Library Loader/INFO]: Starting up SoundSystem...
-[14:27:18] [Thread-4/INFO]: Initializing LWJGL OpenAL
-[14:27:18] [Thread-4/INFO]: (The LWJGL binding of OpenAL.  For more information, see http://www.lwjgl.org)
-[14:27:19] [Thread-4/INFO]: OpenAL initialized.
-[14:27:19] [Sound Library Loader/INFO]: Sound engine started
-[14:27:21] [Client thread/INFO]: [OptiFine] Mipmap levels: 4
-[14:27:21] [Client thread/INFO]: [OptiFine] Multitexture: false
-[14:27:21] [Client thread/INFO]: [OptiFine] Multipass connected textures: false
-[14:27:23] [Client thread/INFO]: Created: 1024x512 textures-atlas
-[14:27:23] [Client thread/INFO]: [OptiFine] *** Reloading custom textures ***
-[14:27:24] [Client thread/INFO]: [OptiFine] Enable face culling: acacia_leaves, birch_leaves, dark_oak_leaves, jungle_leaves, oak_leaves, spruce_leaves
-[14:27:27] [Server thread/INFO]: Starting integrated minecraft server version 1.8.9
-[14:27:27] [Server thread/INFO]: Generating keypair
-[14:27:27] [Server thread/INFO]: Preparing start region for level 0
-[14:27:28] [Server thread/INFO]: Changing view distance to 12, from 10
-[14:27:29] [Server thread/INFO]: AppleClient[local:E:f0c36452] logged in with entity id 179 at (165.9184069228112, 74.90468723471125, -106.20337083874908)
-[14:27:29] [Server thread/INFO]: AppleClient joined the game
-[14:27:35] [Server thread/INFO]: Saving and pausing game...
-[14:27:35] [Server thread/INFO]: Saving chunks for level 'mcpworld'/Overworld
-[14:27:36] [Server thread/INFO]: Saving chunks for level 'mcpworld'/Nether
-[14:27:36] [Server thread/INFO]: Saving chunks for level 'mcpworld'/The End
-[14:27:55] [Server thread/INFO]: Saving and pausing game...
-[14:27:55] [Server thread/INFO]: Saving chunks for level 'mcpworld'/Overworld
-[14:27:55] [Server thread/INFO]: Saving chunks for level 'mcpworld'/Nether
-[14:27:55] [Server thread/INFO]: Saving chunks for level 'mcpworld'/The End
-[14:28:01] [Server thread/INFO]: Saving and pausing game...
-[14:28:01] [Server thread/INFO]: Saving chunks for level 'mcpworld'/Overworld
-[14:28:01] [Server thread/INFO]: Saving chunks for level 'mcpworld'/Nether
-[14:28:01] [Server thread/INFO]: Saving chunks for level 'mcpworld'/The End
-[14:28:24] [Server thread/INFO]: Saving and pausing game...
-[14:28:24] [Server thread/INFO]: Saving chunks for level 'mcpworld'/Overworld
-[14:28:24] [Server thread/INFO]: Saving chunks for level 'mcpworld'/Nether
-[14:28:24] [Server thread/INFO]: Saving chunks for level 'mcpworld'/The End
-[14:29:02] [Server thread/INFO]: Saving and pausing game...
-[14:29:02] [Server thread/INFO]: Saving chunks for level 'mcpworld'/Overworld
-[14:29:02] [Server thread/INFO]: Saving chunks for level 'mcpworld'/Nether
-[14:29:02] [Server thread/INFO]: Saving chunks for level 'mcpworld'/The End
-[14:29:03] [Server thread/INFO]: Stopping server
-[14:29:03] [Server thread/INFO]: Saving players
-[14:29:03] [Server thread/INFO]: Saving worlds
-[14:29:03] [Server thread/INFO]: Saving chunks for level 'mcpworld'/Overworld
-[14:29:03] [Server thread/INFO]: Saving chunks for level 'mcpworld'/Nether
-[14:29:03] [Server thread/INFO]: Saving chunks for level 'mcpworld'/The End
-[14:29:03] [Client thread/INFO]: Stopping!
-[14:29:03] [Client thread/INFO]: SoundSystem shutting down...
-[14:29:03] [Client thread/WARN]: Author: Paul Lamb, www.paulscode.com
+[21:47:14] [Client thread/INFO]: Setting user: AppleClient
+[21:47:14] [Client thread/INFO]: (Session ID is token:0:AppleClient)
+[21:47:15] [Client thread/INFO]: [OptiFine] *** Reflector Forge ***
+[21:47:15] [Client thread/INFO]: [OptiFine] *** Reflector Vanilla ***
+[21:47:15] [Client thread/INFO]: LWJGL Version: 2.9.4
+[21:47:15] [Client thread/INFO]: [OptiFine] 
+[21:47:15] [Client thread/INFO]: [OptiFine] OptiFine_1.8.9_HD_U_H8
+[21:47:15] [Client thread/INFO]: [OptiFine] Build: null
+[21:47:15] [Client thread/INFO]: [OptiFine] OS: Windows 11 (amd64) version 10.0
+[21:47:15] [Client thread/INFO]: [OptiFine] Java: 22.0.1, Oracle Corporation
+[21:47:15] [Client thread/INFO]: [OptiFine] VM: Java HotSpot(TM) 64-Bit Server VM (mixed mode, sharing), Oracle Corporation
+[21:47:15] [Client thread/INFO]: [OptiFine] LWJGL: 2.9.4
+[21:47:15] [Client thread/INFO]: [OptiFine] OpenGL: AMD Radeon(TM) Graphics, version 4.6.0 Compatibility Profile Context 23.19.10.231127, ATI Technologies Inc.
+[21:47:15] [Client thread/INFO]: [OptiFine] OpenGL Version: 4.6.0
+[21:47:15] [Client thread/INFO]: [OptiFine] OpenGL Fancy fog: Not available (GL_NV_fog_distance)
+[21:47:15] [Client thread/INFO]: [OptiFine] Maximum texture size: 16384x16384
+[21:47:15] [Client thread/INFO]: [Shaders] ShadersMod version: 2.4.12
+[21:47:15] [Client thread/INFO]: [Shaders] OpenGL Version: 4.6.0 Compatibility Profile Context 23.19.10.231127
+[21:47:15] [Client thread/INFO]: [Shaders] Vendor:  ATI Technologies Inc.
+[21:47:15] [Client thread/INFO]: [Shaders] Renderer: AMD Radeon(TM) Graphics
+[21:47:15] [Client thread/INFO]: [Shaders] Capabilities:  2.0  2.1  3.0  3.2  4.0 
+[21:47:15] [Client thread/INFO]: [Shaders] GL_MAX_DRAW_BUFFERS: 8
+[21:47:15] [Client thread/INFO]: [Shaders] GL_MAX_COLOR_ATTACHMENTS_EXT: 8
+[21:47:15] [Client thread/INFO]: [Shaders] GL_MAX_TEXTURE_IMAGE_UNITS: 32
+[21:47:15] [Client thread/INFO]: [Shaders] Load ShadersMod configuration.
+[21:47:15] [Client thread/INFO]: [Shaders] Shaders can not be loaded, Fast Render is enabled.
+[21:47:15] [Client thread/INFO]: [Shaders] No shaderpack loaded.
+[21:47:15] [Client thread/INFO]: Reloading ResourceManager: Default
+[21:47:15] [Client thread/INFO]: [OptiFine] *** Reloading textures ***
+[21:47:15] [Client thread/INFO]: [OptiFine] Resource packs: Default
+[21:47:15] [Sound Library Loader/INFO]: Starting up SoundSystem...
+[21:47:16] [Thread-4/INFO]: Initializing LWJGL OpenAL
+[21:47:16] [Thread-4/INFO]: (The LWJGL binding of OpenAL.  For more information, see http://www.lwjgl.org)
+[21:47:16] [Thread-4/INFO]: OpenAL initialized.
+[21:47:16] [Sound Library Loader/INFO]: Sound engine started
+[21:47:18] [Client thread/INFO]: [OptiFine] Mipmap levels: 4
+[21:47:18] [Client thread/INFO]: [OptiFine] Multitexture: false
+[21:47:18] [Client thread/INFO]: [OptiFine] Multipass connected textures: false
+[21:47:20] [Client thread/INFO]: Created: 1024x512 textures-atlas
+[21:47:20] [Client thread/INFO]: [OptiFine] *** Reloading custom textures ***
+[21:47:20] [Client thread/INFO]: [OptiFine] Enable face culling: acacia_leaves, birch_leaves, dark_oak_leaves, jungle_leaves, oak_leaves, spruce_leaves
+[21:47:21] [Server thread/INFO]: Starting integrated minecraft server version 1.8.9
+[21:47:21] [Server thread/INFO]: Generating keypair
+[21:47:21] [Server thread/INFO]: Preparing start region for level 0
+[21:47:22] [Server thread/INFO]: Changing view distance to 12, from 10
+[21:47:23] [Server thread/INFO]: AppleClient[local:E:12519368] logged in with entity id 179 at (162.0099779328426, 64.0, -148.742272052014)
+[21:47:23] [Server thread/INFO]: AppleClient joined the game
+[21:47:41] [Server thread/INFO]: Saving and pausing game...
+[21:47:41] [Server thread/INFO]: Saving chunks for level 'mcpworld'/Overworld
+[21:47:42] [Server thread/INFO]: Saving chunks for level 'mcpworld'/Nether
+[21:47:42] [Server thread/INFO]: Saving chunks for level 'mcpworld'/The End
+[21:53:21] [Server thread/INFO]: Saving and pausing game...
+[21:53:21] [Server thread/INFO]: Saving chunks for level 'mcpworld'/Overworld
+[21:53:21] [Server thread/INFO]: Saving chunks for level 'mcpworld'/Nether
+[21:53:21] [Server thread/INFO]: Saving chunks for level 'mcpworld'/The End
+[21:54:21] [Server thread/INFO]: [AppleClient: Changing to clear weather]
+[21:54:21] [Client thread/INFO]: [CHAT] Changing to clear weather
+[21:54:24] [Server thread/INFO]: [AppleClient: Set the time to 16000]
+[21:54:24] [Client thread/INFO]: [CHAT] Set the time to 16000
+[21:56:09] [Server thread/INFO]: Saving and pausing game...
+[21:56:09] [Server thread/INFO]: Saving chunks for level 'mcpworld'/Overworld
+[21:56:09] [Server thread/INFO]: Saving chunks for level 'mcpworld'/Nether
+[21:56:09] [Server thread/INFO]: Saving chunks for level 'mcpworld'/The End
+[21:56:57] [Server thread/INFO]: Saving and pausing game...
+[21:56:57] [Server thread/INFO]: Saving chunks for level 'mcpworld'/Overworld
+[21:56:57] [Server thread/INFO]: Saving chunks for level 'mcpworld'/Nether
+[21:56:57] [Server thread/INFO]: Saving chunks for level 'mcpworld'/The End
+[21:57:06] [Server thread/INFO]: Saving and pausing game...
+[21:57:06] [Server thread/INFO]: Saving chunks for level 'mcpworld'/Overworld
+[21:57:06] [Server thread/INFO]: Saving chunks for level 'mcpworld'/Nether
+[21:57:06] [Server thread/INFO]: Saving chunks for level 'mcpworld'/The End
+[21:57:06] [Server thread/INFO]: Stopping server
+[21:57:06] [Server thread/INFO]: Saving players
+[21:57:06] [Server thread/INFO]: Saving worlds
+[21:57:06] [Server thread/INFO]: Saving chunks for level 'mcpworld'/Overworld
+[21:57:06] [Server thread/INFO]: Saving chunks for level 'mcpworld'/Nether
+[21:57:06] [Server thread/INFO]: Saving chunks for level 'mcpworld'/The End
+[21:57:07] [Client thread/INFO]: Connecting to ccc.blocksmc.com., 25565
+[21:57:08] [Client thread/INFO]: [CHAT] 
+[21:57:08] [Client thread/INFO]: [CHAT] 
+[21:57:08] [Client thread/INFO]: [CHAT] 
+[21:57:08] [Client thread/INFO]: [CHAT] 
+[21:57:08] [Client thread/INFO]: [CHAT] 
+[21:57:08] [Client thread/INFO]: [CHAT] 
+[21:57:08] [Client thread/INFO]: [CHAT] 
+[21:57:08] [Client thread/INFO]: [CHAT] 
+[21:57:08] [Client thread/INFO]: [CHAT] 
+[21:57:08] [Client thread/INFO]: [CHAT] 
+[21:57:08] [Client thread/INFO]: [CHAT] 
+[21:57:08] [Client thread/INFO]: [CHAT] 
+[21:57:08] [Client thread/INFO]: [CHAT] 
+[21:57:08] [Client thread/INFO]: [CHAT] 
+[21:57:08] [Client thread/INFO]: [CHAT] 
+[21:57:08] [Client thread/INFO]: [CHAT] 
+[21:57:08] [Client thread/INFO]: [CHAT] 
+[21:57:08] [Client thread/INFO]: [CHAT] 
+[21:57:08] [Client thread/INFO]: [CHAT] 
+[21:57:08] [Client thread/INFO]: [CHAT] 
+[21:57:08] [Client thread/INFO]: [CHAT] 
+[21:57:08] [Client thread/INFO]: [CHAT] 
+[21:57:08] [Client thread/INFO]: [CHAT] 
+[21:57:08] [Client thread/INFO]: [CHAT] 
+[21:57:08] [Client thread/INFO]: [CHAT] 
+[21:57:08] [Client thread/INFO]: [CHAT] 
+[21:57:08] [Client thread/INFO]: [CHAT] 
+[21:57:08] [Client thread/INFO]: [CHAT] 
+[21:57:08] [Client thread/INFO]: [CHAT] 
+[21:57:08] [Client thread/INFO]: [CHAT] 
+[21:57:08] [Client thread/INFO]: [CHAT] 
+[21:57:08] [Client thread/INFO]: [CHAT] 
+[21:57:08] [Client thread/INFO]: [CHAT] 
+[21:57:08] [Client thread/INFO]: [CHAT] 
+[21:57:08] [Client thread/INFO]: [CHAT] 
+[21:57:08] [Client thread/INFO]: [CHAT] 
+[21:57:08] [Client thread/INFO]: [CHAT] 
+[21:57:08] [Client thread/INFO]: [CHAT] 
+[21:57:08] [Client thread/INFO]: [CHAT] 
+[21:57:08] [Client thread/INFO]: [CHAT] 
+[21:57:08] [Client thread/INFO]: [CHAT] 
+[21:57:08] [Client thread/INFO]: [CHAT] 
+[21:57:08] [Client thread/INFO]: [CHAT] 
+[21:57:08] [Client thread/INFO]: [CHAT] 
+[21:57:08] [Client thread/INFO]: [CHAT] 
+[21:57:08] [Client thread/INFO]: [CHAT] 
+[21:57:08] [Client thread/INFO]: [CHAT] 
+[21:57:08] [Client thread/INFO]: [CHAT] 
+[21:57:08] [Client thread/INFO]: [CHAT] 
+[21:57:08] [Client thread/INFO]: [CHAT] 
+[21:57:08] [Client thread/INFO]: [CHAT] 
+[21:57:08] [Client thread/INFO]: [CHAT] /login <password>
+[21:57:08] [Client thread/INFO]: [CHAT] If you lost the password type /resetpassword
+[21:57:10] [Client thread/INFO]: [CHAT] Successful Login.
+[21:57:10] [Client thread/INFO]: [CHAT] ? BlocksMC ? If you have a premium minecraft account you may join through:
+[21:57:10] [Client thread/INFO]: [CHAT] ? BlocksMC ? PREMIUM.BLOCKSMC.COM
+[21:57:10] [Client thread/INFO]: [CHAT] 
+[21:57:10] [Client thread/INFO]: [CHAT] 
+[21:57:10] [Client thread/INFO]: [CHAT]                         Welcome to BlocksMC
+[21:57:10] [Client thread/INFO]: [CHAT]                 We have 597 players at our network
+[21:57:10] [Client thread/INFO]: [CHAT] 
+[21:57:10] [Client thread/INFO]: [CHAT]                          Check out these links:
+[21:57:10] [Client thread/INFO]: [CHAT]      Website - Rules - Store - Support - Discord - Vote
+[21:57:10] [Client thread/INFO]: [CHAT] 
+[21:57:10] [Client thread/INFO]: [CHAT]                                Have Fun ?
+[21:57:10] [Client thread/INFO]: [CHAT] 
+[21:57:10] [Client thread/INFO]: [CHAT]                                      
+[21:57:26] [Server thread/INFO]: Starting integrated minecraft server version 1.8.9
+[21:57:26] [Server thread/INFO]: Generating keypair
+[21:57:26] [Server thread/INFO]: Preparing start region for level 0
+[21:57:27] [Server thread/INFO]: Changing view distance to 12, from 10
+[21:57:27] [Server thread/INFO]: AppleClient[local:E:b476c5c2] logged in with entity id 20052 at (162.16261153550528, 66.86052743994327, -145.20046954012332)
+[21:57:27] [Server thread/INFO]: AppleClient joined the game
+[22:02:04] [Server thread/INFO]: Saving and pausing game...
+[22:02:04] [Server thread/INFO]: Saving chunks for level 'mcpworld'/Overworld
+[22:02:04] [Server thread/INFO]: Saving chunks for level 'mcpworld'/Nether
+[22:02:04] [Server thread/INFO]: Saving chunks for level 'mcpworld'/The End
+[22:02:04] [Server thread/INFO]: Stopping server
+[22:02:04] [Server thread/INFO]: Saving players
+[22:02:04] [Server thread/INFO]: Saving worlds
+[22:02:04] [Server thread/INFO]: Saving chunks for level 'mcpworld'/Overworld
+[22:02:04] [Server thread/INFO]: Saving chunks for level 'mcpworld'/Nether
+[22:02:04] [Server thread/INFO]: Saving chunks for level 'mcpworld'/The End
+[22:02:05] [Client thread/INFO]: Stopping!
+[22:02:05] [Client thread/INFO]: SoundSystem shutting down...
+[22:02:05] [Client thread/WARN]: Author: Paul Lamb, www.paulscode.com
