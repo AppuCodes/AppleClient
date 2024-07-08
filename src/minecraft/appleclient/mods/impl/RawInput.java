@@ -68,6 +68,12 @@ public class RawInput extends Mod
                             }
                         }
                     }
+                    
+                    try
+                    {
+                        Thread.sleep(1);
+                    }
+                    catch (InterruptedException e) {}
                 }
             }).start();
         }

@@ -1357,11 +1357,6 @@ public class GameSettings
         this.sendSettingsToServer();
     }
 
-    public int func_181147_e()
-    {
-        return this.renderDistanceChunks >= 4 ? this.clouds : 0;
-    }
-
     public boolean func_181148_f()
     {
         return this.field_181150_U;

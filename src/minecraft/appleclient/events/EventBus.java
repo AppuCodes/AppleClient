@@ -7,7 +7,7 @@ import com.google.common.eventbus.Subscribe;
 
 public class EventBus
 {
-    private final ArrayList<Object> registeredObjects = new ArrayList();
+    private ArrayList<Object> registeredObjects = new ArrayList();
     
     public void register(Object object)
     {

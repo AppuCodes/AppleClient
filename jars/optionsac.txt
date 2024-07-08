@@ -1,7 +1,4 @@
 {
-  "3D Skins": {
-    "Enabled": false
-  },
   "Auto GG": {
     "Enabled": false,
     "GG Message": "GG",
@@ -17,6 +14,9 @@
     "Enabled": false,
     "Transparency": true,
     "Show 3rd Person": false
+  },
+  "3D Skins": {
+    "Enabled": false
   },
   "Entity Selection": {
     "Enabled": false
