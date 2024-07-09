@@ -1,513 +1,63 @@
-[17:19:25] [Client thread/INFO]: Setting user: AppleClient
-[17:19:25] [Client thread/INFO]: (Session ID is token:0:AppleClient)
-[17:19:26] [Client thread/INFO]: [OptiFine] *** Reflector Forge ***
-[17:19:26] [Client thread/INFO]: [OptiFine] *** Reflector Vanilla ***
-[17:19:26] [Client thread/INFO]: LWJGL Version: 2.9.4
-[17:19:27] [Client thread/INFO]: [OptiFine] 
-[17:19:27] [Client thread/INFO]: [OptiFine] OptiFine_1.8.9_HD_U_H8
-[17:19:27] [Client thread/INFO]: [OptiFine] Build: null
-[17:19:27] [Client thread/INFO]: [OptiFine] OS: Windows 11 (amd64) version 10.0
-[17:19:27] [Client thread/INFO]: [OptiFine] Java: 22.0.1, Oracle Corporation
-[17:19:27] [Client thread/INFO]: [OptiFine] VM: Java HotSpot(TM) 64-Bit Server VM (mixed mode, sharing), Oracle Corporation
-[17:19:27] [Client thread/INFO]: [OptiFine] LWJGL: 2.9.4
-[17:19:27] [Client thread/INFO]: [OptiFine] OpenGL: AMD Radeon(TM) Graphics, version 4.6.0 Compatibility Profile Context 23.19.10.231127, ATI Technologies Inc.
-[17:19:27] [Client thread/INFO]: [OptiFine] OpenGL Version: 4.6.0
-[17:19:27] [Client thread/INFO]: [OptiFine] OpenGL Fancy fog: Not available (GL_NV_fog_distance)
-[17:19:27] [Client thread/INFO]: [OptiFine] Maximum texture size: 16384x16384
-[17:19:27] [Client thread/INFO]: [Shaders] ShadersMod version: 2.4.12
-[17:19:27] [Client thread/INFO]: [Shaders] OpenGL Version: 4.6.0 Compatibility Profile Context 23.19.10.231127
-[17:19:27] [Client thread/INFO]: [Shaders] Vendor:  ATI Technologies Inc.
-[17:19:27] [Client thread/INFO]: [Shaders] Renderer: AMD Radeon(TM) Graphics
-[17:19:27] [Client thread/INFO]: [Shaders] Capabilities:  2.0  2.1  3.0  3.2  4.0 
-[17:19:27] [Client thread/INFO]: [Shaders] GL_MAX_DRAW_BUFFERS: 8
-[17:19:27] [Client thread/INFO]: [Shaders] GL_MAX_COLOR_ATTACHMENTS_EXT: 8
-[17:19:27] [Client thread/INFO]: [Shaders] GL_MAX_TEXTURE_IMAGE_UNITS: 32
-[17:19:27] [Client thread/INFO]: [Shaders] Load ShadersMod configuration.
-[17:19:27] [Client thread/INFO]: [Shaders] Shaders can not be loaded, Fast Render is enabled.
-[17:19:27] [Client thread/INFO]: [Shaders] No shaderpack loaded.
-[17:19:27] [Client thread/INFO]: Reloading ResourceManager: Default
-[17:19:27] [Client thread/INFO]: [OptiFine] *** Reloading textures ***
-[17:19:27] [Client thread/INFO]: [OptiFine] Resource packs: Default
-[17:19:27] [Sound Library Loader/INFO]: Starting up SoundSystem...
-[17:19:27] [Thread-4/INFO]: Initializing LWJGL OpenAL
-[17:19:27] [Thread-4/INFO]: (The LWJGL binding of OpenAL.  For more information, see http://www.lwjgl.org)
-[17:19:28] [Thread-4/INFO]: OpenAL initialized.
-[17:19:28] [Sound Library Loader/INFO]: Sound engine started
-[17:19:30] [Client thread/INFO]: [OptiFine] Mipmap levels: 4
-[17:19:30] [Client thread/INFO]: [OptiFine] Multitexture: false
-[17:19:30] [Client thread/INFO]: [OptiFine] Multipass connected textures: false
-[17:19:32] [Client thread/INFO]: Created: 1024x512 textures-atlas
-[17:19:32] [Client thread/INFO]: [OptiFine] *** Reloading custom textures ***
-[17:19:33] [Client thread/INFO]: [OptiFine] Enable face culling: acacia_leaves, birch_leaves, dark_oak_leaves, jungle_leaves, oak_leaves, spruce_leaves
-[17:19:34] [Server thread/INFO]: Starting integrated minecraft server version 1.8.9
-[17:19:34] [Server thread/INFO]: Generating keypair
-[17:19:34] [Server thread/INFO]: Preparing start region for level 0
-[17:19:35] [Server thread/INFO]: Changing view distance to 4, from 10
-[17:19:35] [Server thread/INFO]: AppleClient[local:E:25fcd8ca] logged in with entity id 208 at (194.9157484480197, 66.0, -120.50736656825099)
-[17:19:35] [Server thread/INFO]: AppleClient joined the game
-[17:19:39] [Server thread/INFO]: Saving and pausing game...
-[17:19:39] [Server thread/INFO]: Saving chunks for level 'mcpworld'/Overworld
-[17:19:40] [Server thread/INFO]: Saving chunks for level 'mcpworld'/Nether
-[17:19:40] [Server thread/INFO]: Saving chunks for level 'mcpworld'/The End
-[17:19:48] [Server thread/INFO]: Saving and pausing game...
-[17:19:48] [Server thread/INFO]: Saving chunks for level 'mcpworld'/Overworld
-[17:19:48] [Server thread/INFO]: Saving chunks for level 'mcpworld'/Nether
-[17:19:48] [Server thread/INFO]: Saving chunks for level 'mcpworld'/The End
-[17:20:04] [Server thread/INFO]: Saving and pausing game...
-[17:20:04] [Server thread/INFO]: Saving chunks for level 'mcpworld'/Overworld
-[17:20:04] [Server thread/INFO]: Saving chunks for level 'mcpworld'/Nether
-[17:20:04] [Server thread/INFO]: Saving chunks for level 'mcpworld'/The End
-[17:20:11] [Server thread/INFO]: Saving and pausing game...
-[17:20:11] [Server thread/INFO]: Saving chunks for level 'mcpworld'/Overworld
-[17:20:11] [Server thread/INFO]: Saving chunks for level 'mcpworld'/Nether
-[17:20:11] [Server thread/INFO]: Saving chunks for level 'mcpworld'/The End
-[17:20:46] [Server thread/INFO]: Saving and pausing game...
-[17:20:46] [Server thread/INFO]: Saving chunks for level 'mcpworld'/Overworld
-[17:20:46] [Server thread/INFO]: Saving chunks for level 'mcpworld'/Nether
-[17:20:46] [Server thread/INFO]: Saving chunks for level 'mcpworld'/The End
-[17:20:59] [Client thread/ERROR]: Item entity 2854 has no item?!
-[17:20:59] [Client thread/ERROR]: Item entity 2854 has no item?!
-[17:21:05] [Server thread/INFO]: Saving and pausing game...
-[17:21:05] [Server thread/INFO]: Saving chunks for level 'mcpworld'/Overworld
-[17:21:05] [Server thread/INFO]: Saving chunks for level 'mcpworld'/Nether
-[17:21:05] [Server thread/INFO]: Saving chunks for level 'mcpworld'/The End
-[17:21:43] [Server thread/INFO]: Saving and pausing game...
-[17:21:43] [Server thread/INFO]: Saving chunks for level 'mcpworld'/Overworld
-[17:21:43] [Server thread/INFO]: Saving chunks for level 'mcpworld'/Nether
-[17:21:43] [Server thread/INFO]: Saving chunks for level 'mcpworld'/The End
-[17:24:40] [Server thread/WARN]: Can't keep up! Did the system time change, or is the server overloaded? Running 2797ms behind, skipping 55 tick(s)
-[17:29:35] [Server thread/INFO]: [AppleClient: Set own game mode to Creative Mode]
-[17:29:35] [Client thread/INFO]: [CHAT] Your game mode has been updated
-[17:31:23] [Server thread/INFO]: Saving and pausing game...
-[17:31:23] [Server thread/INFO]: Saving chunks for level 'mcpworld'/Overworld
-[17:31:23] [Server thread/INFO]: Saving chunks for level 'mcpworld'/Nether
-[17:31:23] [Server thread/INFO]: Saving chunks for level 'mcpworld'/The End
-[17:31:35] [Client thread/INFO]: [OptiFine] Natural Textures: Parsing default configuration "optifine/natural.properties"
-[17:31:35] [Client thread/INFO]: [OptiFine] Natural Textures: Valid only for textures from default resource pack
-[17:31:35] [Client thread/INFO]: [OptiFine] NaturalTextures: grass_side = F
-[17:31:35] [Client thread/INFO]: [OptiFine] NaturalTextures: grass_side_overlay = F
-[17:31:35] [Client thread/INFO]: [OptiFine] NaturalTextures: grass_side_snowed = F
-[17:31:35] [Client thread/INFO]: [OptiFine] NaturalTextures: mycelium_side = F
-[17:31:35] [Client thread/INFO]: [OptiFine] NaturalTextures: mycelium_top = 4F
-[17:31:35] [Client thread/INFO]: [OptiFine] NaturalTextures: snow = 4F
-[17:31:35] [Client thread/INFO]: [OptiFine] NaturalTextures: coarse_dirt = 4F
-[17:31:35] [Client thread/INFO]: [OptiFine] NaturalTextures: dirt_podzol_top = 4F
-[17:31:35] [Client thread/INFO]: [OptiFine] NaturalTextures: farmland_wet = 2F
-[17:31:35] [Client thread/INFO]: [OptiFine] NaturalTextures: farmland_dry = 2F
-[17:31:35] [Client thread/INFO]: [OptiFine] NaturalTextures: stone_granite = 2F
-[17:31:35] [Client thread/INFO]: [OptiFine] NaturalTextures: stone_diorite = 2F
-[17:31:35] [Client thread/INFO]: [OptiFine] NaturalTextures: stone_andesite = 2F
-[17:31:35] [Client thread/INFO]: [OptiFine] NaturalTextures: sandstone_top = 4
-[17:31:35] [Client thread/INFO]: [OptiFine] NaturalTextures: sandstone_bottom = 4F
-[17:31:35] [Client thread/INFO]: [OptiFine] NaturalTextures: stone_slab_top = F
-[17:31:35] [Client thread/INFO]: [OptiFine] NaturalTextures: end_stone = 4
-[17:31:35] [Client thread/INFO]: [OptiFine] NaturalTextures: gravel = 2
-[17:31:35] [Client thread/INFO]: [OptiFine] NaturalTextures: clay = 4F
-[17:31:35] [Client thread/INFO]: [OptiFine] NaturalTextures: log_oak = 2F
-[17:31:35] [Client thread/INFO]: [OptiFine] NaturalTextures: log_spruce = 2F
-[17:31:35] [Client thread/INFO]: [OptiFine] NaturalTextures: log_birch = F
-[17:31:35] [Client thread/INFO]: [OptiFine] NaturalTextures: log_jungle = 2F
-[17:31:35] [Client thread/INFO]: [OptiFine] NaturalTextures: log_acacia = 2F
-[17:31:35] [Client thread/INFO]: [OptiFine] NaturalTextures: log_big_oak = 2F
-[17:31:35] [Client thread/INFO]: [OptiFine] NaturalTextures: log_oak_top = 4F
-[17:31:35] [Client thread/INFO]: [OptiFine] NaturalTextures: log_spruce_top = 4F
-[17:31:35] [Client thread/INFO]: [OptiFine] NaturalTextures: log_birch_top = 4F
-[17:31:35] [Client thread/INFO]: [OptiFine] NaturalTextures: log_jungle_top = 4F
-[17:31:35] [Client thread/INFO]: [OptiFine] NaturalTextures: log_acacia_top = 4F
-[17:31:35] [Client thread/INFO]: [OptiFine] NaturalTextures: log_big_oak_top = 4F
-[17:31:35] [Client thread/INFO]: [OptiFine] NaturalTextures: leaves_oak = 2F
-[17:31:35] [Client thread/INFO]: [OptiFine] NaturalTextures: leaves_spruce = 2F
-[17:31:35] [Client thread/INFO]: [OptiFine] NaturalTextures: leaves_birch = 2F
-[17:31:35] [Client thread/INFO]: [OptiFine] NaturalTextures: leaves_jungle = 2
-[17:31:35] [Client thread/INFO]: [OptiFine] NaturalTextures: leaves_big_oak = 2F
-[17:31:35] [Client thread/INFO]: [OptiFine] NaturalTextures: leaves_acacia = 2F
-[17:31:35] [Client thread/INFO]: [OptiFine] NaturalTextures: gold_ore = 2F
-[17:31:35] [Client thread/INFO]: [OptiFine] NaturalTextures: iron_ore = 2F
-[17:31:35] [Client thread/INFO]: [OptiFine] NaturalTextures: coal_ore = 2F
-[17:31:35] [Client thread/INFO]: [OptiFine] NaturalTextures: diamond_ore = 2F
-[17:31:35] [Client thread/INFO]: [OptiFine] NaturalTextures: redstone_ore = 2F
-[17:31:35] [Client thread/INFO]: [OptiFine] NaturalTextures: lapis_ore = 2F
-[17:31:35] [Client thread/INFO]: [OptiFine] NaturalTextures: netherrack = 4F
-[17:31:35] [Client thread/INFO]: [OptiFine] NaturalTextures: quartz_ore = 2
-[17:31:35] [Client thread/INFO]: [OptiFine] NaturalTextures: soul_sand = 4F
-[17:31:35] [Client thread/INFO]: [OptiFine] NaturalTextures: glowstone = 4
-[17:31:35] [Client thread/INFO]: [OptiFine] NaturalTextures: redstone_lamp_on = 4F
-[17:31:35] [Client thread/INFO]: [OptiFine] NaturalTextures: redstone_lamp_off = 4F
-[17:31:35] [Client thread/INFO]: [OptiFine] NaturalTextures: prismarine_rough = 4F
-[17:31:35] [Client thread/INFO]: [OptiFine] NaturalTextures: obsidian = 4F
-[17:31:35] [Client thread/INFO]: [OptiFine] NaturalTextures: cactus_side = 2F
-[17:31:58] [Server thread/INFO]: Saving and pausing game...
-[17:31:58] [Server thread/INFO]: Saving chunks for level 'mcpworld'/Overworld
-[17:31:58] [Server thread/INFO]: Saving chunks for level 'mcpworld'/Nether
-[17:31:58] [Server thread/INFO]: Saving chunks for level 'mcpworld'/The End
-[17:32:32] [Server thread/INFO]: [AppleClient: Set the time to 15000]
-[17:32:32] [Client thread/INFO]: [CHAT] Set the time to 15000
-[17:32:34] [Server thread/INFO]: [AppleClient: Set the time to 14500]
-[17:32:34] [Client thread/INFO]: [CHAT] Set the time to 14500
-[17:32:37] [Server thread/INFO]: [AppleClient: Set the time to 14000]
-[17:32:37] [Client thread/INFO]: [CHAT] Set the time to 14000
-[17:32:56] [Server thread/INFO]: Saving and pausing game...
-[17:32:56] [Server thread/INFO]: Saving chunks for level 'mcpworld'/Overworld
-[17:32:56] [Server thread/INFO]: Saving chunks for level 'mcpworld'/Nether
-[17:32:56] [Server thread/INFO]: Saving chunks for level 'mcpworld'/The End
-[17:33:38] [Server thread/INFO]: [AppleClient: Set the time to 1000]
-[17:33:38] [Client thread/INFO]: [CHAT] Set the time to 1000
-[17:34:07] [Server thread/INFO]: Saving and pausing game...
-[17:34:07] [Server thread/INFO]: Saving chunks for level 'mcpworld'/Overworld
-[17:34:07] [Server thread/INFO]: Saving chunks for level 'mcpworld'/Nether
-[17:34:07] [Server thread/INFO]: Saving chunks for level 'mcpworld'/The End
-[17:34:53] [Server thread/INFO]: [AppleClient: Set own game mode to Survival Mode]
-[17:34:53] [Client thread/INFO]: [CHAT] Your game mode has been updated
-[17:36:15] [Server thread/INFO]: [AppleClient: Took all effects from AppleClient]
-[17:36:15] [Client thread/INFO]: [CHAT] Took all effects from AppleClient
-[17:36:16] [Server thread/INFO]: Saving and pausing game...
-[17:36:16] [Server thread/INFO]: Saving chunks for level 'mcpworld'/Overworld
-[17:36:16] [Server thread/INFO]: Saving chunks for level 'mcpworld'/Nether
-[17:36:16] [Server thread/INFO]: Saving chunks for level 'mcpworld'/The End
-[17:37:11] [Server thread/INFO]: Saving and pausing game...
-[17:37:11] [Server thread/INFO]: Saving chunks for level 'mcpworld'/Overworld
-[17:37:11] [Server thread/INFO]: Saving chunks for level 'mcpworld'/Nether
-[17:37:11] [Server thread/INFO]: Saving chunks for level 'mcpworld'/The End
-[17:37:21] [Server thread/INFO]: Saving and pausing game...
-[17:37:21] [Server thread/INFO]: Saving chunks for level 'mcpworld'/Overworld
-[17:37:21] [Server thread/INFO]: Saving chunks for level 'mcpworld'/Nether
-[17:37:21] [Server thread/INFO]: Saving chunks for level 'mcpworld'/The End
-[17:37:35] [Server thread/INFO]: Saving and pausing game...
-[17:37:35] [Server thread/INFO]: Saving chunks for level 'mcpworld'/Overworld
-[17:37:35] [Server thread/INFO]: Saving chunks for level 'mcpworld'/Nether
-[17:37:35] [Server thread/INFO]: Saving chunks for level 'mcpworld'/The End
-[17:51:34] [Server thread/INFO]: Saving and pausing game...
-[17:51:34] [Server thread/INFO]: Saving chunks for level 'mcpworld'/Overworld
-[17:51:34] [Server thread/INFO]: Saving chunks for level 'mcpworld'/Nether
-[17:51:34] [Server thread/INFO]: Saving chunks for level 'mcpworld'/The End
-[17:51:35] [Server thread/INFO]: Saving and pausing game...
-[17:51:35] [Server thread/INFO]: Saving chunks for level 'mcpworld'/Overworld
-[17:51:35] [Server thread/INFO]: Saving chunks for level 'mcpworld'/Nether
-[17:51:35] [Server thread/INFO]: Saving chunks for level 'mcpworld'/The End
-[17:51:46] [Client thread/INFO]: [CHAT] Unknown command. Try /help for a list of commands
-[17:51:48] [Client thread/INFO]: [CHAT] 'clea' is not a valid number
-[17:51:52] [Server thread/INFO]: [AppleClient: Set own game mode to Creative Mode]
-[17:51:52] [Client thread/INFO]: [CHAT] Your game mode has been updated
-[17:52:55] [Server thread/INFO]: [AppleClient: Set the time to 13000]
-[17:52:55] [Client thread/INFO]: [CHAT] Set the time to 13000
-[17:52:58] [Server thread/INFO]: [AppleClient: Set the time to 15000]
-[17:52:58] [Client thread/INFO]: [CHAT] Set the time to 15000
-[17:53:00] [Server thread/INFO]: Saving and pausing game...
-[17:53:00] [Server thread/INFO]: Saving chunks for level 'mcpworld'/Overworld
-[17:53:00] [Server thread/INFO]: Saving chunks for level 'mcpworld'/Nether
-[17:53:00] [Server thread/INFO]: Saving chunks for level 'mcpworld'/The End
-[17:53:49] [Server thread/INFO]: Saving and pausing game...
-[17:53:49] [Server thread/INFO]: Saving chunks for level 'mcpworld'/Overworld
-[17:53:49] [Server thread/INFO]: Saving chunks for level 'mcpworld'/Nether
-[17:53:49] [Server thread/INFO]: Saving chunks for level 'mcpworld'/The End
-[17:53:55] [Server thread/INFO]: Saving and pausing game...
-[17:53:55] [Server thread/INFO]: Saving chunks for level 'mcpworld'/Overworld
-[17:53:55] [Server thread/INFO]: Saving chunks for level 'mcpworld'/Nether
-[17:53:55] [Server thread/INFO]: Saving chunks for level 'mcpworld'/The End
-[17:55:01] [Server thread/INFO]: Saving and pausing game...
-[17:55:01] [Server thread/INFO]: Saving chunks for level 'mcpworld'/Overworld
-[17:55:01] [Server thread/INFO]: Saving chunks for level 'mcpworld'/Nether
-[17:55:01] [Server thread/INFO]: Saving chunks for level 'mcpworld'/The End
-[17:55:13] [Server thread/INFO]: Saving and pausing game...
-[17:55:13] [Server thread/INFO]: Saving chunks for level 'mcpworld'/Overworld
-[17:55:13] [Server thread/INFO]: Saving chunks for level 'mcpworld'/Nether
-[17:55:13] [Server thread/INFO]: Saving chunks for level 'mcpworld'/The End
-[17:55:16] [Server thread/INFO]: Saving and pausing game...
-[17:55:16] [Server thread/INFO]: Saving chunks for level 'mcpworld'/Overworld
-[17:55:16] [Server thread/INFO]: Saving chunks for level 'mcpworld'/Nether
-[17:55:16] [Server thread/INFO]: Saving chunks for level 'mcpworld'/The End
-[17:56:29] [Server thread/INFO]: <AppleClient> o
-[17:56:29] [Client thread/INFO]: [CHAT] <AppleClient> o
-[17:56:29] [Server thread/INFO]: Saving and pausing game...
-[17:56:29] [Server thread/INFO]: Saving chunks for level 'mcpworld'/Overworld
-[17:56:29] [Server thread/INFO]: Saving chunks for level 'mcpworld'/Nether
-[17:56:29] [Server thread/INFO]: Saving chunks for level 'mcpworld'/The End
-[17:56:30] [Server thread/INFO]: Stopping server
-[17:56:30] [Server thread/INFO]: Saving players
-[17:56:30] [Server thread/INFO]: Saving worlds
-[17:56:30] [Server thread/INFO]: Saving chunks for level 'mcpworld'/Overworld
-[17:56:30] [Server thread/INFO]: Saving chunks for level 'mcpworld'/Nether
-[17:56:30] [Server thread/INFO]: Saving chunks for level 'mcpworld'/The End
-[17:56:31] [Client thread/INFO]: Connecting to ccc.blocksmc.com., 25565
-[17:56:32] [Client thread/INFO]: [CHAT] 
-[17:56:32] [Client thread/INFO]: [CHAT] 
-[17:56:32] [Client thread/INFO]: [CHAT] 
-[17:56:32] [Client thread/INFO]: [CHAT] 
-[17:56:32] [Client thread/INFO]: [CHAT] 
-[17:56:32] [Client thread/INFO]: [CHAT] 
-[17:56:32] [Client thread/INFO]: [CHAT] 
-[17:56:32] [Client thread/INFO]: [CHAT] 
-[17:56:32] [Client thread/INFO]: [CHAT] 
-[17:56:32] [Client thread/INFO]: [CHAT] 
-[17:56:32] [Client thread/INFO]: [CHAT] 
-[17:56:32] [Client thread/INFO]: [CHAT] 
-[17:56:32] [Client thread/INFO]: [CHAT] 
-[17:56:32] [Client thread/INFO]: [CHAT] 
-[17:56:32] [Client thread/INFO]: [CHAT] 
-[17:56:32] [Client thread/INFO]: [CHAT] 
-[17:56:32] [Client thread/INFO]: [CHAT] 
-[17:56:32] [Client thread/INFO]: [CHAT] 
-[17:56:32] [Client thread/INFO]: [CHAT] 
-[17:56:32] [Client thread/INFO]: [CHAT] 
-[17:56:32] [Client thread/INFO]: [CHAT] 
-[17:56:32] [Client thread/INFO]: [CHAT] 
-[17:56:32] [Client thread/INFO]: [CHAT] 
-[17:56:32] [Client thread/INFO]: [CHAT] 
-[17:56:32] [Client thread/INFO]: [CHAT] 
-[17:56:32] [Client thread/INFO]: [CHAT] 
-[17:56:32] [Client thread/INFO]: [CHAT] 
-[17:56:32] [Client thread/INFO]: [CHAT] 
-[17:56:32] [Client thread/INFO]: [CHAT] 
-[17:56:32] [Client thread/INFO]: [CHAT] 
-[17:56:32] [Client thread/INFO]: [CHAT] 
-[17:56:32] [Client thread/INFO]: [CHAT] 
-[17:56:32] [Client thread/INFO]: [CHAT] 
-[17:56:32] [Client thread/INFO]: [CHAT] 
-[17:56:32] [Client thread/INFO]: [CHAT] 
-[17:56:32] [Client thread/INFO]: [CHAT] 
-[17:56:32] [Client thread/INFO]: [CHAT] 
-[17:56:32] [Client thread/INFO]: [CHAT] 
-[17:56:32] [Client thread/INFO]: [CHAT] 
-[17:56:32] [Client thread/INFO]: [CHAT] 
-[17:56:32] [Client thread/INFO]: [CHAT] 
-[17:56:32] [Client thread/INFO]: [CHAT] 
-[17:56:32] [Client thread/INFO]: [CHAT] 
-[17:56:32] [Client thread/INFO]: [CHAT] 
-[17:56:32] [Client thread/INFO]: [CHAT] 
-[17:56:32] [Client thread/INFO]: [CHAT] 
-[17:56:32] [Client thread/INFO]: [CHAT] 
-[17:56:32] [Client thread/INFO]: [CHAT] 
-[17:56:32] [Client thread/INFO]: [CHAT] 
-[17:56:32] [Client thread/INFO]: [CHAT] 
-[17:56:32] [Client thread/INFO]: [CHAT] 
-[17:56:32] [Client thread/INFO]: [CHAT] /login <password>
-[17:56:32] [Client thread/INFO]: [CHAT] If you lost the password type /resetpassword
-[17:56:34] [Client thread/INFO]: [CHAT] Successful Login.
-[17:56:34] [Client thread/INFO]: [CHAT] ? BlocksMC ? If you have a premium minecraft account you may join through:
-[17:56:34] [Client thread/INFO]: [CHAT] ? BlocksMC ? PREMIUM.BLOCKSMC.COM
-[17:56:34] [Client thread/INFO]: [CHAT] 
-[17:56:34] [Client thread/INFO]: [CHAT] 
-[17:56:34] [Client thread/INFO]: [CHAT]                         Welcome to BlocksMC
-[17:56:34] [Client thread/INFO]: [CHAT]                 We have 769 players at our network
-[17:56:34] [Client thread/INFO]: [CHAT] 
-[17:56:34] [Client thread/INFO]: [CHAT]                          Check out these links:
-[17:56:34] [Client thread/INFO]: [CHAT]      Website - Rules - Store - Support - Discord - Vote
-[17:56:34] [Client thread/INFO]: [CHAT] 
-[17:56:34] [Client thread/INFO]: [CHAT]                                Have Fun ?
-[17:56:34] [Client thread/INFO]: [CHAT] 
-[17:56:34] [Client thread/INFO]: [CHAT]                                      
-[17:57:01] [Client thread/INFO]: [CHAT] 03 ? AppleClient » hi
-[17:57:01] [Client thread/INFO]: [CHAT] ? BlocksMC ? Please wait before sending message again.
-[17:57:11] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:mob.enderman.death
-[17:57:19] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:none
-[17:57:21] [Client thread/INFO]: [CHAT] ? SkyPvP ? You have combat tagged Emilian0703. Do not logout!
-[17:57:23] [Client thread/INFO]: [CHAT] ? SkyPvP ? You killed Emilian0703 with 10.0 ? hearts remaining
-[17:57:27] [Client thread/INFO]: [CHAT] ? SkyPvP ? Your enemy Harpie29 still had 5.87 ? hearts remaining
-[17:57:30] [Client thread/INFO]: [CHAT] ? SkyPvP ? You are no longer in combat. You may logout.
-[17:57:36] [Client thread/INFO]: [CHAT] ? SkyPvP ? luna2004 has got a killstreak of 10
-[17:57:39] [Client thread/INFO]: [CHAT] ? SkyPvP ? You have been combat tagged by PsychoL0rd. Do not logout!
-[17:57:41] [Client thread/INFO]: [CHAT] ? SkyPvP ? Your enemy Harpie29 still had 5.61 ? hearts remaining
-[17:57:46] [Client thread/INFO]: [CHAT] ? SkyPvP ? You are no longer in combat. You may logout.
-[17:57:46] [Client thread/INFO]: [CHAT] Warrior ? AppleClient » ??
-[17:58:33] [Client thread/INFO]: Connecting to ccc.blocksmc.com., 25565
-[17:58:33] [Client thread/INFO]: [CHAT] 
-[17:58:33] [Client thread/INFO]: [CHAT] 
-[17:58:33] [Client thread/INFO]: [CHAT] 
-[17:58:33] [Client thread/INFO]: [CHAT] 
-[17:58:33] [Client thread/INFO]: [CHAT] 
-[17:58:33] [Client thread/INFO]: [CHAT] 
-[17:58:33] [Client thread/INFO]: [CHAT] 
-[17:58:33] [Client thread/INFO]: [CHAT] 
-[17:58:33] [Client thread/INFO]: [CHAT] 
-[17:58:33] [Client thread/INFO]: [CHAT] 
-[17:58:33] [Client thread/INFO]: [CHAT] 
-[17:58:33] [Client thread/INFO]: [CHAT] 
-[17:58:33] [Client thread/INFO]: [CHAT] 
-[17:58:33] [Client thread/INFO]: [CHAT] 
-[17:58:33] [Client thread/INFO]: [CHAT] 
-[17:58:33] [Client thread/INFO]: [CHAT] 
-[17:58:33] [Client thread/INFO]: [CHAT] 
-[17:58:33] [Client thread/INFO]: [CHAT] 
-[17:58:33] [Client thread/INFO]: [CHAT] 
-[17:58:33] [Client thread/INFO]: [CHAT] 
-[17:58:33] [Client thread/INFO]: [CHAT] 
-[17:58:33] [Client thread/INFO]: [CHAT] 
-[17:58:33] [Client thread/INFO]: [CHAT] 
-[17:58:33] [Client thread/INFO]: [CHAT] 
-[17:58:33] [Client thread/INFO]: [CHAT] 
-[17:58:33] [Client thread/INFO]: [CHAT] 
-[17:58:33] [Client thread/INFO]: [CHAT] 
-[17:58:33] [Client thread/INFO]: [CHAT] 
-[17:58:33] [Client thread/INFO]: [CHAT] 
-[17:58:33] [Client thread/INFO]: [CHAT] 
-[17:58:33] [Client thread/INFO]: [CHAT] 
-[17:58:33] [Client thread/INFO]: [CHAT] 
-[17:58:33] [Client thread/INFO]: [CHAT] 
-[17:58:33] [Client thread/INFO]: [CHAT] 
-[17:58:33] [Client thread/INFO]: [CHAT] 
-[17:58:33] [Client thread/INFO]: [CHAT] 
-[17:58:33] [Client thread/INFO]: [CHAT] 
-[17:58:33] [Client thread/INFO]: [CHAT] 
-[17:58:33] [Client thread/INFO]: [CHAT] 
-[17:58:33] [Client thread/INFO]: [CHAT] 
-[17:58:33] [Client thread/INFO]: [CHAT] 
-[17:58:33] [Client thread/INFO]: [CHAT] 
-[17:58:33] [Client thread/INFO]: [CHAT] 
-[17:58:33] [Client thread/INFO]: [CHAT] 
-[17:58:33] [Client thread/INFO]: [CHAT] 
-[17:58:33] [Client thread/INFO]: [CHAT] 
-[17:58:33] [Client thread/INFO]: [CHAT] 
-[17:58:33] [Client thread/INFO]: [CHAT] 
-[17:58:33] [Client thread/INFO]: [CHAT] 
-[17:58:33] [Client thread/INFO]: [CHAT] 
-[17:58:33] [Client thread/INFO]: [CHAT] 
-[17:58:33] [Client thread/INFO]: [CHAT] /login <password>
-[17:58:33] [Client thread/INFO]: [CHAT] If you lost the password type /resetpassword
-[17:58:35] [Client thread/INFO]: [CHAT] Successful Login.
-[17:58:35] [Client thread/INFO]: [CHAT] ? BlocksMC ? If you have a premium minecraft account you may join through:
-[17:58:35] [Client thread/INFO]: [CHAT] ? BlocksMC ? PREMIUM.BLOCKSMC.COM
-[17:58:35] [Client thread/INFO]: [CHAT] 
-[17:58:35] [Client thread/INFO]: [CHAT] 
-[17:58:35] [Client thread/INFO]: [CHAT]                         Welcome to BlocksMC
-[17:58:35] [Client thread/INFO]: [CHAT]                 We have 768 players at our network
-[17:58:35] [Client thread/INFO]: [CHAT] 
-[17:58:35] [Client thread/INFO]: [CHAT]                          Check out these links:
-[17:58:35] [Client thread/INFO]: [CHAT]      Website - Rules - Store - Support - Discord - Vote
-[17:58:35] [Client thread/INFO]: [CHAT] 
-[17:58:35] [Client thread/INFO]: [CHAT]                                Have Fun ?
-[17:58:35] [Client thread/INFO]: [CHAT] 
-[17:58:36] [Client thread/INFO]: [CHAT]                                      
-[17:58:45] [Client thread/INFO]: [CHAT] BW ? Guedes033 » ACCEPT
-[17:58:52] [Client thread/INFO]: [CHAT] BW ? GoriMaa » guys
-[17:58:59] [Client thread/INFO]: [CHAT] PT ? 3somah_xD » wat
-[17:59:18] [Client thread/INFO]: [CHAT] BW ? GoriMaa » what are the global points??
-[17:59:40] [Client thread/INFO]: [CHAT] ? SkyPvP ? You have been combat tagged by Harpie29. Do not logout!
-[17:59:42] [Client thread/INFO]: [CHAT] ? SkyPvP ? Your enemy Harpie29 still had 8.465 ? hearts remaining
-[17:59:44] [Client thread/INFO]: [CHAT] Harpie29, HerbalGold
-[17:59:45] [Client thread/INFO]: [CHAT] Warrior ? AppleClient » may Harpie29 lose
-[17:59:45] [Client thread/INFO]: [CHAT] ? SkyPvP ? You are no longer in combat. You may logout.
-[17:59:51] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:none
-[18:00:01] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:none
-[18:00:08] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:none
-[18:00:16] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:none
-[18:00:23] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:none
-[18:00:30] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:none
-[18:00:38] [Client thread/INFO]: [CHAT] ? SkyPvP ? You have been combat tagged by Harpie29. Do not logout!
-[18:00:40] [Client thread/INFO]: [CHAT] ? SkyPvP ? Your enemy Harpie29 still had 7.795 ? hearts remaining
-[18:00:40] [Texture Downloader #66/ERROR]: Couldn't download http texture: java.net.UnknownHostException: skins.minecraft.net
-[18:00:40] [Texture Downloader #65/ERROR]: Couldn't download http texture: java.net.UnknownHostException: skins.minecraft.net
-[18:00:40] [Texture Downloader #59/ERROR]: Couldn't download http texture: java.net.UnknownHostException: skins.minecraft.net
-[18:00:40] [Texture Downloader #64/ERROR]: Couldn't download http texture: java.net.UnknownHostException: skins.minecraft.net
-[18:00:40] [Texture Downloader #63/ERROR]: Couldn't download http texture: java.net.UnknownHostException: skins.minecraft.net
-[18:00:40] [Texture Downloader #60/ERROR]: Couldn't download http texture: java.net.UnknownHostException: skins.minecraft.net
-[18:00:40] [Texture Downloader #61/ERROR]: Couldn't download http texture: java.net.UnknownHostException: skins.minecraft.net
-[18:00:40] [Texture Downloader #62/ERROR]: Couldn't download http texture: java.net.UnknownHostException: skins.minecraft.net
-[18:00:40] [Texture Downloader #67/ERROR]: Couldn't download http texture: java.net.UnknownHostException: skins.minecraft.net
-[18:00:40] [Texture Downloader #68/ERROR]: Couldn't download http texture: java.net.UnknownHostException: skins.minecraft.net
-[18:00:40] [Texture Downloader #69/ERROR]: Couldn't download http texture: java.net.UnknownHostException: skins.minecraft.net
-[18:00:40] [Texture Downloader #70/ERROR]: Couldn't download http texture: java.net.UnknownHostException: skins.minecraft.net
-[18:00:40] [Texture Downloader #71/ERROR]: Couldn't download http texture: java.net.UnknownHostException: skins.minecraft.net
-[18:00:40] [Texture Downloader #72/ERROR]: Couldn't download http texture: java.net.UnknownHostException: skins.minecraft.net
-[18:00:40] [Texture Downloader #73/ERROR]: Couldn't download http texture: java.net.UnknownHostException: skins.minecraft.net
-[18:00:40] [Texture Downloader #74/ERROR]: Couldn't download http texture: java.net.UnknownHostException: skins.minecraft.net
-[18:00:40] [Texture Downloader #75/ERROR]: Couldn't download http texture: java.net.UnknownHostException: skins.minecraft.net
-[18:00:40] [Texture Downloader #76/ERROR]: Couldn't download http texture: java.net.UnknownHostException: skins.minecraft.net
-[18:00:43] [Client thread/INFO]: [CHAT] Warrior ? AppleClient » get Harpie29 camper
-[18:00:44] [Client thread/INFO]: [CHAT] ? SkyPvP ? You are no longer in combat. You may logout.
-[18:01:07] [Client thread/INFO]: [CHAT] Fighter ? Harpie29 » :*
-[18:01:34] [Client thread/INFO]: [CHAT] ? SkyPvP ? Harpie29 has got a killstreak of 10
-[18:01:35] [Client thread/INFO]: [CHAT] ? SkyPvP ? Ground Items will be removed in 30 seconds.
-[18:01:45] [Client thread/INFO]: [CHAT] ? SkyPvP ? Ground Items will be removed in 20 seconds.
-[18:01:55] [Client thread/INFO]: [CHAT] ? SkyPvP ? Ground Items will be removed in 10 seconds.
-[18:02:05] [Client thread/INFO]: [CHAT] 
-[18:02:05] [Client thread/INFO]: [CHAT]                  *** ITEMS CLEAR ****
-[18:02:05] [Client thread/INFO]: [CHAT]                    (Removed 38 Items)
-[18:02:05] [Client thread/INFO]: [CHAT] 
-[18:02:20] [Client thread/INFO]: [CHAT] ? SkyPvP ? You have combat tagged Harpie29. Do not logout!
-[18:02:21] [Client thread/INFO]: [CHAT] # ? PsychoL0rd » i164q amigo
-[18:02:22] [Client thread/INFO]: [CHAT] ? SkyPvP ? Your enemy Harpie29 still had 9.16 ? hearts remaining
-[18:02:23] [Client thread/INFO]: [CHAT] # ? PsychoL0rd » I'll buy it from you, it could be tomorrow, oh the day after, but I'll buy the range from you.
-[18:02:25] [Client thread/INFO]: [CHAT] Warrior ? AppleClient » see the hacks? Aimbot
-[18:02:26] [Client thread/INFO]: [CHAT] ? SkyPvP ? You are no longer in combat. You may logout.
-[18:02:26] [Client thread/INFO]: [CHAT] Unknown command. Type "/help" for help.
-[18:02:27] [Client thread/INFO]: [CHAT]                                      
-[18:02:27] [Chunk Batcher 1/WARN]: Biome ID is out of bounds: 176541, defaulting to 0 (Ocean)
-[18:02:27] [Chunk Batcher 1/WARN]: Biome ID is out of bounds: 176541, defaulting to 0 (Ocean)
-[18:02:42] [Client thread/INFO]: [CHAT]                                      
-[18:02:42] [Chunk Batcher 0/WARN]: Biome ID is out of bounds: 254753, defaulting to 0 (Ocean)
-[18:02:42] [Chunk Batcher 0/WARN]: Biome ID is out of bounds: 151720, defaulting to 0 (Ocean)
-[18:02:42] [Chunk Batcher 0/WARN]: Biome ID is out of bounds: 254753, defaulting to 0 (Ocean)
-[18:02:42] [Chunk Batcher 0/WARN]: Biome ID is out of bounds: 228273, defaulting to 0 (Ocean)
-[18:02:42] [Chunk Batcher 0/WARN]: Biome ID is out of bounds: 82187, defaulting to 0 (Ocean)
-[18:02:42] [Chunk Batcher 0/WARN]: Biome ID is out of bounds: 101746, defaulting to 0 (Ocean)
-[18:02:42] [Chunk Batcher 0/WARN]: Biome ID is out of bounds: 101746, defaulting to 0 (Ocean)
-[18:02:42] [Chunk Batcher 0/WARN]: Biome ID is out of bounds: 53461, defaulting to 0 (Ocean)
-[18:02:42] [Chunk Batcher 0/WARN]: Biome ID is out of bounds: 101746, defaulting to 0 (Ocean)
-[18:02:42] [Chunk Batcher 0/WARN]: Biome ID is out of bounds: 154761, defaulting to 0 (Ocean)
-[18:02:42] [Chunk Batcher 0/WARN]: Biome ID is out of bounds: 42889, defaulting to 0 (Ocean)
-[18:02:42] [Chunk Batcher 0/WARN]: Biome ID is out of bounds: 159224, defaulting to 0 (Ocean)
-[18:02:42] [Chunk Batcher 0/WARN]: Biome ID is out of bounds: 228273, defaulting to 0 (Ocean)
-[18:02:42] [Chunk Batcher 0/WARN]: Biome ID is out of bounds: 4628, defaulting to 0 (Ocean)
-[18:02:47] [Client thread/INFO]: [CHAT] ? BlocksMC ? Please wait a few seconds.
-[18:02:48] [Client thread/INFO]: [CHAT] AppleClient has joined the server.
-[18:02:50] [Client thread/INFO]: [CHAT] Nicolovekoryin has joined the server.
-[18:03:00] [Client thread/INFO]: [CHAT] zxsws has joined the server.
-[18:03:00] [Client thread/INFO]: [CHAT] ? BedWars Solo ? Timer has been shortened to 30 seconds.
-[18:03:18] [Client thread/INFO]: [CHAT] ItsCaptainJo has joined the server.
-[18:03:20] [Client thread/INFO]: [CHAT] ? BedWars Solo ? Warmup started. You will be teleported in the next 10 seconds.
-[18:03:24] [Client thread/INFO]: [CHAT] ong9_11 has joined the server.
-[18:03:29] [Client thread/INFO]: [CHAT] ? BedWars Solo ? You are now playing on the Blue Team!
-[18:03:43] [Client thread/INFO]: [CHAT] You don't have enough Iron!
-[18:03:43] [Client thread/INFO]: [CHAT] You don't have enough Iron!
-[18:03:47] [Client thread/INFO]: [CHAT] Enjoy your purchase!
-[18:03:48] [Client thread/INFO]: [CHAT] Enjoy your purchase!
-[18:04:16] [Client thread/INFO]: [CHAT] AppleClient » hi
-[18:04:18] [Client thread/INFO]: [CHAT] Dweeuch died!
-[18:04:30] [Client thread/ERROR]: Item entity 56107 has no item?!
-[18:04:30] [Client thread/ERROR]: Item entity 56107 has no item?!
-[18:04:40] [Client thread/INFO]: [CHAT] Enjoy your purchase!
-[18:04:41] [Client thread/INFO]: [CHAT] Enjoy your purchase!
-[18:04:41] [Client thread/INFO]: [CHAT] Enjoy your purchase!
-[18:04:41] [Client thread/INFO]: [CHAT] Enjoy your purchase!
-[18:04:42] [Client thread/INFO]: [CHAT] Enjoy your purchase!
-[18:04:45] [Client thread/INFO]: [CHAT] Dweeuch died!
-[18:04:52] [Client thread/INFO]: [CHAT] ong9_11 was killed by ItsCaptainJo
-[18:05:08] [Client thread/INFO]: [CHAT] ? BedWars Solo ? You gained 5 global points for killing Dweeuch
-[18:05:08] [Client thread/INFO]: [CHAT] Dweeuch was killed by AppleClient
-[18:05:08] [Client thread/INFO]: [CHAT] +1 Irons
-[18:05:08] [Client thread/INFO]: [CHAT] +5 Golds
-[18:05:09] [Client thread/INFO]: [CHAT] You destoryed Red's bed.
-[18:05:09] [Client thread/INFO]: [CHAT] BED DESTRUCTION > Red Bed was destroyed by AppleClient!
-[18:05:09] [Client thread/INFO]: [CHAT] ? BedWars Solo ? You gained 20 global points for destroing the bed.
-[18:05:09] [Client thread/INFO]: [CHAT] ? BlocksMC ? You earned 2 tokens! You now have 134 tokens.
-[18:05:13] [Client thread/INFO]: [CHAT] Enjoy your purchase!
-[18:05:13] [Client thread/ERROR]: Item entity 59601 has no item?!
-[18:05:13] [Client thread/ERROR]: Item entity 59601 has no item?!
-[18:05:18] [Client thread/INFO]: [CHAT] AppleClient was killed by Dweeuch
-[18:05:19] [Client thread/INFO]: [CHAT] AppleClient » nice hacks
-[18:05:21] [Client thread/INFO]: [CHAT] ? BedWars Solo ? Match Recap - Games Played: 1 Total Points: 25 Kills: 1 Deaths: 2 Victories: 0
-[18:05:21] [Client thread/INFO]: [CHAT]                                      
-[18:05:49] [Client thread/INFO]: [CHAT] BW ? MrGerardo36 » how can i get up?
-[18:06:11] [Server thread/INFO]: Starting integrated minecraft server version 1.8.9
-[18:06:11] [Server thread/INFO]: Generating keypair
-[18:06:11] [Server thread/INFO]: Preparing start region for level 0
-[18:06:12] [Server thread/INFO]: Changing view distance to 12, from 10
-[18:06:12] [Server thread/INFO]: AppleClient[local:E:9b61a7ab] logged in with entity id 104531 at (290.3677969276086, 67.23981944016288, -134.75552950329325)
-[18:06:12] [Server thread/INFO]: AppleClient joined the game
-[18:06:44] [Server thread/INFO]: Saving and pausing game...
-[18:06:44] [Server thread/INFO]: Saving chunks for level 'mcpworld'/Overworld
-[18:06:44] [Server thread/INFO]: Saving chunks for level 'mcpworld'/Nether
-[18:06:44] [Server thread/INFO]: Saving chunks for level 'mcpworld'/The End
-[18:06:53] [Server thread/INFO]: Saving and pausing game...
-[18:06:53] [Server thread/INFO]: Saving chunks for level 'mcpworld'/Overworld
-[18:06:53] [Server thread/INFO]: Saving chunks for level 'mcpworld'/Nether
-[18:06:53] [Server thread/INFO]: Saving chunks for level 'mcpworld'/The End
-[18:06:53] [Server thread/INFO]: Stopping server
-[18:06:53] [Server thread/INFO]: Saving players
-[18:06:53] [Server thread/INFO]: Saving worlds
-[18:06:53] [Server thread/INFO]: Saving chunks for level 'mcpworld'/Overworld
-[18:06:53] [Server thread/INFO]: Saving chunks for level 'mcpworld'/Nether
-[18:06:53] [Server thread/INFO]: Saving chunks for level 'mcpworld'/The End
-[18:07:12] [Client thread/INFO]: Stopping!
-[18:07:12] [Client thread/INFO]: SoundSystem shutting down...
-[18:07:13] [Client thread/WARN]: Author: Paul Lamb, www.paulscode.com
+[20:34:42] [Client thread/INFO]: Setting user: AppleClient
+[20:34:42] [Client thread/INFO]: (Session ID is token:0:AppleClient)
+[20:34:43] [Client thread/INFO]: [OptiFine] *** Reflector Forge ***
+[20:34:43] [Client thread/INFO]: [OptiFine] *** Reflector Vanilla ***
+[20:34:43] [Client thread/INFO]: LWJGL Version: 2.9.4
+[20:34:44] [Client thread/INFO]: [OptiFine] 
+[20:34:44] [Client thread/INFO]: [OptiFine] OptiFine_1.8.9_HD_U_H8
+[20:34:44] [Client thread/INFO]: [OptiFine] Build: null
+[20:34:44] [Client thread/INFO]: [OptiFine] OS: Windows 11 (amd64) version 10.0
+[20:34:44] [Client thread/INFO]: [OptiFine] Java: 22.0.1, Oracle Corporation
+[20:34:44] [Client thread/INFO]: [OptiFine] VM: Java HotSpot(TM) 64-Bit Server VM (mixed mode, sharing), Oracle Corporation
+[20:34:44] [Client thread/INFO]: [OptiFine] LWJGL: 2.9.4
+[20:34:44] [Client thread/INFO]: [OptiFine] OpenGL: AMD Radeon(TM) Graphics, version 4.6.0 Compatibility Profile Context 23.19.10.231127, ATI Technologies Inc.
+[20:34:44] [Client thread/INFO]: [OptiFine] OpenGL Version: 4.6.0
+[20:34:44] [Client thread/INFO]: [OptiFine] OpenGL Fancy fog: Not available (GL_NV_fog_distance)
+[20:34:44] [Client thread/INFO]: [OptiFine] Maximum texture size: 16384x16384
+[20:34:44] [Client thread/INFO]: [Shaders] ShadersMod version: 2.4.12
+[20:34:44] [Client thread/INFO]: [Shaders] OpenGL Version: 4.6.0 Compatibility Profile Context 23.19.10.231127
+[20:34:44] [Client thread/INFO]: [Shaders] Vendor:  ATI Technologies Inc.
+[20:34:44] [Client thread/INFO]: [Shaders] Renderer: AMD Radeon(TM) Graphics
+[20:34:44] [Client thread/INFO]: [Shaders] Capabilities:  2.0  2.1  3.0  3.2  4.0 
+[20:34:44] [Client thread/INFO]: [Shaders] GL_MAX_DRAW_BUFFERS: 8
+[20:34:44] [Client thread/INFO]: [Shaders] GL_MAX_COLOR_ATTACHMENTS_EXT: 8
+[20:34:44] [Client thread/INFO]: [Shaders] GL_MAX_TEXTURE_IMAGE_UNITS: 32
+[20:34:44] [Client thread/INFO]: [Shaders] Load ShadersMod configuration.
+[20:34:44] [Client thread/INFO]: [Shaders] No shaderpack loaded.
+[20:34:44] [Client thread/INFO]: Reloading ResourceManager: Default
+[20:34:44] [Client thread/INFO]: [OptiFine] *** Reloading textures ***
+[20:34:44] [Client thread/INFO]: [OptiFine] Resource packs: Default
+[20:34:44] [Sound Library Loader/INFO]: Starting up SoundSystem...
+[20:34:44] [Thread-4/INFO]: Initializing LWJGL OpenAL
+[20:34:44] [Thread-4/INFO]: (The LWJGL binding of OpenAL.  For more information, see http://www.lwjgl.org)
+[20:34:45] [Thread-4/INFO]: OpenAL initialized.
+[20:34:45] [Sound Library Loader/INFO]: Sound engine started
+[20:34:45] [Client thread/INFO]: [OptiFine] Mipmap levels: 4
+[20:34:45] [Client thread/INFO]: [OptiFine] Multitexture: false
+[20:34:46] [Client thread/INFO]: [OptiFine] Multipass connected textures: false
+[20:34:46] [Client thread/INFO]: Created: 1024x512 textures-atlas
+[20:34:47] [Client thread/INFO]: [OptiFine] *** Reloading custom textures ***
+[20:34:47] [Client thread/INFO]: [OptiFine] Enable face culling: acacia_leaves, birch_leaves, dark_oak_leaves, jungle_leaves, oak_leaves, spruce_leaves
+[20:35:12] [Server thread/INFO]: Starting integrated minecraft server version 1.8.9
+[20:35:12] [Server thread/INFO]: Generating keypair
+[20:35:13] [Server thread/INFO]: Preparing start region for level 0
+[20:35:13] [Server thread/INFO]: Changing view distance to 12, from 10
+[20:35:14] [Server thread/INFO]: AppleClient[local:E:abd743a6] logged in with entity id 170 at (214.40716982696955, 76.0, -132.84513021362682)
+[20:35:14] [Server thread/INFO]: AppleClient joined the game
+[20:35:30] [Server thread/INFO]: Saving and pausing game...
+[20:35:30] [Server thread/INFO]: Saving chunks for level 'mcpworld'/Overworld
+[20:35:31] [Server thread/INFO]: Saving chunks for level 'mcpworld'/Nether
+[20:35:31] [Server thread/INFO]: Saving chunks for level 'mcpworld'/The End
+[20:41:18] [Server thread/INFO]: Saving and pausing game...
+[20:41:18] [Server thread/INFO]: Saving chunks for level 'mcpworld'/Overworld
+[20:41:18] [Server thread/INFO]: Saving chunks for level 'mcpworld'/Nether
+[20:41:18] [Server thread/INFO]: Saving chunks for level 'mcpworld'/The End
+[20:41:18] [Server thread/INFO]: Stopping server
+[20:41:18] [Server thread/INFO]: Saving players
+[20:41:18] [Server thread/INFO]: Saving worlds
+[20:41:18] [Server thread/INFO]: Saving chunks for level 'mcpworld'/Overworld
+[20:41:18] [Server thread/INFO]: Saving chunks for level 'mcpworld'/Nether
+[20:41:18] [Server thread/INFO]: Saving chunks for level 'mcpworld'/The End
+[20:41:19] [Client thread/INFO]: Stopping!
+[20:41:19] [Client thread/INFO]: SoundSystem shutting down...
+[20:41:19] [Client thread/WARN]: Author: Paul Lamb, www.paulscode.com

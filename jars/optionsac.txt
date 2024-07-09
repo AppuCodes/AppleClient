@@ -19,7 +19,7 @@
     "Enabled": false
   },
   "Entity Selection": {
-    "Enabled": false
+    "Enabled": true
   },
   "FOV Changer": {
     "Enabled": false,

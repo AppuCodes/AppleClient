@@ -1,0 +1,13 @@
+package appleclient.utils;
+
+import org.lwjgl.opengl.Display;
+import org.lwjgl.opengl.GL11;
+
+public class ScissorUtil
+{
+    public static void begin()
+    {
+        GL11.glEnable(GL11.GL_SCISSOR_TEST);
+        GL11.glScissor((int)x1, (int)(Display.getHeight()-y2), (int)(x2-x1), (int)(y2-y1));
+    }
+}

@@ -7,8 +7,8 @@ import appleclient.mods.Mod;
 import appleclient.mods.settings.ColorSetting;
 import appleclient.mods.settings.SliderSetting;
 import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.RenderGlobal;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.MovingObjectPosition;
@@ -67,7 +67,7 @@ public class EntitySelection extends Mod
                 double entityZ = entity.lastTickPosZ + (entity.posZ - entity.lastTickPosZ) * partialTicks;
                 float width = entity.width / 2.0F, height = entity.height;
                 AxisAlignedBB boundingBox = new AxisAlignedBB(entityX - width, entityY, entityZ - width, entityX + width, entityY + height, entityZ + width);
-                mc.renderGlobal.drawSelection(boundingBox.offset(-playerX, -playerY, -playerZ));
+                RenderGlobal.drawSelection(boundingBox.offset(-playerX, -playerY, -playerZ));
             }
 
             GlStateManager.depthMask(true);

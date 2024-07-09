@@ -21,7 +21,6 @@
     <fullyQualifiedTypeName name="appleclient.mods.impl.Scoreboard"/>
     <fullyQualifiedTypeName name="java.net.URI"/>
     <fullyQualifiedTypeName name="appleclient.gui.PanoramaRenderer"/>
-    <fullyQualifiedTypeName name="net.minecraft.client.gui.ScaledResolution"/>
     <fullyQualifiedTypeName name="java.util.Collections"/>
     <fullyQualifiedTypeName name="java.util.Comparator"/>
     <fullyQualifiedTypeName name="javax.swing.text.html.parser.Entity"/>
@@ -29,10 +28,14 @@
     <fullyQualifiedTypeName name="net.minecraft.client.Minecraft"/>
     <fullyQualifiedTypeName name="java.awt.Color"/>
     <fullyQualifiedTypeName name="appleclient.Apple"/>
-    <fullyQualifiedTypeName name="net.minecraft.client.gui.Gui"/>
     <fullyQualifiedTypeName name="net.minecraft.client.renderer.texture.SimpleTexture"/>
     <fullyQualifiedTypeName name="org.lwjgl.util.glu.GLU"/>
     <fullyQualifiedTypeName name="org.lwjgl.opengl.GL11"/>
     <fullyQualifiedTypeName name="org.lwjgl.util.Color"/>
     <fullyQualifiedTypeName name="net.minecraft.client.renderer.GlStateManager"/>
+    <fullyQualifiedTypeName name="net.minecraft.client.gui.Gui"/>
+    <fullyQualifiedTypeName name="org.lwjgl.input.Mouse"/>
+    <fullyQualifiedTypeName name="org.lwjgl.opengl.Display"/>
+    <fullyQualifiedTypeName name="net.minecraft.client.gui.ScaledResolution"/>
+    <fullyQualifiedTypeName name="appleclient.utils.ScissorUtil"/>
 </qualifiedTypeNameHistroy>

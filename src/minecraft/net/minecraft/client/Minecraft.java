@@ -1837,7 +1837,11 @@ public class Minecraft implements IThreadListener
                 if (!this.thePlayer.isSpectator())
                 {
                     this.thePlayer.dropOneItem(GuiScreen.isCtrlKeyDown());
-                    this.thePlayer.swingItemClientSide();
+
+                    if (this.thePlayer.getCurrentEquippedItem() != null)
+                    {
+                        this.thePlayer.swingItemClientSide();
+                    }
                 }
             }
 

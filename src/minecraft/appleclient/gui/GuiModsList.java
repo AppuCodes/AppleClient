@@ -3,8 +3,11 @@ package appleclient.gui;
 import java.awt.Color;
 import java.io.IOException;
 
+import org.lwjgl.input.Mouse;
+
 import appleclient.Apple;
 import appleclient.mods.Mod;
+import appleclient.utils.ScissorUtil;
 import net.minecraft.client.audio.PositionedSoundRecord;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
@@ -13,13 +16,16 @@ import net.minecraft.util.ResourceLocation;
 
 public class GuiModsList extends GuiScreen
 {
+    private int scroll = 0, maxScroll = (int) -(48.5F * ((Apple.CLIENT.modsManager.mods.length / 4) - 1));
+    
     public void drawScreen(int mouseX, int mouseY, float partialTicks)
     {
         super.drawScreen(mouseX, mouseY, partialTicks);
-        float w2 = width / 2, h2 = height / 2;
+        int w2 = width / 2, h2 = height / 2;
         drawRect(w2 - 200, h2 - 150, w2 + 200, h2 + 150, new Color(0, 0, 0, 200).getRGB());
-        float x = w2 - 190, y = h2 - 140;
+        float x = w2 - 190, y = (h2 - 140) + scroll;
         int i = 0;
+        ScissorUtil.begin(w2 - 200, h2 - 150, w2 + 200, h2 + 150);
         
         for (Mod mod : Apple.CLIENT.modsManager.mods)
         {
@@ -51,13 +57,15 @@ public class GuiModsList extends GuiScreen
             drawCenteredString(fontRendererObj, mod.isEnabled() ? "ENABLED" : "DISABLED", x + 44, y + 74, insideBox ? 16777120 : 14737632);
             x += 97.5F;
         }
+        
+        ScissorUtil.end();
     }
     
     protected void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException
     {
         super.mouseClicked(mouseX, mouseY, mouseButton);
         float w2 = width / 2, h2 = height / 2;
-        float x = w2 - 190, y = h2 - 140;
+        float x = w2 - 190, y = (h2 - 140) + scroll;
         int i = 0;
         
         for (Mod mod : Apple.CLIENT.modsManager.mods)
@@ -76,6 +84,21 @@ public class GuiModsList extends GuiScreen
             }
             
             x += 97.5F;
+        }
+    }
+    
+    public void handleMouseInput() throws IOException
+    {
+        super.handleMouseInput();
+        int event = Mouse.getDWheel();
+        
+        if (event != 0)
+        {
+            if (event < 0) event = -1;
+            if (event > 0) event = 1;
+            scroll += (int) (event * 48.5F);
+            if (scroll > 0) scroll = 0;
+            if (scroll < maxScroll) scroll = maxScroll;
         }
     }
     

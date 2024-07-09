@@ -1,12 +1,12 @@
 ofRenderDistanceChunks:12
-ofFogType:1
+ofFogType:3
 ofFogStart:0.8
 ofMipmapType:0
 ofOcclusionFancy:false
 ofSmoothFps:false
 ofSmoothWorld:false
 ofAoLevel:1.0
-ofClouds:2
+ofClouds:0
 ofCloudsHeight:0.0
 ofTrees:4
 ofDroppedItems:2
@@ -60,6 +60,6 @@ ofDynamicFov:true
 ofDynamicLights:3
 ofFullscreenMode:1920x1080
 ofFastMath:true
-ofFastRender:true
+ofFastRender:false
 ofTranslucentBlocks:0
 key_of.key.zoom:46
