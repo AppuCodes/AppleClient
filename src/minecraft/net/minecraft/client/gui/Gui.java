@@ -123,6 +123,14 @@ public class Gui
     {
         fontRendererIn.drawStringWithShadow(text, (x - fontRendererIn.getStringWidth(text) / 2), y, color);
     }
+    
+    /**
+     * Renders the specified text to the screen, center-aligned. Args : renderer, string, x, y, color
+     */
+    public void drawCenteredString(FontRenderer fontRendererIn, String text, float x, float y, int color, float scale)
+    {
+        fontRendererIn.drawString(text, (x - fontRendererIn.getStringWidth(text) / 2), y, color, true, scale);
+    }
 
     /**
      * Renders the specified text to the screen. Args : renderer, string, x, y, color

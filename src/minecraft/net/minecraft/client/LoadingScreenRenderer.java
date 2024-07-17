@@ -123,7 +123,7 @@ public class LoadingScreenRenderer implements IProgressUpdate
                 throw new MinecraftError();
             }
         }
-        else
+        else if (this.mc.theWorld == null)
         {
             long i = Minecraft.getSystemTime();
 

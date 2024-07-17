@@ -1,7 +1,7 @@
 invertYMouse:false
 mouseSensitivity:0.31690142
 fov:0.125
-gamma:0.85211265
+gamma:1.0
 saturation:0.0
 renderDistance:12
 guiScale:3
@@ -11,9 +11,9 @@ anaglyph3d:false
 maxFps:260
 fboEnable:true
 difficulty:2
-fancyGraphics:false
+fancyGraphics:true
 ao:1
-renderClouds:fast
+renderClouds:true
 resourcePacks:[]
 incompatibleResourcePacks:[]
 lastServer:hypixel.net

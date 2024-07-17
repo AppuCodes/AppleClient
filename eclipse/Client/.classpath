@@ -19,7 +19,6 @@
 	<classpathentry kind="lib" path="jars/libraries/com/paulscode/libraryjavasound/20101123/libraryjavasound-20101123.jar"/>
 	<classpathentry kind="lib" path="jars/libraries/com/paulscode/librarylwjglopenal/20100824/librarylwjglopenal-20100824.jar"/>
 	<classpathentry kind="lib" path="jars/libraries/com/paulscode/soundsystem/20120107/soundsystem-20120107.jar"/>
-	<classpathentry kind="lib" path="jars/libraries/io/netty/netty-all/4.0.23.Final/netty-all-4.0.23.Final.jar"/>
 	<classpathentry kind="lib" path="jars/libraries/com/google/guava/guava/17.0/guava-17.0.jar"/>
 	<classpathentry kind="lib" path="jars/libraries/org/apache/commons/commons-lang3/3.3.2/commons-lang3-3.3.2.jar"/>
 	<classpathentry kind="lib" path="jars/libraries/commons-io/commons-io/2.4/commons-io-2.4.jar"/>
@@ -40,5 +39,6 @@
 	<classpathentry kind="lib" path="jars/libraries/tv/twitch/twitch/6.5/twitch-6.5.jar"/>
 	<classpathentry kind="lib" path="lib/jna-5.14.0.jar"/>
 	<classpathentry kind="lib" path="lib/jna-platform-5.14.0.jar"/>
+	<classpathentry kind="lib" path="jars/libraries/io/netty/netty-all/4.0.23.Final/netty-all-4.0.23.Final.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

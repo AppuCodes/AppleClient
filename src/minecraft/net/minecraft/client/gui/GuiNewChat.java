@@ -1,6 +1,10 @@
 package net.minecraft.client.gui;
 
 import com.google.common.collect.Lists;
+
+import appleclient.Apple;
+import appleclient.mods.impl.SmoothChat;
+
 import java.util.Iterator;
 import java.util.List;
 import net.minecraft.client.Minecraft;
@@ -47,8 +51,18 @@ public class GuiNewChat extends Gui
                 float f1 = this.getChatScale();
                 int l = MathHelper.ceiling_float_int((float)this.getChatWidth() / f1);
                 GlStateManager.pushMatrix();
-                GlStateManager.translate(2.0F, 8.0F, 0.0F);
                 GlStateManager.scale(f1, f1, 1.0F);
+                SmoothChat smoothChat = (SmoothChat) Apple.CLIENT.modsManager.getMod("Smooth Chat");
+                
+                if (smoothChat.isEnabled())
+                {
+                    GlStateManager.translate(2.0F, 8.0F + (12.0F * Math.max(0, (smoothChat.chatTicks - mc.timer.renderPartialTicks) / 5F)), 0.0F);
+                }
+                
+                else
+                {
+                    GlStateManager.translate(2.0F, 8.0F, 0.0F);
+                }
 
                 for (int i1 = 0; i1 + this.scrollPos < this.field_146253_i.size() && i1 < i; ++i1)
                 {
@@ -79,6 +93,12 @@ public class GuiNewChat extends Gui
                             {
                                 int i2 = 0;
                                 int j2 = -i1 * 12;
+                                
+                                if (smoothChat.isEnabled() && i1 == 0)
+                                {
+                                    l1 *= (3 - Math.max(0, smoothChat.chatTicks - mc.timer.renderPartialTicks)) / 3F;
+                                }
+                                
                                 drawRect(i2 - 2, j2 - 12, i2 + l + 4, j2, l1 / 2 << 24);
                                 String s = chatline.getChatComponent().getFormattedText();
                                 GlStateManager.enableBlend();
@@ -172,6 +192,13 @@ public class GuiNewChat extends Gui
             {
                 this.chatLines.remove(this.chatLines.size() - 1);
             }
+        }
+        
+        SmoothChat smoothChat = (SmoothChat) Apple.CLIENT.modsManager.getMod("Smooth Chat");
+        
+        if (smoothChat.isEnabled())
+        {
+            smoothChat.chatTicks = 3;
         }
     }
 

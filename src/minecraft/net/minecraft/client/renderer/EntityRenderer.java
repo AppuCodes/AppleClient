@@ -220,6 +220,7 @@ public class EntityRenderer implements IResourceManagerReloadListener
     private float avgServerTickDiff = 0.0F;
     private long lastErrorCheckTimeMs = 0L;
     private ShaderGroup[] fxaaShaders = new ShaderGroup[10];
+    private int glDebugCrosshairList = -1;
 
     public EntityRenderer(Minecraft mcIn, IResourceManager resourceManagerIn)
     {
@@ -1455,18 +1456,38 @@ public class EntityRenderer implements IResourceManagerReloadListener
             Entity entity = this.mc.getRenderViewEntity();
             GlStateManager.enableBlend();
             GlStateManager.tryBlendFuncSeparate(770, 771, 1, 0);
-            GL11.glLineWidth(1.0F);
             GlStateManager.disableTexture2D();
             GlStateManager.depthMask(false);
             GlStateManager.pushMatrix();
             GlStateManager.matrixMode(5888);
+            GL11.glLineWidth(2.0F);
             GlStateManager.loadIdentity();
             GlStateManager.translate(0, 0, -0.1D);
             this.orientCamera(partialTicks);
             GlStateManager.translate(0.0F, entity.getEyeHeight(), 0.0F);
-            RenderGlobal.drawBox(new AxisAlignedBB(0.0D, 0.0D, 0.0D, 0.005D, 1.0E-4D, 1.0E-4D), 255, 0, 0, 255);
-            RenderGlobal.drawBox(new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0E-4D, 1.0E-4D, 0.005D), 0, 0, 255, 255);
-            RenderGlobal.drawBox(new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0E-4D, 0.0033D, 1.0E-4D), 0, 255, 0, 255);
+            GL11.glEnable(GL11.GL_LINE_SMOOTH);
+            
+            if (glDebugCrosshairList == -1)
+            {
+                glDebugCrosshairList = GL11.glGenLists(1);
+                GL11.glNewList(glDebugCrosshairList, GL11.GL_COMPILE);
+                // Shadow
+                AxisAlignedBB x = new AxisAlignedBB(0.0D, 0.0D, 0.0D, 0.004D, 0.00001, 0.00001),
+                        y = new AxisAlignedBB(0.0D, 0.0D, 0.0D, 0.00001, 0.00001, 0.004D),
+                        z = new AxisAlignedBB(0.0D, 0.0D, 0.0D, 0.00001, 0.003D, 0.00001);
+                RenderGlobal.drawBox(x.expand(0.0001, 0.0001, 0.0001), 0, 0, 0, 255);
+                RenderGlobal.drawBox(y.expand(0.0001, 0.0001, 0.0001), 0, 0, 0, 255);
+                RenderGlobal.drawBox(z.expand(0.0001, 0.0001, 0.0001), 0, 0, 0, 255);
+                // Main
+                RenderGlobal.drawBox(x, 255, 0, 0, 255);
+                RenderGlobal.drawBox(y, 0, 0, 255, 255);
+                RenderGlobal.drawBox(z, 0, 255, 0, 255);
+                GL11.glEndList();
+            }
+            
+            GL11.glCallList(glDebugCrosshairList);
+            GL11.glLineWidth(1.0F);
+            GL11.glDisable(GL11.GL_LINE_SMOOTH);
             GlStateManager.popMatrix();
             GlStateManager.depthMask(true);
             GlStateManager.enableTexture2D();

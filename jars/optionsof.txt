@@ -1,5 +1,5 @@
 ofRenderDistanceChunks:12
-ofFogType:3
+ofFogType:1
 ofFogStart:0.8
 ofMipmapType:0
 ofOcclusionFancy:false
@@ -8,7 +8,7 @@ ofSmoothWorld:false
 ofAoLevel:1.0
 ofClouds:0
 ofCloudsHeight:0.0
-ofTrees:4
+ofTrees:2
 ofDroppedItems:2
 ofRain:0
 ofAnimatedWater:0
@@ -37,8 +37,8 @@ ofWeather:true
 ofSky:true
 ofStars:true
 ofSunMoon:true
-ofVignette:0
-ofChunkUpdates:1
+ofVignette:1
+ofChunkUpdates:5
 ofChunkUpdatesDynamic:false
 ofTime:0
 ofClearWater:false
@@ -60,6 +60,6 @@ ofDynamicFov:true
 ofDynamicLights:3
 ofFullscreenMode:1920x1080
 ofFastMath:true
-ofFastRender:false
+ofFastRender:true
 ofTranslucentBlocks:0
 key_of.key.zoom:46

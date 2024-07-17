@@ -393,8 +393,9 @@ public abstract class Render<T extends Entity>
                 /**
                  * Avoids Z-Fighting
                  */
+                float offset = 1.0F / f;
                 GlStateManager.translate(0, 0, 0.01F);
-                fontrenderer.renderString(str, -fontrenderer.getStringWidth(str) / 2 + 1, b0 + 1, -1, true);
+                fontrenderer.renderString(str, -fontrenderer.getStringWidth(str) / 2 + offset, b0 + offset, -1, true);
                 GlStateManager.translate(0, 0, -0.01F);
                 fontrenderer.renderString(str, -fontrenderer.getStringWidth(str) / 2, b0, -1, false);
             }

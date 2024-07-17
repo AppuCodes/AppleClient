@@ -1,9 +1,0 @@
-package appleclient.utils;
-
-public class ScissorUtil
-{
-    public static void begin()
-    {
-        
-    }
-}
