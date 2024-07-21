@@ -1,44 +1,123 @@
-[12:51:27] [Client thread/INFO]: Setting user: AppleClient
-[12:51:27] [Client thread/INFO]: (Session ID is token:0:AppleClient)
-[12:51:29] [Client thread/INFO]: [OptiFine] *** Reflector Forge ***
-[12:51:29] [Client thread/INFO]: [OptiFine] *** Reflector Vanilla ***
-[12:51:29] [Client thread/INFO]: LWJGL Version: 2.9.4
-[12:51:30] [Client thread/INFO]: [OptiFine] 
-[12:51:30] [Client thread/INFO]: [OptiFine] OptiFine_1.8.9_HD_U_H8
-[12:51:30] [Client thread/INFO]: [OptiFine] Build: null
-[12:51:30] [Client thread/INFO]: [OptiFine] OS: Windows 11 (amd64) version 10.0
-[12:51:30] [Client thread/INFO]: [OptiFine] Java: 22.0.1, Oracle Corporation
-[12:51:30] [Client thread/INFO]: [OptiFine] VM: Java HotSpot(TM) 64-Bit Server VM (mixed mode, sharing), Oracle Corporation
-[12:51:30] [Client thread/INFO]: [OptiFine] LWJGL: 2.9.4
-[12:51:30] [Client thread/INFO]: [OptiFine] OpenGL: AMD Radeon(TM) Graphics, version 4.6.0 Compatibility Profile Context 23.19.10.231127, ATI Technologies Inc.
-[12:51:30] [Client thread/INFO]: [OptiFine] OpenGL Version: 4.6.0
-[12:51:30] [Client thread/INFO]: [OptiFine] OpenGL Fancy fog: Not available (GL_NV_fog_distance)
-[12:51:30] [Client thread/INFO]: [OptiFine] Maximum texture size: 16384x16384
-[12:51:30] [Client thread/INFO]: [Shaders] ShadersMod version: 2.4.12
-[12:51:30] [Client thread/INFO]: [Shaders] OpenGL Version: 4.6.0 Compatibility Profile Context 23.19.10.231127
-[12:51:30] [Client thread/INFO]: [Shaders] Vendor:  ATI Technologies Inc.
-[12:51:30] [Client thread/INFO]: [Shaders] Renderer: AMD Radeon(TM) Graphics
-[12:51:30] [Client thread/INFO]: [Shaders] Capabilities:  2.0  2.1  3.0  3.2  4.0 
-[12:51:30] [Client thread/INFO]: [Shaders] GL_MAX_DRAW_BUFFERS: 8
-[12:51:30] [Client thread/INFO]: [Shaders] GL_MAX_COLOR_ATTACHMENTS_EXT: 8
-[12:51:30] [Client thread/INFO]: [Shaders] GL_MAX_TEXTURE_IMAGE_UNITS: 32
-[12:51:30] [Client thread/INFO]: [Shaders] Load ShadersMod configuration.
-[12:51:30] [Client thread/INFO]: [Shaders] Shaders can not be loaded, Fast Render is enabled.
-[12:51:30] [Client thread/INFO]: [Shaders] No shaderpack loaded.
-[12:51:30] [Client thread/INFO]: Reloading ResourceManager: Default
-[12:51:30] [Client thread/INFO]: [OptiFine] *** Reloading textures ***
-[12:51:30] [Client thread/INFO]: [OptiFine] Resource packs: Default
-[12:51:30] [Sound Library Loader/INFO]: Starting up SoundSystem...
-[12:51:30] [Thread-4/INFO]: Initializing LWJGL OpenAL
-[12:51:30] [Thread-4/INFO]: (The LWJGL binding of OpenAL.  For more information, see http://www.lwjgl.org)
-[12:51:31] [Thread-4/INFO]: OpenAL initialized.
-[12:51:31] [Sound Library Loader/INFO]: Sound engine started
-[12:51:33] [Client thread/INFO]: [OptiFine] Mipmap levels: 4
-[12:51:33] [Client thread/INFO]: [OptiFine] Multitexture: false
-[12:51:33] [Client thread/INFO]: [OptiFine] Multipass connected textures: false
-[12:51:34] [Client thread/INFO]: Created: 1024x512 textures-atlas
-[12:51:35] [Client thread/INFO]: [OptiFine] *** Reloading custom textures ***
-[12:51:35] [Client thread/INFO]: [OptiFine] Enable face culling: acacia_leaves, birch_leaves, dark_oak_leaves, jungle_leaves, oak_leaves, spruce_leaves
-[12:51:52] [Client thread/INFO]: Stopping!
-[12:51:52] [Client thread/INFO]: SoundSystem shutting down...
-[12:51:52] [Client thread/WARN]: Author: Paul Lamb, www.paulscode.com
+[11:12:25] [Client thread/INFO]: Setting user: AppleClient
+[11:12:25] [Client thread/INFO]: (Session ID is token:0:AppleClient)
+[11:12:27] [Client thread/INFO]: [OptiFine] *** Reflector Forge ***
+[11:12:27] [Client thread/INFO]: [OptiFine] *** Reflector Vanilla ***
+[11:12:27] [Client thread/INFO]: LWJGL Version: 2.9.4
+[11:12:28] [Client thread/INFO]: [OptiFine] 
+[11:12:28] [Client thread/INFO]: [OptiFine] OptiFine_1.8.9_HD_U_H8
+[11:12:28] [Client thread/INFO]: [OptiFine] Build: null
+[11:12:28] [Client thread/INFO]: [OptiFine] OS: Windows 11 (amd64) version 10.0
+[11:12:28] [Client thread/INFO]: [OptiFine] Java: 22.0.1, Oracle Corporation
+[11:12:28] [Client thread/INFO]: [OptiFine] VM: Java HotSpot(TM) 64-Bit Server VM (mixed mode, sharing), Oracle Corporation
+[11:12:28] [Client thread/INFO]: [OptiFine] LWJGL: 2.9.4
+[11:12:28] [Client thread/INFO]: [OptiFine] OpenGL: AMD Radeon(TM) Graphics, version 4.6.0 Compatibility Profile Context 23.19.10.231127, ATI Technologies Inc.
+[11:12:28] [Client thread/INFO]: [OptiFine] OpenGL Version: 4.6.0
+[11:12:28] [Client thread/INFO]: [OptiFine] OpenGL Fancy fog: Not available (GL_NV_fog_distance)
+[11:12:28] [Client thread/INFO]: [OptiFine] Maximum texture size: 16384x16384
+[11:12:28] [Client thread/INFO]: [Shaders] ShadersMod version: 2.4.12
+[11:12:28] [Client thread/INFO]: [Shaders] OpenGL Version: 4.6.0 Compatibility Profile Context 23.19.10.231127
+[11:12:28] [Client thread/INFO]: [Shaders] Vendor:  ATI Technologies Inc.
+[11:12:28] [Client thread/INFO]: [Shaders] Renderer: AMD Radeon(TM) Graphics
+[11:12:28] [Client thread/INFO]: [Shaders] Capabilities:  2.0  2.1  3.0  3.2  4.0 
+[11:12:28] [Client thread/INFO]: [Shaders] GL_MAX_DRAW_BUFFERS: 8
+[11:12:28] [Client thread/INFO]: [Shaders] GL_MAX_COLOR_ATTACHMENTS_EXT: 8
+[11:12:28] [Client thread/INFO]: [Shaders] GL_MAX_TEXTURE_IMAGE_UNITS: 32
+[11:12:28] [Client thread/INFO]: [Shaders] Load ShadersMod configuration.
+[11:12:28] [Client thread/INFO]: [Shaders] Shaders can not be loaded, Fast Render is enabled.
+[11:12:28] [Client thread/INFO]: [Shaders] No shaderpack loaded.
+[11:12:28] [Client thread/INFO]: Reloading ResourceManager: Default
+[11:12:28] [Client thread/INFO]: [OptiFine] *** Reloading textures ***
+[11:12:28] [Client thread/INFO]: [OptiFine] Resource packs: Default
+[11:12:28] [Sound Library Loader/INFO]: Starting up SoundSystem...
+[11:12:28] [Thread-4/INFO]: Initializing LWJGL OpenAL
+[11:12:28] [Thread-4/INFO]: (The LWJGL binding of OpenAL.  For more information, see http://www.lwjgl.org)
+[11:12:28] [Thread-4/INFO]: OpenAL initialized.
+[11:12:29] [Sound Library Loader/INFO]: Sound engine started
+[11:12:30] [Client thread/INFO]: [OptiFine] Mipmap levels: 4
+[11:12:30] [Client thread/INFO]: [OptiFine] Multitexture: false
+[11:12:31] [Client thread/INFO]: [OptiFine] Multipass connected textures: false
+[11:12:32] [Client thread/INFO]: Created: 1024x512 textures-atlas
+[11:12:32] [Client thread/INFO]: [OptiFine] *** Reloading custom textures ***
+[11:12:32] [Client thread/INFO]: [OptiFine] Enable face culling: acacia_leaves, birch_leaves, dark_oak_leaves, jungle_leaves, oak_leaves, spruce_leaves
+[11:12:39] [Server thread/INFO]: Starting integrated minecraft server version 1.8.9
+[11:12:39] [Server thread/INFO]: Generating keypair
+[11:12:39] [Server thread/INFO]: Preparing start region for level 0
+[11:12:40] [Server thread/INFO]: Changing view distance to 12, from 10
+[11:12:40] [Server thread/INFO]: AppleClient[local:E:add06e71] logged in with entity id 158 at (234.69999998807907, 63.0, -108.53917010076381)
+[11:12:40] [Server thread/INFO]: AppleClient joined the game
+[11:15:20] [Client thread/INFO]: [CHAT] §eOpenGL Error§f: 1280 (Invalid enum)
+[11:15:30] [Client thread/INFO]: [CHAT] §eOpenGL Error§f: 1280 (Invalid enum)
+[11:15:56] [Client thread/INFO]: [CHAT] Unknown command. Try /help for a list of commands
+[11:15:59] [Server thread/INFO]: [AppleClient: Set the time to 1000]
+[11:15:59] [Client thread/INFO]: [CHAT] Set the time to 1000
+[11:21:11] [Server thread/INFO]: Saving and pausing game...
+[11:21:11] [Server thread/INFO]: Saving chunks for level 'mcpworld'/Overworld
+[11:21:11] [Server thread/INFO]: Saving chunks for level 'mcpworld'/Nether
+[11:21:11] [Server thread/INFO]: Saving chunks for level 'mcpworld'/The End
+[11:26:11] [Server thread/INFO]: Saving and pausing game...
+[11:26:11] [Server thread/INFO]: Saving chunks for level 'mcpworld'/Overworld
+[11:26:11] [Server thread/INFO]: Saving chunks for level 'mcpworld'/Nether
+[11:26:11] [Server thread/INFO]: Saving chunks for level 'mcpworld'/The End
+[11:26:26] [Server thread/INFO]: [AppleClient: Set the time to 1000]
+[11:26:26] [Client thread/INFO]: [CHAT] Set the time to 1000
+[11:26:33] [Server thread/INFO]: Saving and pausing game...
+[11:26:33] [Server thread/INFO]: Saving chunks for level 'mcpworld'/Overworld
+[11:26:33] [Server thread/INFO]: Saving chunks for level 'mcpworld'/Nether
+[11:26:33] [Server thread/INFO]: Saving chunks for level 'mcpworld'/The End
+[11:26:57] [Server thread/INFO]: Saving and pausing game...
+[11:26:57] [Server thread/INFO]: Saving chunks for level 'mcpworld'/Overworld
+[11:26:57] [Server thread/INFO]: Saving chunks for level 'mcpworld'/Nether
+[11:26:57] [Server thread/INFO]: Saving chunks for level 'mcpworld'/The End
+[11:27:09] [Server thread/INFO]: Saving and pausing game...
+[11:27:09] [Server thread/INFO]: Saving chunks for level 'mcpworld'/Overworld
+[11:27:09] [Server thread/INFO]: Saving chunks for level 'mcpworld'/Nether
+[11:27:09] [Server thread/INFO]: Saving chunks for level 'mcpworld'/The End
+[11:27:11] [Server thread/INFO]: Saving and pausing game...
+[11:27:11] [Server thread/INFO]: Saving chunks for level 'mcpworld'/Overworld
+[11:27:11] [Server thread/INFO]: Saving chunks for level 'mcpworld'/Nether
+[11:27:11] [Server thread/INFO]: Saving chunks for level 'mcpworld'/The End
+[11:27:13] [Server thread/INFO]: Saving and pausing game...
+[11:27:13] [Server thread/INFO]: Saving chunks for level 'mcpworld'/Overworld
+[11:27:13] [Server thread/INFO]: Saving chunks for level 'mcpworld'/Nether
+[11:27:13] [Server thread/INFO]: Saving chunks for level 'mcpworld'/The End
+[11:27:15] [Server thread/INFO]: Saving and pausing game...
+[11:27:15] [Server thread/INFO]: Saving chunks for level 'mcpworld'/Overworld
+[11:27:15] [Server thread/INFO]: Saving chunks for level 'mcpworld'/Nether
+[11:27:15] [Server thread/INFO]: Saving chunks for level 'mcpworld'/The End
+[11:27:42] [Server thread/INFO]: Saving and pausing game...
+[11:27:42] [Server thread/INFO]: Saving chunks for level 'mcpworld'/Overworld
+[11:27:42] [Server thread/INFO]: Saving chunks for level 'mcpworld'/Nether
+[11:27:42] [Server thread/INFO]: Saving chunks for level 'mcpworld'/The End
+[11:28:13] [Server thread/INFO]: Saving and pausing game...
+[11:28:13] [Server thread/INFO]: Saving chunks for level 'mcpworld'/Overworld
+[11:28:13] [Server thread/INFO]: Saving chunks for level 'mcpworld'/Nether
+[11:28:13] [Server thread/INFO]: Saving chunks for level 'mcpworld'/The End
+[11:28:13] [Server thread/INFO]: Stopping server
+[11:28:13] [Server thread/INFO]: Saving players
+[11:28:13] [Server thread/INFO]: Saving worlds
+[11:28:13] [Server thread/INFO]: Saving chunks for level 'mcpworld'/Overworld
+[11:28:13] [Server thread/INFO]: Saving chunks for level 'mcpworld'/Nether
+[11:28:13] [Server thread/INFO]: Saving chunks for level 'mcpworld'/The End
+[11:28:14] [Server thread/INFO]: Starting integrated minecraft server version 1.8.9
+[11:28:14] [Server thread/INFO]: Generating keypair
+[11:28:15] [Server thread/INFO]: Preparing start region for level 0
+[11:28:15] [Server thread/INFO]: Changing view distance to 12, from 10
+[11:28:15] [Server thread/INFO]: AppleClient[local:E:a05653b6] logged in with entity id 129232 at (148.9256265158631, 63.0, -56.14805229280218)
+[11:28:15] [Server thread/INFO]: AppleClient joined the game
+[11:28:18] [Server thread/INFO]: Saving and pausing game...
+[11:28:18] [Server thread/INFO]: Saving chunks for level 'mcpworld'/Overworld
+[11:28:18] [Server thread/INFO]: Saving chunks for level 'mcpworld'/Nether
+[11:28:18] [Server thread/INFO]: Saving chunks for level 'mcpworld'/The End
+[11:28:29] [Server thread/INFO]: Saving and pausing game...
+[11:28:29] [Server thread/INFO]: Saving chunks for level 'mcpworld'/Overworld
+[11:28:29] [Server thread/INFO]: Saving chunks for level 'mcpworld'/Nether
+[11:28:29] [Server thread/INFO]: Saving chunks for level 'mcpworld'/The End
+[11:28:29] [Server thread/INFO]: Stopping server
+[11:28:29] [Server thread/INFO]: Saving players
+[11:28:29] [Server thread/INFO]: Saving worlds
+[11:28:29] [Server thread/INFO]: Saving chunks for level 'mcpworld'/Overworld
+[11:28:29] [Server thread/INFO]: Saving chunks for level 'mcpworld'/Nether
+[11:28:29] [Server thread/INFO]: Saving chunks for level 'mcpworld'/The End
+[11:28:29] [Client thread/INFO]: Stopping!
+[11:28:29] [Client thread/INFO]: SoundSystem shutting down...
+[11:28:29] [Client thread/WARN]: Author: Paul Lamb, www.paulscode.com

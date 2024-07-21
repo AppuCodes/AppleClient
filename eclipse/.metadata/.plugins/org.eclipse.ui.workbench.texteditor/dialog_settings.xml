@@ -1,28 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
-		<item key="selection" value="calcSunrise"/>
+		<item key="selection" value="glSkyList2"/>
 		<item key="wrap" value="true"/>
 		<item key="casesensitive" value="false"/>
 		<item key="wholeword" value="false"/>
 		<item key="incremental" value="false"/>
 		<item key="isRegEx" value="false"/>
 		<list key="findhistory">
+			<item value="glSkyList2"/>
+			<item value="getHor"/>
+			<item value="sky2VBO"/>
+			<item value="getHorizon"/>
+			<item value="horizon"/>
+			<item value="renderClouds"/>
+			<item value="drawSelectionBox"/>
+			<item value="selection"/>
+			<item value="renderSelection"/>
 			<item value="calcSunrise"/>
 			<item value="calcSun"/>
 			<item value="orientCamera"/>
 			<item value="translate"/>
 			<item value="            GlStateManager.translate(MathHelper.sin(f1 * (float)Math.PI) * f2 * 0.5F, -Math.abs(MathHelper.cos(f1 * (float)Math.PI) * f2), 0.0F);"/>
 			<item value="GlStateManager.translate"/>
-			<item value="renderWOrld"/>
-			<item value="mc.timer"/>
-			<item value="minec"/>
-			<item value="drawString"/>
-			<item value="drawStrinrg"/>
-			<item value="ticksExis"/>
-			<item value="batch"/>
-			<item value="glDebugCrosshair"/>
-			<item value="debugCrosshair"/>
 		</list>
 		<list key="replacehistory">
 			<item value="alpha"/>

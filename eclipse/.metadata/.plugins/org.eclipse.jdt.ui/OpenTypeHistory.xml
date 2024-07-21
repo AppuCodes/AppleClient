@@ -56,8 +56,8 @@
     <typeInfo handle="=Client/src&lt;net.minecraft.client.main{Main.java[Main" modifiers="1" timestamp="1721239252972"/>
     <typeInfo handle="=Client/jars\/libraries\/io\/netty\/netty-all\/4.0.23.Final\/netty-all-4.0.23.Final.jar&lt;io.netty.util.internal(PlatformDependent.class[PlatformDependent" modifiers="49" timestamp="1721186163395"/>
     <typeInfo handle="=Client/src&lt;net.minecraft.client.gui{FontRenderer.java[FontRenderer" modifiers="1" timestamp="1721243467954"/>
-    <typeInfo handle="=Client/src&lt;net.minecraft.client.renderer{EntityRenderer.java[EntityRenderer" modifiers="1" timestamp="1721243398649"/>
     <typeInfo handle="=Client/src&lt;net.minecraft.util{Session.java[Session" modifiers="1" timestamp="1721243651349"/>
+    <typeInfo handle="=Client/src&lt;net.minecraft.world{WorldProvider.java[WorldProvider" modifiers="1025" timestamp="1721583608090"/>
+    <typeInfo handle="=Client/src&lt;net.minecraft.client.renderer{EntityRenderer.java[EntityRenderer" modifiers="1" timestamp="1721243398649"/>
     <typeInfo handle="=Client/src&lt;net.minecraft.client.multiplayer{WorldClient.java[WorldClient" modifiers="1" timestamp="1721186169532"/>
-    <typeInfo handle="=Client/src&lt;net.minecraft.world{WorldProvider.java[WorldProvider" modifiers="1025" timestamp="1721186170639"/>
 </typeInfoHistroy>
