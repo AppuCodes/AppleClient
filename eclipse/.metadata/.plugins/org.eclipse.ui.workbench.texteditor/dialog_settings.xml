@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
-		<item key="selection" value="orientCamera"/>
+		<item key="selection" value="calcSunrise"/>
 		<item key="wrap" value="true"/>
 		<item key="casesensitive" value="false"/>
 		<item key="wholeword" value="false"/>
 		<item key="incremental" value="false"/>
 		<item key="isRegEx" value="false"/>
 		<list key="findhistory">
+			<item value="calcSunrise"/>
+			<item value="calcSun"/>
 			<item value="orientCamera"/>
 			<item value="translate"/>
 			<item value="            GlStateManager.translate(MathHelper.sin(f1 * (float)Math.PI) * f2 * 0.5F, -Math.abs(MathHelper.cos(f1 * (float)Math.PI) * f2), 0.0F);"/>
@@ -21,8 +23,6 @@
 			<item value="batch"/>
 			<item value="glDebugCrosshair"/>
 			<item value="debugCrosshair"/>
-			<item value="p_181563_4_"/>
-			<item value="p_181563_3_"/>
 		</list>
 		<list key="replacehistory">
 			<item value="alpha"/>

@@ -160,7 +160,7 @@ public abstract class WorldProvider
             float f4 = 1.0F - (1.0F - MathHelper.sin(f3 * (float)Math.PI)) * 0.99F;
             f4 = f4 * f4;
             this.colorsSunriseSunset[0] = f3 * 0.3F + 0.7F;
-            this.colorsSunriseSunset[1] = f3 * f3 * 0.7F + 0.2F;
+            this.colorsSunriseSunset[1] = f3 * f3 * 0.6F + 0.3F;
             this.colorsSunriseSunset[2] = f3 * f3 * 0.0F + 0.2F;
             this.colorsSunriseSunset[3] = f4;
             return this.colorsSunriseSunset;
