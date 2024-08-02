@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
-		<item key="selection" value="glSkyList2"/>
+		<item key="selection" value="glDebugCross"/>
 		<item key="wrap" value="true"/>
 		<item key="casesensitive" value="false"/>
 		<item key="wholeword" value="false"/>
 		<item key="incremental" value="false"/>
 		<item key="isRegEx" value="false"/>
 		<list key="findhistory">
+			<item value="glDebugCross"/>
+			<item value="glCross"/>
 			<item value="glSkyList2"/>
 			<item value="getHor"/>
 			<item value="sky2VBO"/>
@@ -21,8 +23,6 @@
 			<item value="calcSun"/>
 			<item value="orientCamera"/>
 			<item value="translate"/>
-			<item value="            GlStateManager.translate(MathHelper.sin(f1 * (float)Math.PI) * f2 * 0.5F, -Math.abs(MathHelper.cos(f1 * (float)Math.PI) * f2), 0.0F);"/>
-			<item value="GlStateManager.translate"/>
 		</list>
 		<list key="replacehistory">
 			<item value="alpha"/>

@@ -1474,7 +1474,7 @@ public class EntityRenderer implements IResourceManagerReloadListener
                 // Shadow
                 AxisAlignedBB x = new AxisAlignedBB(0.0D, 0.0D, 0.0D, 0.004D, 0.00001, 0.00001),
                         y = new AxisAlignedBB(0.0D, 0.0D, 0.0D, 0.00001, 0.00001, 0.004D),
-                        z = new AxisAlignedBB(0.0D, 0.0D, 0.0D, 0.00001, 0.003D, 0.00001);
+                        z = new AxisAlignedBB(0.0D, 0.0D, 0.0D, 0.00001, 0.004D, 0.00001);
                 RenderGlobal.drawBox(x.expand(0.0001, 0.0001, 0.0001), 0, 0, 0, 255);
                 RenderGlobal.drawBox(y.expand(0.0001, 0.0001, 0.0001), 0, 0, 0, 255);
                 RenderGlobal.drawBox(z.expand(0.0001, 0.0001, 0.0001), 0, 0, 0, 255);
