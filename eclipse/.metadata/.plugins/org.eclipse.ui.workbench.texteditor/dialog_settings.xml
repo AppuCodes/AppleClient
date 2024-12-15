@@ -1,30 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
-		<item key="selection" value="glDebugCross"/>
+		<item key="selection" value="serverSpr"/>
 		<item key="wrap" value="true"/>
 		<item key="casesensitive" value="false"/>
 		<item key="wholeword" value="false"/>
 		<item key="incremental" value="false"/>
 		<item key="isRegEx" value="false"/>
 		<list key="findhistory">
-			<item value="glDebugCross"/>
-			<item value="glCross"/>
-			<item value="glSkyList2"/>
-			<item value="getHor"/>
-			<item value="sky2VBO"/>
-			<item value="getHorizon"/>
-			<item value="horizon"/>
-			<item value="renderClouds"/>
-			<item value="drawSelectionBox"/>
-			<item value="selection"/>
-			<item value="renderSelection"/>
-			<item value="calcSunrise"/>
-			<item value="calcSun"/>
-			<item value="orientCamera"/>
-			<item value="translate"/>
+			<item value="serverSpr"/>
+			<item value="server"/>
+			<item value="attac"/>
+			<item value="attak"/>
+			<item value="renderre"/>
+			<item value="render"/>
+			<item value="renderregions"/>
+			<item value="sprint"/>
+			<item value="atta"/>
+			<item value="stop"/>
+			<item value="this.issp"/>
+			<item value="serverspr"/>
+			<item value="sp"/>
+			<item value="attacke"/>
+			<item value="attack"/>
 		</list>
 		<list key="replacehistory">
+			<item value="this.player"/>
+			<item value="this.world"/>
 			<item value="alpha"/>
 			<item value="blue"/>
 			<item value="green"/>

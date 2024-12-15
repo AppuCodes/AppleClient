@@ -16,10 +16,10 @@
     "Show 3rd Person": false
   },
   "3D Skins": {
-    "Enabled": false
+    "Enabled": true
   },
-  "Entity Selection": {
-    "Enabled": false
+  "No Hurt Cam": {
+    "Enabled": true
   },
   "FOV Changer": {
     "Enabled": false,
@@ -29,7 +29,7 @@
     "Enabled": false
   },
   "Hotbar Tweaks": {
-    "Enabled": true,
+    "Enabled": false,
     "No Hunger": false,
     "Automatically Hide Hotbar": false
   },
@@ -39,10 +39,10 @@
     "Show Self Name": false
   },
   "No Bob Shake": {
-    "Enabled": true
+    "Enabled": false
   },
   "Ping Indicator": {
-    "Enabled": true
+    "Enabled": false
   },
   "Raw Input": {
     "Enabled": true
@@ -61,6 +61,6 @@
     "Background": true
   },
   "Smooth Chat": {
-    "Enabled": true
+    "Enabled": false
   }
 }

@@ -27,7 +27,7 @@ public class HotbarTweaks extends Mod
         
         if (autoHideHotbar.enabled)
         {
-            if (currentItem != mc.thePlayer.inventory.currentItem || flag)
+            if (currentItem != mc.player.inventory.currentItem || flag)
             {
                 ticks = 60;
                 flag = false;
@@ -38,7 +38,7 @@ public class HotbarTweaks extends Mod
                 ticks--;
             }
             
-            currentItem = mc.thePlayer.inventory.currentItem;
+            currentItem = mc.player.inventory.currentItem;
         }
     }
 }

@@ -1,0 +1,92 @@
+---- Minecraft Crash Report ----
+// There are four lights!
+
+Time: 11/12/24, 7:27?PM
+Description: Updating screen events
+
+java.lang.IllegalStateException: Already building!
+	at net.minecraft.client.renderer.WorldRenderer.begin(WorldRenderer.java:262)
+	at net.minecraft.client.renderer.RenderGlobal.renderSky(RenderGlobal.java:406)
+	at net.minecraft.client.renderer.RenderGlobal.generateSky2(RenderGlobal.java:351)
+	at net.minecraft.client.renderer.RenderGlobal.loadRenderers(RenderGlobal.java:584)
+	at net.minecraft.client.settings.GameSettings.setOptionValue(GameSettings.java:594)
+	at net.minecraft.client.gui.GuiVideoSettings.actionPerformed(GuiVideoSettings.java:95)
+	at net.minecraft.client.gui.GuiScreen.mouseClicked(GuiScreen.java:503)
+	at net.minecraft.client.gui.GuiScreen.handleMouseInput(GuiScreen.java:599)
+	at net.minecraft.client.gui.GuiScreen.handleInput(GuiScreen.java:568)
+	at net.minecraft.client.Minecraft.runTick(Minecraft.java:1544)
+	at net.minecraft.client.Minecraft.runGameLoop(Minecraft.java:1080)
+	at net.minecraft.client.Minecraft.run(Minecraft.java:413)
+	at net.minecraft.client.main.Main.main(Main.java:113)
+	at Start.main(Start.java:11)
+
+
+A detailed walkthrough of the error, its code path and all known details is as follows:
+---------------------------------------------------------------------------------------
+
+-- Head --
+Stacktrace:
+	at net.minecraft.client.renderer.WorldRenderer.begin(WorldRenderer.java:262)
+	at net.minecraft.client.renderer.RenderGlobal.renderSky(RenderGlobal.java:406)
+	at net.minecraft.client.renderer.RenderGlobal.generateSky2(RenderGlobal.java:351)
+	at net.minecraft.client.renderer.RenderGlobal.loadRenderers(RenderGlobal.java:584)
+	at net.minecraft.client.settings.GameSettings.setOptionValue(GameSettings.java:594)
+	at net.minecraft.client.gui.GuiVideoSettings.actionPerformed(GuiVideoSettings.java:95)
+	at net.minecraft.client.gui.GuiScreen.mouseClicked(GuiScreen.java:503)
+	at net.minecraft.client.gui.GuiScreen.handleMouseInput(GuiScreen.java:599)
+	at net.minecraft.client.gui.GuiScreen.handleInput(GuiScreen.java:568)
+
+-- Affected screen --
+Details:
+	Screen name: net.minecraft.client.gui.GuiVideoSettings
+
+-- Affected level --
+Details:
+	Level name: MpServer
+	All players: 1 total; [EntityPlayerSP['AppleClient'/73444, l='MpServer', x=145.59, y=-2.33, z=-104.70]]
+	Chunk stats: MultiplayerChunkCache: 625, 625
+	Level seed: 0
+	Level generator: ID 00 - default, ver 1. Features enabled: false
+	Level generator options: 
+	Level spawn location: 217.00,64.00,-122.00 - World: (217,64,-122), Chunk: (at 9,4,6 in 13,-8; contains blocks 208,0,-128 to 223,255,-113), Region: (0,-1; contains chunks 0,-32 to 31,-1, blocks 0,0,-512 to 511,255,-1)
+	Level time: 1264754 game time, 6568 day time
+	Level dimension: 0
+	Level storage version: 0x00000 - Unknown?
+	Level weather: Rain time: 0 (now: false), thunder time: 0 (now: false)
+	Level game mode: Game mode: creative (ID 1). Hardcore: false. Cheats: false
+	Forced entities: 49 total; [EntityCreeper['Creeper'/73349, l='MpServer', x=157.97, y=46.00, z=-123.44], EntitySpider['Spider'/74119, l='MpServer', x=97.59, y=34.19, z=-158.97], EntitySquid['Squid'/73353, l='MpServer', x=171.22, y=62.41, z=-55.47], EntitySkeleton['Skeleton'/74121, l='MpServer', x=90.00, y=35.00, z=-164.72], EntitySpider['Spider'/73355, l='MpServer', x=161.28, y=18.09, z=-25.00], EntityBat['Bat'/73738, l='MpServer', x=155.47, y=38.97, z=-148.45], EntityBat['Bat'/73740, l='MpServer', x=161.75, y=16.00, z=-28.28], EntityWitch['Witch'/74009, l='MpServer', x=90.88, y=31.00, z=-150.63], EntitySkeleton['Skeleton'/74011, l='MpServer', x=144.50, y=43.00, z=-170.50], EntityZombie['Zombie'/74012, l='MpServer', x=144.50, y=43.00, z=-172.50], EntitySpider['Spider'/74143, l='MpServer', x=120.69, y=54.09, z=-148.31], EntitySheep['Sheep'/73384, l='MpServer', x=204.88, y=69.00, z=-83.19], EntityBat['Bat'/74159, l='MpServer', x=103.56, y=28.10, z=-26.25], EntityBat['Bat'/74158, l='MpServer', x=97.51, y=24.03, z=-30.54], EntityZombie['Zombie'/73909, l='MpServer', x=87.91, y=21.00, z=-156.75], EntityZombie['Zombie'/74303, l='MpServer', x=90.50, y=23.00, z=-156.50], EntityBat['Bat'/73278, l='MpServer', x=75.03, y=44.00, z=-171.63], EntitySkeleton['Skeleton'/73539, l='MpServer', x=130.50, y=36.00, z=-67.50], EntityCreeper['Creeper'/73285, l='MpServer', x=81.50, y=47.00, z=-102.50], EntitySpider['Spider'/73284, l='MpServer', x=81.50, y=41.00, z=-116.50], EntityCreeper['Creeper'/73551, l='MpServer', x=87.50, y=32.00, z=-93.50], EntitySkeleton['Skeleton'/74192, l='MpServer', x=99.66, y=26.00, z=-177.16], EntitySkeleton['Skeleton'/73303, l='MpServer', x=131.13, y=43.00, z=-118.53], EntityBat['Bat'/73305, l='MpServer', x=129.01, y=52.42, z=-35.16], EntitySkeleton['Skeleton'/74077, l='MpServer', x=121.50, y=27.00, z=-69.50], EntitySkeleton['Skeleton'/74076, l='MpServer', x=121.50, y=27.00, z=-70.50], EntityBat['Bat'/73311, l='MpServer', x=146.04, y=33.53, z=-149.22], EntityBat['Bat'/73315, l='MpServer', x=141.91, y=35.33, z=-150.25], EntitySkeleton['Skeleton'/73955, l='MpServer', x=138.50, y=34.00, z=-154.50], EntityPlayerSP['AppleClient'/73444, l='MpServer', x=145.59, y=-2.33, z=-104.70], EntityZombie['Zombie'/73957, l='MpServer', x=146.50, y=34.00, z=-144.50], EntityItem['item.item.bone'/73316, l='MpServer', x=131.72, y=11.00, z=-57.19], EntityCreeper['Creeper'/73703, l='MpServer', x=145.63, y=43.00, z=-169.06], EntityZombie['Zombie'/73702, l='MpServer', x=80.50, y=41.00, z=-119.50], EntitySkeleton['Skeleton'/73321, l='MpServer', x=142.78, y=47.00, z=-54.81], EntitySkeleton['Skeleton'/73323, l='MpServer', x=128.50, y=48.00, z=-52.50], EntitySkeleton['Skeleton'/73322, l='MpServer', x=135.28, y=47.00, z=-62.72], EntityCreeper['Creeper'/73325, l='MpServer', x=130.50, y=57.00, z=-60.50], EntityZombie['Zombie'/73324, l='MpServer', x=129.50, y=57.00, z=-60.50], EntityCreeper['Creeper'/73329, l='MpServer', x=147.00, y=48.00, z=-53.69], EntityZombie['Zombie'/73335, l='MpServer', x=145.75, y=32.00, z=-179.84], EntitySpider['Spider'/74358, l='MpServer', x=112.00, y=26.00, z=-30.82], EntitySkeleton['Skeleton'/73723, l='MpServer', x=105.50, y=27.00, z=-27.50], EntitySkeleton['Skeleton'/73851, l='MpServer', x=110.82, y=26.00, z=-30.45], EntityZombie['Zombie'/74363, l='MpServer', x=113.50, y=26.00, z=-33.50], EntitySkeleton['Skeleton'/73850, l='MpServer', x=116.50, y=26.00, z=-33.50], EntityZombie['Zombie'/74362, l='MpServer', x=116.50, y=26.00, z=-32.50], EntityZombie['Zombie'/74364, l='MpServer', x=115.50, y=26.00, z=-34.50], EntitySkeleton['Skeleton'/73983, l='MpServer', x=165.03, y=46.00, z=-120.56]]
+	Retry entities: 0 total; []
+	Server brand: vanilla
+	Server type: Integrated singleplayer server
+Stacktrace:
+	at net.minecraft.client.multiplayer.WorldClient.addWorldInfoToCrashReport(WorldClient.java:394)
+	at net.minecraft.client.Minecraft.addGraphicsAndWorldToCrashReport(Minecraft.java:2482)
+	at net.minecraft.client.Minecraft.run(Minecraft.java:433)
+	at net.minecraft.client.main.Main.main(Main.java:113)
+	at Start.main(Start.java:11)
+
+-- System Details --
+Details:
+	Minecraft Version: 1.8.9
+	Operating System: Windows 11 (amd64) version 10.0
+	CPU: 12x AMD Ryzen 5 5500U with Radeon Graphics 
+	Java Version: 22.0.1, Oracle Corporation
+	Java VM Version: Java HotSpot(TM) 64-Bit Server VM (mixed mode, sharing), Oracle Corporation
+	Memory: 652532024 bytes (622 MB) / 1073741824 bytes (1024 MB) up to 2147483648 bytes (2048 MB)
+	JVM Flags: 7 total; -XX:ThreadPriorityPolicy=1 -XX:+UnlockExperimentalVMOptions -XX:+EnableJVMCIProduct -XX:-UnlockExperimentalVMOptions -XX:+ShowCodeDetailsInExceptionMessages -Xmx2048M -Xms1024M
+	IntCache: cache: 0, tcache: 61, allocated: 13, tallocated: 95
+	Launched Version: mcp
+	LWJGL: 2.9.4
+	OpenGL: AMD Radeon(TM) Graphics GL version 4.6.0 Compatibility Profile Context 23.19.10.231127, ATI Technologies Inc.
+	GL Caps: Using GL 1.3 multitexturing.
+Using GL 1.3 texture combiners.
+Using framebuffer objects because OpenGL 3.0 is supported and separate blending is supported.
+Shaders are available because OpenGL 2.1 is supported.
+VBOs are available because OpenGL 1.5 is supported.
+
+	Using VBOs: Yes
+	Is Modded: Definitely; Client brand changed to 'appleclient'
+	Type: Client (map_client.txt)
+	Resource Packs: 
+	Current Language: English (US)
+	CPU: 12x AMD Ryzen 5 5500U with Radeon Graphics 

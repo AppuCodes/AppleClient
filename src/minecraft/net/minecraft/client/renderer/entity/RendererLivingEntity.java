@@ -276,7 +276,7 @@ public abstract class RendererLivingEntity<T extends EntityLivingBase> extends R
     protected void renderModel(T entitylivingbaseIn, float p_77036_2_, float p_77036_3_, float p_77036_4_, float p_77036_5_, float p_77036_6_, float p_77036_7_)
     {
         boolean flag = !entitylivingbaseIn.isInvisible();
-        boolean flag1 = !flag && !entitylivingbaseIn.isInvisibleToPlayer(Minecraft.getMinecraft().thePlayer);
+        boolean flag1 = !flag && !entitylivingbaseIn.isInvisibleToPlayer(Minecraft.getMinecraft().player);
         Mod depthSkins = Apple.CLIENT.modsManager.getMod("3D Skins");
         
         if (flag || flag1)
@@ -385,10 +385,10 @@ public abstract class RendererLivingEntity<T extends EntityLivingBase> extends R
 
             if (flag1)
             {
-                this.brightnessBuffer.put(1.0F);
+                this.brightnessBuffer.put(0.6F);
                 this.brightnessBuffer.put(0.0F);
                 this.brightnessBuffer.put(0.0F);
-                this.brightnessBuffer.put(0.5F);
+                this.brightnessBuffer.put(0.4F);
 
                 if (Config.isShaders())
                 {
@@ -628,7 +628,7 @@ public abstract class RendererLivingEntity<T extends EntityLivingBase> extends R
     protected boolean canRenderName(T entity)
     {
         Mod nametags = Apple.CLIENT.modsManager.getMod("Nametags");
-        EntityPlayerSP entityplayersp = Minecraft.getMinecraft().thePlayer;
+        EntityPlayerSP entityplayersp = Minecraft.getMinecraft().player;
         ToggleSetting showSelfName = (ToggleSetting) nametags.getSetting("Show Self Name");
 
         if (entity instanceof EntityPlayer && entity != entityplayersp)

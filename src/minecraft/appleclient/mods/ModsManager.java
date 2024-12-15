@@ -22,7 +22,7 @@ public class ModsManager
         mods[i++] = new BlockSelection();
         mods[i++] = new Crosshair();
         mods[i++] = new DepthSkins();
-        mods[i++] = new EntitySelection();
+        mods[i++] = new NoHurtCam();
         mods[i++] = new FOVChanger();
         mods[i++] = new FullBright();
         mods[i++] = new HotbarTweaks();
@@ -44,7 +44,7 @@ public class ModsManager
             case "Block Selection": return mods[1];
             case "Crosshair": return mods[2];
             case "3D Skins": return mods[3];
-            case "Entity Selection": return mods[4];
+            case "No Hurt Cam": return mods[4];
             case "FOV Changer": return mods[5];
             case "Full Bright": return mods[6];
             case "Hotbar Tweaks": return mods[7];

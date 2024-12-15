@@ -3,6 +3,8 @@ package net.minecraft.client.gui;
 import com.google.common.base.Splitter;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
+
+import java.awt.Color;
 import java.awt.Toolkit;
 import java.awt.datatransfer.ClipboardOwner;
 import java.awt.datatransfer.DataFlavor;
@@ -158,7 +160,7 @@ public abstract class GuiScreen extends Gui implements GuiYesNoCallback
 
     protected void renderToolTip(ItemStack stack, int x, int y)
     {
-        List<String> list = stack.getTooltip(this.mc.thePlayer, this.mc.gameSettings.advancedItemTooltips);
+        List<String> list = stack.getTooltip(this.mc.player, this.mc.gameSettings.advancedItemTooltips);
 
         for (int i = 0; i < list.size(); ++i)
         {
@@ -482,7 +484,7 @@ public abstract class GuiScreen extends Gui implements GuiYesNoCallback
             this.mc.ingameGUI.getChatGUI().addToSentMessages(msg);
         }
 
-        this.mc.thePlayer.sendChatMessage(msg);
+        this.mc.player.sendChatMessage(msg);
     }
 
     /**
@@ -652,9 +654,9 @@ public abstract class GuiScreen extends Gui implements GuiYesNoCallback
 
     public void drawWorldBackground(int tint)
     {
-        if (this.mc.theWorld != null)
+        if (this.mc.world != null)
         {
-            this.drawGradientRect(0, 0, this.width, this.height, -1072689136, -804253680);
+            this.drawRect(0, 0, this.width, this.height, -1778384896);
         }
         else
         {

@@ -1,0 +1,24 @@
+package appleclient.bugfixes;
+
+import com.google.common.eventbus.Subscribe;
+
+import appleclient.events.impl.EventAttack;
+import appleclient.events.impl.EventPacketReceive;
+
+public class SprintDesync
+{
+    public static SprintDesync FIX = new SprintDesync();
+    private boolean attacked = false;
+    
+    @Subscribe
+    public void onAttack(EventAttack e)
+    {
+        attacked = true;
+    }
+    
+    @Subscribe
+    public void onPacketReceive(EventPacketReceive e)
+    {
+        
+    }
+}

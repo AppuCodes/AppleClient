@@ -1,6 +1,7 @@
 package net.minecraft.client.entity;
 
 import appleclient.Apple;
+import appleclient.bugfixes.SprintDesync;
 import appleclient.events.impl.EventTick;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.MovingSoundMinecartRiding;
@@ -93,7 +94,7 @@ public class EntityPlayerSP extends AbstractClientPlayer
     private boolean serverSneakState;
 
     /** the last sprinting state sent to the server */
-    private boolean serverSprintState;
+    public boolean serverSprintState;
 
     /**
      * Reset to 0 every time position is sent to the server, used to send periodic updates every 20 ticks even when the
@@ -194,6 +195,12 @@ public class EntityPlayerSP extends AbstractClientPlayer
      */
     public void onUpdateWalkingPlayer()
     {
+        if (SprintDesync.FIX.needsStop())
+        {
+            this.setSprinting(false);
+            SprintDesync.FIX.finish();
+        }
+        
         boolean flag = this.isSprinting();
 
         if (flag != this.serverSprintState)

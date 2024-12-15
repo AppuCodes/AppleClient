@@ -1,0 +1,8 @@
+package appleclient.bugfixes;
+
+public class SprintDesync
+{
+    public static SprintDesync FIX = new SprintDesync();
+    
+    
+}

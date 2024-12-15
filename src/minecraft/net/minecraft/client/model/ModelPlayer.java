@@ -86,7 +86,7 @@ public class ModelPlayer extends ModelBiped
             GlStateManager.scale(1.0F / f, 1.0F / f, 1.0F / f);
             GlStateManager.translate(0.0F, 24.0F * scale, 0.0F);
             
-            if (!(depthSkins.isEnabled() && entityIn instanceof PlayerSettings) || Minecraft.getMinecraft().thePlayer.getPositionVector().squareDistanceTo(entityIn.getPositionVector()) > 14 * 14)
+            if (!(depthSkins.isEnabled() && entityIn instanceof PlayerSettings) || Minecraft.getMinecraft().player.getPositionVector().squareDistanceTo(entityIn.getPositionVector()) > 14 * 14)
             {
                 this.bipedLeftLegwear.render(scale);
                 this.bipedRightLegwear.render(scale);
@@ -102,7 +102,7 @@ public class ModelPlayer extends ModelBiped
                 GlStateManager.translate(0.0F, 0.2F, 0.0F);
             }
 
-            if (!(depthSkins.isEnabled() && entityIn instanceof PlayerSettings) || Minecraft.getMinecraft().thePlayer.getPositionVector().squareDistanceTo(entityIn.getPositionVector()) > 14 * 14)
+            if (!(depthSkins.isEnabled() && entityIn instanceof PlayerSettings) || Minecraft.getMinecraft().player.getPositionVector().squareDistanceTo(entityIn.getPositionVector()) > 14 * 14)
             {
                 this.bipedLeftLegwear.render(scale);
                 this.bipedRightLegwear.render(scale);

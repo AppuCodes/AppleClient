@@ -38,7 +38,7 @@ public class HeadLayerFeatureRenderer implements LayerRenderer<AbstractClientPla
             return;
         }
         
-        if (mc.thePlayer.getPositionVector().squareDistanceTo(player.getPositionVector()) > 14 * 14)
+        if (mc.player.getPositionVector().squareDistanceTo(player.getPositionVector()) > 14 * 14)
         {
             return;
         }

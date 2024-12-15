@@ -1311,7 +1311,7 @@ public class GameSettings
      */
     public void sendSettingsToServer()
     {
-        if (this.mc.thePlayer != null)
+        if (this.mc.player != null)
         {
             int i = 0;
 
@@ -1320,7 +1320,7 @@ public class GameSettings
                 i |= ((EnumPlayerModelParts) enumplayermodelparts).getPartMask();
             }
 
-            this.mc.thePlayer.sendQueue.addToSendQueue(new C15PacketClientSettings(this.language, this.renderDistanceChunks, this.chatVisibility, this.chatColours, i));
+            this.mc.player.sendQueue.addToSendQueue(new C15PacketClientSettings(this.language, this.renderDistanceChunks, this.chatVisibility, this.chatColours, i));
         }
     }
 
@@ -2954,7 +2954,7 @@ public class GameSettings
             Config.waterOpacityChanged = true;
         }
 
-        ClearWater.updateWaterOpacity(this, this.mc.theWorld);
+        ClearWater.updateWaterOpacity(this, this.mc.world);
     }
 
     public void setAllAnimations(boolean p_setAllAnimations_1_)

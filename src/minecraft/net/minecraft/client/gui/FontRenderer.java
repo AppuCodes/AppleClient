@@ -370,7 +370,7 @@ public class FontRenderer implements IResourceManagerReloadListener
             /**
              * Replicates Legacy Console Edition behaviour (the text shadow doesn't have to scale)
              */
-            float offset = 1.0F / scale;
+            float offset = 1F / scale;
             i = this.renderString(renderer, text, x + offset, y + offset, color, true);
             i = Math.max(i, this.renderString(renderer, text, x, y, color, false));
         }

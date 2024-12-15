@@ -42,12 +42,12 @@ public class BodyLayerFeatureRenderer implements LayerRenderer<AbstractClientPla
             return;
         }
         
-        if (mc.theWorld == null)
+        if (mc.world == null)
         {
             return;
         }
         
-        if (mc.thePlayer.getPositionVector().squareDistanceTo(player.getPositionVector()) > 14 * 14)
+        if (mc.player.getPositionVector().squareDistanceTo(player.getPositionVector()) > 14 * 14)
         {
             return;
         }

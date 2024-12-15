@@ -199,7 +199,7 @@ public class ShadersRender
             Shaders.useProgram(30);
             entityRenderer.setupCameraTransform(partialTicks, 2);
             Shaders.setCameraShadow(partialTicks);
-            ActiveRenderInfo.updateRenderInfo(minecraft.thePlayer, minecraft.gameSettings.thirdPersonView == 2);
+            ActiveRenderInfo.updateRenderInfo(minecraft.player, minecraft.gameSettings.thirdPersonView == 2);
             Shaders.checkGLError("shadow camera");
             GL20.glDrawBuffers(Shaders.sfbDrawBuffers);
             Shaders.checkGLError("shadow drawbuffers");
@@ -233,7 +233,7 @@ public class ShadersRender
             int i = 0;
             i = entityRenderer.frameCount;
             entityRenderer.frameCount = i + 1;
-            renderglobal.setupTerrain(entity, (double)partialTicks, frustum, i, minecraft.thePlayer.isSpectator());
+            renderglobal.setupTerrain(entity, (double)partialTicks, frustum, i, minecraft.player.isSpectator());
             GlStateManager.matrixMode(5888);
             GlStateManager.pushMatrix();
             GlStateManager.disableAlpha();

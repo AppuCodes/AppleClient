@@ -15,7 +15,6 @@
     <fullyQualifiedTypeName name="com.google.gson.reflect.TypeToken"/>
     <fullyQualifiedTypeName name="com.google.common.base.Charsets"/>
     <fullyQualifiedTypeName name="net.minecraft.network.Packet"/>
-    <fullyQualifiedTypeName name="appleclient.events.Event"/>
     <fullyQualifiedTypeName name="appleclient.events.impl.EventPacketReceive"/>
     <fullyQualifiedTypeName name="appleclient.mods.impl.AutoGG"/>
     <fullyQualifiedTypeName name="appleclient.mods.impl.Scoreboard"/>
@@ -25,7 +24,6 @@
     <fullyQualifiedTypeName name="java.util.Comparator"/>
     <fullyQualifiedTypeName name="javax.swing.text.html.parser.Entity"/>
     <fullyQualifiedTypeName name="appleclient.mods.impl.EntitySelection"/>
-    <fullyQualifiedTypeName name="net.minecraft.client.Minecraft"/>
     <fullyQualifiedTypeName name="java.awt.Color"/>
     <fullyQualifiedTypeName name="net.minecraft.client.renderer.texture.SimpleTexture"/>
     <fullyQualifiedTypeName name="org.lwjgl.util.glu.GLU"/>
@@ -37,5 +35,11 @@
     <fullyQualifiedTypeName name="net.minecraft.client.gui.ScaledResolution"/>
     <fullyQualifiedTypeName name="appleclient.utils.ScissorUtil"/>
     <fullyQualifiedTypeName name="org.lwjgl.opengl.GL11"/>
+    <fullyQualifiedTypeName name="net.minecraft.client.Minecraft"/>
+    <fullyQualifiedTypeName name="net.minecraft.client.settings.KeyBinding"/>
+    <fullyQualifiedTypeName name="appleclient.events.Event"/>
     <fullyQualifiedTypeName name="appleclient.Apple"/>
+    <fullyQualifiedTypeName name="net.minecraft.entity.DataWatcher"/>
+    <fullyQualifiedTypeName name="net.minecraft.entity.DataWatcher.WatchableObject"/>
+    <fullyQualifiedTypeName name="appleclient.bugfixes.SprintDesync"/>
 </qualifiedTypeNameHistroy>

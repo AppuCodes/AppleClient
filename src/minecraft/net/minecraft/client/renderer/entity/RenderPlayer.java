@@ -7,6 +7,7 @@ import dev.tr7zw.skinlayers.accessor.PlayerEntityModelAccessor;
 import dev.tr7zw.skinlayers.accessor.PlayerSettings;
 import dev.tr7zw.skinlayers.renderlayers.BodyLayerFeatureRenderer;
 import dev.tr7zw.skinlayers.renderlayers.HeadLayerFeatureRenderer;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.AbstractClientPlayer;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.model.ModelPlayer;
@@ -255,6 +256,9 @@ public class RenderPlayer extends RendererLivingEntity<AbstractClientPlayer> imp
     
     private void renderFirstPersonArm(AbstractClientPlayer player, int layerId)
     {
+        if (player instanceof EntityPlayerSP && Minecraft.getMinecraft().gameSettings.thirdPersonView == 0)
+            return;
+        
         ModelPlayer modelplayer = getMainModel();
         float pixelScaling = 1.15F;
         PlayerSettings settings = (PlayerSettings) player;

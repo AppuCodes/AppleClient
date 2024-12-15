@@ -1,0 +1,78 @@
+---- Minecraft Crash Report ----
+// I let you down. Sorry :(
+
+Time: 11/16/24, 10:12?PM
+Description: Unexpected error
+
+java.lang.Error: Unresolved compilation problem: 
+	Syntax error on token ",", Expression expected after this token
+
+	at net.minecraft.client.renderer.RenderGlobal.renderSky(RenderGlobal.java:1753)
+	at net.minecraft.client.renderer.EntityRenderer.renderWorldPass(EntityRenderer.java:1605)
+	at net.minecraft.client.renderer.EntityRenderer.renderWorld(EntityRenderer.java:1533)
+	at net.minecraft.client.renderer.EntityRenderer.updateCameraAndRender(EntityRenderer.java:1320)
+	at net.minecraft.client.Minecraft.runGameLoop(Minecraft.java:1097)
+	at net.minecraft.client.Minecraft.run(Minecraft.java:413)
+	at net.minecraft.client.main.Main.main(Main.java:113)
+	at Start.main(Start.java:11)
+
+
+A detailed walkthrough of the error, its code path and all known details is as follows:
+---------------------------------------------------------------------------------------
+
+-- Head --
+Stacktrace:
+	at net.minecraft.client.renderer.RenderGlobal.renderSky(RenderGlobal.java:1753)
+	at net.minecraft.client.renderer.EntityRenderer.renderWorldPass(EntityRenderer.java:1605)
+	at net.minecraft.client.renderer.EntityRenderer.renderWorld(EntityRenderer.java:1533)
+
+-- Affected level --
+Details:
+	Level name: MpServer
+	All players: 1 total; [EntityPlayerSP['AppleClient'/172, l='MpServer', x=186.12, y=75.00, z=-155.59]]
+	Chunk stats: MultiplayerChunkCache: 289, 289
+	Level seed: 0
+	Level generator: ID 00 - default, ver 1. Features enabled: false
+	Level generator options: 
+	Level spawn location: 217.00,64.00,-122.00 - World: (217,64,-122), Chunk: (at 9,4,6 in 13,-8; contains blocks 208,0,-128 to 223,255,-113), Region: (0,-1; contains chunks 0,-32 to 31,-1, blocks 0,0,-512 to 511,255,-1)
+	Level time: 1298511 game time, 1000 day time
+	Level dimension: 0
+	Level storage version: 0x00000 - Unknown?
+	Level weather: Rain time: 0 (now: false), thunder time: 0 (now: false)
+	Level game mode: Game mode: survival (ID 0). Hardcore: false. Cheats: false
+	Forced entities: 45 total; [EntitySheep['Sheep'/128, l='MpServer', x=259.31, y=66.00, z=-155.84], EntitySpider['Spider'/6148, l='MpServer', x=251.50, y=25.00, z=-155.50], EntityZombie['Zombie'/6149, l='MpServer', x=234.50, y=19.00, z=-220.50], EntitySpider['Spider'/8966, l='MpServer', x=223.50, y=22.00, z=-219.50], EntityBat['Bat'/9991, l='MpServer', x=157.81, y=54.00, z=-227.31], EntityBat['Bat'/9993, l='MpServer', x=160.63, y=54.97, z=-227.41], EntityZombie['Zombie'/9110, l='MpServer', x=136.50, y=13.00, z=-188.50], EntityCreeper['Creeper'/9752, l='MpServer', x=152.50, y=43.00, z=-151.50], EntityZombie['Zombie'/9753, l='MpServer', x=157.50, y=43.00, z=-145.50], EntityZombie['Zombie'/9754, l='MpServer', x=153.50, y=43.00, z=-145.50], EntityCreeper['Creeper'/6943, l='MpServer', x=193.56, y=27.00, z=-218.31], EntitySkeleton['Skeleton'/9890, l='MpServer', x=138.50, y=46.00, z=-183.50], EntitySkeleton['Skeleton'/9891, l='MpServer', x=137.50, y=46.00, z=-183.50], EntityZombie['Zombie'/9508, l='MpServer', x=107.50, y=25.00, z=-194.13], EntityZombie['Zombie'/9509, l='MpServer', x=114.50, y=24.00, z=-187.50], EntityBat['Bat'/9126, l='MpServer', x=154.59, y=37.63, z=-153.00], EntityCreeper['Creeper'/43, l='MpServer', x=150.50, y=36.00, z=-166.50], EntityPlayerSP['AppleClient'/172, l='MpServer', x=186.12, y=75.00, z=-155.59], EntitySkeleton['Skeleton'/9656, l='MpServer', x=244.50, y=15.00, z=-147.50], EntitySkeleton['Skeleton'/8121, l='MpServer', x=250.81, y=25.00, z=-162.81], EntityBat['Bat'/6589, l='MpServer', x=120.53, y=46.59, z=-189.41], EntityBat['Bat'/9789, l='MpServer', x=128.44, y=16.69, z=-185.47], EntityZombie['Zombie'/9022, l='MpServer', x=134.13, y=29.00, z=-191.50], EntityPig['Pig'/68, l='MpServer', x=182.19, y=67.00, z=-224.09], EntitySkeleton['Skeleton'/9924, l='MpServer', x=143.41, y=47.00, z=-213.06], EntitySkeleton['Skeleton'/9925, l='MpServer', x=145.50, y=46.75, z=-206.38], EntitySheep['Sheep'/72, l='MpServer', x=185.56, y=66.00, z=-97.69], EntitySkeleton['Skeleton'/7881, l='MpServer', x=169.75, y=46.00, z=-138.50], EntitySkeleton['Skeleton'/9802, l='MpServer', x=152.50, y=56.00, z=-234.50], EntitySpider['Spider'/9803, l='MpServer', x=110.97, y=46.00, z=-195.03], EntityCreeper['Creeper'/8908, l='MpServer', x=194.50, y=12.00, z=-216.50], EntityZombie['Zombie'/9804, l='MpServer', x=109.00, y=46.00, z=-197.00], EntityCreeper['Creeper'/9554, l='MpServer', x=171.50, y=11.00, z=-179.50], EntitySkeleton['Skeleton'/9939, l='MpServer', x=192.31, y=26.00, z=-219.69], EntitySpider['Spider'/9940, l='MpServer', x=199.97, y=28.00, z=-217.50], EntitySkeleton['Skeleton'/9941, l='MpServer', x=201.50, y=28.00, z=-216.50], EntitySlime['Slime'/9561, l='MpServer', x=177.16, y=20.16, z=-217.75], EntityZombie['Zombie'/9306, l='MpServer', x=131.50, y=56.00, z=-192.50], EntityCreeper['Creeper'/9307, l='MpServer', x=128.47, y=55.00, z=-201.03], EntityBat['Bat'/9181, l='MpServer', x=261.19, y=13.03, z=-161.75], EntityZombie['Zombie'/6631, l='MpServer', x=191.97, y=26.00, z=-220.47], EntityPig['Pig'/106, l='MpServer', x=237.13, y=66.00, z=-222.13], EntityPig['Pig'/116, l='MpServer', x=247.09, y=64.00, z=-231.78], EntityPig['Pig'/124, l='MpServer', x=260.00, y=64.00, z=-199.06], EntityBat['Bat'/9853, l='MpServer', x=199.81, y=28.06, z=-213.50]]
+	Retry entities: 0 total; []
+	Server brand: vanilla
+	Server type: Integrated singleplayer server
+Stacktrace:
+	at net.minecraft.client.multiplayer.WorldClient.addWorldInfoToCrashReport(WorldClient.java:394)
+	at net.minecraft.client.Minecraft.addGraphicsAndWorldToCrashReport(Minecraft.java:2487)
+	at net.minecraft.client.Minecraft.run(Minecraft.java:441)
+	at net.minecraft.client.main.Main.main(Main.java:113)
+	at Start.main(Start.java:11)
+
+-- System Details --
+Details:
+	Minecraft Version: 1.8.9
+	Operating System: Windows 11 (amd64) version 10.0
+	CPU: 12x AMD Ryzen 5 5500U with Radeon Graphics 
+	Java Version: 22.0.1, Oracle Corporation
+	Java VM Version: Java HotSpot(TM) 64-Bit Server VM (mixed mode, sharing), Oracle Corporation
+	Memory: 827933968 bytes (789 MB) / 1073741824 bytes (1024 MB) up to 2147483648 bytes (2048 MB)
+	JVM Flags: 7 total; -XX:ThreadPriorityPolicy=1 -XX:+UnlockExperimentalVMOptions -XX:+EnableJVMCIProduct -XX:-UnlockExperimentalVMOptions -XX:+ShowCodeDetailsInExceptionMessages -Xmx2048M -Xms1024M
+	IntCache: cache: 0, tcache: 0, allocated: 13, tallocated: 95
+	Launched Version: mcp
+	LWJGL: 2.9.4
+	OpenGL: AMD Radeon(TM) Graphics GL version 4.6.0 Compatibility Profile Context 23.19.10.231127, ATI Technologies Inc.
+	GL Caps: Using GL 1.3 multitexturing.
+Using GL 1.3 texture combiners.
+Using framebuffer objects because OpenGL 3.0 is supported and separate blending is supported.
+Shaders are available because OpenGL 2.1 is supported.
+VBOs are available because OpenGL 1.5 is supported.
+
+	Using VBOs: Yes
+	Is Modded: Definitely; Client brand changed to 'appleclient'
+	Type: Client (map_client.txt)
+	Resource Packs: 
+	Current Language: English (US)
+	CPU: 12x AMD Ryzen 5 5500U with Radeon Graphics 

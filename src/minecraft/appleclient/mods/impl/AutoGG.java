@@ -30,7 +30,7 @@ public class AutoGG extends Mod
         if (canSecondMessage)
         {
             TextSetting textSetting = (TextSetting) getSetting("2nd GG Message");
-            mc.thePlayer.sendChatMessage("/ac " + textSetting.text);
+            mc.player.sendChatMessage("/ac " + textSetting.text);
             canSecondMessage = false;
         }
     }
@@ -50,7 +50,7 @@ public class AutoGG extends Mod
                     if (message.contains(trigger))
                     {
                         TextSetting textSetting = (TextSetting) getSetting("GG Message");
-                        mc.thePlayer.sendChatMessage("/ac " + textSetting.text);
+                        mc.player.sendChatMessage("/ac " + textSetting.text);
                         canGG = false;
                         
                         if (((ToggleSetting) getSetting("Enable 2nd Message")).enabled)

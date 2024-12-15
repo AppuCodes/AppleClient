@@ -85,7 +85,7 @@ public class ToggleSprint extends Mod
                 mc.fontRendererObj.drawStringWithShadow("§7[§6Sprinting§7] §rToggled", 2, 2, -1);
             }
             
-            else if (mc.thePlayer.isSprinting())
+            else if (mc.player.isSprinting())
             {
                 int width = mc.fontRendererObj.getStringWidth("§7[§6Sprinting§7] §rVanilla");
                 

@@ -1610,7 +1610,7 @@ public class Config
 
     public static WorldServer getWorldServer()
     {
-        World world = minecraft.theWorld;
+        World world = minecraft.world;
 
         if (world == null)
         {
