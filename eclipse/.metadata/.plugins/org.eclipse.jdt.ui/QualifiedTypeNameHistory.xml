@@ -31,7 +31,6 @@
     <fullyQualifiedTypeName name="net.minecraft.client.renderer.GlStateManager"/>
     <fullyQualifiedTypeName name="net.minecraft.client.gui.Gui"/>
     <fullyQualifiedTypeName name="org.lwjgl.input.Mouse"/>
-    <fullyQualifiedTypeName name="org.lwjgl.opengl.Display"/>
     <fullyQualifiedTypeName name="net.minecraft.client.gui.ScaledResolution"/>
     <fullyQualifiedTypeName name="appleclient.utils.ScissorUtil"/>
     <fullyQualifiedTypeName name="org.lwjgl.opengl.GL11"/>
@@ -42,4 +41,6 @@
     <fullyQualifiedTypeName name="net.minecraft.entity.DataWatcher"/>
     <fullyQualifiedTypeName name="net.minecraft.entity.DataWatcher.WatchableObject"/>
     <fullyQualifiedTypeName name="appleclient.bugfixes.SprintDesync"/>
+    <fullyQualifiedTypeName name="org.lwjgl.opengl.Display"/>
+    <fullyQualifiedTypeName name="appleclient.utils.ServerUtil"/>
 </qualifiedTypeNameHistroy>

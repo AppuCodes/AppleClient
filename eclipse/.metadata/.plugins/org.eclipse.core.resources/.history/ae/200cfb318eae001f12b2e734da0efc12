@@ -1,5 +1,0 @@
-package appleclient.events.impl;
-
-public class EventAttack {
-
-}

@@ -1,0 +1,11 @@
+package appleclient.mods.impl;
+
+import appleclient.mods.Mod;
+
+public class EntityPredictor extends Mod
+{
+    public EntityPredictor()
+    {
+        super("Entity Predictor", "Predicts entitys' positions.");
+    }
+}

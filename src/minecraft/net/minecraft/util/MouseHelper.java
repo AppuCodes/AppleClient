@@ -6,10 +6,10 @@ import org.lwjgl.opengl.Display;
 public class MouseHelper
 {
     /** Mouse delta X this frame */
-    public int deltaX;
+    public float deltaX;
 
     /** Mouse delta Y this frame */
-    public int deltaY;
+    public float deltaY;
 
     /**
      * Grabs the mouse cursor it doesn't move and isn't seen.

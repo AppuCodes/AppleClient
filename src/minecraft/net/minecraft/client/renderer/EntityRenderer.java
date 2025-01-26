@@ -1,12 +1,5 @@
 package net.minecraft.client.renderer;
 
-import com.google.common.base.Predicates;
-import com.google.gson.JsonSyntaxException;
-
-import appleclient.Apple;
-import appleclient.mods.Mod;
-import appleclient.mods.impl.NoHurtCam;
-
 import java.io.IOException;
 import java.lang.reflect.Field;
 import java.nio.FloatBuffer;
@@ -15,6 +8,20 @@ import java.util.Date;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.Callable;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.lwjgl.input.Mouse;
+import org.lwjgl.opengl.Display;
+import org.lwjgl.opengl.GL11;
+import org.lwjgl.opengl.GLContext;
+import org.lwjgl.util.glu.Project;
+
+import com.google.common.base.Predicates;
+import com.google.gson.JsonSyntaxException;
+
+import appleclient.Apple;
+import appleclient.mods.Mod;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockBed;
 import net.minecraft.block.material.Material;
@@ -28,8 +35,6 @@ import net.minecraft.client.gui.MapItemRenderer;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.multiplayer.WorldClient;
 import net.minecraft.client.particle.EffectRenderer;
-import net.minecraft.client.renderer.EntityRenderer1;
-import net.minecraft.client.renderer.EntityRenderer2;
 import net.minecraft.client.renderer.culling.ClippingHelperImpl;
 import net.minecraft.client.renderer.culling.Frustum;
 import net.minecraft.client.renderer.texture.DynamicTexture;
@@ -83,15 +88,6 @@ import optifine.RandomMobs;
 import optifine.Reflector;
 import optifine.ReflectorForge;
 import optifine.TextureUtils;
-
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import org.lwjgl.input.Mouse;
-import org.lwjgl.opengl.Display;
-import org.lwjgl.opengl.GL11;
-import org.lwjgl.opengl.GLContext;
-import org.lwjgl.util.glu.GLU;
-import org.lwjgl.util.glu.Project;
 import shadersmod.client.Shaders;
 import shadersmod.client.ShadersRender;
 
@@ -126,19 +122,19 @@ public class EntityRenderer implements IResourceManagerReloadListener
     private float thirdPersonDistanceTemp = 4.0F;
 
     /** Smooth cam yaw */
-    private float smoothCamYaw;
+    public float smoothCamYaw;
 
     /** Smooth cam pitch */
-    private float smoothCamPitch;
+    public float smoothCamPitch;
 
     /** Smooth cam filter X */
-    private float smoothCamFilterX;
+    public float smoothCamFilterX;
 
     /** Smooth cam filter Y */
-    private float smoothCamFilterY;
+    public float smoothCamFilterY;
 
     /** Smooth cam partial ticks */
-    private float smoothCamPartialTicks;
+    public float smoothCamPartialTicks;
 
     /** FOV modifier hand */
     private float fovModifierHand;
@@ -1245,7 +1241,7 @@ public class EntityRenderer implements IResourceManagerReloadListener
         return i > 200 ? 1.0F : 0.7F + MathHelper.sin(((float)i - partialTicks) * (float)Math.PI * 0.2F) * 0.3F;
     }
 
-    public void updateCameraAndRender(float p_181560_1_, long p_181560_2_)
+    public void updateCameraAndRender(float partialTicks, long p_181560_2_)
     {
         this.frameInit();
         boolean flag = Display.isActive();
@@ -1268,8 +1264,8 @@ public class EntityRenderer implements IResourceManagerReloadListener
             Mouse.setCursorPosition(Display.getWidth() / 2, Display.getHeight() / 2);
             Mouse.setGrabbed(true);
         }
-
-        if (this.mc.inGameHasFocus && flag)
+        
+        if (this.mc.inGameHasFocus && flag && (this.mc.gameSettings.smoothCamera || !Apple.CLIENT.modsManager.getMod("Raw Input").isEnabled()))
         {
             this.mc.mouseHelper.mouseXYChange();
             float f = this.mc.gameSettings.mouseSensitivity * 0.6F + 0.2F;
@@ -1287,8 +1283,8 @@ public class EntityRenderer implements IResourceManagerReloadListener
             {
                 this.smoothCamYaw += f2;
                 this.smoothCamPitch += f3;
-                float f4 = p_181560_1_ - this.smoothCamPartialTicks;
-                this.smoothCamPartialTicks = p_181560_1_;
+                float f4 = partialTicks - this.smoothCamPartialTicks;
+                this.smoothCamPartialTicks = partialTicks;
                 f2 = this.smoothCamFilterX * f4;
                 f3 = this.smoothCamFilterY * f4;
                 this.mc.player.setAngles(f2, f3 * (float)b0);
@@ -1317,7 +1313,7 @@ public class EntityRenderer implements IResourceManagerReloadListener
                 i = Math.max(i, 60);
                 long j = System.nanoTime() - p_181560_2_;
                 long k = Math.max((long)(1000000000 / i / 4) - j, 0L);
-                this.renderWorld(p_181560_1_, System.nanoTime() + k);
+                this.renderWorld(partialTicks, System.nanoTime() + k);
 
                 if (OpenGlHelper.shadersSupported)
                 {
@@ -1328,7 +1324,7 @@ public class EntityRenderer implements IResourceManagerReloadListener
                         GlStateManager.matrixMode(5890);
                         GlStateManager.pushMatrix();
                         GlStateManager.loadIdentity();
-                        this.theShaderGroup.loadShaderGroup(p_181560_1_);
+                        this.theShaderGroup.loadShaderGroup(partialTicks);
                         GlStateManager.popMatrix();
                     }
 
@@ -1340,7 +1336,7 @@ public class EntityRenderer implements IResourceManagerReloadListener
                 if (!this.mc.gameSettings.hideGUI || this.mc.currentScreen != null)
                 {
                     GlStateManager.alphaFunc(516, 0.0F);
-                    this.mc.ingameGUI.renderGameOverlay(p_181560_1_);
+                    this.mc.ingameGUI.renderGameOverlay(partialTicks);
 
                     if (this.mc.gameSettings.ofShowFps && !this.mc.gameSettings.showDebugInfo)
                     {
@@ -1373,11 +1369,11 @@ public class EntityRenderer implements IResourceManagerReloadListener
                 {
                     if (Reflector.ForgeHooksClient_drawScreen.exists())
                     {
-                        Reflector.callVoid(Reflector.ForgeHooksClient_drawScreen, new Object[] {this.mc.currentScreen, Integer.valueOf(j1), Integer.valueOf(k1), Float.valueOf(p_181560_1_)});
+                        Reflector.callVoid(Reflector.ForgeHooksClient_drawScreen, new Object[] {this.mc.currentScreen, Integer.valueOf(j1), Integer.valueOf(k1), Float.valueOf(partialTicks)});
                     }
                     else
                     {
-                        this.mc.currentScreen.drawScreen(j1, k1, p_181560_1_);
+                        this.mc.currentScreen.drawScreen(j1, k1, partialTicks);
                     }
                 }
                 catch (Throwable throwable)

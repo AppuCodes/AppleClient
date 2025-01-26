@@ -1,5 +1,7 @@
 package appleclient.mods.impl;
 
+import org.lwjgl.opengl.Display;
+
 import appleclient.mods.Mod;
 import net.java.games.input.Controller;
 import net.java.games.input.Controller.Type;
@@ -11,7 +13,7 @@ import net.minecraft.util.Util;
 public class RawInput extends Mod
 {
     private volatile boolean enabled = false;
-    private int deltaX = 0, deltaY = 0;
+    private float deltaX = 0, deltaY = 0;
     private Controller[] controllers;
     private Mouse mouse;
     
@@ -44,10 +46,24 @@ public class RawInput extends Mod
                     {
                         mouse.poll();
                         
-                        if (mc.currentScreen == null)
+                        if (mc.currentScreen == null && Display.isActive())
                         {
-                            deltaX += (int) mouse.getX().getPollData();
-                            deltaY += (int) mouse.getY().getPollData();
+                            deltaX += mouse.getX().getPollData();
+                            deltaY += mouse.getY().getPollData();
+                            
+                            /* framerate independent */
+                            if (mc.inGameHasFocus && !mc.gameSettings.smoothCamera && (deltaX != 0 || deltaY != 0))
+                            {
+                                mc.mouseHelper.mouseXYChange();
+                                
+                                float f = (mc.gameSettings.mouseSensitivity * 0.6F) + 0.2F,
+                                      f1 = f * f * f * 8,
+                                      f2 = mc.mouseHelper.deltaX * f1,
+                                      f3 = mc.mouseHelper.deltaY * f1;
+                                
+                                mc.entityRenderer.smoothCamYaw = mc.entityRenderer.smoothCamPitch = 0;
+                                mc.player.setAngles(f2, mc.gameSettings.invertMouse ? (f3 * -1) : f3);
+                            }
                         }
                     }
                     
@@ -98,10 +114,10 @@ public class RawInput extends Mod
         @Override
         public void mouseXYChange()
         {
-           deltaX = rawInput.deltaX;
-           rawInput.deltaX = 0;
-           deltaY = -rawInput.deltaY;
-           rawInput.deltaY = 0;
+            deltaX = rawInput.deltaX;
+            rawInput.deltaX = 0;
+            deltaY = -rawInput.deltaY;
+            rawInput.deltaY = 0;
         }
      }
 }

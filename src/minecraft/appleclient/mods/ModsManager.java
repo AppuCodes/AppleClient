@@ -1,9 +1,22 @@
 package appleclient.mods;
 
-import java.util.Arrays;
-import java.util.Comparator;
-
-import appleclient.mods.impl.*;
+import appleclient.mods.impl.AutoGG;
+import appleclient.mods.impl.BlockSelection;
+import appleclient.mods.impl.Crosshair;
+import appleclient.mods.impl.DepthSkins;
+import appleclient.mods.impl.EntityPredictor;
+import appleclient.mods.impl.FOVChanger;
+import appleclient.mods.impl.FullBright;
+import appleclient.mods.impl.HotbarTweaks;
+import appleclient.mods.impl.Nametags;
+import appleclient.mods.impl.NoBobShake;
+import appleclient.mods.impl.NoHurtCam;
+import appleclient.mods.impl.PingIndicator;
+import appleclient.mods.impl.RawInput;
+import appleclient.mods.impl.Scoreboard;
+import appleclient.mods.impl.ShinyPots;
+import appleclient.mods.impl.SmoothChat;
+import appleclient.mods.impl.ToggleSprint;
 
 public class ModsManager
 {
@@ -11,7 +24,7 @@ public class ModsManager
     
     public ModsManager()
     {
-        setupMods(16);
+        setupMods(17);
     }
     
     public void setupMods(int count)
@@ -34,6 +47,7 @@ public class ModsManager
         mods[i++] = new ShinyPots();
         mods[i++] = new ToggleSprint();
         mods[i++] = new SmoothChat();
+        mods[i++] = new EntityPredictor();
     }
     
     public Mod getMod(String name)
@@ -56,6 +70,7 @@ public class ModsManager
             case "Shiny Pots": return mods[13];
             case "Toggle Sprint": return mods[14];
             case "Smooth Chat": return mods[15];
+            case "Entity Predictor": return mods[16];
             default: return null;
         }
     }

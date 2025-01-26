@@ -16,7 +16,7 @@ import net.minecraft.util.ResourceLocation;
 
 public class GuiModsList extends GuiScreen
 {
-    private int scroll = 0, maxScroll = (int) -(48.5F * ((Apple.CLIENT.modsManager.mods.length / 4) - 2));
+    private int scroll = 0, maxScroll = (int) -(48.5F * (Apple.CLIENT.modsManager.mods.length / 4));
     
     public void drawScreen(int mouseX, int mouseY, float partialTicks)
     {

@@ -1,0 +1,109 @@
+---- Minecraft Crash Report ----
+// You should try our sister game, Minceraft!
+
+Time: 1/26/25, 3:48?PM
+Description: Rendering entity in world
+
+java.lang.Error: Unresolved compilation problem: 
+	The method getPing() is undefined for the type ServerUtil
+
+	at net.minecraft.client.renderer.entity.RendererLivingEntity.renderLivingAt(Unknown Source)
+	at net.minecraft.client.renderer.entity.RendererLivingEntity.doRender(Unknown Source)
+	at net.minecraft.client.renderer.entity.RendererLivingEntity.doRender(Unknown Source)
+	at net.minecraft.client.renderer.entity.RenderManager.doRenderEntity(RenderManager.java:402)
+	at net.minecraft.client.renderer.entity.RenderManager.renderEntityStatic(RenderManager.java:359)
+	at net.minecraft.client.renderer.entity.RenderManager.renderEntitySimple(RenderManager.java:326)
+	at net.minecraft.client.renderer.RenderGlobal.renderEntities(RenderGlobal.java:792)
+	at net.minecraft.client.renderer.EntityRenderer.renderWorldPass(EntityRenderer.java:1702)
+	at net.minecraft.client.renderer.EntityRenderer.renderWorld(EntityRenderer.java:1529)
+	at net.minecraft.client.renderer.EntityRenderer.updateCameraAndRender(EntityRenderer.java:1316)
+	at net.minecraft.client.Minecraft.runGameLoop(Minecraft.java:1097)
+	at net.minecraft.client.Minecraft.run(Minecraft.java:413)
+	at net.minecraft.client.main.Main.main(Main.java:113)
+	at Start.main(Start.java:11)
+
+
+A detailed walkthrough of the error, its code path and all known details is as follows:
+---------------------------------------------------------------------------------------
+
+-- Head --
+Stacktrace:
+	at net.minecraft.client.renderer.entity.RendererLivingEntity.renderLivingAt(Unknown Source)
+	at net.minecraft.client.renderer.entity.RendererLivingEntity.doRender(Unknown Source)
+	at net.minecraft.client.renderer.entity.RendererLivingEntity.doRender(Unknown Source)
+
+-- Entity being rendered --
+Details:
+	Entity Type: ArmorStand (net.minecraft.entity.item.EntityArmorStand)
+	Entity ID: 92732
+	Entity Name: §e§lTEAM UPGRADES
+	Entity's Exact location: -37.50, 67.75, -82.00
+	Entity's Block location: -38.00,67.00,-82.00 - World: (-38,67,-82), Chunk: (at 10,4,14 in -3,-6; contains blocks -48,0,-96 to -33,255,-81), Region: (-1,-1; contains chunks -32,-32 to -1,-1, blocks -512,0,-512 to -1,255,-1)
+	Entity's Momentum: 0.00, 0.00, 0.00
+	Entity's Rider: ~~ERROR~~ NullPointerException: Cannot invoke "net.minecraft.entity.Entity.toString()" because "this.this$0.riddenByEntity" is null
+	Entity's Vehicle: ~~ERROR~~ NullPointerException: Cannot invoke "net.minecraft.entity.Entity.toString()" because "this.this$0.ridingEntity" is null
+
+-- Renderer details --
+Details:
+	Assigned renderer: net.minecraft.client.renderer.entity.ArmorStandRenderer@1709269d
+	Location: -7.12,1.75,0.24 - World: (-8,1,0), Chunk: (at 8,0,0 in -1,0; contains blocks -16,0,0 to -1,255,15), Region: (-1,0; contains chunks -32,0 to -1,31, blocks -512,0,0 to -1,255,511)
+	Rotation: 0.0
+	Delta: 0.71302915
+Stacktrace:
+	at net.minecraft.client.renderer.entity.RenderManager.doRenderEntity(RenderManager.java:402)
+	at net.minecraft.client.renderer.entity.RenderManager.renderEntityStatic(RenderManager.java:359)
+	at net.minecraft.client.renderer.entity.RenderManager.renderEntitySimple(RenderManager.java:326)
+	at net.minecraft.client.renderer.RenderGlobal.renderEntities(RenderGlobal.java:792)
+	at net.minecraft.client.renderer.EntityRenderer.renderWorldPass(EntityRenderer.java:1702)
+	at net.minecraft.client.renderer.EntityRenderer.renderWorld(EntityRenderer.java:1529)
+
+-- Affected level --
+Details:
+	Level name: MpServer
+	All players: 8 total; [EntityPlayerSP['AppleClient'/87809, l='MpServer', x=-30.38, y=66.00, z=-82.24], EntityOtherPlayerMP['rererebw'/90988, l='MpServer', x=-57.75, y=67.00, z=-31.22], EntityOtherPlayerMP['SHOP'/92811, l='MpServer', x=-25.50, y=66.00, z=-82.00], EntityOtherPlayerMP['SHOP'/92807, l='MpServer', x=-82.00, y=66.00, z=-37.50], EntityOtherPlayerMP['SHOP'/92817, l='MpServer', x=38.50, y=66.00, z=-82.00], EntityOtherPlayerMP['UPGRADES'/92830, l='MpServer', x=26.50, y=66.00, z=-82.00], EntityOtherPlayerMP['UPGRADES'/92826, l='MpServer', x=-37.50, y=66.00, z=-82.00], EntityOtherPlayerMP['UPGRADES'/92822, l='MpServer', x=-82.00, y=66.00, z=-25.50]]
+	Chunk stats: MultiplayerChunkCache: 441, 441
+	Level seed: 0
+	Level generator: ID 01 - flat, ver 0. Features enabled: false
+	Level generator options: 
+	Level spawn location: 8.00,64.00,8.00 - World: (8,64,8), Chunk: (at 8,4,8 in 0,0; contains blocks 0,0,0 to 15,255,15), Region: (0,0; contains chunks 0,0 to 31,31, blocks 0,0,0 to 511,255,511)
+	Level time: 118807550 game time, 6000 day time
+	Level dimension: 0
+	Level storage version: 0x00000 - Unknown?
+	Level weather: Rain time: 0 (now: false), thunder time: 0 (now: false)
+	Level game mode: Game mode: adventure (ID 2). Hardcore: false. Cheats: false
+	Forced entities: 48 total; [EntityOtherPlayerMP['SHOP'/92695, l='MpServer', x=-25.50, y=66.00, z=-82.00], EntityOtherPlayerMP['UPGRADES'/92701, l='MpServer', x=-82.00, y=66.00, z=-25.50], EntityItem['item.item.ingotIron'/93443, l='MpServer', x=-31.50, y=65.50, z=-85.50], EntityItem['item.item.ingotIron'/94275, l='MpServer', x=-31.50, y=65.50, z=-85.50], EntityOtherPlayerMP['SHOP'/92691, l='MpServer', x=38.50, y=66.00, z=-82.00], EntityOtherPlayerMP['UPGRADES'/92693, l='MpServer', x=26.50, y=66.00, z=-82.00], EntityOtherPlayerMP['UPGRADES'/92697, l='MpServer', x=-37.50, y=66.00, z=-82.00], EntityOtherPlayerMP['SHOP'/92807, l='MpServer', x=-82.00, y=66.00, z=-37.50], EntityOtherPlayerMP['SHOP'/92699, l='MpServer', x=-82.00, y=66.00, z=-37.50], EntityItem['item.item.ingotIron'/94217, l='MpServer', x=-31.50, y=65.50, z=-85.50], EntityItem['item.item.ingotIron'/94344, l='MpServer', x=-31.50, y=65.50, z=-85.50], EntityOtherPlayerMP['SHOP'/92811, l='MpServer', x=-25.50, y=66.00, z=-82.00], EntityItem['item.item.ingotIron'/93515, l='MpServer', x=-31.50, y=65.50, z=-85.50], EntityItem['item.item.ingotIron'/93772, l='MpServer', x=-31.50, y=65.50, z=-85.50], EntityOtherPlayerMP['SHOP'/92817, l='MpServer', x=38.50, y=66.00, z=-82.00], EntityPlayerSP['AppleClient'/87809, l='MpServer', x=0.50, y=200.00, z=-8.50], EntityOtherPlayerMP['a5236'/87090, l='MpServer', x=-32.49, y=66.00, z=80.48], EntityPlayerSP['AppleClient'/87809, l='MpServer', x=-30.38, y=66.00, z=-82.24], EntityOtherPlayerMP['any_one'/87637, l='MpServer', x=8.12, y=201.61, z=5.00], EntityOtherPlayerMP['UPGRADES'/92822, l='MpServer', x=-82.00, y=66.00, z=-25.50], EntityOtherPlayerMP['UPGRADES'/92826, l='MpServer', x=-37.50, y=66.00, z=-82.00], EntityItem['item.item.ingotIron'/93917, l='MpServer', x=-31.50, y=65.50, z=-85.50], EntityItem['item.item.ingotIron'/94173, l='MpServer', x=-31.50, y=65.50, z=-85.50], EntityItem['item.item.ingotIron'/93724, l='MpServer', x=-31.50, y=65.50, z=-85.50], EntityOtherPlayerMP['UPGRADES'/92830, l='MpServer', x=26.50, y=66.00, z=-82.00], EntityItem['item.item.ingotGold'/93918, l='MpServer', x=-31.50, y=65.50, z=-85.50], EntityItem['item.item.ingotIron'/94110, l='MpServer', x=-31.50, y=65.50, z=-85.50], EntityItem['item.item.ingotGold'/94174, l='MpServer', x=-31.50, y=65.50, z=-85.50], EntityItem['item.item.ingotIron'/93986, l='MpServer', x=-31.50, y=65.50, z=-85.50], EntityItem['item.item.ingotIron'/94050, l='MpServer', x=-31.50, y=65.50, z=-85.50], EntityItem['item.item.ingotGold'/93609, l='MpServer', x=-31.50, y=65.50, z=-85.50], EntityItem['item.item.ingotIron'/93608, l='MpServer', x=-31.50, y=65.50, z=-85.50], EntityOtherPlayerMP['rererebw'/90988, l='MpServer', x=-57.75, y=67.00, z=-31.22], EntityOtherPlayerMP['rererebw'/90988, l='MpServer', x=-57.75, y=67.00, z=-31.22], EntityOtherPlayerMP['SHOP'/92811, l='MpServer', x=-25.50, y=66.00, z=-82.00], EntityOtherPlayerMP['yazed'/91693, l='MpServer', x=31.50, y=66.00, z=80.50], EntityItem['item.item.ingotIron'/93363, l='MpServer', x=-31.50, y=65.50, z=-85.50], EntityOtherPlayerMP['0xByfronSupport'/91374, l='MpServer', x=-79.50, y=66.00, z=31.50], EntityOtherPlayerMP['SHOP'/92817, l='MpServer', x=38.50, y=66.00, z=-82.00], EntityOtherPlayerMP['SHOP'/92807, l='MpServer', x=-82.00, y=66.00, z=-37.50], EntityOtherPlayerMP['UPGRADES'/92826, l='MpServer', x=-37.50, y=66.00, z=-82.00], EntityOtherPlayerMP['UPGRADES'/92830, l='MpServer', x=26.50, y=66.00, z=-82.00], EntityArmorStand['§e§lITEM SHOP'/92728, l='MpServer', x=-25.50, y=67.75, z=-82.00], EntityOtherPlayerMP['UPGRADES'/92822, l='MpServer', x=-82.00, y=66.00, z=-25.50], EntityItem['item.item.ingotIron'/93818, l='MpServer', x=-31.50, y=65.50, z=-85.50], EntityArmorStand['Armor Stand'/92669, l='MpServer', x=32.50, y=66.78, z=-31.50], EntityArmorStand['§e§lTEAM UPGRADES'/92732, l='MpServer', x=-37.50, y=67.75, z=-82.00], EntityArmorStand['Armor Stand'/92670, l='MpServer', x=-31.50, y=66.78, z=-31.50]]
+	Retry entities: 0 total; []
+	Server brand: FlameCord <- BlocksMC
+	Server type: Non-integrated multiplayer server
+Stacktrace:
+	at net.minecraft.client.multiplayer.WorldClient.addWorldInfoToCrashReport(WorldClient.java:394)
+	at net.minecraft.client.Minecraft.addGraphicsAndWorldToCrashReport(Minecraft.java:2487)
+	at net.minecraft.client.Minecraft.run(Minecraft.java:433)
+	at net.minecraft.client.main.Main.main(Main.java:113)
+	at Start.main(Start.java:11)
+
+-- System Details --
+Details:
+	Minecraft Version: 1.8.9
+	Operating System: Windows 11 (amd64) version 10.0
+	CPU: 12x AMD Ryzen 5 5500U with Radeon Graphics 
+	Java Version: 22.0.1, Oracle Corporation
+	Java VM Version: Java HotSpot(TM) 64-Bit Server VM (mixed mode, sharing), Oracle Corporation
+	Memory: 737389504 bytes (703 MB) / 1114636288 bytes (1063 MB) up to 2147483648 bytes (2048 MB)
+	JVM Flags: 7 total; -XX:ThreadPriorityPolicy=1 -XX:+UnlockExperimentalVMOptions -XX:+EnableJVMCIProduct -XX:-UnlockExperimentalVMOptions -XX:+ShowCodeDetailsInExceptionMessages -Xmx2048M -Xms1024M
+	IntCache: cache: 0, tcache: 0, allocated: 13, tallocated: 95
+	Launched Version: mcp
+	LWJGL: 2.9.4
+	OpenGL: AMD Radeon(TM) Graphics GL version 4.6.0 Compatibility Profile Context 23.19.16.240618, ATI Technologies Inc.
+	GL Caps: Using GL 1.3 multitexturing.
+Using GL 1.3 texture combiners.
+Using framebuffer objects because OpenGL 3.0 is supported and separate blending is supported.
+Shaders are available because OpenGL 2.1 is supported.
+VBOs are available because OpenGL 1.5 is supported.
+
+	Using VBOs: Yes
+	Is Modded: Definitely; Client brand changed to 'appleclient'
+	Type: Client (map_client.txt)
+	Resource Packs: 
+	Current Language: English (US)
+	CPU: 12x AMD Ryzen 5 5500U with Radeon Graphics 
