@@ -13,10 +13,9 @@ public class ServerUtil
         
         long ping = Minecraft.getMinecraft().getNetHandler().getPlayerInfo(Minecraft.getMinecraft().player.getGameProfile().getId()).getResponseTime();
         
-        if (ping == 0)
-            return lastPing;
+        if (ping != 0)
+            lastPing = ping;
         
-        lastPing = ping;
-        return ping;
+        return lastPing == 0 || lastPing == 1 ? 100 : lastPing;
     }
 }

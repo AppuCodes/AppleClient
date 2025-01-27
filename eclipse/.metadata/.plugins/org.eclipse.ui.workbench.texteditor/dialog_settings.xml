@@ -1,13 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
-		<item key="selection" value="background"/>
+		<item key="selection" value="onDeathUpdate"/>
 		<item key="wrap" value="true"/>
 		<item key="casesensitive" value="false"/>
 		<item key="wholeword" value="false"/>
 		<item key="incremental" value="false"/>
 		<item key="isRegEx" value="false"/>
 		<list key="findhistory">
+			<item value="onDeathUpdate"/>
+			<item value="SMOKE"/>
+			<item value="smoke"/>
 			<item value="background"/>
 			<item value="posX"/>
 			<item value="pos"/>
@@ -20,9 +23,6 @@
 			<item value="look"/>
 			<item value="serverSpr"/>
 			<item value="server"/>
-			<item value="attac"/>
-			<item value="attak"/>
-			<item value="renderre"/>
 		</list>
 		<list key="replacehistory">
 			<item value="partialTicks"/>
