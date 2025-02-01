@@ -6,7 +6,7 @@ import com.mojang.authlib.GameProfile;
 
 import appleclient.Apple;
 import appleclient.mods.Mod;
-import appleclient.mods.settings.ToggleSetting;
+import appleclient.settings.impl.ToggleSetting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.network.NetworkPlayerInfo;
 import net.minecraft.client.renderer.ImageBufferDownload;
@@ -155,7 +155,7 @@ public abstract class AbstractClientPlayer extends EntityPlayer
             f = 1.0F;
         }
 
-        Mod fovChanger = Apple.CLIENT.modsManager.getMod("FOV Changer");
+        Mod fovChanger = Apple.modsManager.getMod("FOV Changer");
 
         if (this.isUsingItem() && this.getItemInUse().getItem() == Items.bow && !(fovChanger.isEnabled() && !((ToggleSetting) fovChanger.getSetting("Bow Pull Change")).enabled))
         {

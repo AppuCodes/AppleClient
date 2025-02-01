@@ -10,7 +10,7 @@ import appleclient.events.impl.EventKey;
 import appleclient.events.impl.EventRender;
 import appleclient.events.impl.EventTick;
 import appleclient.mods.Mod;
-import appleclient.mods.settings.ToggleSetting;
+import appleclient.settings.impl.ToggleSetting;
 import net.minecraft.client.gui.Gui;
 
 public class ToggleSprint extends Mod

@@ -1,0 +1,19 @@
+package appleclient.settings;
+
+import appleclient.mods.ModsManager;
+
+public class SettingsManager
+{
+    public Setting[] settings;
+    
+    public SettingsManager()
+    {
+        setupSettings(ModsManager.COUNT);
+    }
+    
+    public void setupSettings(int count)
+    {
+        int i = 0;
+        settings = new Setting[count];
+    }
+}

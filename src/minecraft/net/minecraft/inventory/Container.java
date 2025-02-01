@@ -541,7 +541,7 @@ public abstract class Container
      */
     public void putStackInSlot(int slotID, ItemStack stack)
     {
-        HotbarTweaks hotbarTweaks = (HotbarTweaks) Apple.CLIENT.modsManager.getMod("Hotbar Tweaks");
+        HotbarTweaks hotbarTweaks = (HotbarTweaks) Apple.modsManager.getMod("Hotbar Tweaks");
         this.getSlot(slotID).putStack(stack);
         hotbarTweaks.flag = true;
     }

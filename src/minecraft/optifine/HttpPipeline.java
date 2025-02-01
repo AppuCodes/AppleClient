@@ -2,11 +2,8 @@ package optifine;
 
 import java.io.IOException;
 import java.io.InterruptedIOException;
-import java.net.Proxy;
-import java.net.URL;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.Map;
+import java.net.*;
+import java.util.*;
 
 public class HttpPipeline
 {
@@ -35,7 +32,8 @@ public class HttpPipeline
 
     public static HttpRequest makeRequest(String p_makeRequest_0_, Proxy p_makeRequest_1_) throws IOException
     {
-        URL url = new URL(p_makeRequest_0_);
+        URL url = null;
+        try { url = new URI(p_makeRequest_0_).toURL(); } catch (URISyntaxException e) { throw new IOException(); }
 
         if (!url.getProtocol().equals("http"))
         {
@@ -116,7 +114,7 @@ public class HttpPipeline
         HttpRequest httprequest = makeRequest(p_get_0_, p_get_1_);
         HttpResponse httpresponse = executeRequest(httprequest);
 
-        if (httpresponse.getStatus() / 100 != 2)
+        if (httpresponse.getStatus() != 200)
         {
             throw new IOException("HTTP response: " + httpresponse.getStatus());
         }

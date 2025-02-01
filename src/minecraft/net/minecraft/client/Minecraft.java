@@ -550,7 +550,7 @@ public class Minecraft implements IThreadListener
         GlStateManager.viewport(0, 0, this.displayWidth, this.displayHeight);
         this.effectRenderer = new EffectRenderer(this.world, this.renderEngine);
         this.ingameGUI = new GuiIngame(this);
-        Apple.CLIENT.initialize();
+        Apple.initialize();
 
         if (this.serverName != null)
         {
@@ -1692,7 +1692,9 @@ public class Minecraft implements IThreadListener
                     }
                     else
                     {
-                        Apple.CLIENT.eventBus.post(new EventKey(k));
+                        EventKey e = EventKey.get(k);
+                        Apple.eventBus.post(e);
+                        Apple.onKey(e);
                         
                         if (k == 1)
                         {
@@ -2139,7 +2141,7 @@ public class Minecraft implements IThreadListener
                 this.playerController.flipPlayer(this.player);
             }
 
-            Apple.CLIENT.eventBus.post(new EventWorldChange());
+            Apple.eventBus.post(EventWorldChange.get());
             this.player.preparePlayerToSpawn();
             worldClientIn.spawnEntityInWorld(this.player);
             this.player.movementInput = new MovementInputFromOptions(this.gameSettings);

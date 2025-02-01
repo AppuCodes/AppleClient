@@ -172,7 +172,7 @@ public class EntityPlayerSP extends AbstractClientPlayer
     public void onUpdate()
     {
         prevEyeHeight = eyeHeight;
-        Apple.CLIENT.eventBus.post(new EventTick());
+        Apple.eventBus.post(EventTick.get());
         
         if (this.worldObj.isBlockLoaded(new BlockPos(this.posX, 0.0D, this.posZ)))
         {
@@ -929,16 +929,11 @@ public class EntityPlayerSP extends AbstractClientPlayer
     
     public float getEyeHeight(float partialTicks)
     {
-        eyeHeight = 1.62F;
-
-        if (this.isPlayerSleeping())
-        {
-            eyeHeight = 0.2F;
-        }
+        eyeHeight = this.isPlayerSleeping() ? 0.2F : 1.62F;
 
         if (this.isSneaking())
         {
-            eyeHeight -= 0.08F;
+            eyeHeight -= 0.12F;
         }
 
         return prevEyeHeight + (eyeHeight - prevEyeHeight) * partialTicks;

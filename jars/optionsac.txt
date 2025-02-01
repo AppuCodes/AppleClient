@@ -64,6 +64,7 @@
     "Enabled": false
   },
   "Entity Predictor": {
-    "Enabled": true
+    "Enabled": true,
+    "Ping": 150.0
   }
 }

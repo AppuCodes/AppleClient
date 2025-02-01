@@ -1,8 +1,8 @@
 package appleclient.mods.impl;
 
 import appleclient.mods.Mod;
-import appleclient.mods.settings.ColorSetting;
-import appleclient.mods.settings.SliderSetting;
+import appleclient.settings.impl.ColorSetting;
+import appleclient.settings.impl.SliderSetting;
 
 public class BlockSelection extends Mod
 {

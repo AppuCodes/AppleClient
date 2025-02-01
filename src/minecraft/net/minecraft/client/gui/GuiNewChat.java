@@ -52,7 +52,7 @@ public class GuiNewChat extends Gui
                 int l = MathHelper.ceiling_float_int((float)this.getChatWidth() / f1);
                 GlStateManager.pushMatrix();
                 GlStateManager.scale(f1, f1, 1.0F);
-                SmoothChat smoothChat = (SmoothChat) Apple.CLIENT.modsManager.getMod("Smooth Chat");
+                SmoothChat smoothChat = (SmoothChat) Apple.modsManager.getMod("Smooth Chat");
                 
                 if (smoothChat.isEnabled())
                 {
@@ -194,7 +194,7 @@ public class GuiNewChat extends Gui
             }
         }
         
-        SmoothChat smoothChat = (SmoothChat) Apple.CLIENT.modsManager.getMod("Smooth Chat");
+        SmoothChat smoothChat = (SmoothChat) Apple.modsManager.getMod("Smooth Chat");
         
         if (smoothChat.isEnabled())
         {

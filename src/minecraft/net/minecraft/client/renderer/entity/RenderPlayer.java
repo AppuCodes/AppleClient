@@ -171,7 +171,7 @@ public class RenderPlayer extends RendererLivingEntity<AbstractClientPlayer> imp
 
     public void renderRightArm(AbstractClientPlayer clientPlayer)
     {
-        Mod depthSkins = Apple.CLIENT.modsManager.getMod("3D Skins");
+        Mod depthSkins = Apple.modsManager.getMod("3D Skins");
         
         if (depthSkins.isEnabled())
         {
@@ -190,7 +190,7 @@ public class RenderPlayer extends RendererLivingEntity<AbstractClientPlayer> imp
 
     public void renderLeftArm(AbstractClientPlayer clientPlayer)
     {
-        Mod depthSkins = Apple.CLIENT.modsManager.getMod("3D Skins");
+        Mod depthSkins = Apple.modsManager.getMod("3D Skins");
         
         if (depthSkins.isEnabled())
         {

@@ -2,26 +2,13 @@ package net.minecraft.client.audio;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLConnection;
-import java.net.URLStreamHandler;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
+import java.net.*;
+import java.util.*;
 import java.util.Map.Entry;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import org.apache.logging.log4j.Marker;
-import org.apache.logging.log4j.MarkerManager;
+import org.apache.logging.log4j.*;
 
-import com.google.common.collect.BiMap;
-import com.google.common.collect.HashBiMap;
-import com.google.common.collect.HashMultimap;
-import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
-import com.google.common.collect.Multimap;
+import com.google.common.collect.*;
 
 import io.netty.util.internal.ThreadLocalRandom;
 import net.minecraft.client.Minecraft;
@@ -29,11 +16,7 @@ import net.minecraft.client.settings.GameSettings;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
-import paulscode.sound.SoundSystem;
-import paulscode.sound.SoundSystemConfig;
-import paulscode.sound.SoundSystemException;
-import paulscode.sound.SoundSystemLogger;
-import paulscode.sound.Source;
+import paulscode.sound.*;
 import paulscode.sound.codecs.CodecJOrbis;
 import paulscode.sound.libraries.LibraryLWJGLOpenAL;
 
@@ -473,30 +456,31 @@ public class SoundManager
     private static URL getURLForSoundResource(final ResourceLocation p_148612_0_)
     {
         String s = String.format("%s:%s:%s", new Object[] {"mcsounddomain", p_148612_0_.getResourceDomain(), p_148612_0_.getResourcePath()});
-        URLStreamHandler urlstreamhandler = new URLStreamHandler()
+
+        URLStreamHandler urlStreamHandler = new URLStreamHandler()
         {
             protected URLConnection openConnection(final URL p_openConnection_1_)
             {
                 return new URLConnection(p_openConnection_1_)
                 {
-                    public void connect() throws IOException
-                    {
-                    }
                     public InputStream getInputStream() throws IOException
                     {
                         return Minecraft.getMinecraft().getResourceManager().getResource(p_148612_0_).getInputStream();
                     }
+
+                    public void connect() throws IOException {}
                 };
             }
         };
 
         try
         {
-            return new URL((URL)null, s, urlstreamhandler);
+            return URL.of(new URI(s), urlStreamHandler);
         }
-        catch (MalformedURLException var4)
+
+        catch (MalformedURLException | URISyntaxException e)
         {
-            throw new Error("TODO: Sanely handle url exception! :D");
+            throw new Error("TODO: Sanely handle URL exception! :D");
         }
     }
 

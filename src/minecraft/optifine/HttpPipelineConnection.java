@@ -210,7 +210,7 @@ public class HttpPipelineConnection
                 p_onResponseReceived_1_.setClosed(true);
                 String s = p_onResponseReceived_2_.getHeader("Location");
 
-                if (p_onResponseReceived_2_.getStatus() / 100 == 3 && s != null && p_onResponseReceived_1_.getHttpRequest().getRedirects() < 5)
+                if (p_onResponseReceived_2_.getStatus() == 300 && s != null && p_onResponseReceived_1_.getHttpRequest().getRedirects() < 5)
                 {
                     try
                     {

@@ -16,7 +16,7 @@ import net.minecraft.util.ResourceLocation;
 
 public class GuiModsList extends GuiScreen
 {
-    private int scroll = 0, maxScroll = (int) -(48.5F * (Apple.CLIENT.modsManager.mods.length / 4));
+    private int scroll = 0, maxScroll = (int) -(48.5F * (Apple.modsManager.mods.length / 4));
     
     public void drawScreen(int mouseX, int mouseY, float partialTicks)
     {
@@ -27,7 +27,7 @@ public class GuiModsList extends GuiScreen
         int i = 0;
         ScissorUtil.begin(w2 - 200, h2 - 150, w2 + 200, h2 + 150);
         
-        for (Mod mod : Apple.CLIENT.modsManager.mods)
+        for (Mod mod : Apple.modsManager.mods)
         {
             if (i++ == 4)
             {
@@ -68,7 +68,7 @@ public class GuiModsList extends GuiScreen
         float x = w2 - 190, y = (h2 - 140) + scroll;
         int i = 0;
         
-        for (Mod mod : Apple.CLIENT.modsManager.mods)
+        for (Mod mod : Apple.modsManager.mods)
         {
             if (i++ == 4)
             {
@@ -109,7 +109,7 @@ public class GuiModsList extends GuiScreen
     
     public void onGuiClosed()
     {
-        Apple.CLIENT.config.saveMods();
+        Apple.config.saveMods();
     }
     
     public boolean doesGuiPauseGame()

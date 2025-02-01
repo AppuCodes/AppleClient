@@ -1,0 +1,21 @@
+package appleclient.settings;
+
+import java.util.HashMap;
+
+import appleclient.mods.Mod;
+
+public class SettingsManager
+{
+    public HashMap<Module, Setting> settings = new HashMap<>(2, 2);
+    private int i = 0;
+    
+    public void addSetting(Mod mod, Setting setting)
+    {
+        settings[mod.index][i++] = setting;
+    }
+    
+    public Setting getSetting(Mod mod)
+    {
+        return settings[mod.index];
+    }
+}

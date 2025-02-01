@@ -660,7 +660,7 @@ public class EntityRenderer implements IResourceManagerReloadListener
 
     private void hurtCameraEffect(float partialTicks)
     {
-        if (Apple.CLIENT.modsManager.getMod("No Hurt Cam").isEnabled())
+        if (Apple.modsManager.getMod("No Hurt Cam").isEnabled())
             return;
         
         if (this.mc.getRenderViewEntity() instanceof EntityLivingBase)
@@ -900,7 +900,7 @@ public class EntityRenderer implements IResourceManagerReloadListener
         }
 
         this.hurtCameraEffect(partialTicks);
-        Mod noBobShake = Apple.CLIENT.modsManager.getMod("No Bob Shake");
+        Mod noBobShake = Apple.modsManager.getMod("No Bob Shake");
 
         if (this.mc.gameSettings.viewBobbing && !noBobShake.isEnabled())
         {
@@ -1265,7 +1265,7 @@ public class EntityRenderer implements IResourceManagerReloadListener
             Mouse.setGrabbed(true);
         }
         
-        if (this.mc.inGameHasFocus && flag && (this.mc.gameSettings.smoothCamera || !Apple.CLIENT.modsManager.getMod("Raw Input").isEnabled()))
+        if (this.mc.inGameHasFocus && flag && (this.mc.gameSettings.smoothCamera || !Apple.modsManager.getMod("Raw Input").isEnabled()))
         {
             this.mc.mouseHelper.mouseXYChange();
             float f = this.mc.gameSettings.mouseSensitivity * 0.6F + 0.2F;

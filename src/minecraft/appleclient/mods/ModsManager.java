@@ -1,53 +1,21 @@
 package appleclient.mods;
 
-import appleclient.mods.impl.AutoGG;
-import appleclient.mods.impl.BlockSelection;
-import appleclient.mods.impl.Crosshair;
-import appleclient.mods.impl.DepthSkins;
-import appleclient.mods.impl.EntityPredictor;
-import appleclient.mods.impl.FOVChanger;
-import appleclient.mods.impl.FullBright;
-import appleclient.mods.impl.HotbarTweaks;
-import appleclient.mods.impl.Nametags;
-import appleclient.mods.impl.NoBobShake;
-import appleclient.mods.impl.NoHurtCam;
-import appleclient.mods.impl.PingIndicator;
-import appleclient.mods.impl.RawInput;
-import appleclient.mods.impl.Scoreboard;
-import appleclient.mods.impl.ShinyPots;
-import appleclient.mods.impl.SmoothChat;
-import appleclient.mods.impl.ToggleSprint;
+import appleclient.mods.impl.*;
 
 public class ModsManager
 {
-    public Mod[] mods;
+    public static final int COUNT = 17;
+    public Mod[] mods = new Mod[COUNT];
+    private int i = 0;
     
-    public ModsManager()
+    public void setupMods()
     {
-        setupMods(17);
-    }
-    
-    public void setupMods(int count)
-    {
-        int i = 0;
-        mods = new Mod[count];
-        mods[i++] = new AutoGG();
-        mods[i++] = new BlockSelection();
-        mods[i++] = new Crosshair();
-        mods[i++] = new DepthSkins();
-        mods[i++] = new NoHurtCam();
-        mods[i++] = new FOVChanger();
-        mods[i++] = new FullBright();
-        mods[i++] = new HotbarTweaks();
-        mods[i++] = new Nametags();
-        mods[i++] = new NoBobShake();
-        mods[i++] = new PingIndicator();
-        mods[i++] = new RawInput();
-        mods[i++] = new Scoreboard();
-        mods[i++] = new ShinyPots();
-        mods[i++] = new ToggleSprint();
-        mods[i++] = new SmoothChat();
-        mods[i++] = new EntityPredictor();
+        add(new AutoGG(), new BlockSelection(), new Crosshair(),
+            new DepthSkins(), new NoHurtCam(), new FOVChanger(),
+            new FullBright(), new HotbarTweaks(), new Nametags(),
+            new NoBobShake(), new PingIndicator(), new RawInput(),
+            new Scoreboard(), new ShinyPots(), new ToggleSprint(),
+            new SmoothChat(), new EntityPredictor());
     }
     
     public Mod getMod(String name)
@@ -74,4 +42,14 @@ public class ModsManager
             default: return null;
         }
     }
+    
+    private void add(Mod... mods)
+    {
+        for (Mod mod : mods)
+        {
+            this.mods[i++] = mod;
+        }
+    }
+    
+    public ModsManager() { setupMods(); }
 }

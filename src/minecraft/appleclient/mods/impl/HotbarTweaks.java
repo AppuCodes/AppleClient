@@ -4,7 +4,7 @@ import com.google.common.eventbus.Subscribe;
 
 import appleclient.events.impl.EventTick;
 import appleclient.mods.Mod;
-import appleclient.mods.settings.ToggleSetting;
+import appleclient.settings.impl.ToggleSetting;
 
 public class HotbarTweaks extends Mod
 {

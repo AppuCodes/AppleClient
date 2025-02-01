@@ -210,7 +210,7 @@ public class RenderItem implements IResourceManagerReloadListener
         {
             if (!Config.isShaders() || !Shaders.isShadowPass)
             {
-                Mod mod = Apple.CLIENT.modsManager.getMod("Shiny Pots");
+                Mod mod = Apple.modsManager.getMod("Shiny Pots");
                 GlStateManager.depthMask(false);
                 
                 if (!(mod.isEnabled() && stack.getItem() instanceof ItemPotion && this.renderItemGui))

@@ -1127,6 +1127,8 @@ public abstract class World implements IBlockAccess
 
     private void spawnParticle(int particleID, boolean p_175720_2_, double xCood, double yCoord, double zCoord, double xOffset, double yOffset, double zOffset, int... p_175720_15_)
     {
+        if (particleID == 0 && Minecraft.getMinecraft().gameSettings.particleSetting == 2) return;
+        
         for (int i = 0; i < this.worldAccesses.size(); ++i)
         {
             ((IWorldAccess)this.worldAccesses.get(i)).spawnParticle(particleID, p_175720_2_, xCood, yCoord, zCoord, xOffset, yOffset, zOffset, p_175720_15_);
@@ -2802,7 +2804,7 @@ public abstract class World implements IBlockAccess
 
     public boolean checkLightFor(EnumSkyBlock lightType, BlockPos pos)
     {
-        if (Apple.CLIENT.modsManager.getMod("Full Bright").isEnabled() && Minecraft.getMinecraft().isCallingFromMinecraftThread())
+        if (Apple.modsManager.getMod("Full Bright").isEnabled() && Minecraft.getMinecraft().isCallingFromMinecraftThread())
         {
             return true;
         }

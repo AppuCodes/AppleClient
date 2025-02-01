@@ -1,5 +1,8 @@
 package appleclient.utils;
 
+import appleclient.Apple;
+import appleclient.mods.impl.EntityPredictor;
+import appleclient.settings.impl.SliderSetting;
 import net.minecraft.client.Minecraft;
 
 public class ServerUtil
@@ -16,6 +19,7 @@ public class ServerUtil
         if (ping != 0)
             lastPing = ping;
         
-        return lastPing == 0 || lastPing == 1 ? 100 : lastPing;
+        EntityPredictor predictor = (EntityPredictor) Apple.modsManager.getMod("Entity Predictor");
+        return lastPing == 0 || lastPing == 1 ? (int) ((SliderSetting) predictor.getSetting("Ping")).currentValue : lastPing;
     }
 }

@@ -1,0 +1,17 @@
+package appleclient.settings;
+
+public class SettingsManager
+{
+    public Setting[] settings;
+    
+    public SettingsManager()
+    {
+        setupSettings(17);
+    }
+    
+    public void setupSettings(int count)
+    {
+        int i = 0;
+        settings = new Setting[count];
+    }
+}

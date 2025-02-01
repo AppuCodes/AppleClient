@@ -778,7 +778,7 @@ public class Chunk
 
     public int getLightFor(EnumSkyBlock p_177413_1_, BlockPos pos)
     {
-        if (Apple.CLIENT.modsManager.getMod("Full Bright").isEnabled())
+        if (Apple.modsManager.getMod("Full Bright").isEnabled())
         {
             return 15;
         }

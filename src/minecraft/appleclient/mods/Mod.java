@@ -1,10 +1,8 @@
 package appleclient.mods;
 
-import java.util.ArrayList;
-
 import appleclient.Apple;
 import appleclient.interfaces.IMinecraft;
-import appleclient.mods.settings.Setting;
+import appleclient.settings.Setting;
 
 public class Mod implements IMinecraft
 {
@@ -22,13 +20,13 @@ public class Mod implements IMinecraft
     public void onEnable()
     {
         enabled = true;
-        Apple.CLIENT.eventBus.register(this);
+        Apple.eventBus.register(this);
     }
     
     public void onDisable()
     {
         enabled = false;
-        Apple.CLIENT.eventBus.unregister(this);
+        Apple.eventBus.unregister(this);
     }
     
     public void toggle()

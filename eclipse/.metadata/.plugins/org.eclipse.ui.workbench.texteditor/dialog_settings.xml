@@ -1,30 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
-		<item key="selection" value="onDeathUpdate"/>
+		<item key="selection" value="drawSc"/>
 		<item key="wrap" value="true"/>
 		<item key="casesensitive" value="false"/>
 		<item key="wholeword" value="false"/>
 		<item key="incremental" value="false"/>
 		<item key="isRegEx" value="false"/>
 		<list key="findhistory">
-			<item value="onDeathUpdate"/>
-			<item value="SMOKE"/>
-			<item value="smoke"/>
-			<item value="background"/>
-			<item value="posX"/>
-			<item value="pos"/>
-			<item value="raw input"/>
-			<item value="rawinput"/>
-			<item value="render"/>
-			<item value="p_181560_1_"/>
-			<item value="mouseHElper"/>
-			<item value="Look"/>
-			<item value="look"/>
-			<item value="serverSpr"/>
-			<item value="server"/>
+			<item value="drawSc"/>
+			<item value="drawS"/>
+			<item value="EventKey"/>
+			<item value="add("/>
+			<item value=");"/>
+			<item value="mods[i++] = "/>
+			<item value="index"/>
+			<item value="eventpacketre"/>
+			<item value="light"/>
+			<item value="starGLCallList"/>
+			<item value="drawRe"/>
+			<item value="generatesta"/>
+			<item value="stars"/>
+			<item value="getEyeHe"/>
+			<item value="Sneak"/>
 		</list>
 		<list key="replacehistory">
+			<item value=","/>
+			<item value="add("/>
 			<item value="partialTicks"/>
 			<item value="this.player"/>
 			<item value="this.world"/>

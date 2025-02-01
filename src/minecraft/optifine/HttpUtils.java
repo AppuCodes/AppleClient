@@ -1,13 +1,9 @@
 package optifine;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
+import java.io.*;
+import java.net.*;
 import java.util.Map;
+
 import net.minecraft.client.Minecraft;
 
 public class HttpUtils
@@ -22,7 +18,7 @@ public class HttpUtils
 
         try
         {
-            URL url = new URL(p_get_0_);
+            URL url = new URI(p_get_0_).toURL();
             httpurlconnection = (HttpURLConnection)url.openConnection(Minecraft.getMinecraft().getProxy());
             httpurlconnection.setDoInput(true);
             httpurlconnection.setDoOutput(false);
@@ -61,6 +57,9 @@ public class HttpUtils
 
             abyte1 = abyte;
         }
+
+        catch (URISyntaxException e) { return null; }
+
         finally
         {
             if (httpurlconnection != null)
@@ -79,7 +78,7 @@ public class HttpUtils
 
         try
         {
-            URL url = new URL(p_post_0_);
+            URL url = new URI(p_post_0_).toURL();
             httpurlconnection = (HttpURLConnection)url.openConnection(Minecraft.getMinecraft().getProxy());
             httpurlconnection.setRequestMethod("POST");
 
@@ -117,6 +116,9 @@ public class HttpUtils
             bufferedreader.close();
             s3 = stringbuffer.toString();
         }
+
+        catch (URISyntaxException e) { return null; }
+
         finally
         {
             if (httpurlconnection != null)

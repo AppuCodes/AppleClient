@@ -6,7 +6,7 @@ import org.lwjgl.opengl.GL11;
 
 import appleclient.Apple;
 import appleclient.mods.Mod;
-import appleclient.mods.settings.ToggleSetting;
+import appleclient.settings.impl.ToggleSetting;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
@@ -346,7 +346,7 @@ public abstract class Render<T extends Entity>
      */
     protected void renderLivingLabel(T entityIn, String str, double x, double y, double z, int maxDistance)
     {
-        Mod nametags = Apple.CLIENT.modsManager.getMod("Nametags");
+        Mod nametags = Apple.modsManager.getMod("Nametags");
         double d0 = entityIn.getDistanceSqToEntity(this.renderManager.livingPlayer);
         ToggleSetting textShadow = (ToggleSetting) nametags.getSetting("Text Shadow");
 

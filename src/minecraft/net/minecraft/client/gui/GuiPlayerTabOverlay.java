@@ -242,7 +242,7 @@ public class GuiPlayerTabOverlay extends Gui
 
     protected void drawPing(int p_175245_1_, int p_175245_2_, int p_175245_3_, NetworkPlayerInfo networkPlayerInfoIn)
     {
-        Mod pingIndicator = Apple.CLIENT.modsManager.getMod("Ping Indicator");
+        Mod pingIndicator = Apple.modsManager.getMod("Ping Indicator");
         
         if (pingIndicator.isEnabled())
         {

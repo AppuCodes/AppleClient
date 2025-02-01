@@ -1,28 +1,23 @@
 package net.minecraft.client.renderer;
 
 import java.awt.image.BufferedImage;
-import java.io.ByteArrayInputStream;
-import java.io.File;
-import java.io.IOException;
-import java.net.HttpURLConnection;
-import java.net.Proxy;
-import java.net.URL;
+import java.io.*;
+import java.net.*;
 import java.net.Proxy.Type;
 import java.util.concurrent.atomic.AtomicInteger;
+
 import javax.imageio.ImageIO;
+
+import org.apache.commons.io.FileUtils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.SimpleTexture;
 import net.minecraft.client.renderer.texture.TextureUtil;
 import net.minecraft.client.resources.IResourceManager;
 import net.minecraft.util.ResourceLocation;
-import optifine.Config;
-import optifine.HttpPipeline;
-import optifine.HttpRequest;
-import optifine.HttpResponse;
-
-import org.apache.commons.io.FileUtils;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import optifine.*;
 
 public class ThreadDownloadImageData extends SimpleTexture
 {
@@ -123,27 +118,28 @@ public class ThreadDownloadImageData extends SimpleTexture
             private static final String __OBFID = "CL_00001050";
             public void run()
             {
-                HttpURLConnection httpurlconnection = null;
+                HttpURLConnection connection = null;
                 ThreadDownloadImageData.logger.debug("Downloading http texture from {} to {}", new Object[] {ThreadDownloadImageData.this.imageUrl, ThreadDownloadImageData.this.cacheFile});
 
-                if (ThreadDownloadImageData.this.shouldPipeline())
+                if (shouldPipeline())
                 {
-                    ThreadDownloadImageData.this.loadPipelined();
+                    loadPipelined();
                 }
+
                 else
                 {
                     try
                     {
-                        httpurlconnection = (HttpURLConnection)(new URL(ThreadDownloadImageData.this.imageUrl)).openConnection(Minecraft.getMinecraft().getProxy());
-                        httpurlconnection.setDoInput(true);
-                        httpurlconnection.setDoOutput(false);
-                        httpurlconnection.connect();
+                        connection = (HttpURLConnection) new URI(ThreadDownloadImageData.this.imageUrl).toURL().openConnection(Minecraft.getMinecraft().getProxy());
+                        connection.setDoInput(true);
+                        connection.setDoOutput(false);
+                        connection.connect();
 
-                        if (httpurlconnection.getResponseCode() / 100 != 2)
+                        if (connection.getResponseCode() != 200)
                         {
-                            if (httpurlconnection.getErrorStream() != null)
+                            if (connection.getErrorStream() != null)
                             {
-                                Config.readAll(httpurlconnection.getErrorStream());
+                                Config.readAll(connection.getErrorStream());
                             }
 
                             return;
@@ -151,40 +147,44 @@ public class ThreadDownloadImageData extends SimpleTexture
 
                         BufferedImage bufferedimage;
 
-                        if (ThreadDownloadImageData.this.cacheFile != null)
+                        if (cacheFile != null)
                         {
-                            FileUtils.copyInputStreamToFile(httpurlconnection.getInputStream(), ThreadDownloadImageData.this.cacheFile);
-                            bufferedimage = ImageIO.read(ThreadDownloadImageData.this.cacheFile);
+                            FileUtils.copyInputStreamToFile(connection.getInputStream(), cacheFile);
+                            bufferedimage = ImageIO.read(cacheFile);
                         }
+
                         else
                         {
-                            bufferedimage = TextureUtil.readBufferedImage(httpurlconnection.getInputStream());
+                            bufferedimage = TextureUtil.readBufferedImage(connection.getInputStream());
                         }
 
-                        if (ThreadDownloadImageData.this.imageBuffer != null)
+                        if (imageBuffer != null)
                         {
-                            bufferedimage = ThreadDownloadImageData.this.imageBuffer.parseUserSkin(bufferedimage);
+                            bufferedimage = imageBuffer.parseUserSkin(bufferedimage);
                         }
 
-                        ThreadDownloadImageData.this.setBufferedImage(bufferedimage);
+                        setBufferedImage(bufferedimage);
                     }
+
                     catch (Exception exception)
                     {
-                        ThreadDownloadImageData.logger.error("Couldn\'t download http texture: " + exception.getClass().getName() + ": " + exception.getMessage());
+                        logger.error("Couldn\'t download HTTP texture: " + exception.getClass().getName() + ": " + exception.getMessage());
                         return;
                     }
+
                     finally
                     {
-                        if (httpurlconnection != null)
+                        if (connection != null)
                         {
-                            httpurlconnection.disconnect();
+                            connection.disconnect();
                         }
 
-                        ThreadDownloadImageData.this.imageFound = Boolean.valueOf(ThreadDownloadImageData.this.bufferedImage != null);
+                        imageFound = Boolean.valueOf(bufferedImage != null);
                     }
                 }
             }
         };
+
         this.imageThread.setDaemon(true);
         this.imageThread.start();
     }
@@ -195,6 +195,7 @@ public class ThreadDownloadImageData extends SimpleTexture
         {
             return false;
         }
+
         else
         {
             Proxy proxy = Minecraft.getMinecraft().getProxy();
@@ -209,7 +210,7 @@ public class ThreadDownloadImageData extends SimpleTexture
             HttpRequest httprequest = HttpPipeline.makeRequest(this.imageUrl, Minecraft.getMinecraft().getProxy());
             HttpResponse httpresponse = HttpPipeline.executeRequest(httprequest);
 
-            if (httpresponse.getStatus() / 100 != 2)
+            if (httpresponse.getStatus() != 200)
             {
                 return;
             }

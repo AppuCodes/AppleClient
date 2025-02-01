@@ -4,10 +4,13 @@ import appleclient.events.Event;
 
 public class EventKey extends Event
 {
+    private static final EventKey e = new EventKey();
     public int key;
     
-    public EventKey(int key)
+    public static EventKey get(int key)
     {
-        this.key = key;
+        e.cancelled = false;
+        e.key = key;
+        return e;
     }
 }

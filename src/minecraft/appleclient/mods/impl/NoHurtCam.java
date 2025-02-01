@@ -4,8 +4,8 @@ import org.lwjgl.opengl.GL11;
 
 import appleclient.Apple;
 import appleclient.mods.Mod;
-import appleclient.mods.settings.ColorSetting;
-import appleclient.mods.settings.SliderSetting;
+import appleclient.settings.impl.ColorSetting;
+import appleclient.settings.impl.SliderSetting;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.RenderGlobal;
 import net.minecraft.entity.Entity;

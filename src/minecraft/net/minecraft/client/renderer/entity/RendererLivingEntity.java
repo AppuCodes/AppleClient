@@ -11,7 +11,7 @@ import com.google.common.collect.Lists;
 
 import appleclient.Apple;
 import appleclient.mods.Mod;
-import appleclient.mods.settings.ToggleSetting;
+import appleclient.settings.impl.ToggleSetting;
 import appleclient.utils.ServerUtil;
 import dev.tr7zw.skinlayers.accessor.PlayerEntityModelAccessor;
 import net.minecraft.client.Minecraft;
@@ -278,7 +278,7 @@ public abstract class RendererLivingEntity<T extends EntityLivingBase> extends R
     {
         boolean flag = !entitylivingbaseIn.isInvisible();
         boolean flag1 = !flag && !entitylivingbaseIn.isInvisibleToPlayer(Minecraft.getMinecraft().player);
-        Mod depthSkins = Apple.CLIENT.modsManager.getMod("3D Skins");
+        Mod depthSkins = Apple.modsManager.getMod("3D Skins");
         
         if (flag || flag1)
         {
@@ -483,7 +483,7 @@ public abstract class RendererLivingEntity<T extends EntityLivingBase> extends R
      */
     protected void renderLivingAt(T entityLivingBaseIn, double x, double y, double z)
     {
-        if (Apple.CLIENT.modsManager.getMod("Entity Predictor").isEnabled() && !(entityLivingBaseIn instanceof EntityPlayer))
+        if (Apple.modsManager.getMod("Entity Predictor").isEnabled() && !(entityLivingBaseIn instanceof EntityPlayer))
         {
             double ping = ServerUtil.getPing() / 100D;
             x += (entityLivingBaseIn.posX - entityLivingBaseIn.lastTickPosX) * ping;
@@ -636,7 +636,7 @@ public abstract class RendererLivingEntity<T extends EntityLivingBase> extends R
 
     protected boolean canRenderName(T entity)
     {
-        Mod nametags = Apple.CLIENT.modsManager.getMod("Nametags");
+        Mod nametags = Apple.modsManager.getMod("Nametags");
         EntityPlayerSP entityplayersp = Minecraft.getMinecraft().player;
         ToggleSetting showSelfName = (ToggleSetting) nametags.getSetting("Show Self Name");
 

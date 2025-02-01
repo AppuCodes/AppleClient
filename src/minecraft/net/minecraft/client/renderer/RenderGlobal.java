@@ -31,8 +31,8 @@ import com.google.gson.JsonSyntaxException;
 
 import appleclient.Apple;
 import appleclient.mods.Mod;
-import appleclient.mods.settings.ColorSetting;
-import appleclient.mods.settings.SliderSetting;
+import appleclient.settings.impl.ColorSetting;
+import appleclient.settings.impl.SliderSetting;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockChest;
 import net.minecraft.block.BlockEnderChest;
@@ -2495,7 +2495,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
     {
         if (p_72731_3_ == 0 && movingObjectPositionIn.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK)
         {
-            Mod blockSelection = Apple.CLIENT.modsManager.getMod("Block Selection");
+            Mod blockSelection = Apple.modsManager.getMod("Block Selection");
             GlStateManager.enableBlend();
             GlStateManager.tryBlendFuncSeparate(770, 771, 1, 0);
             

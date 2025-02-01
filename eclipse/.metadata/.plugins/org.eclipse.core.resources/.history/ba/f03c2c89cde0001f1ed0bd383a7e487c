@@ -1,0 +1,6 @@
+package appleclient.settings;
+
+public class SettingsManager
+{
+    
+}

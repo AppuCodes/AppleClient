@@ -1,7 +1,7 @@
 package appleclient.mods.impl;
 
 import appleclient.mods.Mod;
-import appleclient.mods.settings.ToggleSetting;
+import appleclient.settings.impl.ToggleSetting;
 
 public class Scoreboard extends Mod
 {

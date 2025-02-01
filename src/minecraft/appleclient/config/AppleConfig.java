@@ -17,11 +17,11 @@ import com.google.gson.JsonParser;
 
 import appleclient.Apple;
 import appleclient.mods.Mod;
-import appleclient.mods.settings.ColorSetting;
-import appleclient.mods.settings.Setting;
-import appleclient.mods.settings.SliderSetting;
-import appleclient.mods.settings.TextSetting;
-import appleclient.mods.settings.ToggleSetting;
+import appleclient.settings.Setting;
+import appleclient.settings.impl.ColorSetting;
+import appleclient.settings.impl.SliderSetting;
+import appleclient.settings.impl.TextSetting;
+import appleclient.settings.impl.ToggleSetting;
 
 public class AppleConfig
 {
@@ -53,7 +53,7 @@ public class AppleConfig
         
         JsonObject jsonObject = new JsonObject();
         
-        for (Mod mod : Apple.CLIENT.modsManager.mods)
+        for (Mod mod : Apple.modsManager.mods)
         {
             JsonObject jsonMod = new JsonObject();
             jsonMod.addProperty("Enabled", mod.isEnabled());
@@ -111,7 +111,7 @@ public class AppleConfig
             {
                 Entry entry = (Entry) iterator.next();
                 String modName = (String) entry.getKey();
-                Mod mod = Apple.CLIENT.modsManager.getMod(modName);
+                Mod mod = Apple.modsManager.getMod(modName);
                 JsonObject jsonMod = (JsonObject) entry.getValue();
                 
                 if (jsonMod.get("Enabled").getAsBoolean())

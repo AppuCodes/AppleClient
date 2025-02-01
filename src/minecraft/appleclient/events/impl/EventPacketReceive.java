@@ -5,10 +5,13 @@ import net.minecraft.network.Packet;
 
 public class EventPacketReceive extends Event
 {
-    public Packet packet;
+    private static final EventPacketReceive e = new EventPacketReceive();
+    public Packet<?> packet;
     
-    public EventPacketReceive(Packet packet)
+    public static EventPacketReceive get(Packet<?> packet)
     {
-        this.packet = packet;
+        e.cancelled = false;
+        e.packet = packet;
+        return e;
     }
 }
