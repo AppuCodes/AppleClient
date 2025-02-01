@@ -1305,7 +1305,7 @@ public class CustomColors
                             f = Config.limitTo1(f);
                             float f1 = f * (float)(l - 1);
                             float f2 = Config.limitTo1(p_updateLightmap_1_ + 0.5F) * (float)(l - 1);
-                            float f3 = Config.limitTo1(Config.getGameSettings().gammaSetting);
+                            float f3 = Config.limitTo1(Config.getoptions().gammaSetting);
                             boolean flag = f3 > 1.0E-4F;
                             float[][] afloat = customcolormap.getColorsRgb();
                             getLightMapColumn(afloat, f1, i1, l, sunRgbs);

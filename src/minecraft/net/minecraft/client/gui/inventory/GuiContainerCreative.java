@@ -9,11 +9,11 @@ import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiTextField;
 import net.minecraft.client.gui.achievement.GuiAchievements;
 import net.minecraft.client.gui.achievement.GuiStats;
+import net.minecraft.client.options.GameOptions;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.InventoryEffectRenderer;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.resources.I18n;
-import net.minecraft.client.settings.GameSettings;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
@@ -307,7 +307,7 @@ public class GuiContainerCreative extends InventoryEffectRenderer
     {
         if (selectedTabIndex != CreativeTabs.tabAllSearch.getTabIndex())
         {
-            if (GameSettings.isKeyDown(this.mc.gameSettings.keyBindChat))
+            if (GameOptions.isKeyDown(this.mc.options.keyBindChat))
             {
                 this.setCurrentCreativeTab(CreativeTabs.tabAllSearch);
             }
@@ -367,7 +367,7 @@ public class GuiContainerCreative extends InventoryEffectRenderer
             ItemStack itemstack = (ItemStack)iterator.next();
             boolean flag = false;
 
-            for (String s : itemstack.getTooltip(this.mc.player, this.mc.gameSettings.advancedItemTooltips))
+            for (String s : itemstack.getTooltip(this.mc.player, this.mc.options.advancedItemTooltips))
             {
                 if (EnumChatFormatting.getTextWithoutFormattingCodes(s).toLowerCase().contains(s1))
                 {
@@ -623,7 +623,7 @@ public class GuiContainerCreative extends InventoryEffectRenderer
     {
         if (selectedTabIndex == CreativeTabs.tabAllSearch.getTabIndex())
         {
-            List<String> list = stack.getTooltip(this.mc.player, this.mc.gameSettings.advancedItemTooltips);
+            List<String> list = stack.getTooltip(this.mc.player, this.mc.options.advancedItemTooltips);
             CreativeTabs creativetabs = stack.getItem().getCreativeTab();
 
             if (creativetabs == null && stack.getItem() == Items.enchanted_book)

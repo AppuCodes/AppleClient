@@ -233,12 +233,12 @@ public class GuiMainMenu extends GuiScreen implements GuiYesNoCallback
     {
         if (button.id == 0)
         {
-            this.mc.displayGuiScreen(new GuiOptions(this, this.mc.gameSettings));
+            this.mc.displayGuiScreen(new GuiOptions(this, this.mc.options));
         }
 
         if (button.id == 5)
         {
-            this.mc.displayGuiScreen(new GuiLanguage(this, this.mc.gameSettings, this.mc.getLanguageManager()));
+            this.mc.displayGuiScreen(new GuiLanguage(this, this.mc.options, this.mc.getLanguageManager()));
         }
 
         if (button.id == 1)

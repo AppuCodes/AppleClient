@@ -1127,7 +1127,7 @@ public abstract class World implements IBlockAccess
 
     private void spawnParticle(int particleID, boolean p_175720_2_, double xCood, double yCoord, double zCoord, double xOffset, double yOffset, double zOffset, int... p_175720_15_)
     {
-        if (particleID == 0 && Minecraft.getMinecraft().gameSettings.particleSetting == 2) return;
+        if (particleID == 0 && Minecraft.getMinecraft().options.particleSetting == 2) return;
         
         for (int i = 0; i < this.worldAccesses.size(); ++i)
         {

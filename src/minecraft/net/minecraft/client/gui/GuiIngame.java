@@ -127,7 +127,7 @@ public class GuiIngame extends Gui
 
         ItemStack itemstack = this.mc.player.inventory.armorItemInSlot(3);
 
-        if (this.mc.gameSettings.thirdPersonView == 0 && itemstack != null && itemstack.getItem() == Item.getItemFromBlock(Blocks.pumpkin))
+        if (this.mc.options.thirdPersonView == 0 && itemstack != null && itemstack.getItem() == Item.getItemFromBlock(Blocks.pumpkin))
         {
             this.renderPumpkinOverlay(scaledresolution);
         }
@@ -168,7 +168,7 @@ public class GuiIngame extends Gui
         GlStateManager.enableBlend();
         Mod mod = Apple.modsManager.getMod("Crosshair");
         
-        if (this.showCrosshair() && (this.mc.gameSettings.thirdPersonView < 1 || (mod.isEnabled() && ((ToggleSetting) mod.getSetting("Show 3rd Person")).enabled)))
+        if (this.showCrosshair() && (this.mc.options.thirdPersonView < 1 || (mod.isEnabled() && ((ToggleSetting) mod.getSetting("Show 3rd Person")).enabled)))
         {
             if (mod.isEnabled() && !((ToggleSetting) mod.getSetting("Transparency")).enabled)
             {
@@ -241,7 +241,7 @@ public class GuiIngame extends Gui
             this.renderExpBar(scaledresolution, i2);
         }
 
-        if (this.mc.gameSettings.heldItemTooltips && !this.mc.playerController.isSpectator())
+        if (this.mc.options.heldItemTooltips && !this.mc.playerController.isSpectator())
         {
             this.func_181551_a(scaledresolution);
         }
@@ -260,7 +260,7 @@ public class GuiIngame extends Gui
             this.renderDemo(scaledresolution);
         }
 
-        if (this.mc.gameSettings.showDebugInfo)
+        if (this.mc.options.showDebugInfo)
         {
             this.overlayDebug.renderDebugInfo(scaledresolution);
         }
@@ -362,7 +362,7 @@ public class GuiIngame extends Gui
         GlStateManager.popMatrix();
         scoreobjective1 = scoreboard.getObjectiveInDisplaySlot(0);
 
-        if (!this.mc.gameSettings.keyBindPlayerList.isKeyDown() || this.mc.isIntegratedServerRunning() && this.mc.player.sendQueue.getPlayerInfoMap().size() <= 1 && scoreobjective1 == null)
+        if (!this.mc.options.keyBindPlayerList.isKeyDown() || this.mc.isIntegratedServerRunning() && this.mc.player.sendQueue.getPlayerInfoMap().size() <= 1 && scoreobjective1 == null)
         {
             this.overlayPlayerList.updatePlayerList(false);
         }
@@ -519,7 +519,7 @@ public class GuiIngame extends Gui
 
     protected boolean showCrosshair()
     {
-        if (this.mc.gameSettings.showDebugInfo && !this.mc.player.hasReducedDebug() && !this.mc.gameSettings.reducedDebugInfo)
+        if (this.mc.options.showDebugInfo && !this.mc.player.hasReducedDebug() && !this.mc.options.reducedDebugInfo)
         {
             return false;
         }
@@ -531,9 +531,9 @@ public class GuiIngame extends Gui
             }
             else
             {
-                if (this.mc.objectMouseOver != null && this.mc.objectMouseOver.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK)
+                if (this.mc.hitResult != null && this.mc.hitResult.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK)
                 {
-                    BlockPos blockpos = this.mc.objectMouseOver.getBlockPos();
+                    BlockPos blockpos = this.mc.hitResult.getBlockPos();
 
                     if (this.mc.world.getTileEntity(blockpos) instanceof IInventory)
                     {

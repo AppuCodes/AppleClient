@@ -5,9 +5,9 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.PositionedSoundRecord;
 import net.minecraft.client.audio.SoundCategory;
 import net.minecraft.client.audio.SoundHandler;
+import net.minecraft.client.options.GameOptions;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.resources.I18n;
-import net.minecraft.client.settings.GameSettings;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
 
@@ -15,12 +15,12 @@ public class GuiScreenOptionsSounds extends GuiScreen
 {
     private final GuiScreen field_146505_f;
 
-    /** Reference to the GameSettings object. */
-    private final GameSettings game_settings_4;
+    /** Reference to the options object. */
+    private final GameOptions game_settings_4;
     protected String field_146507_a = "Options";
     private String field_146508_h;
 
-    public GuiScreenOptionsSounds(GuiScreen p_i45025_1_, GameSettings p_i45025_2_)
+    public GuiScreenOptionsSounds(GuiScreen p_i45025_1_, GameOptions p_i45025_2_)
     {
         this.field_146505_f = p_i45025_1_;
         this.game_settings_4 = p_i45025_2_;
@@ -59,7 +59,7 @@ public class GuiScreenOptionsSounds extends GuiScreen
         {
             if (button.id == 200)
             {
-                this.mc.gameSettings.saveOptions();
+                this.mc.options.saveOptions();
                 this.mc.displayGuiScreen(this.field_146505_f);
             }
         }
@@ -110,7 +110,7 @@ public class GuiScreenOptionsSounds extends GuiScreen
                 {
                     this.field_146156_o = (float)(mouseX - (this.xPosition + 4)) / (float)(this.width - 8);
                     this.field_146156_o = MathHelper.clamp_float(this.field_146156_o, 0.0F, 1.0F);
-                    mc.gameSettings.setSoundLevel(this.field_146153_r, this.field_146156_o);
+                    mc.options.setSoundLevel(this.field_146153_r, this.field_146156_o);
                     this.displayString = this.field_146152_s + ": " + GuiScreenOptionsSounds.this.getSoundVolume(this.field_146153_r);
                 }
 
@@ -126,7 +126,7 @@ public class GuiScreenOptionsSounds extends GuiScreen
             {
                 this.field_146156_o = (float)(mouseX - (this.xPosition + 4)) / (float)(this.width - 8);
                 this.field_146156_o = MathHelper.clamp_float(this.field_146156_o, 0.0F, 1.0F);
-                mc.gameSettings.setSoundLevel(this.field_146153_r, this.field_146156_o);
+                mc.options.setSoundLevel(this.field_146153_r, this.field_146156_o);
                 this.displayString = this.field_146152_s + ": " + GuiScreenOptionsSounds.this.getSoundVolume(this.field_146153_r);
                 this.field_146155_p = true;
                 return true;
@@ -154,7 +154,7 @@ public class GuiScreenOptionsSounds extends GuiScreen
                     GuiScreenOptionsSounds.this.game_settings_4.getSoundLevel(this.field_146153_r);
                 }
                 
-                GuiScreenOptionsSounds.this.mc.gameSettings.saveOptions();
+                GuiScreenOptionsSounds.this.mc.options.saveOptions();
                 GuiScreenOptionsSounds.this.mc.getSoundHandler().playSound(PositionedSoundRecord.create(new ResourceLocation("gui.button.press"), 1.0F));
             }
 

@@ -72,8 +72,8 @@ public class GuiIngestServers extends GuiScreen
             }
             else
             {
-                this.mc.gameSettings.streamPreferredServer = "";
-                this.mc.gameSettings.saveOptions();
+                this.mc.options.streamPreferredServer = "";
+                this.mc.options.saveOptions();
             }
         }
     }
@@ -104,13 +104,13 @@ public class GuiIngestServers extends GuiScreen
 
         protected void elementClicked(int slotIndex, boolean isDoubleClick, int mouseX, int mouseY)
         {
-            this.mc.gameSettings.streamPreferredServer = this.mc.getTwitchStream().func_152925_v()[slotIndex].serverUrl;
-            this.mc.gameSettings.saveOptions();
+            this.mc.options.streamPreferredServer = this.mc.getTwitchStream().func_152925_v()[slotIndex].serverUrl;
+            this.mc.options.saveOptions();
         }
 
         protected boolean isSelected(int slotIndex)
         {
-            return this.mc.getTwitchStream().func_152925_v()[slotIndex].serverUrl.equals(this.mc.gameSettings.streamPreferredServer);
+            return this.mc.getTwitchStream().func_152925_v()[slotIndex].serverUrl.equals(this.mc.options.streamPreferredServer);
         }
 
         protected void drawBackground()

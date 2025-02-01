@@ -2,7 +2,8 @@ package optifine;
 
 import java.util.HashMap;
 import java.util.Map;
-import net.minecraft.client.settings.GameSettings;
+
+import net.minecraft.client.options.GameOptions;
 import net.minecraft.crash.CrashReport;
 import net.minecraft.crash.CrashReportCategory;
 import shadersmod.client.Shaders;
@@ -13,14 +14,14 @@ public class CrashReporter
     {
         try
         {
-            GameSettings gamesettings = Config.getGameSettings();
+            GameOptions options = Config.getoptions();
 
-            if (gamesettings == null)
+            if (options == null)
             {
                 return;
             }
 
-            if (!gamesettings.snooperEnabled)
+            if (!options.snooperEnabled)
             {
                 return;
             }
@@ -104,7 +105,7 @@ public class CrashReporter
     {
         p_extendCrashReport_0_.addCrashSection("OptiFine Version", Config.getVersion());
 
-        if (Config.getGameSettings() != null)
+        if (Config.getoptions() != null)
         {
             p_extendCrashReport_0_.addCrashSection("Render Distance Chunks", "" + Config.getChunkViewDistance());
             p_extendCrashReport_0_.addCrashSection("Mipmaps", "" + Config.getMipmapLevels());

@@ -255,9 +255,9 @@ public class GuiChat extends GuiScreen
         {
             BlockPos blockpos = null;
 
-            if (this.mc.objectMouseOver != null && this.mc.objectMouseOver.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK)
+            if (this.mc.hitResult != null && this.mc.hitResult.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK)
             {
-                blockpos = this.mc.objectMouseOver.getBlockPos();
+                blockpos = this.mc.hitResult.getBlockPos();
             }
 
             this.mc.player.sendQueue.addToSendQueue(new C14PacketTabComplete(p_146405_1_, blockpos));

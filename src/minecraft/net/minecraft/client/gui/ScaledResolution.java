@@ -23,7 +23,7 @@ public class ScaledResolution
         this.scaledHeight = mc.displayHeight;
         this.scaleFactor = 1;
         boolean flag = mc.isUnicode();
-        int i = mc.gameSettings.guiScale;
+        int i = mc.options.guiScale;
 
         if (i == 0)
         {

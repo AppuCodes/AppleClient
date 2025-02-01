@@ -187,8 +187,8 @@ public class ShadersRender
             RenderGlobal renderglobal = minecraft.renderGlobal;
             Shaders.isShadowPass = true;
             Shaders.shadowPassCounter = Shaders.shadowPassInterval;
-            Shaders.preShadowPassThirdPersonView = minecraft.gameSettings.thirdPersonView;
-            minecraft.gameSettings.thirdPersonView = 1;
+            Shaders.preShadowPassThirdPersonView = minecraft.options.thirdPersonView;
+            minecraft.options.thirdPersonView = 1;
             Shaders.checkGLError("pre shadow");
             GL11.glMatrixMode(GL11.GL_PROJECTION);
             GL11.glPushMatrix();
@@ -199,7 +199,7 @@ public class ShadersRender
             Shaders.useProgram(30);
             entityRenderer.setupCameraTransform(partialTicks, 2);
             Shaders.setCameraShadow(partialTicks);
-            ActiveRenderInfo.updateRenderInfo(minecraft.player, minecraft.gameSettings.thirdPersonView == 2);
+            ActiveRenderInfo.updateRenderInfo(minecraft.player, minecraft.options.thirdPersonView == 2);
             Shaders.checkGLError("shadow camera");
             GL20.glDrawBuffers(Shaders.sfbDrawBuffers);
             Shaders.checkGLError("shadow drawbuffers");
@@ -308,7 +308,7 @@ public class ShadersRender
             GL11.glFlush();
             Shaders.checkGLError("shadow flush");
             Shaders.isShadowPass = false;
-            minecraft.gameSettings.thirdPersonView = Shaders.preShadowPassThirdPersonView;
+            minecraft.options.thirdPersonView = Shaders.preShadowPassThirdPersonView;
 
             if (Shaders.hasGlGenMipmap)
             {

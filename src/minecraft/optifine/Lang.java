@@ -28,9 +28,9 @@ public class Lang
         String s2 = ".lang";
         list.add(s + s1 + s2);
 
-        if (!Config.getGameSettings().language.equals(s1))
+        if (!Config.getoptions().language.equals(s1))
         {
-            list.add(s + Config.getGameSettings().language + s2);
+            list.add(s + Config.getoptions().language + s2);
         }
 
         String[] astring = (String[])((String[])list.toArray(new String[list.size()]));

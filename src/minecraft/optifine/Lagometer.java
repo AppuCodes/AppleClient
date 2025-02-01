@@ -5,16 +5,16 @@ import org.lwjgl.opengl.GL11;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiIngame;
 import net.minecraft.client.gui.ScaledResolution;
+import net.minecraft.client.options.GameOptions;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.WorldRenderer;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
-import net.minecraft.client.settings.GameSettings;
 
 public class Lagometer
 {
     private static Minecraft mc;
-    private static GameSettings gameSettings;
+    private static GameOptions options;
     public static boolean active = false;
     public static Lagometer.TimerNano timerTick = new Lagometer.TimerNano();
     public static Lagometer.TimerNano timerScheduledExecutables = new Lagometer.TimerNano();
@@ -88,10 +88,10 @@ public class Lagometer
         if (mc == null)
         {
             mc = Minecraft.getMinecraft();
-            gameSettings = mc.gameSettings;
+            options = mc.options;
         }
 
-        if (gameSettings.showDebugInfo && (gameSettings.ofLagometer || gameSettings.field_181657_aC))
+        if (options.showDebugInfo && (options.ofLagometer || options.field_181657_aC))
         {
             active = true;
             long timeNowNano = System.nanoTime();
@@ -133,9 +133,9 @@ public class Lagometer
 
     public static void showLagometer(ScaledResolution p_showLagometer_0_)
     {
-        if (gameSettings != null)
+        if (options != null)
         {
-            if (gameSettings.ofLagometer || gameSettings.field_181657_aC)
+            if (options.ofLagometer || options.field_181657_aC)
             {
                 long i = System.nanoTime();
                 GlStateManager.clear(256);

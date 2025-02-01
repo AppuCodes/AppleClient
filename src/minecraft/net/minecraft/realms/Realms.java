@@ -12,7 +12,7 @@ public class Realms
 {
     public static boolean isTouchScreen()
     {
-        return Minecraft.getMinecraft().gameSettings.touchscreen;
+        return Minecraft.getMinecraft().options.touchscreen;
     }
 
     public static Proxy getProxy()

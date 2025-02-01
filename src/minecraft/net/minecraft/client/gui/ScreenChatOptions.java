@@ -1,20 +1,21 @@
 package net.minecraft.client.gui;
 
 import java.io.IOException;
+
+import net.minecraft.client.options.GameOptions;
 import net.minecraft.client.resources.I18n;
-import net.minecraft.client.settings.GameSettings;
 
 public class ScreenChatOptions extends GuiScreen
 {
-    private static final GameSettings.Options[] field_146399_a = new GameSettings.Options[] {GameSettings.Options.CHAT_VISIBILITY, GameSettings.Options.CHAT_COLOR, GameSettings.Options.CHAT_LINKS, GameSettings.Options.CHAT_OPACITY, GameSettings.Options.CHAT_LINKS_PROMPT, GameSettings.Options.CHAT_SCALE, GameSettings.Options.CHAT_HEIGHT_FOCUSED, GameSettings.Options.CHAT_HEIGHT_UNFOCUSED, GameSettings.Options.CHAT_WIDTH, GameSettings.Options.REDUCED_DEBUG_INFO};
+    private static final GameOptions.Options[] field_146399_a = new GameOptions.Options[] {GameOptions.Options.CHAT_VISIBILITY, GameOptions.Options.CHAT_COLOR, GameOptions.Options.CHAT_LINKS, GameOptions.Options.CHAT_OPACITY, GameOptions.Options.CHAT_LINKS_PROMPT, GameOptions.Options.CHAT_SCALE, GameOptions.Options.CHAT_HEIGHT_FOCUSED, GameOptions.Options.CHAT_HEIGHT_UNFOCUSED, GameOptions.Options.CHAT_WIDTH, GameOptions.Options.REDUCED_DEBUG_INFO};
     private final GuiScreen parentScreen;
-    private final GameSettings game_settings;
+    private final GameOptions game_settings;
     private String field_146401_i;
 
-    public ScreenChatOptions(GuiScreen parentScreenIn, GameSettings gameSettingsIn)
+    public ScreenChatOptions(GuiScreen parentScreenIn, GameOptions optionsIn)
     {
         this.parentScreen = parentScreenIn;
-        this.game_settings = gameSettingsIn;
+        this.game_settings = optionsIn;
     }
 
     /**
@@ -26,15 +27,15 @@ public class ScreenChatOptions extends GuiScreen
         int i = 0;
         this.field_146401_i = I18n.format("options.chat.title", new Object[0]);
 
-        for (GameSettings.Options gamesettings$options : field_146399_a)
+        for (GameOptions.Options options$options : field_146399_a)
         {
-            if (gamesettings$options.getEnumFloat())
+            if (options$options.getEnumFloat())
             {
-                this.buttonList.add(new GuiOptionSlider(gamesettings$options.returnEnumOrdinal(), this.width / 2 - 155 + i % 2 * 160, this.height / 6 + 24 * (i >> 1), gamesettings$options));
+                this.buttonList.add(new GuiOptionSlider(options$options.returnEnumOrdinal(), this.width / 2 - 155 + i % 2 * 160, this.height / 6 + 24 * (i >> 1), options$options));
             }
             else
             {
-                this.buttonList.add(new GuiOptionButton(gamesettings$options.returnEnumOrdinal(), this.width / 2 - 155 + i % 2 * 160, this.height / 6 + 24 * (i >> 1), gamesettings$options, this.game_settings.getKeyBinding(gamesettings$options)));
+                this.buttonList.add(new GuiOptionButton(options$options.returnEnumOrdinal(), this.width / 2 - 155 + i % 2 * 160, this.height / 6 + 24 * (i >> 1), options$options, this.game_settings.getKeyBinding(options$options)));
             }
 
             ++i;
@@ -53,12 +54,12 @@ public class ScreenChatOptions extends GuiScreen
             if (button.id < 100 && button instanceof GuiOptionButton)
             {
                 this.game_settings.setOptionValue(((GuiOptionButton)button).returnEnumOptions(), 1);
-                button.displayString = this.game_settings.getKeyBinding(GameSettings.Options.getEnumOptions(button.id));
+                button.displayString = this.game_settings.getKeyBinding(GameOptions.Options.getEnumOptions(button.id));
             }
 
             if (button.id == 200)
             {
-                this.mc.gameSettings.saveOptions();
+                this.mc.options.saveOptions();
                 this.mc.displayGuiScreen(this.parentScreen);
             }
         }

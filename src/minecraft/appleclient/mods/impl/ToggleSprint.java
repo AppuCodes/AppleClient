@@ -30,9 +30,9 @@ public class ToggleSprint extends Mod
     {
         if (toggled)
         {
-            if (!mc.gameSettings.keyBindSprint.isKeyDown())
+            if (!mc.options.keyBindSprint.isKeyDown())
             {
-                mc.gameSettings.keyBindSprint.setKeyBindState(mc.gameSettings.keyBindSprint.getKeyCode(), true);
+                mc.options.keyBindSprint.setKeyBindState(mc.options.keyBindSprint.getKeyCode(), true);
             }
             
             if (!flag)
@@ -45,9 +45,9 @@ public class ToggleSprint extends Mod
         {
             if (flag)
             {
-                if (mc.gameSettings.keyBindSprint.isKeyDown() && !Keyboard.isKeyDown(mc.gameSettings.keyBindSprint.getKeyCode()))
+                if (mc.options.keyBindSprint.isKeyDown() && !Keyboard.isKeyDown(mc.options.keyBindSprint.getKeyCode()))
                 {
-                    mc.gameSettings.keyBindSprint.setKeyBindState(mc.gameSettings.keyBindSprint.getKeyCode(), false);
+                    mc.options.keyBindSprint.setKeyBindState(mc.options.keyBindSprint.getKeyCode(), false);
                 }
                 
                 flag = false;
@@ -58,7 +58,7 @@ public class ToggleSprint extends Mod
     @Subscribe
     public void onKey(EventKey e)
     {
-        if (e.key == mc.gameSettings.keyBindSprint.getKeyCode())
+        if (e.key == mc.options.keyBindSprint.getKeyCode())
         {
             toggled = !toggled;
         }

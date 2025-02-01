@@ -109,7 +109,7 @@ public class IntegratedServer extends MinecraftServer
 
             if (worldserver.getWorldInfo().getDifficulty() == null)
             {
-                this.setDifficultyForAllWorlds(this.mc.gameSettings.difficulty);
+                this.setDifficultyForAllWorlds(this.mc.options.difficulty);
             }
         }
         else
@@ -166,7 +166,7 @@ public class IntegratedServer extends MinecraftServer
 
             if (this.worldServers[0].getWorldInfo().getDifficulty() == null)
             {
-                this.setDifficultyForAllWorlds(this.mc.gameSettings.difficulty);
+                this.setDifficultyForAllWorlds(this.mc.options.difficulty);
             }
         }
 
@@ -246,10 +246,10 @@ public class IntegratedServer extends MinecraftServer
         {
             super.tick();
 
-            if (this.mc.gameSettings.renderDistanceChunks != this.getConfigurationManager().getViewDistance())
+            if (this.mc.options.renderDistanceChunks != this.getConfigurationManager().getViewDistance())
             {
-                logger.info("Changing view distance to {}, from {}", new Object[] {Integer.valueOf(this.mc.gameSettings.renderDistanceChunks), Integer.valueOf(this.getConfigurationManager().getViewDistance())});
-                this.getConfigurationManager().setViewDistance(this.mc.gameSettings.renderDistanceChunks);
+                logger.info("Changing view distance to {}, from {}", new Object[] {Integer.valueOf(this.mc.options.renderDistanceChunks), Integer.valueOf(this.getConfigurationManager().getViewDistance())});
+                this.getConfigurationManager().setViewDistance(this.mc.options.renderDistanceChunks);
             }
 
             if (this.mc.world != null)
@@ -293,7 +293,7 @@ public class IntegratedServer extends MinecraftServer
      */
     public EnumDifficulty getDifficulty()
     {
-        return this.mc.world == null ? this.mc.gameSettings.difficulty : this.mc.world.getWorldInfo().getDifficulty();
+        return this.mc.world == null ? this.mc.options.difficulty : this.mc.world.getWorldInfo().getDifficulty();
     }
 
     /**

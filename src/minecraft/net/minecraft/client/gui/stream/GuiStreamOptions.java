@@ -5,22 +5,22 @@ import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiOptionButton;
 import net.minecraft.client.gui.GuiOptionSlider;
 import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.options.GameOptions;
 import net.minecraft.client.resources.I18n;
-import net.minecraft.client.settings.GameSettings;
 import net.minecraft.util.EnumChatFormatting;
 
 public class GuiStreamOptions extends GuiScreen
 {
-    private static final GameSettings.Options[] field_152312_a = new GameSettings.Options[] {GameSettings.Options.STREAM_BYTES_PER_PIXEL, GameSettings.Options.STREAM_FPS, GameSettings.Options.STREAM_KBPS, GameSettings.Options.STREAM_SEND_METADATA, GameSettings.Options.STREAM_VOLUME_MIC, GameSettings.Options.STREAM_VOLUME_SYSTEM, GameSettings.Options.STREAM_MIC_TOGGLE_BEHAVIOR, GameSettings.Options.STREAM_COMPRESSION};
-    private static final GameSettings.Options[] field_152316_f = new GameSettings.Options[] {GameSettings.Options.STREAM_CHAT_ENABLED, GameSettings.Options.STREAM_CHAT_USER_FILTER};
+    private static final GameOptions.Options[] field_152312_a = new GameOptions.Options[] {GameOptions.Options.STREAM_BYTES_PER_PIXEL, GameOptions.Options.STREAM_FPS, GameOptions.Options.STREAM_KBPS, GameOptions.Options.STREAM_SEND_METADATA, GameOptions.Options.STREAM_VOLUME_MIC, GameOptions.Options.STREAM_VOLUME_SYSTEM, GameOptions.Options.STREAM_MIC_TOGGLE_BEHAVIOR, GameOptions.Options.STREAM_COMPRESSION};
+    private static final GameOptions.Options[] field_152316_f = new GameOptions.Options[] {GameOptions.Options.STREAM_CHAT_ENABLED, GameOptions.Options.STREAM_CHAT_USER_FILTER};
     private final GuiScreen parentScreen;
-    private final GameSettings field_152318_h;
+    private final GameOptions field_152318_h;
     private String field_152319_i;
     private String field_152313_r;
     private int field_152314_s;
     private boolean field_152315_t = false;
 
-    public GuiStreamOptions(GuiScreen parentScreenIn, GameSettings p_i1073_2_)
+    public GuiStreamOptions(GuiScreen parentScreenIn, GameOptions p_i1073_2_)
     {
         this.parentScreen = parentScreenIn;
         this.field_152318_h = p_i1073_2_;
@@ -36,15 +36,15 @@ public class GuiStreamOptions extends GuiScreen
         this.field_152319_i = I18n.format("options.stream.title", new Object[0]);
         this.field_152313_r = I18n.format("options.stream.chat.title", new Object[0]);
 
-        for (GameSettings.Options gamesettings$options : field_152312_a)
+        for (GameOptions.Options options$options : field_152312_a)
         {
-            if (gamesettings$options.getEnumFloat())
+            if (options$options.getEnumFloat())
             {
-                this.buttonList.add(new GuiOptionSlider(gamesettings$options.returnEnumOrdinal(), this.width / 2 - 155 + i % 2 * 160, this.height / 6 + 24 * (i >> 1), gamesettings$options));
+                this.buttonList.add(new GuiOptionSlider(options$options.returnEnumOrdinal(), this.width / 2 - 155 + i % 2 * 160, this.height / 6 + 24 * (i >> 1), options$options));
             }
             else
             {
-                this.buttonList.add(new GuiOptionButton(gamesettings$options.returnEnumOrdinal(), this.width / 2 - 155 + i % 2 * 160, this.height / 6 + 24 * (i >> 1), gamesettings$options, this.field_152318_h.getKeyBinding(gamesettings$options)));
+                this.buttonList.add(new GuiOptionButton(options$options.returnEnumOrdinal(), this.width / 2 - 155 + i % 2 * 160, this.height / 6 + 24 * (i >> 1), options$options, this.field_152318_h.getKeyBinding(options$options)));
             }
 
             ++i;
@@ -58,15 +58,15 @@ public class GuiStreamOptions extends GuiScreen
         this.field_152314_s = this.height / 6 + 24 * (i >> 1) + 6;
         i = i + 2;
 
-        for (GameSettings.Options gamesettings$options1 : field_152316_f)
+        for (GameOptions.Options options$options1 : field_152316_f)
         {
-            if (gamesettings$options1.getEnumFloat())
+            if (options$options1.getEnumFloat())
             {
-                this.buttonList.add(new GuiOptionSlider(gamesettings$options1.returnEnumOrdinal(), this.width / 2 - 155 + i % 2 * 160, this.height / 6 + 24 * (i >> 1), gamesettings$options1));
+                this.buttonList.add(new GuiOptionSlider(options$options1.returnEnumOrdinal(), this.width / 2 - 155 + i % 2 * 160, this.height / 6 + 24 * (i >> 1), options$options1));
             }
             else
             {
-                this.buttonList.add(new GuiOptionButton(gamesettings$options1.returnEnumOrdinal(), this.width / 2 - 155 + i % 2 * 160, this.height / 6 + 24 * (i >> 1), gamesettings$options1, this.field_152318_h.getKeyBinding(gamesettings$options1)));
+                this.buttonList.add(new GuiOptionButton(options$options1.returnEnumOrdinal(), this.width / 2 - 155 + i % 2 * 160, this.height / 6 + 24 * (i >> 1), options$options1, this.field_152318_h.getKeyBinding(options$options1)));
             }
 
             ++i;
@@ -87,22 +87,22 @@ public class GuiStreamOptions extends GuiScreen
         {
             if (button.id < 100 && button instanceof GuiOptionButton)
             {
-                GameSettings.Options gamesettings$options = ((GuiOptionButton)button).returnEnumOptions();
-                this.field_152318_h.setOptionValue(gamesettings$options, 1);
-                button.displayString = this.field_152318_h.getKeyBinding(GameSettings.Options.getEnumOptions(button.id));
+                GameOptions.Options options$options = ((GuiOptionButton)button).returnEnumOptions();
+                this.field_152318_h.setOptionValue(options$options, 1);
+                button.displayString = this.field_152318_h.getKeyBinding(GameOptions.Options.getEnumOptions(button.id));
 
-                if (this.mc.getTwitchStream().isBroadcasting() && gamesettings$options != GameSettings.Options.STREAM_CHAT_ENABLED && gamesettings$options != GameSettings.Options.STREAM_CHAT_USER_FILTER)
+                if (this.mc.getTwitchStream().isBroadcasting() && options$options != GameOptions.Options.STREAM_CHAT_ENABLED && options$options != GameOptions.Options.STREAM_CHAT_USER_FILTER)
                 {
                     this.field_152315_t = true;
                 }
             }
             else if (button instanceof GuiOptionSlider)
             {
-                if (button.id == GameSettings.Options.STREAM_VOLUME_MIC.returnEnumOrdinal())
+                if (button.id == GameOptions.Options.STREAM_VOLUME_MIC.returnEnumOrdinal())
                 {
                     this.mc.getTwitchStream().updateStreamVolume();
                 }
-                else if (button.id == GameSettings.Options.STREAM_VOLUME_SYSTEM.returnEnumOrdinal())
+                else if (button.id == GameOptions.Options.STREAM_VOLUME_SYSTEM.returnEnumOrdinal())
                 {
                     this.mc.getTwitchStream().updateStreamVolume();
                 }
@@ -114,12 +114,12 @@ public class GuiStreamOptions extends GuiScreen
 
             if (button.id == 200)
             {
-                this.mc.gameSettings.saveOptions();
+                this.mc.options.saveOptions();
                 this.mc.displayGuiScreen(this.parentScreen);
             }
             else if (button.id == 201)
             {
-                this.mc.gameSettings.saveOptions();
+                this.mc.options.saveOptions();
                 this.mc.displayGuiScreen(new GuiIngestServers(this));
             }
         }

@@ -84,7 +84,7 @@ import net.minecraft.client.renderer.tileentity.RenderEnderCrystal;
 import net.minecraft.client.renderer.tileentity.RenderItemFrame;
 import net.minecraft.client.renderer.tileentity.RenderWitherSkull;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
-import net.minecraft.client.settings.GameSettings;
+import net.minecraft.client.settings.options;
 import net.minecraft.crash.CrashReport;
 import net.minecraft.crash.CrashReportCategory;
 import net.minecraft.entity.Entity;
@@ -172,7 +172,7 @@ public class RenderManager {
    public Entity field_147941_i;
    public float field_78735_i;
    public float field_78732_j;
-   public GameSettings field_78733_k;
+   public options field_78733_k;
    public double field_78730_l;
    public double field_78731_m;
    public double field_78728_n;
@@ -278,7 +278,7 @@ public class RenderManager {
       }
    }
 
-   public void func_180597_a(World p_180597_1_, FontRenderer p_180597_2_, Entity p_180597_3_, Entity p_180597_4_, GameSettings p_180597_5_, float p_180597_6_) {
+   public void func_180597_a(World p_180597_1_, FontRenderer p_180597_2_, Entity p_180597_3_, Entity p_180597_4_, options p_180597_5_, float p_180597_6_) {
       this.field_78722_g = p_180597_1_;
       this.field_78733_k = p_180597_5_;
       this.field_78734_h = p_180597_3_;

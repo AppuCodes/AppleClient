@@ -2,13 +2,13 @@ package net.minecraft.client.renderer;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.options.GameOptions;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.resources.IResourceManager;
 import net.minecraft.client.resources.IResourceManagerReloadListener;
 import net.minecraft.client.resources.model.IBakedModel;
 import net.minecraft.client.resources.model.SimpleBakedModel;
 import net.minecraft.client.resources.model.WeightedBakedModel;
-import net.minecraft.client.settings.GameSettings;
 import net.minecraft.crash.CrashReport;
 import net.minecraft.crash.CrashReportCategory;
 import net.minecraft.util.BlockPos;
@@ -24,16 +24,16 @@ import shadersmod.client.SVertexBuilder;
 public class BlockRendererDispatcher implements IResourceManagerReloadListener
 {
     private BlockModelShapes blockModelShapes;
-    private final GameSettings gameSettings;
+    private final GameOptions options;
     private final BlockModelRenderer blockModelRenderer = new BlockModelRenderer();
     private final ChestRenderer chestRenderer = new ChestRenderer();
     private final BlockFluidRenderer fluidRenderer = new BlockFluidRenderer();
     private static final String __OBFID = "CL_00002520";
 
-    public BlockRendererDispatcher(BlockModelShapes blockModelShapesIn, GameSettings gameSettingsIn)
+    public BlockRendererDispatcher(BlockModelShapes blockModelShapesIn, GameOptions optionsIn)
     {
         this.blockModelShapes = blockModelShapesIn;
-        this.gameSettings = gameSettingsIn;
+        this.options = optionsIn;
     }
 
     public BlockModelShapes getBlockModelShapes()
@@ -146,7 +146,7 @@ public class BlockRendererDispatcher implements IResourceManagerReloadListener
     {
         IBakedModel ibakedmodel = this.blockModelShapes.getModelForState(state);
 
-        if (pos != null && this.gameSettings.allowBlockAlternatives && ibakedmodel instanceof WeightedBakedModel)
+        if (pos != null && this.options.allowBlockAlternatives && ibakedmodel instanceof WeightedBakedModel)
         {
             ibakedmodel = ((WeightedBakedModel)ibakedmodel).getAlternativeModel(MathHelper.getPositionRandom(pos));
         }
@@ -172,7 +172,7 @@ public class BlockRendererDispatcher implements IResourceManagerReloadListener
 
         IBakedModel ibakedmodel = this.blockModelShapes.getModelForState(state);
 
-        if (pos != null && this.gameSettings.allowBlockAlternatives && ibakedmodel instanceof WeightedBakedModel)
+        if (pos != null && this.options.allowBlockAlternatives && ibakedmodel instanceof WeightedBakedModel)
         {
             ibakedmodel = ((WeightedBakedModel)ibakedmodel).getAlternativeModel(MathHelper.getPositionRandom(pos));
         }

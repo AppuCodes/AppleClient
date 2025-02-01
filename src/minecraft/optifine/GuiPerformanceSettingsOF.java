@@ -3,18 +3,18 @@ package optifine;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiOptionButton;
 import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.options.GameOptions;
 import net.minecraft.client.resources.I18n;
-import net.minecraft.client.settings.GameSettings;
 
 public class GuiPerformanceSettingsOF extends GuiScreen
 {
     private GuiScreen prevScreen;
     protected String title;
-    private GameSettings settings;
-    private static GameSettings.Options[] enumOptions = new GameSettings.Options[] {GameSettings.Options.SMOOTH_FPS, GameSettings.Options.SMOOTH_WORLD, GameSettings.Options.FAST_RENDER, GameSettings.Options.FAST_MATH, GameSettings.Options.CHUNK_UPDATES, GameSettings.Options.CHUNK_UPDATES_DYNAMIC, GameSettings.Options.LAZY_CHUNK_LOADING};
+    private GameOptions settings;
+    private static GameOptions.Options[] enumOptions = new GameOptions.Options[] {GameOptions.Options.SMOOTH_FPS, GameOptions.Options.SMOOTH_WORLD, GameOptions.Options.FAST_RENDER, GameOptions.Options.FAST_MATH, GameOptions.Options.CHUNK_UPDATES, GameOptions.Options.CHUNK_UPDATES_DYNAMIC, GameOptions.Options.LAZY_CHUNK_LOADING};
     private TooltipManager tooltipManager = new TooltipManager(this);
 
-    public GuiPerformanceSettingsOF(GuiScreen p_i52_1_, GameSettings p_i52_2_)
+    public GuiPerformanceSettingsOF(GuiScreen p_i52_1_, GameOptions p_i52_2_)
     {
         this.prevScreen = p_i52_1_;
         this.settings = p_i52_2_;
@@ -31,17 +31,17 @@ public class GuiPerformanceSettingsOF extends GuiScreen
 
         for (int i = 0; i < enumOptions.length; ++i)
         {
-            GameSettings.Options gamesettings$options = enumOptions[i];
+            GameOptions.Options options$options = enumOptions[i];
             int j = this.width / 2 - 155 + i % 2 * 160;
             int k = this.height / 6 + 21 * (i / 2) - 12;
 
-            if (!gamesettings$options.getEnumFloat())
+            if (!options$options.getEnumFloat())
             {
-                this.buttonList.add(new GuiOptionButtonOF(gamesettings$options.returnEnumOrdinal(), j, k, gamesettings$options, this.settings.getKeyBinding(gamesettings$options)));
+                this.buttonList.add(new GuiOptionButtonOF(options$options.returnEnumOrdinal(), j, k, options$options, this.settings.getKeyBinding(options$options)));
             }
             else
             {
-                this.buttonList.add(new GuiOptionSliderOF(gamesettings$options.returnEnumOrdinal(), j, k, gamesettings$options));
+                this.buttonList.add(new GuiOptionSliderOF(options$options.returnEnumOrdinal(), j, k, options$options));
             }
         }
 
@@ -58,12 +58,12 @@ public class GuiPerformanceSettingsOF extends GuiScreen
             if (button.id < 200 && button instanceof GuiOptionButton)
             {
                 this.settings.setOptionValue(((GuiOptionButton)button).returnEnumOptions(), 1);
-                button.displayString = this.settings.getKeyBinding(GameSettings.Options.getEnumOptions(button.id));
+                button.displayString = this.settings.getKeyBinding(GameOptions.Options.getEnumOptions(button.id));
             }
 
             if (button.id == 200)
             {
-                this.mc.gameSettings.saveOptions();
+                this.mc.options.saveOptions();
                 this.mc.displayGuiScreen(this.prevScreen);
             }
         }

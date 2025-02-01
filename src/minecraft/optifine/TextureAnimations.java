@@ -12,8 +12,9 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
 import javax.imageio.ImageIO;
+
+import net.minecraft.client.options.GameOptions;
 import net.minecraft.client.resources.IResourcePack;
-import net.minecraft.client.settings.GameSettings;
 import net.minecraft.util.ResourceLocation;
 
 public class TextureAnimations
@@ -201,7 +202,7 @@ public class TextureAnimations
 
     private static byte[] loadImage(String p_loadImage_0_, int p_loadImage_1_)
     {
-        GameSettings gamesettings = Config.getGameSettings();
+        GameOptions options = Config.getoptions();
 
         try
         {
@@ -243,7 +244,7 @@ public class TextureAnimations
                         int j1 = aint[k] >> 8 & 255;
                         int k1 = aint[k] & 255;
 
-                        if (gamesettings != null && gamesettings.anaglyph)
+                        if (options != null && options.anaglyph)
                         {
                             int l1 = (i1 * 30 + j1 * 59 + k1 * 11) / 100;
                             int i2 = (i1 * 30 + j1 * 70) / 100;

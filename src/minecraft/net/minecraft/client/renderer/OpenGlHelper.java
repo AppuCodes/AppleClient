@@ -4,7 +4,7 @@ import java.nio.ByteBuffer;
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.settings.GameSettings;
+import net.minecraft.client.options.GameOptions;
 import optifine.Config;
 
 import org.lwjgl.opengl.ARBFramebufferObject;
@@ -294,7 +294,7 @@ public class OpenGlHelper
             }
             else
             {
-                GameSettings.Options.RENDER_DISTANCE.setValueMax(16.0F);
+                GameOptions.Options.RENDER_DISTANCE.setValueMax(16.0F);
             }
         }
 
@@ -633,7 +633,7 @@ public class OpenGlHelper
 
     public static boolean useVbo()
     {
-        return Config.isMultiTexture() ? false : vboSupported && Minecraft.getMinecraft().gameSettings.useVbo;
+        return Config.isMultiTexture() ? false : vboSupported && Minecraft.getMinecraft().options.useVbo;
     }
 
     public static void glBindFramebuffer(int target, int framebufferIn)
@@ -926,7 +926,7 @@ public class OpenGlHelper
 
     public static boolean isFramebufferEnabled()
     {
-        return Config.isFastRender() ? false : (Config.isAntialiasing() ? false : framebufferSupported && Minecraft.getMinecraft().gameSettings.fboEnable);
+        return Config.isFastRender() ? false : (Config.isAntialiasing() ? false : framebufferSupported && Minecraft.getMinecraft().options.fboEnable);
     }
 
     public static String func_183029_j()

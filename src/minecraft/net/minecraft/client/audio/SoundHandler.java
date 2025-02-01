@@ -14,10 +14,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.Map.Entry;
+
+import net.minecraft.client.options.GameOptions;
 import net.minecraft.client.resources.IResource;
 import net.minecraft.client.resources.IResourceManager;
 import net.minecraft.client.resources.IResourceManagerReloadListener;
-import net.minecraft.client.settings.GameSettings;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.ResourceLocation;
@@ -50,10 +51,10 @@ public class SoundHandler implements IResourceManagerReloadListener, ITickable
     private final SoundManager sndManager;
     private final IResourceManager mcResourceManager;
 
-    public SoundHandler(IResourceManager manager, GameSettings gameSettingsIn)
+    public SoundHandler(IResourceManager manager, GameOptions optionsIn)
     {
         this.mcResourceManager = manager;
-        this.sndManager = new SoundManager(this, gameSettingsIn);
+        this.sndManager = new SoundManager(this, optionsIn);
     }
 
     public void onResourceManagerReload(IResourceManager resourceManager)

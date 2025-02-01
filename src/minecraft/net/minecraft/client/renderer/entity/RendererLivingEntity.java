@@ -595,7 +595,7 @@ public abstract class RendererLivingEntity<T extends EntityLivingBase> extends R
                         GlStateManager.translate((float)x, (float)y + entity.height + 0.5F - (entity.isChild() ? entity.height / 2.0F : 0.0F), (float)z);
                         GL11.glNormal3f(0.0F, 1.0F, 0.0F);
                         GlStateManager.rotate(-this.renderManager.playerViewY, 0.0F, 1.0F, 0.0F);
-                        GlStateManager.rotate(Minecraft.getMinecraft().gameSettings.thirdPersonView == 2 ? -this.renderManager.playerViewX : this.renderManager.playerViewX, 1.0F, 0.0F, 0.0F);
+                        GlStateManager.rotate(Minecraft.getMinecraft().options.thirdPersonView == 2 ? -this.renderManager.playerViewX : this.renderManager.playerViewX, 1.0F, 0.0F, 0.0F);
                         GlStateManager.scale(-0.02666667F, -0.02666667F, 0.02666667F);
                         GlStateManager.translate(0.0F, 9.374999F, 0.0F);
                         GlStateManager.disableLighting();

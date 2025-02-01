@@ -58,7 +58,7 @@ public class RenderFish extends Render<EntityFishHook>
         {
             float f7 = entity.angler.getSwingProgress(partialTicks);
             float f8 = MathHelper.sin(MathHelper.sqrt_float(f7) * (float)Math.PI);
-            double FOV = Minecraft.getMinecraft().gameSettings.fovSetting;
+            double FOV = Minecraft.getMinecraft().options.fovSetting;
             double decimalFOV = FOV / 110;
             Vec3 vec3 = new Vec3(((-decimalFOV + (decimalFOV / 2.5D)) - (decimalFOV / 8)) + 0.16D, 0.0D, 0.5D);
             vec3 = vec3.rotatePitch(-(entity.angler.prevRotationPitch + (entity.angler.rotationPitch - entity.angler.prevRotationPitch) * partialTicks) * (float)Math.PI / 180.0F);

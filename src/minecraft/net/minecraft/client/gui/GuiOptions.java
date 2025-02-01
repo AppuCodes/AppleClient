@@ -7,8 +7,8 @@ import net.minecraft.client.audio.SoundEventAccessorComposite;
 import net.minecraft.client.audio.SoundHandler;
 import net.minecraft.client.gui.stream.GuiStreamOptions;
 import net.minecraft.client.gui.stream.GuiStreamUnavailable;
+import net.minecraft.client.options.GameOptions;
 import net.minecraft.client.resources.I18n;
-import net.minecraft.client.settings.GameSettings;
 import net.minecraft.client.stream.IStream;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.ChatComponentTranslation;
@@ -17,16 +17,16 @@ import net.minecraft.world.EnumDifficulty;
 
 public class GuiOptions extends GuiScreen implements GuiYesNoCallback
 {
-    private static final GameSettings.Options[] field_146440_f = new GameSettings.Options[] {GameSettings.Options.FOV};
+    private static final GameOptions.Options[] field_146440_f = new GameOptions.Options[] {GameOptions.Options.FOV};
     private final GuiScreen field_146441_g;
 
-    /** Reference to the GameSettings object. */
-    private final GameSettings game_settings_1;
+    /** Reference to the options object. */
+    private final GameOptions game_settings_1;
     private GuiButton field_175357_i;
     private GuiLockIconButton field_175356_r;
     protected String field_146442_a = "Options";
 
-    public GuiOptions(GuiScreen p_i1046_1_, GameSettings p_i1046_2_)
+    public GuiOptions(GuiScreen p_i1046_1_, GameOptions p_i1046_2_)
     {
         this.field_146441_g = p_i1046_1_;
         this.game_settings_1 = p_i1046_2_;
@@ -41,15 +41,15 @@ public class GuiOptions extends GuiScreen implements GuiYesNoCallback
         int i = 0;
         this.field_146442_a = I18n.format("options.title", new Object[0]);
 
-        for (GameSettings.Options gamesettings$options : field_146440_f)
+        for (GameOptions.Options options$options : field_146440_f)
         {
-            if (gamesettings$options.getEnumFloat())
+            if (options$options.getEnumFloat())
             {
-                this.buttonList.add(new GuiOptionSlider(gamesettings$options.returnEnumOrdinal(), this.width / 2 - 155 + i % 2 * 160, this.height / 6 - 12 + 24 * (i >> 1), gamesettings$options));
+                this.buttonList.add(new GuiOptionSlider(options$options.returnEnumOrdinal(), this.width / 2 - 155 + i % 2 * 160, this.height / 6 - 12 + 24 * (i >> 1), options$options));
             }
             else
             {
-                GuiOptionButton guioptionbutton = new GuiOptionButton(gamesettings$options.returnEnumOrdinal(), this.width / 2 - 155 + i % 2 * 160, this.height / 6 - 12 + 24 * (i >> 1), gamesettings$options, this.game_settings_1.getKeyBinding(gamesettings$options));
+                GuiOptionButton guioptionbutton = new GuiOptionButton(options$options.returnEnumOrdinal(), this.width / 2 - 155 + i % 2 * 160, this.height / 6 - 12 + 24 * (i >> 1), options$options, this.game_settings_1.getKeyBinding(options$options));
                 this.buttonList.add(guioptionbutton);
             }
 
@@ -131,9 +131,9 @@ public class GuiOptions extends GuiScreen implements GuiYesNoCallback
         {
             if (button.id < 100 && button instanceof GuiOptionButton)
             {
-                GameSettings.Options gamesettings$options = ((GuiOptionButton)button).returnEnumOptions();
-                this.game_settings_1.setOptionValue(gamesettings$options, 1);
-                button.displayString = this.game_settings_1.getKeyBinding(GameSettings.Options.getEnumOptions(button.id));
+                GameOptions.Options options$options = ((GuiOptionButton)button).returnEnumOptions();
+                this.game_settings_1.setOptionValue(options$options, 1);
+                button.displayString = this.game_settings_1.getKeyBinding(GameOptions.Options.getEnumOptions(button.id));
             }
 
             if (button.id == 108)
@@ -149,7 +149,7 @@ public class GuiOptions extends GuiScreen implements GuiYesNoCallback
 
             if (button.id == 110)
             {
-                this.mc.gameSettings.saveOptions();
+                this.mc.options.saveOptions();
                 this.mc.displayGuiScreen(new GuiCustomizeSkin(this));
             }
 
@@ -160,49 +160,49 @@ public class GuiOptions extends GuiScreen implements GuiYesNoCallback
 
             if (button.id == 101)
             {
-                this.mc.gameSettings.saveOptions();
+                this.mc.options.saveOptions();
                 this.mc.displayGuiScreen(new GuiVideoSettings(this, this.game_settings_1));
             }
 
             if (button.id == 100)
             {
-                this.mc.gameSettings.saveOptions();
+                this.mc.options.saveOptions();
                 this.mc.displayGuiScreen(new GuiControls(this, this.game_settings_1));
             }
 
             if (button.id == 102)
             {
-                this.mc.gameSettings.saveOptions();
+                this.mc.options.saveOptions();
                 this.mc.displayGuiScreen(new GuiLanguage(this, this.game_settings_1, this.mc.getLanguageManager()));
             }
 
             if (button.id == 103)
             {
-                this.mc.gameSettings.saveOptions();
+                this.mc.options.saveOptions();
                 this.mc.displayGuiScreen(new ScreenChatOptions(this, this.game_settings_1));
             }
             
             if (button.id == 200)
             {
-                this.mc.gameSettings.saveOptions();
+                this.mc.options.saveOptions();
                 this.mc.displayGuiScreen(this.field_146441_g);
             }
 
             if (button.id == 105)
             {
-                this.mc.gameSettings.saveOptions();
+                this.mc.options.saveOptions();
                 this.mc.displayGuiScreen(new GuiScreenResourcePacks(this));
             }
 
             if (button.id == 106)
             {
-                this.mc.gameSettings.saveOptions();
+                this.mc.options.saveOptions();
                 this.mc.displayGuiScreen(new GuiScreenOptionsSounds(this, this.game_settings_1));
             }
 
             if (button.id == 107)
             {
-                this.mc.gameSettings.saveOptions();
+                this.mc.options.saveOptions();
                 IStream istream = this.mc.getTwitchStream();
 
                 if (istream.func_152936_l() && istream.func_152928_D())
@@ -229,7 +229,7 @@ public class GuiOptions extends GuiScreen implements GuiYesNoCallback
     
     public void onGuiClosed()
     {
-        this.mc.gameSettings.saveOptions();
+        this.mc.options.saveOptions();
         super.onGuiClosed();
     }
 }

@@ -25,6 +25,7 @@ import javax.imageio.ImageIO;
 import net.minecraft.client.LoadingScreenRenderer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
+import net.minecraft.client.options.GameOptions;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.RenderGlobal;
 import net.minecraft.client.renderer.texture.DynamicTexture;
@@ -37,7 +38,6 @@ import net.minecraft.client.resources.IResourcePack;
 import net.minecraft.client.resources.ResourcePackRepository;
 import net.minecraft.client.resources.ResourcePackRepository.Entry;
 import net.minecraft.client.resources.model.ModelManager;
-import net.minecraft.client.settings.GameSettings;
 import net.minecraft.server.integrated.IntegratedServer;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.ResourceLocation;
@@ -78,7 +78,7 @@ public class Config
     public static int minecraftVersionInt = -1;
     public static boolean fancyFogAvailable = false;
     public static boolean occlusionAvailable = false;
-    private static GameSettings gameSettings = null;
+    private static GameOptions options = null;
     private static Minecraft minecraft = Minecraft.getMinecraft();
     private static boolean initialized = false;
     private static Thread minecraftThread = null;
@@ -123,11 +123,11 @@ public class Config
         return stringbuffer.toString();
     }
 
-    public static void initGameSettings(GameSettings p_initGameSettings_0_)
+    public static void initoptions(GameOptions p_initoptions_0_)
     {
-        if (gameSettings == null)
+        if (options == null)
         {
-            gameSettings = p_initGameSettings_0_;
+            options = p_initoptions_0_;
             desktopDisplayMode = Display.getDesktopDisplayMode();
             updateAvailableProcessors();
             ReflectorForge.putLaunchBlackboard("optifine.ForgeSplashCompatible", Boolean.TRUE);
@@ -137,7 +137,7 @@ public class Config
     public static void initDisplay()
     {
         checkInitialized();
-        antialiasingLevel = gameSettings.ofAaLevel;
+        antialiasingLevel = options.ofAaLevel;
         checkDisplaySettings();
         checkDisplayMode();
         minecraftThread = Thread.currentThread();
@@ -460,17 +460,17 @@ public class Config
 
     public static boolean isMipmaps()
     {
-        return gameSettings.mipmapLevels > 0;
+        return options.mipmapLevels > 0;
     }
 
     public static int getMipmapLevels()
     {
-        return gameSettings.mipmapLevels;
+        return options.mipmapLevels;
     }
 
     public static int getMipmapType()
     {
-        switch (gameSettings.ofMipmapType)
+        switch (options.ofMipmapType)
         {
             case 0:
                 return 9986;
@@ -512,22 +512,22 @@ public class Config
 
     public static boolean isFogFancy()
     {
-        return !isFancyFogAvailable() ? false : gameSettings.ofFogType == 2;
+        return !isFancyFogAvailable() ? false : options.ofFogType == 2;
     }
 
     public static boolean isFogFast()
     {
-        return gameSettings.ofFogType == 1;
+        return options.ofFogType == 1;
     }
 
     public static boolean isFogOff()
     {
-        return gameSettings.ofFogType == 3;
+        return options.ofFogType == 3;
     }
 
     public static float getFogStart()
     {
-        return gameSettings.ofFogStart;
+        return options.ofFogStart;
     }
 
     public static void dbg(String p_dbg_0_)
@@ -552,32 +552,32 @@ public class Config
 
     public static int getUpdatesPerFrame()
     {
-        return gameSettings.ofChunkUpdates;
+        return options.ofChunkUpdates;
     }
 
     public static boolean isDynamicUpdates()
     {
-        return gameSettings.ofChunkUpdatesDynamic;
+        return options.ofChunkUpdatesDynamic;
     }
 
     public static boolean isRainFancy()
     {
-        return gameSettings.ofRain == 0 ? gameSettings.fancyGraphics : gameSettings.ofRain == 2;
+        return options.ofRain == 0 ? options.fancyGraphics : options.ofRain == 2;
     }
 
     public static boolean isRainOff()
     {
-        return gameSettings.ofRain == 3;
+        return options.ofRain == 3;
     }
 
     public static boolean isCloudsFancy()
     {
-        return gameSettings.ofClouds != 0 ? gameSettings.ofClouds == 2 : (isShaders() && !Shaders.shaderPackClouds.isDefault() ? Shaders.shaderPackClouds.isFancy() : (texturePackClouds != 0 ? texturePackClouds == 2 : gameSettings.fancyGraphics));
+        return options.ofClouds != 0 ? options.ofClouds == 2 : (isShaders() && !Shaders.shaderPackClouds.isDefault() ? Shaders.shaderPackClouds.isFancy() : (texturePackClouds != 0 ? texturePackClouds == 2 : options.fancyGraphics));
     }
 
     public static boolean isCloudsOff()
     {
-        return gameSettings.ofClouds != 0 ? gameSettings.ofClouds == 3 : (isShaders() && !Shaders.shaderPackClouds.isDefault() ? Shaders.shaderPackClouds.isOff() : (texturePackClouds != 0 ? texturePackClouds == 3 : false));
+        return options.ofClouds != 0 ? options.ofClouds == 3 : (isShaders() && !Shaders.shaderPackClouds.isDefault() ? Shaders.shaderPackClouds.isOff() : (texturePackClouds != 0 ? texturePackClouds == 3 : false));
     }
 
     public static void updateTexturePackClouds()
@@ -638,22 +638,22 @@ public class Config
 
     public static boolean isTreesFancy()
     {
-        return gameSettings.ofTrees == 0 ? gameSettings.fancyGraphics : gameSettings.ofTrees != 1;
+        return options.ofTrees == 0 ? options.fancyGraphics : options.ofTrees != 1;
     }
 
     public static boolean isTreesSmart()
     {
-        return gameSettings.ofTrees == 4;
+        return options.ofTrees == 4;
     }
 
     public static boolean isCullFacesLeaves()
     {
-        return gameSettings.ofTrees == 0 ? !gameSettings.fancyGraphics : gameSettings.ofTrees == 4;
+        return options.ofTrees == 0 ? !options.fancyGraphics : options.ofTrees == 4;
     }
 
     public static boolean isDroppedItemsFancy()
     {
-        return gameSettings.ofDroppedItems == 0 ? gameSettings.fancyGraphics : gameSettings.ofDroppedItems == 2;
+        return options.ofDroppedItems == 0 ? options.fancyGraphics : options.ofDroppedItems == 2;
     }
 
     public static int limit(int p_limit_0_, int p_limit_1_, int p_limit_2_)
@@ -678,87 +678,87 @@ public class Config
 
     public static boolean isAnimatedWater()
     {
-        return gameSettings.ofAnimatedWater != 2;
+        return options.ofAnimatedWater != 2;
     }
 
     public static boolean isGeneratedWater()
     {
-        return gameSettings.ofAnimatedWater == 1;
+        return options.ofAnimatedWater == 1;
     }
 
     public static boolean isAnimatedPortal()
     {
-        return gameSettings.ofAnimatedPortal;
+        return options.ofAnimatedPortal;
     }
 
     public static boolean isAnimatedLava()
     {
-        return gameSettings.ofAnimatedLava != 2;
+        return options.ofAnimatedLava != 2;
     }
 
     public static boolean isGeneratedLava()
     {
-        return gameSettings.ofAnimatedLava == 1;
+        return options.ofAnimatedLava == 1;
     }
 
     public static boolean isAnimatedFire()
     {
-        return gameSettings.ofAnimatedFire;
+        return options.ofAnimatedFire;
     }
 
     public static boolean isAnimatedRedstone()
     {
-        return gameSettings.ofAnimatedRedstone;
+        return options.ofAnimatedRedstone;
     }
 
     public static boolean isAnimatedExplosion()
     {
-        return gameSettings.ofAnimatedExplosion;
+        return options.ofAnimatedExplosion;
     }
 
     public static boolean isAnimatedFlame()
     {
-        return gameSettings.ofAnimatedFlame;
+        return options.ofAnimatedFlame;
     }
 
     public static boolean isAnimatedSmoke()
     {
-        return gameSettings.ofAnimatedSmoke;
+        return options.ofAnimatedSmoke;
     }
 
     public static boolean isVoidParticles()
     {
-        return gameSettings.ofVoidParticles;
+        return options.ofVoidParticles;
     }
 
     public static boolean isWaterParticles()
     {
-        return gameSettings.ofWaterParticles;
+        return options.ofWaterParticles;
     }
 
     public static boolean isRainSplash()
     {
-        return gameSettings.ofRainSplash;
+        return options.ofRainSplash;
     }
 
     public static boolean isPortalParticles()
     {
-        return gameSettings.ofPortalParticles;
+        return options.ofPortalParticles;
     }
 
     public static boolean isPotionParticles()
     {
-        return gameSettings.ofPotionParticles;
+        return options.ofPotionParticles;
     }
 
     public static boolean isFireworkParticles()
     {
-        return gameSettings.ofFireworkParticles;
+        return options.ofFireworkParticles;
     }
 
     public static float getAmbientOcclusionLevel()
     {
-        return isShaders() && Shaders.aoLevel >= 0.0F ? Shaders.aoLevel : gameSettings.ofAoLevel;
+        return isShaders() && Shaders.aoLevel >= 0.0F ? Shaders.aoLevel : options.ofAoLevel;
     }
 
     public static String arrayToString(Object[] p_arrayToString_0_)
@@ -977,27 +977,27 @@ public class Config
 
     public static boolean isBetterGrass()
     {
-        return gameSettings.ofBetterGrass != 3;
+        return options.ofBetterGrass != 3;
     }
 
     public static boolean isBetterGrassFancy()
     {
-        return gameSettings.ofBetterGrass == 2;
+        return options.ofBetterGrass == 2;
     }
 
     public static boolean isWeatherEnabled()
     {
-        return gameSettings.ofWeather;
+        return options.ofWeather;
     }
 
     public static boolean isSkyEnabled()
     {
-        return gameSettings.ofSky;
+        return options.ofSky;
     }
 
     public static boolean isSunMoonEnabled()
     {
-        return gameSettings.ofSunMoon;
+        return options.ofSunMoon;
     }
 
     public static boolean isSunTexture()
@@ -1012,12 +1012,12 @@ public class Config
 
     public static boolean isVignetteEnabled()
     {
-        return isShaders() && !Shaders.isVignette() ? false : (gameSettings.ofVignette == 0 ? gameSettings.fancyGraphics : gameSettings.ofVignette == 2);
+        return isShaders() && !Shaders.isVignette() ? false : (options.ofVignette == 0 ? options.fancyGraphics : options.ofVignette == 2);
     }
 
     public static boolean isStarsEnabled()
     {
-        return gameSettings.ofStars;
+        return options.ofStars;
     }
 
     public static void sleep(long p_sleep_0_)
@@ -1034,27 +1034,27 @@ public class Config
 
     public static boolean isTimeDayOnly()
     {
-        return gameSettings.ofTime == 1;
+        return options.ofTime == 1;
     }
 
     public static boolean isTimeDefault()
     {
-        return gameSettings.ofTime == 0;
+        return options.ofTime == 0;
     }
 
     public static boolean isTimeNightOnly()
     {
-        return gameSettings.ofTime == 2;
+        return options.ofTime == 2;
     }
 
     public static boolean isClearWater()
     {
-        return gameSettings.ofClearWater;
+        return options.ofClearWater;
     }
 
     public static int getAnisotropicFilterLevel()
     {
-        return gameSettings.ofAfLevel;
+        return options.ofAfLevel;
     }
 
     public static boolean isAnisotropicFiltering()
@@ -1074,7 +1074,7 @@ public class Config
 
     public static boolean isAntialiasingConfigured()
     {
-        return getGameSettings().ofAaLevel > 0;
+        return getoptions().ofAaLevel > 0;
     }
 
     public static boolean isMultiTexture()
@@ -1089,12 +1089,12 @@ public class Config
 
     public static boolean isDrippingWaterLava()
     {
-        return gameSettings.ofDrippingWaterLava;
+        return options.ofDrippingWaterLava;
     }
 
     public static boolean isBetterSnow()
     {
-        return gameSettings.ofBetterSnow;
+        return options.ofBetterSnow;
     }
 
     public static Dimension getFullscreenDimension()
@@ -1103,13 +1103,13 @@ public class Config
         {
             return null;
         }
-        else if (gameSettings == null)
+        else if (options == null)
         {
             return new Dimension(desktopDisplayMode.getWidth(), desktopDisplayMode.getHeight());
         }
         else
         {
-            String s = gameSettings.ofFullscreenMode;
+            String s = options.ofFullscreenMode;
 
             if (s.equals("Default"))
             {
@@ -1345,22 +1345,22 @@ public class Config
 
     public static boolean isAnimatedTerrain()
     {
-        return gameSettings.ofAnimatedTerrain;
+        return options.ofAnimatedTerrain;
     }
 
     public static boolean isAnimatedTextures()
     {
-        return gameSettings.ofAnimatedTextures;
+        return options.ofAnimatedTextures;
     }
 
     public static boolean isSwampColors()
     {
-        return gameSettings.ofSwampColors;
+        return options.ofSwampColors;
     }
 
     public static boolean isRandomMobs()
     {
-        return gameSettings.ofRandomMobs;
+        return options.ofRandomMobs;
     }
 
     public static void checkGlError(String p_checkGlError_0_)
@@ -1376,52 +1376,52 @@ public class Config
 
     public static boolean isSmoothBiomes()
     {
-        return gameSettings.ofSmoothBiomes;
+        return options.ofSmoothBiomes;
     }
 
     public static boolean isCustomColors()
     {
-        return gameSettings.ofCustomColors;
+        return options.ofCustomColors;
     }
 
     public static boolean isCustomSky()
     {
-        return gameSettings.ofCustomSky;
+        return options.ofCustomSky;
     }
 
     public static boolean isCustomFonts()
     {
-        return gameSettings.ofCustomFonts;
+        return options.ofCustomFonts;
     }
 
     public static boolean isShowCapes()
     {
-        return gameSettings.ofShowCapes;
+        return options.ofShowCapes;
     }
 
     public static boolean isConnectedTextures()
     {
-        return gameSettings.ofConnectedTextures != 3;
+        return options.ofConnectedTextures != 3;
     }
 
     public static boolean isNaturalTextures()
     {
-        return gameSettings.ofNaturalTextures;
+        return options.ofNaturalTextures;
     }
 
     public static boolean isConnectedTexturesFancy()
     {
-        return gameSettings.ofConnectedTextures == 2;
+        return options.ofConnectedTextures == 2;
     }
 
     public static boolean isFastRender()
     {
-        return gameSettings.ofFastRender;
+        return options.ofFastRender;
     }
 
     public static boolean isTranslucentBlocksFancy()
     {
-        return gameSettings.ofTranslucentBlocks == 0 ? gameSettings.fancyGraphics : gameSettings.ofTranslucentBlocks == 2;
+        return options.ofTranslucentBlocks == 0 ? options.fancyGraphics : options.ofTranslucentBlocks == 2;
     }
 
     public static boolean isShaders()
@@ -1506,9 +1506,9 @@ public class Config
         }
     }
 
-    public static GameSettings getGameSettings()
+    public static GameOptions getoptions()
     {
-        return gameSettings;
+        return options;
     }
 
     public static String getNewRelease()
@@ -1671,33 +1671,33 @@ public class Config
 
     public static boolean isSmoothWorld()
     {
-        return gameSettings.ofSmoothWorld;
+        return options.ofSmoothWorld;
     }
 
     public static boolean isLazyChunkLoading()
     {
-        return !isSingleProcessor() ? false : gameSettings.ofLazyChunkLoading;
+        return !isSingleProcessor() ? false : options.ofLazyChunkLoading;
     }
 
     public static boolean isDynamicFov()
     {
-        return gameSettings.ofDynamicFov;
+        return options.ofDynamicFov;
     }
 
     public static boolean isAlternateBlocks()
     {
-        return gameSettings.allowBlockAlternatives;
+        return options.allowBlockAlternatives;
     }
 
     public static int getChunkViewDistance()
     {
-        if (gameSettings == null)
+        if (options == null)
         {
             return 10;
         }
         else
         {
-            int i = gameSettings.renderDistanceChunks;
+            int i = options.renderDistanceChunks;
             return i;
         }
     }
@@ -1904,7 +1904,7 @@ public class Config
                 minecraft.loadingScreen = new LoadingScreenRenderer(minecraft);
                 updateFramebufferSize();
                 Display.setFullscreen(true);
-                minecraft.gameSettings.updateVSync();
+                minecraft.options.updateVSync();
                 GlStateManager.enableTexture2D();
             }
             else
@@ -1916,7 +1916,7 @@ public class Config
 
                 desktopModeChecked = true;
                 fullscreenModeChecked = false;
-                minecraft.gameSettings.updateVSync();
+                minecraft.options.updateVSync();
                 Display.update();
                 GlStateManager.enableTexture2D();
                 Display.setResizable(false);
@@ -1926,8 +1926,8 @@ public class Config
         catch (Exception exception)
         {
             exception.printStackTrace();
-            gameSettings.ofFullscreenMode = "Default";
-            gameSettings.saveOfOptions();
+            options.ofFullscreenMode = "Default";
+            options.saveOfOptions();
         }
     }
 
@@ -1989,7 +1989,7 @@ public class Config
 
     public static boolean isCustomItems()
     {
-        return gameSettings.ofCustomItems;
+        return options.ofCustomItems;
     }
 
     public static void drawFps()
@@ -2138,12 +2138,12 @@ public class Config
 
     public static boolean isDynamicLights()
     {
-        return gameSettings.ofDynamicLights != 3;
+        return options.ofDynamicLights != 3;
     }
 
     public static boolean isDynamicLightsFast()
     {
-        return gameSettings.ofDynamicLights == 1;
+        return options.ofDynamicLights == 1;
     }
 
     public static boolean isDynamicHandLight()

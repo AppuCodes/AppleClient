@@ -1,8 +1,8 @@
 package optifine;
 
-import net.minecraft.client.settings.GameSettings;
+import net.minecraft.client.options.GameOptions;
 
 public interface IOptionControl
 {
-    GameSettings.Options getOption();
+    GameOptions.Options getOption();
 }

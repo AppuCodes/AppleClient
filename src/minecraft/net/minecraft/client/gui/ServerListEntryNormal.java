@@ -182,7 +182,7 @@ public class ServerListEntryNormal implements GuiListExtended.IGuiListEntry
             this.field_148303_c.setHoveringText(s);
         }
 
-        if (this.mc.gameSettings.touchscreen || isSelected)
+        if (this.mc.options.touchscreen || isSelected)
         {
             this.mc.getTextureManager().bindTexture(SERVER_SELECTION_BUTTONS);
             Gui.drawRect(x, y, x + 32, y + 32, -1601138544);

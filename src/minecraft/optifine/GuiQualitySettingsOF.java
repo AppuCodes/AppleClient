@@ -4,18 +4,18 @@ import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiOptionButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.ScaledResolution;
+import net.minecraft.client.options.GameOptions;
 import net.minecraft.client.resources.I18n;
-import net.minecraft.client.settings.GameSettings;
 
 public class GuiQualitySettingsOF extends GuiScreen
 {
     private GuiScreen prevScreen;
     protected String title;
-    private GameSettings settings;
-    private static GameSettings.Options[] enumOptions = new GameSettings.Options[] {GameSettings.Options.MIPMAP_LEVELS, GameSettings.Options.MIPMAP_TYPE, GameSettings.Options.AF_LEVEL, GameSettings.Options.AA_LEVEL, GameSettings.Options.CLEAR_WATER, GameSettings.Options.RANDOM_MOBS, GameSettings.Options.BETTER_GRASS, GameSettings.Options.BETTER_SNOW, GameSettings.Options.CUSTOM_FONTS, GameSettings.Options.CUSTOM_COLORS, GameSettings.Options.SWAMP_COLORS, GameSettings.Options.SMOOTH_BIOMES, GameSettings.Options.CONNECTED_TEXTURES, GameSettings.Options.NATURAL_TEXTURES, GameSettings.Options.CUSTOM_SKY, GameSettings.Options.CUSTOM_ITEMS, GameSettings.Options.DYNAMIC_LIGHTS};
+    private GameOptions settings;
+    private static GameOptions.Options[] enumOptions = new GameOptions.Options[] {GameOptions.Options.MIPMAP_LEVELS, GameOptions.Options.MIPMAP_TYPE, GameOptions.Options.AF_LEVEL, GameOptions.Options.AA_LEVEL, GameOptions.Options.CLEAR_WATER, GameOptions.Options.RANDOM_MOBS, GameOptions.Options.BETTER_GRASS, GameOptions.Options.BETTER_SNOW, GameOptions.Options.CUSTOM_FONTS, GameOptions.Options.CUSTOM_COLORS, GameOptions.Options.SWAMP_COLORS, GameOptions.Options.SMOOTH_BIOMES, GameOptions.Options.CONNECTED_TEXTURES, GameOptions.Options.NATURAL_TEXTURES, GameOptions.Options.CUSTOM_SKY, GameOptions.Options.CUSTOM_ITEMS, GameOptions.Options.DYNAMIC_LIGHTS};
     private TooltipManager tooltipManager = new TooltipManager(this);
 
-    public GuiQualitySettingsOF(GuiScreen p_i53_1_, GameSettings p_i53_2_)
+    public GuiQualitySettingsOF(GuiScreen p_i53_1_, GameOptions p_i53_2_)
     {
         this.prevScreen = p_i53_1_;
         this.settings = p_i53_2_;
@@ -32,17 +32,17 @@ public class GuiQualitySettingsOF extends GuiScreen
 
         for (int i = 0; i < enumOptions.length; ++i)
         {
-            GameSettings.Options gamesettings$options = enumOptions[i];
+            GameOptions.Options options$options = enumOptions[i];
             int j = this.width / 2 - 155 + i % 2 * 160;
             int k = this.height / 6 + 21 * (i / 2) - 12;
 
-            if (!gamesettings$options.getEnumFloat())
+            if (!options$options.getEnumFloat())
             {
-                this.buttonList.add(new GuiOptionButtonOF(gamesettings$options.returnEnumOrdinal(), j, k, gamesettings$options, this.settings.getKeyBinding(gamesettings$options)));
+                this.buttonList.add(new GuiOptionButtonOF(options$options.returnEnumOrdinal(), j, k, options$options, this.settings.getKeyBinding(options$options)));
             }
             else
             {
-                this.buttonList.add(new GuiOptionSliderOF(gamesettings$options.returnEnumOrdinal(), j, k, gamesettings$options));
+                this.buttonList.add(new GuiOptionSliderOF(options$options.returnEnumOrdinal(), j, k, options$options));
             }
         }
 
@@ -59,16 +59,16 @@ public class GuiQualitySettingsOF extends GuiScreen
             if (button.id < 200 && button instanceof GuiOptionButton)
             {
                 this.settings.setOptionValue(((GuiOptionButton)button).returnEnumOptions(), 1);
-                button.displayString = this.settings.getKeyBinding(GameSettings.Options.getEnumOptions(button.id));
+                button.displayString = this.settings.getKeyBinding(GameOptions.Options.getEnumOptions(button.id));
             }
 
             if (button.id == 200)
             {
-                this.mc.gameSettings.saveOptions();
+                this.mc.options.saveOptions();
                 this.mc.displayGuiScreen(this.prevScreen);
             }
 
-            if (button.id != GameSettings.Options.AA_LEVEL.ordinal())
+            if (button.id != GameOptions.Options.AA_LEVEL.ordinal())
             {
                 ScaledResolution scaledresolution = ScaledResolution.get();
                 this.setWorldAndResolution(this.mc, scaledresolution.getScaledWidth(), scaledresolution.getScaledHeight());

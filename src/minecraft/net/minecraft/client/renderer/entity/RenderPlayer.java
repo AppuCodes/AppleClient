@@ -256,7 +256,7 @@ public class RenderPlayer extends RendererLivingEntity<AbstractClientPlayer> imp
     
     private void renderFirstPersonArm(AbstractClientPlayer player, int layerId)
     {
-        if (player instanceof EntityPlayerSP && Minecraft.getMinecraft().gameSettings.thirdPersonView == 0)
+        if (player instanceof EntityPlayerSP && Minecraft.getMinecraft().options.thirdPersonView == 0)
             return;
         
         ModelPlayer modelplayer = getMainModel();

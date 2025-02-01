@@ -46,7 +46,7 @@ public class RenderEntityItem extends Render<EntityItem>
 
             if (flag || this.renderManager.options != null)
             {
-                if ((Minecraft.getMinecraft().gameSettings.ofDroppedItems == 2 || (Minecraft.getMinecraft().gameSettings.ofDroppedItems == 0 && Minecraft.getMinecraft().isFancyGraphicsEnabled())) || flag)
+                if ((Minecraft.getMinecraft().options.ofDroppedItems == 2 || (Minecraft.getMinecraft().options.ofDroppedItems == 0 && Minecraft.getMinecraft().isFancyGraphicsEnabled())) || flag)
                 {
                     float f3 = (((float)itemIn.getAge() + p_177077_8_) / 20.0F + itemIn.hoverStart) * (180F / (float)Math.PI);
                     GlStateManager.rotate(f3, 0.0F, 1.0F, 0.0F);
@@ -116,7 +116,7 @@ public class RenderEntityItem extends Render<EntityItem>
         IBakedModel ibakedmodel = this.itemRenderer.getItemModelMesher().getItemModel(itemstack);
         int i = this.func_177077_a(entity, x, y, z, partialTicks, ibakedmodel);
         
-        if (Minecraft.getMinecraft().gameSettings.ofDroppedItems != 2 && !(Minecraft.getMinecraft().gameSettings.ofDroppedItems == 0 && Minecraft.getMinecraft().isFancyGraphicsEnabled()))
+        if (Minecraft.getMinecraft().options.ofDroppedItems != 2 && !(Minecraft.getMinecraft().options.ofDroppedItems == 0 && Minecraft.getMinecraft().isFancyGraphicsEnabled()))
         {
             if (!ibakedmodel.isGui3d())
             {
@@ -169,7 +169,7 @@ public class RenderEntityItem extends Render<EntityItem>
             this.renderManager.renderEngine.getTexture(this.getEntityTexture(entity)).restoreLastBlurMipmap();
         }
         
-        if (Minecraft.getMinecraft().gameSettings.ofDroppedItems != 2 && !(Minecraft.getMinecraft().gameSettings.ofDroppedItems == 0 && Minecraft.getMinecraft().isFancyGraphicsEnabled()))
+        if (Minecraft.getMinecraft().options.ofDroppedItems != 2 && !(Minecraft.getMinecraft().options.ofDroppedItems == 0 && Minecraft.getMinecraft().isFancyGraphicsEnabled()))
         {
             if (!ibakedmodel.isGui3d())
             {

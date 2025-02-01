@@ -22,6 +22,7 @@ import net.minecraft.client.model.ModelSlime;
 import net.minecraft.client.model.ModelSquid;
 import net.minecraft.client.model.ModelWolf;
 import net.minecraft.client.model.ModelZombie;
+import net.minecraft.client.options.GameOptions;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.RenderGlobal;
@@ -33,7 +34,6 @@ import net.minecraft.client.renderer.tileentity.RenderEnderCrystal;
 import net.minecraft.client.renderer.tileentity.RenderItemFrame;
 import net.minecraft.client.renderer.tileentity.RenderWitherSkull;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
-import net.minecraft.client.settings.GameSettings;
 import net.minecraft.crash.CrashReport;
 import net.minecraft.crash.CrashReportCategory;
 import net.minecraft.entity.Entity;
@@ -134,8 +134,8 @@ public class RenderManager
     public float playerViewY;
     public float playerViewX;
 
-    /** Reference to the GameSettings object. */
-    public GameSettings options;
+    /** Reference to the options object. */
+    public GameOptions options;
     public double viewerPosX;
     public double viewerPosY;
     public double viewerPosZ;
@@ -253,7 +253,7 @@ public class RenderManager
         }
     }
 
-    public void cacheActiveRenderInfo(World worldIn, FontRenderer textRendererIn, Entity livingPlayerIn, Entity pointedEntityIn, GameSettings optionsIn, float partialTicks)
+    public void cacheActiveRenderInfo(World worldIn, FontRenderer textRendererIn, Entity livingPlayerIn, Entity pointedEntityIn, GameOptions optionsIn, float partialTicks)
     {
         this.worldObj = worldIn;
         this.options = optionsIn;

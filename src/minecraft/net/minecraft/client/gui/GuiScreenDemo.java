@@ -2,9 +2,10 @@ package net.minecraft.client.gui;
 
 import java.io.IOException;
 import java.net.URI;
+
+import net.minecraft.client.options.GameOptions;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.resources.I18n;
-import net.minecraft.client.settings.GameSettings;
 import net.minecraft.util.ResourceLocation;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -86,11 +87,11 @@ public class GuiScreenDemo extends GuiScreen
         int j = (this.height - 166) / 2 + 8;
         this.fontRendererObj.drawString(I18n.format("demo.help.title", new Object[0]), i, j, 2039583);
         j = j + 12;
-        GameSettings gamesettings = this.mc.gameSettings;
-        this.fontRendererObj.drawString(I18n.format("demo.help.movementShort", new Object[] {GameSettings.getKeyDisplayString(gamesettings.keyBindForward.getKeyCode()), GameSettings.getKeyDisplayString(gamesettings.keyBindLeft.getKeyCode()), GameSettings.getKeyDisplayString(gamesettings.keyBindBack.getKeyCode()), GameSettings.getKeyDisplayString(gamesettings.keyBindRight.getKeyCode())}), i, j, 5197647);
+        GameOptions options = this.mc.options;
+        this.fontRendererObj.drawString(I18n.format("demo.help.movementShort", new Object[] {GameOptions.getKeyDisplayString(options.keyBindForward.getKeyCode()), GameOptions.getKeyDisplayString(options.keyBindLeft.getKeyCode()), GameOptions.getKeyDisplayString(options.keyBindBack.getKeyCode()), GameOptions.getKeyDisplayString(options.keyBindRight.getKeyCode())}), i, j, 5197647);
         this.fontRendererObj.drawString(I18n.format("demo.help.movementMouse", new Object[0]), i, j + 12, 5197647);
-        this.fontRendererObj.drawString(I18n.format("demo.help.jump", new Object[] {GameSettings.getKeyDisplayString(gamesettings.keyBindJump.getKeyCode())}), i, j + 24, 5197647);
-        this.fontRendererObj.drawString(I18n.format("demo.help.inventory", new Object[] {GameSettings.getKeyDisplayString(gamesettings.keyBindInventory.getKeyCode())}), i, j + 36, 5197647);
+        this.fontRendererObj.drawString(I18n.format("demo.help.jump", new Object[] {GameOptions.getKeyDisplayString(options.keyBindJump.getKeyCode())}), i, j + 24, 5197647);
+        this.fontRendererObj.drawString(I18n.format("demo.help.inventory", new Object[] {GameOptions.getKeyDisplayString(options.keyBindInventory.getKeyCode())}), i, j + 36, 5197647);
         this.fontRendererObj.drawSplitString(I18n.format("demo.help.fullWrapped", new Object[0]), i, j + 68, 218, 2039583);
         super.drawScreen(mouseX, mouseY, partialTicks);
     }

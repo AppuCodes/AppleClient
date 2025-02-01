@@ -38,11 +38,11 @@ import net.minecraft.client.multiplayer.PlayerControllerMP;
 import net.minecraft.client.multiplayer.ServerData;
 import net.minecraft.client.multiplayer.ServerList;
 import net.minecraft.client.multiplayer.WorldClient;
+import net.minecraft.client.options.GameOptions;
 import net.minecraft.client.particle.EntityPickupFX;
 import net.minecraft.client.player.inventory.ContainerLocalMenu;
 import net.minecraft.client.player.inventory.LocalBlockIntercommunication;
 import net.minecraft.client.resources.I18n;
-import net.minecraft.client.settings.GameSettings;
 import net.minecraft.client.stream.MetadataAchievement;
 import net.minecraft.client.stream.MetadataCombat;
 import net.minecraft.client.stream.MetadataPlayerDeath;
@@ -279,14 +279,14 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient
         PacketThreadUtil.checkThreadAndEnqueue(packetIn, this, this.gameController);
         this.gameController.playerController = new PlayerControllerMP(this.gameController, this);
         this.clientWorldController = new WorldClient(this, new WorldSettings(0L, packetIn.getGameType(), false, packetIn.isHardcoreMode(), packetIn.getWorldType()), packetIn.getDimension(), packetIn.getDifficulty());
-        this.gameController.gameSettings.difficulty = packetIn.getDifficulty();
+        this.gameController.options.difficulty = packetIn.getDifficulty();
         this.gameController.loadWorld(this.clientWorldController);
         this.gameController.player.dimension = packetIn.getDimension();
         this.gameController.player.setEntityId(packetIn.getEntityId());
         this.currentServerMaxPlayers = packetIn.getMaxPlayers();
         this.gameController.player.setReducedDebug(packetIn.isReducedDebugInfo());
         this.gameController.playerController.setGameType(packetIn.getGameType());
-        this.gameController.gameSettings.sendSettingsToServer();
+        this.gameController.options.sendSettingsToServer();
         this.netManager.sendPacket(new C17PacketCustomPayload("MC|Brand", (new PacketBuffer(Unpooled.buffer())).writeString(ClientBrandRetriever.getClientModName())));
     }
 
@@ -997,8 +997,8 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient
 
             if (flag)
             {
-                GameSettings gamesettings = this.gameController.gameSettings;
-                this.gameController.ingameGUI.setRecordPlaying(I18n.format("mount.onboard", new Object[] {GameSettings.getKeyDisplayString(gamesettings.keyBindSneak.getKeyCode())}), false);
+                GameOptions options = this.gameController.options;
+                this.gameController.ingameGUI.setRecordPlaying(I18n.format("mount.onboard", new Object[] {GameOptions.getKeyDisplayString(options.keyBindSneak.getKeyCode())}), false);
             }
         }
         else if (packetIn.getLeash() == 1 && entity instanceof EntityLiving)
@@ -1381,7 +1381,7 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient
         }
         else if (i == 5)
         {
-            GameSettings gamesettings = this.gameController.gameSettings;
+            GameOptions options = this.gameController.options;
 
             if (f == 0.0F)
             {
@@ -1389,15 +1389,15 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient
             }
             else if (f == 101.0F)
             {
-                this.gameController.ingameGUI.getChatGUI().printChatMessage(new ChatComponentTranslation("demo.help.movement", new Object[] {GameSettings.getKeyDisplayString(gamesettings.keyBindForward.getKeyCode()), GameSettings.getKeyDisplayString(gamesettings.keyBindLeft.getKeyCode()), GameSettings.getKeyDisplayString(gamesettings.keyBindBack.getKeyCode()), GameSettings.getKeyDisplayString(gamesettings.keyBindRight.getKeyCode())}));
+                this.gameController.ingameGUI.getChatGUI().printChatMessage(new ChatComponentTranslation("demo.help.movement", new Object[] {GameOptions.getKeyDisplayString(options.keyBindForward.getKeyCode()), GameOptions.getKeyDisplayString(options.keyBindLeft.getKeyCode()), GameOptions.getKeyDisplayString(options.keyBindBack.getKeyCode()), GameOptions.getKeyDisplayString(options.keyBindRight.getKeyCode())}));
             }
             else if (f == 102.0F)
             {
-                this.gameController.ingameGUI.getChatGUI().printChatMessage(new ChatComponentTranslation("demo.help.jump", new Object[] {GameSettings.getKeyDisplayString(gamesettings.keyBindJump.getKeyCode())}));
+                this.gameController.ingameGUI.getChatGUI().printChatMessage(new ChatComponentTranslation("demo.help.jump", new Object[] {GameOptions.getKeyDisplayString(options.keyBindJump.getKeyCode())}));
             }
             else if (f == 103.0F)
             {
-                this.gameController.ingameGUI.getChatGUI().printChatMessage(new ChatComponentTranslation("demo.help.inventory", new Object[] {GameSettings.getKeyDisplayString(gamesettings.keyBindInventory.getKeyCode())}));
+                this.gameController.ingameGUI.getChatGUI().printChatMessage(new ChatComponentTranslation("demo.help.inventory", new Object[] {GameOptions.getKeyDisplayString(options.keyBindInventory.getKeyCode())}));
             }
         }
         else if (i == 6)
@@ -1468,8 +1468,8 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient
 
                     if (statbase == AchievementList.openInventory)
                     {
-                        this.gameController.gameSettings.showInventoryAchievementHint = false;
-                        this.gameController.gameSettings.saveOptions();
+                        this.gameController.options.showInventoryAchievementHint = false;
+                        this.gameController.options.saveOptions();
                     }
                 }
 
@@ -1479,7 +1479,7 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient
             this.gameController.player.getStatFileWriter().unlockAchievement(this.gameController.player, statbase, i);
         }
 
-        if (!this.field_147308_k && !flag && this.gameController.gameSettings.showInventoryAchievementHint)
+        if (!this.field_147308_k && !flag && this.gameController.options.showInventoryAchievementHint)
         {
             this.gameController.guiAchievement.displayUnformattedAchievement(AchievementList.openInventory);
         }

@@ -119,7 +119,7 @@ public class CustomSky
     {
         if (worldSkyLayers != null)
         {
-            if (Config.getGameSettings().renderDistanceChunks >= 8)
+            if (Config.getoptions().renderDistanceChunks >= 8)
             {
                 int i = p_renderSky_0_.provider.getDimensionId();
 
@@ -155,7 +155,7 @@ public class CustomSky
         {
             return false;
         }
-        else if (Config.getGameSettings().renderDistanceChunks < 8)
+        else if (Config.getoptions().renderDistanceChunks < 8)
         {
             return false;
         }

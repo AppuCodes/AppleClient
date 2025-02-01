@@ -5,10 +5,10 @@ import java.util.List;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.BlockStateBase;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.options.GameOptions;
 import net.minecraft.client.renderer.BlockModelRenderer;
 import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.renderer.block.model.BreakingFour;
-import net.minecraft.client.settings.GameSettings;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.IBlockAccess;
@@ -18,7 +18,7 @@ public class RenderEnv
     private IBlockAccess blockAccess;
     private IBlockState blockState;
     private BlockPos blockPos;
-    private GameSettings gameSettings;
+    private GameOptions options;
     private int blockId = -1;
     private int metadata = -1;
     private int breakingAnimation = -1;
@@ -34,7 +34,7 @@ public class RenderEnv
         this.blockAccess = p_i94_1_;
         this.blockState = p_i94_2_;
         this.blockPos = p_i94_3_;
-        this.gameSettings = Config.getGameSettings();
+        this.options = Config.getoptions();
     }
 
     public static RenderEnv getInstance(IBlockAccess p_getInstance_0_, IBlockState p_getInstance_1_, BlockPos p_getInstance_2_)

@@ -6,8 +6,8 @@ import java.util.List;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.options.GameOptions;
 import net.minecraft.client.resources.I18n;
-import net.minecraft.client.settings.GameSettings;
 import optifine.Config;
 import optifine.GuiScreenOF;
 import optifine.Lang;
@@ -17,7 +17,7 @@ public class GuiShaderOptions extends GuiScreenOF
 {
     private GuiScreen prevScreen;
     protected String title;
-    private GameSettings settings;
+    private GameOptions settings;
     private int lastMouseX;
     private int lastMouseY;
     private long mouseStillTime;
@@ -28,7 +28,7 @@ public class GuiShaderOptions extends GuiScreenOF
     public static final String OPTION_EMPTY = "<empty>";
     public static final String OPTION_REST = "*";
 
-    public GuiShaderOptions(GuiScreen guiscreen, GameSettings gamesettings)
+    public GuiShaderOptions(GuiScreen guiscreen, GameOptions options)
     {
         this.lastMouseX = 0;
         this.lastMouseY = 0;
@@ -38,12 +38,12 @@ public class GuiShaderOptions extends GuiScreenOF
         this.changed = false;
         this.title = "Shader Options";
         this.prevScreen = guiscreen;
-        this.settings = gamesettings;
+        this.settings = options;
     }
 
-    public GuiShaderOptions(GuiScreen guiscreen, GameSettings gamesettings, String screenName)
+    public GuiShaderOptions(GuiScreen guiscreen, GameOptions options, String screenName)
     {
-        this(guiscreen, gamesettings);
+        this(guiscreen, options);
         this.screenName = screenName;
 
         if (screenName != null)

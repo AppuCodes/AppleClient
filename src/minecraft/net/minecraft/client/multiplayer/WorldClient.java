@@ -302,7 +302,7 @@ public class WorldClient extends World
 
     protected int getRenderDistanceChunks()
     {
-        return this.mc.gameSettings.renderDistanceChunks;
+        return this.mc.options.renderDistanceChunks;
     }
 
     public void doVoidFogParticles(int p_73029_1_, int p_73029_2_, int p_73029_3_)

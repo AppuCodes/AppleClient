@@ -3,7 +3,7 @@ package optifine;
 import net.minecraft.block.BlockLeavesBase;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.settings.GameSettings;
+import net.minecraft.client.options.GameOptions;
 import net.minecraft.entity.Entity;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.BlockPos;
@@ -14,7 +14,7 @@ import net.minecraft.world.chunk.IChunkProvider;
 
 public class ClearWater
 {
-    public static void updateWaterOpacity(GameSettings p_updateWaterOpacity_0_, World p_updateWaterOpacity_1_)
+    public static void updateWaterOpacity(GameOptions p_updateWaterOpacity_0_, World p_updateWaterOpacity_1_)
     {
         if (p_updateWaterOpacity_0_ != null)
         {

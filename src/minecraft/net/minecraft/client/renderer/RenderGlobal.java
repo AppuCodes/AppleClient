@@ -325,7 +325,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
 
     protected boolean isRenderEntityOutlines()
     {
-        return !Config.isFastRender() && !Config.isShaders() && !Config.isAntialiasing() ? this.entityOutlineFramebuffer != null && this.entityOutlineShader != null && this.mc.player != null && this.mc.player.isSpectator() && this.mc.gameSettings.keyBindSpectatorOutlines.isKeyDown() : false;
+        return !Config.isFastRender() && !Config.isShaders() && !Config.isAntialiasing() ? this.entityOutlineFramebuffer != null && this.entityOutlineShader != null && this.mc.player != null && this.mc.player.isSpectator() && this.mc.options.keyBindSpectatorOutlines.isKeyDown() : false;
     }
 
     private void generateSky2()
@@ -546,7 +546,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
                 DynamicLights.clear();
             }
 
-            this.renderDistanceChunks = this.mc.gameSettings.renderDistanceChunks;
+            this.renderDistanceChunks = this.mc.options.renderDistanceChunks;
             this.renderDistance = this.renderDistanceChunks * 16;
             this.renderDistanceSq = this.renderDistance * this.renderDistance;
             boolean flag = this.vboEnabled;
@@ -583,7 +583,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
                 this.field_181024_n.clear();
             }
 
-            this.viewFrustum = new ViewFrustum(this.theWorld, this.mc.gameSettings.renderDistanceChunks, this, this.renderChunkFactory);
+            this.viewFrustum = new ViewFrustum(this.theWorld, this.mc.options.renderDistanceChunks, this, this.renderChunkFactory);
 
             if (this.theWorld != null)
             {
@@ -637,7 +637,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
             double d1 = renderViewEntity.prevPosY + (renderViewEntity.posY - renderViewEntity.prevPosY) * (double)partialTicks;
             double d2 = renderViewEntity.prevPosZ + (renderViewEntity.posZ - renderViewEntity.prevPosZ) * (double)partialTicks;
             TileEntityRendererDispatcher.instance.cacheActiveRenderInfo(this.theWorld, this.mc.getTextureManager(), this.mc.fontRendererObj, this.mc.getRenderViewEntity(), partialTicks);
-            this.renderManager.cacheActiveRenderInfo(this.theWorld, this.mc.fontRendererObj, this.mc.getRenderViewEntity(), this.mc.pointedEntity, this.mc.gameSettings, partialTicks);
+            this.renderManager.cacheActiveRenderInfo(this.theWorld, this.mc.fontRendererObj, this.mc.getRenderViewEntity(), this.mc.pointedEntity, this.mc.options, partialTicks);
 
             if (i == 0)
             {
@@ -704,7 +704,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
                         boolean flag2 = this.mc.getRenderViewEntity() instanceof EntityLivingBase && ((EntityLivingBase)this.mc.getRenderViewEntity()).isPlayerSleeping();
                         boolean flag3 = entity3.isInRangeToRender3d(d0, d1, d2) && (entity3.ignoreFrustumCheck || camera.isBoundingBoxInFrustum(entity3.getEntityBoundingBox()) || entity3.riddenByEntity == this.mc.player) && entity3 instanceof EntityPlayer;
 
-                        if ((entity3 != this.mc.getRenderViewEntity() || this.mc.gameSettings.thirdPersonView != 0 || flag2) && flag3)
+                        if ((entity3 != this.mc.getRenderViewEntity() || this.mc.options.thirdPersonView != 0 || flag2) && flag3)
                         {
                             this.renderManager.renderEntitySimple(entity3, partialTicks);
                         }
@@ -734,8 +734,8 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
             }
 
             Iterator iterator1 = this.renderInfosEntities.iterator();
-            boolean flag4 = this.mc.gameSettings.fancyGraphics;
-            this.mc.gameSettings.fancyGraphics = Config.isDroppedItemsFancy();
+            boolean flag4 = this.mc.options.fancyGraphics;
+            this.mc.options.fancyGraphics = Config.isDroppedItemsFancy();
             label920:
 
             while (iterator1.hasNext())
@@ -773,7 +773,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
 
                                 boolean flag6 = this.mc.getRenderViewEntity() instanceof EntityLivingBase ? ((EntityLivingBase)this.mc.getRenderViewEntity()).isPlayerSleeping() : false;
 
-                                if ((entity2 != this.mc.getRenderViewEntity() || this.mc.gameSettings.thirdPersonView != 0 || flag6) && (entity2.posY < 0.0D || entity2.posY >= 256.0D || this.theWorld.isBlockLoaded(new BlockPos(entity2))))
+                                if ((entity2 != this.mc.getRenderViewEntity() || this.mc.options.thirdPersonView != 0 || flag6) && (entity2.posY < 0.0D || entity2.posY >= 256.0D || this.theWorld.isBlockLoaded(new BlockPos(entity2))))
                                 {
                                     ++this.countEntitiesRendered;
 
@@ -809,7 +809,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
                 }
             }
 
-            this.mc.gameSettings.fancyGraphics = flag4;
+            this.mc.options.fancyGraphics = flag4;
             FontRenderer fontrenderer = TileEntityRendererDispatcher.instance.getFontRenderer();
 
             if (flag7)
@@ -1032,7 +1032,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
 
     public void setupTerrain(Entity viewEntity, double partialTicks, ICamera camera, int frameCount, boolean playerSpectator)
     {
-        if (this.mc.gameSettings.renderDistanceChunks != this.renderDistanceChunks)
+        if (this.mc.options.renderDistanceChunks != this.renderDistanceChunks)
         {
             this.loadRenderers();
         }
@@ -1380,7 +1380,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
         float f = (float)((double)entityIn.prevRotationPitch + (double)(entityIn.rotationPitch - entityIn.prevRotationPitch) * partialTicks);
         float f1 = (float)((double)entityIn.prevRotationYaw + (double)(entityIn.rotationYaw - entityIn.prevRotationYaw) * partialTicks);
 
-        if (Minecraft.getMinecraft().gameSettings.thirdPersonView == 2)
+        if (Minecraft.getMinecraft().options.thirdPersonView == 2)
         {
             f += 180.0F;
         }
@@ -1893,7 +1893,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
                 GlStateManager.color(f, f1, f2);
             }
 
-//            if (this.mc.gameSettings.renderDistanceChunks <= 4)
+//            if (this.mc.options.renderDistanceChunks <= 4)
 //            {
 //                GlStateManager.color(this.mc.entityRenderer.fogColorRed, this.mc.entityRenderer.fogColorGreen, this.mc.entityRenderer.fogColorBlue);
 //            }
@@ -1986,7 +1986,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
                         d0 = d0 - (double)(i * 2048);
                         d1 = d1 - (double)(j * 2048);
                         float f6 = this.theWorld.provider.getCloudHeight() - f9 + 0.33F;
-                        f6 = f6 + this.mc.gameSettings.ofCloudsHeight * 128.0F;
+                        f6 = f6 + this.mc.options.ofCloudsHeight * 128.0F;
                         float f7 = (float)(d0 * 4.8828125E-4D);
                         float f8 = (float)(d1 * 4.8828125E-4D);
                         worldrenderer.begin(7, DefaultVertexFormats.POSITION_TEX_COLOR);
@@ -2043,7 +2043,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
         double d1 = (this.mc.getRenderViewEntity().prevPosX + (this.mc.getRenderViewEntity().posX - this.mc.getRenderViewEntity().prevPosX) * (double)partialTicks + d0 * 0.029999999329447746D) / 12.0D;
         double d2 = (this.mc.getRenderViewEntity().prevPosZ + (this.mc.getRenderViewEntity().posZ - this.mc.getRenderViewEntity().prevPosZ) * (double)partialTicks) / 12.0D + 0.33000001311302185D;
         float f3 = this.theWorld.provider.getCloudHeight() - f + 0.33F;
-        f3 = f3 + this.mc.gameSettings.ofCloudsHeight * 128.0F;
+        f3 = f3 + this.mc.options.ofCloudsHeight * 128.0F;
         int i = MathHelper.floor_double(d1 / 2048.0D);
         int j = MathHelper.floor_double(d2 / 2048.0D);
         d1 = d1 - (double)(i * 2048);
@@ -2270,7 +2270,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
         Tessellator tessellator = Tessellator.getInstance();
         WorldRenderer worldrenderer = tessellator.getWorldRenderer();
         WorldBorder worldborder = this.theWorld.getWorldBorder();
-        double d0 = (double)(this.mc.gameSettings.renderDistanceChunks * 16);
+        double d0 = (double)(this.mc.options.renderDistanceChunks * 16);
 
         if (p_180449_1_.posX >= worldborder.maxX() - d0 || p_180449_1_.posX <= worldborder.minX() + d0 || p_180449_1_.posZ >= worldborder.maxZ() - d0 || p_180449_1_.posZ <= worldborder.minZ() + d0)
         {
@@ -2740,7 +2740,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
     {
         if (this.mc != null && this.mc.getRenderViewEntity() != null && this.mc.effectRenderer != null)
         {
-            int i = this.mc.gameSettings.particleSetting;
+            int i = this.mc.options.particleSetting;
 
             if (i == 1 && this.theWorld.rand.nextInt(3) == 0)
             {

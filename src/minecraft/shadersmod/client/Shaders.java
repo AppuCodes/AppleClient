@@ -47,6 +47,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
+import net.minecraft.client.options.GameOptions;
 import net.minecraft.client.renderer.EntityRenderer;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.OpenGlHelper;
@@ -58,7 +59,6 @@ import net.minecraft.client.renderer.entity.RendererLivingEntity;
 import net.minecraft.client.renderer.texture.ITextureObject;
 import net.minecraft.client.renderer.texture.TextureUtil;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
-import net.minecraft.client.settings.GameSettings;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityList;
 import net.minecraft.entity.EntityLivingBase;
@@ -2935,7 +2935,7 @@ public class Shaders
                 setProgramUniform1f("viewWidth", (float)renderWidth);
                 setProgramUniform1f("viewHeight", (float)renderHeight);
                 setProgramUniform1f("near", 0.05F);
-                setProgramUniform1f("far", (float)(mc.gameSettings.renderDistanceChunks * 16));
+                setProgramUniform1f("far", (float)(mc.options.renderDistanceChunks * 16));
                 setProgramUniform3f("sunPosition", sunPosition[0], sunPosition[1], sunPosition[2]);
                 setProgramUniform3f("moonPosition", moonPosition[0], moonPosition[1], moonPosition[2]);
                 setProgramUniform3f("shadowLightPosition", shadowLightPosition[0], shadowLightPosition[1], shadowLightPosition[2]);
@@ -2966,8 +2966,8 @@ public class Shaders
                 setProgramUniform1i("isEyeInWater", isEyeInWater);
                 setProgramUniform1f("nightVision", nightVision);
                 setProgramUniform1f("blindness", blindness);
-                setProgramUniform1f("screenBrightness", mc.gameSettings.gammaSetting);
-                setProgramUniform1i("hideGUI", mc.gameSettings.hideGUI ? 1 : 0);
+                setProgramUniform1f("screenBrightness", mc.options.gammaSetting);
+                setProgramUniform1i("hideGUI", mc.options.hideGUI ? 1 : 0);
                 setProgramUniform1f("centerDepthSmooth", centerDepthSmooth);
                 setProgramUniform2i("atlasSize", atlasSizeX, atlasSizeY);
                 checkGLError("useProgram ", programNames[program]);
@@ -3506,7 +3506,7 @@ public class Shaders
             float f2 = (float)Math.exp(Math.log(0.5D) * (double)f1 / (double)eyeBrightnessHalflife);
             eyeBrightnessFadeX = eyeBrightnessFadeX * f2 + (float)(eyeBrightness & 65535) * (1.0F - f2);
             eyeBrightnessFadeY = eyeBrightnessFadeY * f2 + (float)(eyeBrightness >> 16) * (1.0F - f2);
-            isEyeInWater = mc.gameSettings.thirdPersonView == 0 && !isSleeping && mc.player.isInsideOfMaterial(Material.water) ? 1 : 0;
+            isEyeInWater = mc.options.thirdPersonView == 0 && !isSleeping && mc.player.isInsideOfMaterial(Material.water) ? 1 : 0;
 
             if (mc.player != null)
             {
@@ -3866,7 +3866,7 @@ public class Shaders
         setProgramUniformMatrix4ARB("shadowProjectionInverse", false, shadowProjectionInverse);
         setProgramUniformMatrix4ARB("shadowModelView", false, shadowModelView);
         setProgramUniformMatrix4ARB("shadowModelViewInverse", false, shadowModelViewInverse);
-        mc.gameSettings.thirdPersonView = 1;
+        mc.options.thirdPersonView = 1;
         checkGLError("setCamera");
     }
 
@@ -4134,7 +4134,7 @@ public class Shaders
     public static void drawHorizon()
     {
         WorldRenderer worldrenderer = Tessellator.getInstance().getWorldRenderer();
-        float f = (float)(mc.gameSettings.renderDistanceChunks * 16);
+        float f = (float)(mc.options.renderDistanceChunks * 16);
         double d0 = (double)f * 0.9238D;
         double d1 = (double)f * 0.3826D;
         double d2 = -d1;
@@ -4221,7 +4221,7 @@ public class Shaders
         checkFramebufferStatus("endUpdateChunks2");
     }
 
-    public static boolean shouldRenderClouds(GameSettings gs)
+    public static boolean shouldRenderClouds(GameOptions gs)
     {
         if (!shaderPackLoaded)
         {
@@ -4765,9 +4765,9 @@ public class Shaders
             String s2 = ".lang";
             list.add(s + s1 + s2);
 
-            if (!Config.getGameSettings().language.equals(s1))
+            if (!Config.getoptions().language.equals(s1))
             {
-                list.add(s + Config.getGameSettings().language + s2);
+                list.add(s + Config.getoptions().language + s2);
             }
 
             try

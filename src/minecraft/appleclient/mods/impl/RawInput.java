@@ -52,17 +52,17 @@ public class RawInput extends Mod
                             deltaY += mouse.getY().getPollData();
                             
                             /* framerate independent */
-                            if (mc.inGameHasFocus && !mc.gameSettings.smoothCamera && (deltaX != 0 || deltaY != 0))
+                            if (mc.inGameHasFocus && !mc.options.smoothCamera && (deltaX != 0 || deltaY != 0))
                             {
                                 mc.mouseHelper.mouseXYChange();
                                 
-                                float f = (mc.gameSettings.mouseSensitivity * 0.6F) + 0.2F,
+                                float f = (mc.options.mouseSensitivity * 0.6F) + 0.2F,
                                       f1 = f * f * f * 8,
                                       f2 = mc.mouseHelper.deltaX * f1,
                                       f3 = mc.mouseHelper.deltaY * f1;
                                 
                                 mc.entityRenderer.smoothCamYaw = mc.entityRenderer.smoothCamPitch = 0;
-                                mc.player.setAngles(f2, mc.gameSettings.invertMouse ? (f3 * -1) : f3);
+                                mc.player.setAngles(f2, mc.options.invertMouse ? (f3 * -1) : f3);
                             }
                         }
                     }

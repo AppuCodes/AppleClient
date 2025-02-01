@@ -7,7 +7,7 @@ import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.GuiVideoSettings;
-import net.minecraft.client.settings.GameSettings;
+import net.minecraft.client.options.GameOptions;
 
 public class TooltipManager
 {
@@ -44,8 +44,8 @@ public class TooltipManager
                 if (guibutton instanceof IOptionControl)
                 {
                     IOptionControl ioptioncontrol = (IOptionControl)guibutton;
-                    GameSettings.Options gamesettings$options = ioptioncontrol.getOption();
-                    String[] astring = getTooltipLines(gamesettings$options);
+                    GameOptions.Options options$options = ioptioncontrol.getOption();
+                    String[] astring = getTooltipLines(options$options);
 
                     if (astring == null)
                     {
@@ -96,7 +96,7 @@ public class TooltipManager
         return null;
     }
 
-    private static String[] getTooltipLines(GameSettings.Options p_getTooltipLines_0_)
+    private static String[] getTooltipLines(GameOptions.Options p_getTooltipLines_0_)
     {
         return getTooltipLines(p_getTooltipLines_0_.getEnumString());
     }

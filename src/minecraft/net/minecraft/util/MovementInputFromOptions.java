@@ -1,14 +1,14 @@
 package net.minecraft.util;
 
-import net.minecraft.client.settings.GameSettings;
+import net.minecraft.client.options.GameOptions;
 
 public class MovementInputFromOptions extends MovementInput
 {
-    private final GameSettings gameSettings;
+    private final GameOptions options;
 
-    public MovementInputFromOptions(GameSettings gameSettingsIn)
+    public MovementInputFromOptions(GameOptions optionsIn)
     {
-        this.gameSettings = gameSettingsIn;
+        this.options = optionsIn;
     }
 
     public void updatePlayerMoveState()
@@ -16,28 +16,28 @@ public class MovementInputFromOptions extends MovementInput
         this.moveStrafe = 0.0F;
         this.moveForward = 0.0F;
 
-        if (this.gameSettings.keyBindForward.isKeyDown())
+        if (this.options.keyBindForward.isKeyDown())
         {
             ++this.moveForward;
         }
 
-        if (this.gameSettings.keyBindBack.isKeyDown())
+        if (this.options.keyBindBack.isKeyDown())
         {
             --this.moveForward;
         }
 
-        if (this.gameSettings.keyBindLeft.isKeyDown())
+        if (this.options.keyBindLeft.isKeyDown())
         {
             ++this.moveStrafe;
         }
 
-        if (this.gameSettings.keyBindRight.isKeyDown())
+        if (this.options.keyBindRight.isKeyDown())
         {
             --this.moveStrafe;
         }
 
-        this.jump = this.gameSettings.keyBindJump.isKeyDown();
-        this.sneak = this.gameSettings.keyBindSneak.isKeyDown();
+        this.jump = this.options.keyBindJump.isKeyDown();
+        this.sneak = this.options.keyBindSneak.isKeyDown();
 
         if (this.sneak)
         {

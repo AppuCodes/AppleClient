@@ -38,7 +38,7 @@ public class GuiScreenServerList extends GuiScreen
         this.field_146302_g = new GuiTextField(2, this.fontRendererObj, this.width / 2 - 100, 116, 200, 20);
         this.field_146302_g.setMaxStringLength(128);
         this.field_146302_g.setFocused(true);
-        this.field_146302_g.setText(this.mc.gameSettings.lastServer);
+        this.field_146302_g.setText(this.mc.options.lastServer);
         ((GuiButton)this.buttonList.get(0)).enabled = this.field_146302_g.getText().length() > 0 && this.field_146302_g.getText().split(":").length > 0;
     }
 
@@ -48,8 +48,8 @@ public class GuiScreenServerList extends GuiScreen
     public void onGuiClosed()
     {
         Keyboard.enableRepeatEvents(false);
-        this.mc.gameSettings.lastServer = this.field_146302_g.getText();
-        this.mc.gameSettings.saveOptions();
+        this.mc.options.lastServer = this.field_146302_g.getText();
+        this.mc.options.saveOptions();
     }
 
     /**

@@ -12,7 +12,7 @@ import com.google.common.collect.*;
 
 import io.netty.util.internal.ThreadLocalRandom;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.settings.GameSettings;
+import net.minecraft.client.options.GameOptions;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
@@ -29,8 +29,8 @@ public class SoundManager
     /** A reference to the sound handler. */
     private final SoundHandler sndHandler;
 
-    /** Reference to the GameSettings object. */
-    private final GameSettings options;
+    /** Reference to the options object. */
+    private final GameOptions options;
 
     /** A reference to the sound system. */
     private SoundManager.SoundSystemStarterThread sndSystem;
@@ -48,7 +48,7 @@ public class SoundManager
     private final Map<ISound, Integer> delayedSounds;
     private final Map<String, Integer> playingSoundsStopTime;
 
-    public SoundManager(SoundHandler p_i45119_1_, GameSettings p_i45119_2_)
+    public SoundManager(SoundHandler p_i45119_1_, GameOptions p_i45119_2_)
     {
         this.invPlayingSounds = ((BiMap)this.playingSounds).inverse();
         this.playingSoundPoolEntries = Maps.<ISound, SoundPoolEntry>newHashMap();

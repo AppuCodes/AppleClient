@@ -5,18 +5,18 @@ import net.minecraft.client.gui.GuiOptionButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.GuiYesNo;
 import net.minecraft.client.gui.GuiYesNoCallback;
+import net.minecraft.client.options.GameOptions;
 import net.minecraft.client.resources.I18n;
-import net.minecraft.client.settings.GameSettings;
 
 public class GuiOtherSettingsOF extends GuiScreen implements GuiYesNoCallback
 {
     private GuiScreen prevScreen;
     protected String title;
-    private GameSettings settings;
-    private static GameSettings.Options[] enumOptions = new GameSettings.Options[] {GameSettings.Options.LAGOMETER, GameSettings.Options.PROFILER, GameSettings.Options.WEATHER, GameSettings.Options.TIME, GameSettings.Options.USE_FULLSCREEN, GameSettings.Options.FULLSCREEN_MODE, GameSettings.Options.SHOW_FPS, GameSettings.Options.AUTOSAVE_TICKS, GameSettings.Options.ANAGLYPH};
+    private GameOptions settings;
+    private static GameOptions.Options[] enumOptions = new GameOptions.Options[] {GameOptions.Options.LAGOMETER, GameOptions.Options.PROFILER, GameOptions.Options.WEATHER, GameOptions.Options.TIME, GameOptions.Options.USE_FULLSCREEN, GameOptions.Options.FULLSCREEN_MODE, GameOptions.Options.SHOW_FPS, GameOptions.Options.AUTOSAVE_TICKS, GameOptions.Options.ANAGLYPH};
     private TooltipManager tooltipManager = new TooltipManager(this);
 
-    public GuiOtherSettingsOF(GuiScreen p_i51_1_, GameSettings p_i51_2_)
+    public GuiOtherSettingsOF(GuiScreen p_i51_1_, GameOptions p_i51_2_)
     {
         this.prevScreen = p_i51_1_;
         this.settings = p_i51_2_;
@@ -33,17 +33,17 @@ public class GuiOtherSettingsOF extends GuiScreen implements GuiYesNoCallback
 
         for (int i = 0; i < enumOptions.length; ++i)
         {
-            GameSettings.Options gamesettings$options = enumOptions[i];
+            GameOptions.Options options$options = enumOptions[i];
             int j = this.width / 2 - 155 + i % 2 * 160;
             int k = this.height / 6 + 21 * (i / 2) - 12;
 
-            if (!gamesettings$options.getEnumFloat())
+            if (!options$options.getEnumFloat())
             {
-                this.buttonList.add(new GuiOptionButtonOF(gamesettings$options.returnEnumOrdinal(), j, k, gamesettings$options, this.settings.getKeyBinding(gamesettings$options)));
+                this.buttonList.add(new GuiOptionButtonOF(options$options.returnEnumOrdinal(), j, k, options$options, this.settings.getKeyBinding(options$options)));
             }
             else
             {
-                this.buttonList.add(new GuiOptionSliderOF(gamesettings$options.returnEnumOrdinal(), j, k, gamesettings$options));
+                this.buttonList.add(new GuiOptionSliderOF(options$options.returnEnumOrdinal(), j, k, options$options));
             }
         }
 
@@ -61,18 +61,18 @@ public class GuiOtherSettingsOF extends GuiScreen implements GuiYesNoCallback
             if (button.id < 200 && button instanceof GuiOptionButton)
             {
                 this.settings.setOptionValue(((GuiOptionButton)button).returnEnumOptions(), 1);
-                button.displayString = this.settings.getKeyBinding(GameSettings.Options.getEnumOptions(button.id));
+                button.displayString = this.settings.getKeyBinding(GameOptions.Options.getEnumOptions(button.id));
             }
 
             if (button.id == 200)
             {
-                this.mc.gameSettings.saveOptions();
+                this.mc.options.saveOptions();
                 this.mc.displayGuiScreen(this.prevScreen);
             }
 
             if (button.id == 210)
             {
-                this.mc.gameSettings.saveOptions();
+                this.mc.options.saveOptions();
                 GuiYesNo guiyesno = new GuiYesNo(this, I18n.format("of.message.other.reset", new Object[0]), "", 9999);
                 this.mc.displayGuiScreen(guiyesno);
             }
@@ -83,7 +83,7 @@ public class GuiOtherSettingsOF extends GuiScreen implements GuiYesNoCallback
     {
         if (result)
         {
-            this.mc.gameSettings.resetSettings();
+            this.mc.options.resetSettings();
         }
 
         this.mc.displayGuiScreen(this);

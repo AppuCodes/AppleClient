@@ -6,8 +6,8 @@ import java.net.URI;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.options.GameOptions;
 import net.minecraft.client.resources.I18n;
-import net.minecraft.client.settings.GameSettings;
 import optifine.Config;
 import optifine.Lang;
 
@@ -30,7 +30,7 @@ public class GuiShaders extends GuiScreen
     public static final int EnumOS_SOLARIS = 3;
     public static final int EnumOS_LINUX = 4;
 
-    public GuiShaders(GuiScreen par1GuiScreen, GameSettings par2GameSettings)
+    public GuiShaders(GuiScreen par1GuiScreen, GameOptions par2options)
     {
         this.parentGui = par1GuiScreen;
     }
@@ -317,7 +317,7 @@ public class GuiShaders extends GuiScreen
                         break;
 
                     case 203:
-                        GuiShaderOptions guishaderoptions = new GuiShaderOptions(this, Config.getGameSettings());
+                        GuiShaderOptions guishaderoptions = new GuiShaderOptions(this, Config.getoptions());
                         Config.getMinecraft().displayGuiScreen(guishaderoptions);
                         break;
 

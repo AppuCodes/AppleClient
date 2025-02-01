@@ -16,9 +16,9 @@ import com.mojang.authlib.properties.Property;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.stream.GuiTwitchUserMode;
+import net.minecraft.client.options.GameOptions;
 import net.minecraft.client.renderer.*;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
-import net.minecraft.client.settings.GameSettings;
 import net.minecraft.client.shader.Framebuffer;
 import net.minecraft.event.ClickEvent;
 import net.minecraft.event.HoverEvent;
@@ -127,7 +127,7 @@ public class TwitchStream implements BroadcastController.BroadcastListener, Chat
 
     public void func_152935_j()
     {
-        int i = this.mc.gameSettings.streamChatEnabled;
+        int i = this.mc.options.streamChatEnabled;
         boolean flag = this.field_176029_e != null && this.chatController.func_175990_d(this.field_176029_e);
         boolean flag1 = this.chatController.func_153000_j() == ChatController.ChatState.Initialized && (this.field_176029_e == null || this.chatController.func_175989_e(this.field_176029_e) == ChatController.EnumChannelState.Disconnected);
 
@@ -337,19 +337,19 @@ public class TwitchStream implements BroadcastController.BroadcastListener, Chat
     {
         if (this.isBroadcasting())
         {
-            float f = this.mc.gameSettings.streamGameVolume;
+            float f = this.mc.options.streamGameVolume;
             boolean flag = this.field_152962_n || f <= 0.0F;
             this.broadcastController.setPlaybackDeviceVolume(flag ? 0.0F : f);
-            this.broadcastController.setRecordingDeviceVolume(this.func_152929_G() ? 0.0F : this.mc.gameSettings.streamMicVolume);
+            this.broadcastController.setRecordingDeviceVolume(this.func_152929_G() ? 0.0F : this.mc.options.streamMicVolume);
         }
     }
 
     public void func_152930_t()
     {
-        GameSettings gamesettings = this.mc.gameSettings;
-        VideoParams videoparams = this.broadcastController.func_152834_a(formatStreamKbps(gamesettings.streamKbps), formatStreamFps(gamesettings.streamFps), formatStreamBps(gamesettings.streamBytesPerPixel), (float)this.mc.displayWidth / (float)this.mc.displayHeight);
+        GameOptions options = this.mc.options;
+        VideoParams videoparams = this.broadcastController.func_152834_a(formatStreamKbps(options.streamKbps), formatStreamFps(options.streamFps), formatStreamBps(options.streamBytesPerPixel), (float)this.mc.displayWidth / (float)this.mc.displayHeight);
 
-        switch (gamesettings.streamCompression)
+        switch (options.streamCompression)
         {
             case 0:
                 videoparams.encodingCpuUsage = EncodingCpuUsage.TTV_ECU_LOW;
@@ -372,11 +372,11 @@ public class TwitchStream implements BroadcastController.BroadcastListener, Chat
             this.framebuffer.createBindFramebuffer(videoparams.outputWidth, videoparams.outputHeight);
         }
 
-        if (gamesettings.streamPreferredServer != null && gamesettings.streamPreferredServer.length() > 0)
+        if (options.streamPreferredServer != null && options.streamPreferredServer.length() > 0)
         {
             for (IngestServer ingestserver : this.func_152925_v())
             {
-                if (ingestserver.serverUrl.equals(gamesettings.streamPreferredServer))
+                if (ingestserver.serverUrl.equals(options.streamPreferredServer))
                 {
                     this.broadcastController.func_152824_a(ingestserver);
                     break;
@@ -385,7 +385,7 @@ public class TwitchStream implements BroadcastController.BroadcastListener, Chat
         }
 
         this.targetFPS = videoparams.targetFps;
-        this.field_152957_i = gamesettings.streamSendMetadata;
+        this.field_152957_i = options.streamSendMetadata;
         this.broadcastController.func_152836_a(videoparams);
         LOGGER.info(STREAM_MARKER, "Streaming at {}/{} at {} kbps to {}", new Object[] {Integer.valueOf(videoparams.outputWidth), Integer.valueOf(videoparams.outputHeight), Integer.valueOf(videoparams.maxKbps), this.broadcastController.func_152833_s().serverUrl});
         this.broadcastController.func_152828_a((String)null, "Minecraft", (String)null);
@@ -566,7 +566,7 @@ public class TwitchStream implements BroadcastController.BroadcastListener, Chat
         {
             this.func_176027_a(chatrawmessage.userName, chatrawmessage);
 
-            if (this.func_176028_a(chatrawmessage.modes, chatrawmessage.subscriptions, this.mc.gameSettings.streamChatUserFilter))
+            if (this.func_176028_a(chatrawmessage.modes, chatrawmessage.subscriptions, this.mc.options.streamChatUserFilter))
             {
                 IChatComponent ichatcomponent = new ChatComponentText(chatrawmessage.userName);
                 IChatComponent ichatcomponent1 = new ChatComponentTranslation("chat.stream." + (chatrawmessage.action ? "emote" : "text"), new Object[] {this.twitchComponent, ichatcomponent, EnumChatFormatting.getTextWithoutFormattingCodes(chatrawmessage.message)});
@@ -712,8 +712,8 @@ public class TwitchStream implements BroadcastController.BroadcastListener, Chat
 
     public boolean func_152929_G()
     {
-        boolean flag = this.mc.gameSettings.streamMicToggleBehavior == 1;
-        return this.field_152962_n || this.mc.gameSettings.streamMicVolume <= 0.0F || flag != this.field_152963_o;
+        boolean flag = this.mc.options.streamMicToggleBehavior == 1;
+        return this.field_152962_n || this.mc.options.streamMicVolume <= 0.0F || flag != this.field_152963_o;
     }
 
     public IStream.AuthFailureReason func_152918_H()

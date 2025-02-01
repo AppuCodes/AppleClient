@@ -58,7 +58,7 @@ public class GuiOverlayDebug extends Gui
 
     private boolean isReducedDebug()
     {
-        return this.mc.player.hasReducedDebug() || this.mc.gameSettings.reducedDebugInfo;
+        return this.mc.player.hasReducedDebug() || this.mc.options.reducedDebugInfo;
     }
 
     protected void renderDebugInfoLeft()
@@ -195,9 +195,9 @@ public class GuiOverlayDebug extends Gui
                 arraylist.add("Shader: " + this.mc.entityRenderer.getShaderGroup().getShaderGroupName());
             }
 
-            if (this.mc.objectMouseOver != null && this.mc.objectMouseOver.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK && this.mc.objectMouseOver.getBlockPos() != null)
+            if (this.mc.hitResult != null && this.mc.hitResult.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK && this.mc.hitResult.getBlockPos() != null)
             {
-                BlockPos blockpos1 = this.mc.objectMouseOver.getBlockPos();
+                BlockPos blockpos1 = this.mc.hitResult.getBlockPos();
                 arraylist.add(String.format("Looking at: %d %d %d", new Object[] {Integer.valueOf(blockpos1.getX()), Integer.valueOf(blockpos1.getY()), Integer.valueOf(blockpos1.getZ())}));
             }
 
@@ -226,9 +226,9 @@ public class GuiOverlayDebug extends Gui
         }
         else
         {
-            if (this.mc.objectMouseOver != null && this.mc.objectMouseOver.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK && this.mc.objectMouseOver.getBlockPos() != null)
+            if (this.mc.hitResult != null && this.mc.hitResult.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK && this.mc.hitResult.getBlockPos() != null)
             {
-                BlockPos blockpos = this.mc.objectMouseOver.getBlockPos();
+                BlockPos blockpos = this.mc.hitResult.getBlockPos();
                 IBlockState iblockstate = this.mc.world.getBlockState(blockpos);
 
                 if (this.mc.world.getWorldType() != WorldType.DEBUG_WORLD)
@@ -292,9 +292,9 @@ public class GuiOverlayDebug extends Gui
         this.drawVerticalLine(0, scaledresolution.getScaledHeight() - 60, scaledresolution.getScaledHeight(), -1);
         this.drawVerticalLine(239, scaledresolution.getScaledHeight() - 60, scaledresolution.getScaledHeight(), -1);
 
-        if (this.mc.gameSettings.limitFramerate <= 120)
+        if (this.mc.options.limitFramerate <= 120)
         {
-            this.drawHorizontalLine(0, 239, scaledresolution.getScaledHeight() - 60 + this.mc.gameSettings.limitFramerate / 2, -16711681);
+            this.drawHorizontalLine(0, 239, scaledresolution.getScaledHeight() - 60 + this.mc.options.limitFramerate / 2, -16711681);
         }
 
         GlStateManager.enableDepth();

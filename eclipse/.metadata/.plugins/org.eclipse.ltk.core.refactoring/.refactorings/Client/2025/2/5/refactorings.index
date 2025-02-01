@@ -7,3 +7,5 @@
 1738435464453	Move compilation units
 1738435477535	Move compilation unit
 1738436370866	Delete element
+1738446288201	Rename type 'GameSettings'
+1738446294844	Rename package 'net.minecraft.client.settings'

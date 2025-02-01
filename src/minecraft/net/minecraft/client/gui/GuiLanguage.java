@@ -5,10 +5,10 @@ import com.google.common.collect.Maps;
 import java.io.IOException;
 import java.util.Map;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.options.GameOptions;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.resources.Language;
 import net.minecraft.client.resources.LanguageManager;
-import net.minecraft.client.settings.GameSettings;
 
 public class GuiLanguage extends GuiScreen
 {
@@ -18,8 +18,8 @@ public class GuiLanguage extends GuiScreen
     /** The List GuiSlot object reference. */
     private GuiLanguage.List list;
 
-    /** Reference to the GameSettings object. */
-    private final GameSettings game_settings_3;
+    /** Reference to the options object. */
+    private final GameOptions game_settings_3;
 
     /** Reference to the LanguageManager object. */
     private final LanguageManager languageManager;
@@ -32,10 +32,10 @@ public class GuiLanguage extends GuiScreen
     /** The button to confirm the current settings. */
     private GuiOptionButton confirmSettingsBtn;
 
-    public GuiLanguage(GuiScreen screen, GameSettings gameSettingsObj, LanguageManager manager)
+    public GuiLanguage(GuiScreen screen, GameOptions optionsObj, LanguageManager manager)
     {
         this.parentScreen = screen;
-        this.game_settings_3 = gameSettingsObj;
+        this.game_settings_3 = optionsObj;
         this.languageManager = manager;
     }
 
@@ -45,7 +45,7 @@ public class GuiLanguage extends GuiScreen
      */
     public void initGui()
     {
-        this.buttonList.add(this.forceUnicodeFontBtn = new GuiOptionButton(100, this.width / 2 - 155, this.height - 38, GameSettings.Options.FORCE_UNICODE_FONT, this.game_settings_3.getKeyBinding(GameSettings.Options.FORCE_UNICODE_FONT)));
+        this.buttonList.add(this.forceUnicodeFontBtn = new GuiOptionButton(100, this.width / 2 - 155, this.height - 38, GameOptions.Options.FORCE_UNICODE_FONT, this.game_settings_3.getKeyBinding(GameOptions.Options.FORCE_UNICODE_FONT)));
         this.buttonList.add(this.confirmSettingsBtn = new GuiOptionButton(6, this.width / 2 - 155 + 160, this.height - 38, I18n.format("gui.done", new Object[0])));
         this.list = new GuiLanguage.List(this.mc);
         this.list.registerScrollButtons(7, 8);
@@ -80,7 +80,7 @@ public class GuiLanguage extends GuiScreen
                     if (button instanceof GuiOptionButton)
                     {
                         this.game_settings_3.setOptionValue(((GuiOptionButton)button).returnEnumOptions(), 1);
-                        button.displayString = this.game_settings_3.getKeyBinding(GameSettings.Options.FORCE_UNICODE_FONT);
+                        button.displayString = this.game_settings_3.getKeyBinding(GameOptions.Options.FORCE_UNICODE_FONT);
                         ScaledResolution scaledresolution = ScaledResolution.get();
                         int i = scaledresolution.getScaledWidth();
                         int j = scaledresolution.getScaledHeight();
@@ -136,7 +136,7 @@ public class GuiLanguage extends GuiScreen
             GuiLanguage.this.fontRendererObj.setUnicodeFlag(GuiLanguage.this.languageManager.isCurrentLocaleUnicode() || GuiLanguage.this.game_settings_3.forceUnicodeFont);
             GuiLanguage.this.fontRendererObj.setBidiFlag(GuiLanguage.this.languageManager.isCurrentLanguageBidirectional());
             GuiLanguage.this.confirmSettingsBtn.displayString = I18n.format("gui.done", new Object[0]);
-            GuiLanguage.this.forceUnicodeFontBtn.displayString = GuiLanguage.this.game_settings_3.getKeyBinding(GameSettings.Options.FORCE_UNICODE_FONT);
+            GuiLanguage.this.forceUnicodeFontBtn.displayString = GuiLanguage.this.game_settings_3.getKeyBinding(GameOptions.Options.FORCE_UNICODE_FONT);
             GuiLanguage.this.game_settings_3.saveOptions();
         }
 

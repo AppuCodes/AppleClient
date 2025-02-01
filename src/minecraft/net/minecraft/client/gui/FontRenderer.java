@@ -16,6 +16,7 @@ import com.ibm.icu.text.ArabicShapingException;
 import com.ibm.icu.text.Bidi;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.options.GameOptions;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.WorldRenderer;
@@ -24,7 +25,6 @@ import net.minecraft.client.renderer.texture.TextureUtil;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.client.resources.IResourceManager;
 import net.minecraft.client.resources.IResourceManagerReloadListener;
-import net.minecraft.client.settings.GameSettings;
 import net.minecraft.util.ResourceLocation;
 import optifine.Config;
 import optifine.CustomColors;
@@ -67,12 +67,12 @@ public class FontRenderer implements IResourceManagerReloadListener
     /** All the styles for being active in the currently rendering string */
     private boolean randomStyle, boldStyle, italicStyle, underlineStyle, strikethroughStyle;
     public ResourceLocation locationFontTextureBase;
-    public GameSettings gameSettings;
+    public GameOptions options;
     public float offsetBold = 1.0F;
 
-    public FontRenderer(GameSettings gameSettingsIn, ResourceLocation location, TextureManager textureManagerIn, boolean unicode)
+    public FontRenderer(GameOptions optionsIn, ResourceLocation location, TextureManager textureManagerIn, boolean unicode)
     {
-        this.gameSettings = gameSettingsIn;
+        this.options = optionsIn;
         this.locationFontTextureBase = location;
         this.locationFontTexture = location;
         this.renderEngine = textureManagerIn;
@@ -92,7 +92,7 @@ public class FontRenderer implements IResourceManagerReloadListener
                 k += 85;
             }
 
-            if (gameSettingsIn.anaglyph)
+            if (optionsIn.anaglyph)
             {
                 int j1 = (k * 30 + l * 59 + i1 * 11) / 100;
                 int k1 = (k * 30 + l * 70) / 100;

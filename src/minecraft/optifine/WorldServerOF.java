@@ -31,7 +31,7 @@ public class WorldServerOF extends WorldServer
         if (Config.waterOpacityChanged)
         {
             Config.waterOpacityChanged = false;
-            ClearWater.updateWaterOpacity(Config.getGameSettings(), this);
+            ClearWater.updateWaterOpacity(Config.getoptions(), this);
         }
     }
 
